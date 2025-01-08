@@ -2,25 +2,35 @@
 
 %% PAQUETES USADOS
 
-\usepackage[left=3cm, right=3cm, top=1in, bottom=1in]{geometry}
-\usepackage[spanish, es-noshorthands]{babel}
-\usepackage[style=ieee]{biblatex}
+% Document Setup
+\usepackage[left=3cm, right=3cm, top=1in, bottom=1in]{geometry} 
+\usepackage[spanish, es-noshorthands]{babel} % Set language to Spanish with Spanish-specific shorthands
+\usepackage[style=ieee]{biblatex} % Use IEEE citation style for bibliography
+\usepackage[title]{appendix}
 
-\usepackage{hyperref}
-\usepackage{mathptmx}
-\usepackage{graphicx}
-\usepackage{svg}
-\usepackage{csquotes}
-\usepackage{dirtytalk}
-\usepackage[most]{tcolorbox}
-\usepackage[shortlabels]{enumitem}
-\usepackage{lipsum}
-\usepackage{pgfgantt}
-\usepackage{booktabs}
-\usepackage{fontspec}
-%\setmainfont{Georgia}
-%% CONFIGURACIONES DEL PROYECTO
+% Hyperlinks, Fonts, and Images
+%\usepackage{fontspec} % For specifying fonts (if using XeLaTeX or LuaLaTeX)
+\usepackage{graphicx} % Include images in the document
+\usepackage{svg} % Include SVG graphics in the document
+
+% Text Formatting and Styling
+\usepackage{hyperref} % Enable hyperlinks within the document
+\usepackage{csquotes} % For proper quotation marks
+\usepackage{dirtytalk} % For easy use of "scare quotes"
+\usepackage[most]{tcolorbox} % For creating colored boxes around text
+\usepackage[shortlabels]{enumitem} % For customizing list environments
+
+% Content, Data and Tables
+\usepackage{pgfgantt} % For creating Gantt charts
+\usepackage{booktabs} % For enhanced table formatting
+\usepackage{longtable} % For tables that span multiple pages
+
+% Others
+\usepackage{lipsum} % For generating placeholder text
+
+% CONFIGURACIONES DEL PROYECTO
 \addbibresource{./main.bib}
+%\setmainfont{Georgia}
 
 \newtheorem{definition}{Definición}
 
@@ -37,8 +47,8 @@
 \def\collegelogo{assets/umsa.png}
 \def\documenttitle{Perfil de Proyecto de Grado}
 \def\projecttitle{\textit{TUNKUNIA:} Desarrollo de un paquete FOSS para la gestión y seguimiento de trámites administrativos}
-%% ESTRUCTURA DEL DOCUMENTO
 
+% ESTRUCTURA DEL DOCUMENTO
 \begin{document}
 \input{./cover}
 %%\input{./abstract}
@@ -56,8 +66,12 @@
 \input{./sections/syllabus}
 \input{./sections/schedule}
 \clearpage
-\printbibliography
+\printbibliography[title={Bibliografía y Referencias}]
 \addcontentsline{toc}{section}{Bibliografía y Referencias}
-\appendix
-\input{./sections/draft}
+%\appendix
+\clearpage
+\pagenumbering{roman}
+\begin{appendices}
+    \input{./sections/draft}
+\end{appendices}
 \end{document}
