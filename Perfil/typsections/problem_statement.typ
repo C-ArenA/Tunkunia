@@ -19,7 +19,12 @@ Todo esto conlleva a muchas desventajas directas e indirectas (que tienen que ve
 - Dificultad en el mantenimiento del software. El código no modularizado raras veces cuenta con buena documentación que pueda facilitar el futuro mantenimiento del software. A menudo, por ejemplo, las librerías de software cuentan con documentación útil que implica fácil adopción de tecnologías por una mayor cantidad de desarrolladores.
 - Los trámites tradicionales o trámites digitales mal implementados conllevan a los mismos problemas de siempre como la corrupción, poca eficiencia y dificultad.
 
+== Abordaje al Problema
+
 Estas desventajas se pueden atacar implementando un módulo, ya sea en forma de un servicio o de una _software library/package_ que, buscando cumplir con normativa boliviana y atendiendo a la necesidad de la sociedad con un enfoque de comunidad, sea de tipo FOSS. Dicho módulo enfrentaría funcionalidades comunes a los distintos procesos de trámite, considerando su creación, gestión y seguimiento.
+
+
+== Desafíos
 
 Sin embargo, la realización de módulos de software acarrea varios desafíos, entre ellos académicos. A continuación se listan algunos:
 
