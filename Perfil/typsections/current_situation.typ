@@ -38,6 +38,7 @@
 ==== Spatie
 ==== UI kits
 ==== UX tools
+==== Librerías de Flujo de Procesos
 === Sistemas de Control de Versiones
 ==== Git
 ==== GitHub
@@ -58,7 +59,8 @@
 
 == FOSS
 
-== Tendencias del mercado
+== Tendencias del mercado y herramientas
 === Inteligencia Artificial
 === Asistentes de Desarrollo
 === APIs de inferencia LLM
+=== Simulador de Redes de Petri
