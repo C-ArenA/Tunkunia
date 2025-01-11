@@ -1,18 +1,19 @@
 = Índice Tentativo
 
-#figure(
-  image("../assets/horastramite.png", width: 70%),
-  caption: [Proceso del Software - Pressman],
-)<fig:proceso_pressman>
 
 Para el temario del documento final de proyecto se considerará una estructura que describa bien la naturaleza del proyecto y que además se adecúe a este que, después de todo, será un producto de software.
 
-De acuerdo a la ingeniería de software, el software tiene un ciclo de vida o un #quote[proceso del software], el cual se modela de acuerdo a la metodología de desarrollo sobre la cual se realice. Sin embargo, varios autores concuerdan en que existen ciertas etapas estructurales ajenas a cualquier metodología. Según _Pressman_ @pressmanSoftwareEngineeringPractitioner2010[pág. 13], estas etapas serían las indicadas en la figura @fig:proceso_pressman.
-
-Por su lado, _Sommerville_ las simplifica en las 4 etapas mostradas en la figura @fig:proceso_sommerville.
+De acuerdo a la ingeniería de software, el software tiene un ciclo de vida o un #quote[proceso del software], el cual se modela de acuerdo a la metodología de desarrollo sobre la cual se realice. Sin embargo, varios autores concuerdan en que existen ciertas etapas estructurales ajenas a cualquier metodología. Según _Pressman_ @pressmanSoftwareEngineeringPractitioner2010[pág. 13], estas etapas serían las indicadas en la @fig:proceso_pressman.
 
 #figure(
-  image("../assets/horastramite.png", width: 70%),
+  image("../assets/proceso_pressman_white.png", height: 9%),
+  caption: [Proceso del Software - Pressman],
+)<fig:proceso_pressman>
+
+Por su lado, _Sommerville_ las simplifica en las 4 etapas mostradas en la @fig:proceso_sommerville.
+
+#figure(
+  image("../assets/proceso_sommerville_white.png", height: 9%),
   caption: [Proceso del Software - Sommerville],
 )<fig:proceso_sommerville>
 
