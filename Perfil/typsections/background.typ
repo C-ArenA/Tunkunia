@@ -253,16 +253,28 @@ Por lo anterior descrito, se requirió el año 2023, mediante licitación la imp
 
 Diseñar e implementar un sistema informático denominado “Sistema de Información Ambiental Industrial (SIAI)”, que permita un Registro en Línea de la Información Ambiental Industrial y que ayude en el monitoreo y seguimiento Nacional a través del MDPyEP y los gobiernos Subnacionales competentes en el marco de lo establecido en el Reglamento Industrial para el Sector Industrial Manufacturero, actualizando los datos ambientales de la industria a nivel nacional y acreditar la idoneidad de los mismos, asegurando el cumplimiento de la normativa ambiental vigente
 
-=== Experiencias de la consultora 2IES
+== Consultora 2IES
 
-La empresa 2IES obtuvo la licitación de dicho proyecto y, atendiendo a las especificaciones técnicas del Documento Base de Contratación se identificaron distintos módulos para la implementación del nuevo SIAI.
+La consultora 2IES - Ingeniería Estructural e Ingeniería de Telecomunicaciones -, es una empresa fundada en Bolivia el año 1997 y cuenta con experiencia en sectores de infraestructura y en áreas relacionadas con la planificación estratégica, la regulación, el mejoramiento de negocios, y el desarrollo de sistemas, así como la aplicación e integración en Tecnologías de la Información y Comunicación, tanto en empresas como entidades del sector público.
+
+En años recientes, con la adopción de tecnologías de la información cada vez más relevante, el desarrollo de sistemas de software se volvió un pilar fundamental para 2IES.
+
+=== Experiencias en el desarrollo del SIAI
+
+La empresa 2IES obtuvo la licitación del proyecto licitado por el MDPyEP y, atendiendo a las especificaciones técnicas del Documento Base de Contratación se identificaron distintos módulos para la implementación del nuevo SIAI.
+
+Además de atender los requerimientos iniciales, 2IES propuso funcionalidades que modernicen el trabajo con el SIAI.
 
 Dado que una gran parte de la funcionalidad de este sistema, consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora 2IES hizo una implementación recurriendo al manejo de estados y de roles, creando formularios e integrando los datos al modelo del negocio general.
 
 Terminado el proyecto con éxito, se identificaron posibles mejoras al software desarrollado que tienen que ver con funcionalidades comunes en cada trámite Y las necesidades que estos conllevan como la realización de seguimiento, la auditoría y la gestión en general.
 
-== Modularización: Una apuesta hacia el futuro
+// TODO: citar el sitio de 2IES
 
-El desarrollo de sistemas gubernamentales, guiado por la necesidad de adopción del gobierno electrónico, involucra funcionalidades comunes que se pueden modularizar.
+=== Modularización: Una apuesta hacia el futuro
 
-La modularización de funcionalidades recurrentes puede brindar muchas ventajas y ante la posibilidad de nuevos desarrollos para instituciones gubernamentales es un objetivo de la consultora 2IES, además de un aporte para la comunidad de desarrolladores bolivianos.
+Como una forma de evolucionar en base a las experiencias y poder ofrecer cada vez mejores productos y servicios, la consultora 2IES adoptó la posición de modularizar algunas funcionalidades comunes dentro de los sistemas gubernamentales.
+
+Además, como propuesta para la sociedad y en el afán de generar y formar parte de la comunidad de desarrolladores del país, se abre la posibilidad de optar a proyectos tipo FOSS como también otras empresas del rubro tecnológico lo hacen. Algunos ejemplos son Facebook con React o Google con Angular.
+
+// Todo listar otras y citar
