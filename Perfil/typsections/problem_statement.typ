@@ -1,10 +1,17 @@
 = Planteamiento del Problema
 
+El desarrollo de trámites en sistemas gubernamentales enfrenta desafíos significativos debido a la falta de herramientas reutilizables y estándares modulares.
+
 La ubicuidad del trámite en distintos espacios gubernamentales y la cantidad de los mismos implican el desarrollo de características o funcionalidades similares en muchos sistemas de la administración pública. 
 
 Además, dada la conexión de dichos trámites con el modelo del negocio de las distintas instituciones, se requiere la capacidad de integrar estas funcionalidades en algún tipo de módulo o servicio que sea aprovechable y permita la interoperabilidad.
 
-La modernización de los gobiernos, sustentada por la normativa descrita en @section:current_situation implica un mayor uso de recursos y la reescritura de funcionalidades idénticas afecta de muchos modos a la eficiencia de los proyectos.
+La falta de un módulo fácilmente utilizable para el manejo de trámites, dificulta la adopción del trámite digital, manteniendo los problemas del trámite tradicional como:
+
+- Corrupción en la administración pública
+- Distancias recorridas para la realización de trámites
+- Tiempos de ejecución del trámite elevados
+- Costos para el ciudadano en la realización del trámite
 
 Todo esto conlleva a muchas desventajas directas e indirectas (que tienen que ver con la no digitalización correcta de los trámites):
 
