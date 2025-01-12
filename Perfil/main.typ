@@ -84,9 +84,9 @@
 #justification
 #scope_and_limitations
 #proposed_solution
-#tentative_budget
 #syllabus
 #schedule
+#tentative_budget
 
 // ANEXOS
 
