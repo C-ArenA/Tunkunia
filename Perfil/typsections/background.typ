@@ -263,6 +263,8 @@ En años recientes, con la adopción de tecnologías de la información cada vez
 
 La empresa 2IES obtuvo la licitación del proyecto licitado por el MDPyEP y, atendiendo a las especificaciones técnicas del Documento Base de Contratación se identificaron distintos módulos para la implementación del nuevo SIAI.
 
+El sistema se implementó utilizando PHP con el framework de desarrollo Laravel para el backend y la implementación de la lógica del negocio, exponiendo un servicio REST API consumido por un SPA realizado con el framework de frontend Vue.
+
 Además de atender los requerimientos iniciales, 2IES propuso funcionalidades que modernicen el trabajo con el SIAI.
 
 Dado que una gran parte de la funcionalidad de este sistema, consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora 2IES hizo una implementación recurriendo al manejo de estados y de roles, creando formularios e integrando los datos al modelo del negocio general.
