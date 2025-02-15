@@ -11,21 +11,23 @@
   professor: "Jorge León",
   documentType: "Perfil de Proyecto de Grado",
 ) = {
-  align(center)[
-    #text(upper([#college - #faculty\ #degree]), size: 10pt, weight: "bold")
-    #v(2cm)
+  page()[#align(center)[
+      #set par(justify: false)
+      #text(upper([#college - #faculty\ #degree]), size: 10pt, weight: "bold")
+      #v(2cm)
 
-    #image("assets/umsa.png", width: 20%) #v(0.5cm)
-    #text(17.28pt)[#smallcaps(documentType)] #v(0.5cm)
-    #text(14.4pt)[#smallcaps(projectTitle)]
-    #v(1fr)
+      #image("assets/umsa.png", width: 20%) #v(0.5cm)
+      #text(17.28pt)[#smallcaps(documentType)] #v(0.5cm)
+      #text(14.4pt)[#smallcaps(projectTitle)]
+      #v(1fr)
 
-    #upper([Postulante: #student]) #v(0.5cm)
-    #upper([Asesor: #tutor]) #v(0.5cm)
-    #upper([Docente D.A.M.: #professor])
-    #v(1fr)
+      #upper([Postulante: #student]) #v(0.5cm)
+      #upper([Asesor: #tutor]) #v(0.5cm)
+      #upper([Docente D.A.M.: #professor])
+      #v(1fr)
 
-    #let today = datetime.today()
-    La Paz, #fmt-date(today, locale: "es", length: "long")
+      #let today = datetime.today()
+      La Paz, #fmt-date(today, locale: "es", length: "long")
+    ]
   ]
 }

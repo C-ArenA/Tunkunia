@@ -1,11 +1,8 @@
 #import "conf.typ": conf, appendix
-#import "cover.typ"
 
 #show: conf.with(
-  title: [_TUNKUNIA_: Desarrollo de un módulo reutilizable de gestión y seguimiento de flujos de trámite\ Caso de Estudio: Trámites del _SIAI_],
+  title: [_TUNKUNIA_: Desarrollo de un módulo de gestión y seguimiento de flujos de trámite\ Caso de Estudio: Trámites del _SIAI_],
 )
-
-// ----------------------- COMIENZA DOCUMENTO ------------------
 
 // CONTENIDO
 #include "typsections/introduction.typ"

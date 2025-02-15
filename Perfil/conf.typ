@@ -9,6 +9,8 @@
 
   #set text(lang: "es", region: "bo", size: 11pt, font: "New Computer Modern")
 
+  #set par(first-line-indent: 1em, spacing: 0.75em, justify: true)
+
   // Configuración de headings
   #set heading(numbering: "1.")
   #show heading: it => {
@@ -42,16 +44,12 @@
       #it.body
     ]
   }
-  #makeCover(
-    projectTitle: title,
-  )
 
-  #pagebreak()
+  // Comienza documento
+  #makeCover(projectTitle: title)
   #set page(numbering: "1")
-  #set par(first-line-indent: 1em, spacing: 0.75em, justify: true)
   #outline(indent: auto, fill: repeat()[.~~])
   #pagebreak()
-
   #doc
 ]
 
