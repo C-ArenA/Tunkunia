@@ -173,13 +173,13 @@
   "terminal.integrated.fontFamily": "",
   "editor.fontVariations": false,
   "workbench.colorCustomizations": {
-    "[Bluloco Light]": {
-      "editorPane.background": "#a0a0a0"
-    },
-    "[Noctis Lux]": {
-      "editorPane.background": "#dcd6ca",
-      "minimap.background": "#ede7db"
-    }
-  },
+	"[Bluloco Light]": {
+		"editorPane.background": "#a0a0a0"
+	},
+	"[Noctis Lux]": {
+		"editorPane.background": "#dcd6ca",
+		"minimap.background": "#ede7db"
+	}
+},
   "editor.wordWrapColumn": 100
 }

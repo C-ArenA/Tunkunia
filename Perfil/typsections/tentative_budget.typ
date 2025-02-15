@@ -33,3 +33,47 @@ Todo lo anterior, con costos aproximados basados en el mercado actual, se detall
   image("../assets/vps.png", width: 50%),
   caption: [Costo mensual de VPS en Hostinger]
 )<fig:vps>
+
+#import "@preview/chronos:0.2.0"
+#chronos.diagram({
+  import chronos: *
+  _par("Ciudadano")
+  _par("Sistema")
+
+  _seq("Sistema", "Ciudadano", comment: "Requerimiento de Información")
+  _seq("Ciudadano", "Sistema", comment: "Envío de Información")
+  _seq("Sistema", "Sistema", comment: "Revisa Información")
+  _seq("Sistema", "Ciudadano", comment: "Notifica Final")
+})
+
+Para sacar licencia de conducir
+
++ Saco ficha solicitando atención | Coloco la URL
++ Espero mi turno | Espero a que abra el portal
++ Me llaman a ventanilla | Ingreso al portal
++ Entrego requisitos | Lleno un formulario
++ Realizan una verificación preliminar | Se hacen validaciones
++ Me entregan una ficha de seguimiento | Se me entrega un código de trámite
++ Espero sentado a que me llamen por pantalla | Hago mis cosas y de vez en cuando reviso el estado de mi trámite usando el código
++ En pantalla se me pide acercarme a otra ventanilla | Me llega un correo  
++ Me entregan mi licencia | El correo indica éxito y me manda un documento
++ O Me indican que hubo un problema y debo volver a iniciar el trámite | El correo notifica error y pide volver a intentar
+
+#chronos.diagram({
+  import chronos: *
+  _par("c", display-name: "Ciudadano", shape: "actor")
+  _par("t", display-name: "Oficina de Trámite")
+  _par("g", display-name: "Ministerio de Gobierno")
+  
+  _seq("g", "c", comment: "Exige registro de vidrios polarizados")
+  _seq("c", "g", comment: "Pide Info sobre el procedimiento")
+  _seq("g", "c", comment: "Indica requisitos")
+
+  _seq("c", "t", comment: "Entrega Información de trámite")
+  _seq("c", "t", comment: "Entrega Información de contacto")
+  _seq("t", "t", comment: "Revisión de validación de datos")
+  _seq("t", "c", comment: "Proporciona código de trámite")
+  _seq("t", "t", comment: "Revisión de información")
+  _note("over", [Éxito en revisión], pos: ("c", "t"))
+  _seq("t", "c", comment: "Pide pago")
+})
