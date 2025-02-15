@@ -1,0 +1,65 @@
+#import "cover.typ": makeCover
+// ---------------- CONFIGURACIONES --------------------
+#let conf(doc, title: "Mi Perfil") = [
+  #set page(
+    paper: "us-letter",
+    margin: (x: 3cm, y: 1in),
+    number-align: center,
+  )
+
+  #set text(lang: "es", region: "bo", size: 11pt, font: "New Computer Modern")
+
+  // Configuración de headings
+  #set heading(numbering: "1.")
+  #show heading: it => {
+    set align(left)
+    set text(weight: "regular")
+    if it.level == 1 {
+      align(smallcaps(it), center)
+    } else {
+      it
+    }
+    linebreak()
+    v(-.7em)
+  }
+
+  // Configura el TOC
+  #show outline.entry.where(level: 1): it => {
+    v(1.5em, weak: true)
+    smallcaps(it.body)
+    box(width: 1fr, repeat()[~])
+    it.page
+  }
+
+  // Figuras de Tipo Tabla
+  #show figure.where(kind: table): it => {
+    set block(breakable: true)
+    set figure.caption(separator: linebreak())
+    v(1.5em)
+    text(size: 11pt)[
+      #upper(it.caption.supplement) #it.caption.numbering\
+      #smallcaps(it.caption.body)
+      #it.body
+    ]
+  }
+  #makeCover(
+    projectTitle: title,
+  )
+
+  #pagebreak()
+  #set page(numbering: "1")
+  #set par(first-line-indent: 1em, spacing: 0.75em, justify: true)
+  #outline(indent: auto, fill: repeat()[.~~])
+  #pagebreak()
+
+  #doc
+]
+
+// Define entorno de apéndices
+#let appendix(body) = {
+  set heading(numbering: "A.", supplement: [Apéndice])
+  pagebreak()
+  counter(heading).update(0)
+  set page(numbering: "i")
+  body
+}

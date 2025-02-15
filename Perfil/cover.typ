@@ -29,7 +29,3 @@
     La Paz, #fmt-date(today, locale: "es", length: "long")
   ]
 }
-
-#makeCover(
-  projectTitle: [_TUNKUNIA_: Desarrollo de un módulo reutilizable de gestión y seguimiento de flujos de trámite\ Caso de Estudio: Trámites del _SIAI_],
-)
