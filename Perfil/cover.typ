@@ -12,6 +12,7 @@
   documentType: "Perfil de Proyecto de Grado",
 ) = {
   page()[#align(center)[
+      #set par(justify: false)
       #text(upper([#college - #faculty\ #degree]), size: 10pt, weight: "bold")
       #v(2cm)
 
