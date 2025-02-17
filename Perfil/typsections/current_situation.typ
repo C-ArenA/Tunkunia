@@ -96,7 +96,9 @@ tuvo un aumento relevante en tan sólo dos años (@fig:egdi2020_2022).
 
 === Normativa
 
-Cuando hablamos de Gobierno Electrónico y su normativa es menester citar inicialmente a la Constitución Política del Estado Plurinacional de Bolivia, misma que en su Art. 103 y 298 denota la importancia del desarrollo de la ciencia y la investigación a favor de las bolivianas y los bolivianos.
+Existe en Bolivia abundante normativa relevante en cuanto a la adopción del gobierno electrónico. A continuación se citan las más importantes de acuerdo al enfoque presentado en este documento.
+
+Es menester citar inicialmente a la Constitución Política del Estado Plurinacional de Bolivia, misma que en sus artículos 103 y 298 denota la importancia del desarrollo de la ciencia y la investigación a favor de las bolivianas y los bolivianos.
 Además, reconoce como prioridad el uso de las tecnologías y comunicación para el vivir bien:
 
 #quote(attribution: "Artículo 103 de la Constitución Política del Estado Plurinacional de Bolivia")[
@@ -112,34 +114,93 @@ Además, reconoce como prioridad el uso de las tecnologías y comunicación para
     III. El Estado, las universidades, las empresas productivas y de servicio públicas y privadas, y las naciones y pueblos indígena originario campesinos, desarrollarán y coordinarán procesos de investigación, innovación, promoción, divulgación, aplicación y transferencia de ciencia y tecnología para fortalecer la base productiva e impulsar el desarrollo integral de la sociedad, de acuerdo con la ley.
   ]]
 
-Asimismo el Artículo 298 de la citada normativa legal en su segundo parágrafo establece lo siguiente:
+#quote(attribution: [Artículo 298 de la Constitución Política del Estado Plurinacional de Bolivia])[
+  ...Declara prioridad nacional la promoción del uso de las tecnologías de información y comunicación para procurar el vivir bien de todas las bolivianos y bolivianos.]
+
+A su vez, es importante citar la Ley N°164 - Ley General de Comunicaciones, Tecnologías de Información y Comunicación, pues en su Artículo 71 declara prioridad nacional la promoción y uso de tecnologías de información y comunicación para procurar el vivir bien de todas las bolivianas y bolivianos.
+
+Por otra parte, el párrafo I del Artículo 72 de la citada noma legal, establece el rol de Estado con referencia al uso de las TIC'S, el despliegue y uso de infraestructura, el desarrollo de contenidos y aplicaciones, la protección de las usuarias y usuarios, la seguridad informática y redes como mecanismos de democratización de oportunidades para todos los sectores de la sociedad y especialmente para aquellos con menores ingresos y con necesidades especiales. Posteriormente en el Artículo 75 de la citada norma legal, se hace referencia al Gobierno Electrónico, que se establece de forma expresa de acuerdo a lo siguiente:
 
 #quote[
-  Declara prioridad nacional la promoción del uso de las tecnologías de información y comunicación para procurar el vivir bien de todas las bolivianos y bolivianos.]
+  I. El nivel central del Estado promueve la incorporación del Gobierno Electrónico a los procedimientos gubernamentales, a la prestación de sus servicios y a la difusión de información, mediante una estrategia enfocada al servicio de la población.
+  II. El Órgano Ejecutivo del nivel central del Estado, elaborará los lineamientos para la incorporación del Gobierno Electrónico.]
 
-A su vez, es importante citar la Ley N°164 - Ley General de Comunicaciones, Tecnologías de Información y Comunicación, misma que en su Artículo 71 declara prioridad nacional la promoción y uso de tecnologías de información y comunicación para procurar el vivir bien de todas las bolivianas y bolivianos. 
-Por otra parte, el párrafo I del el Artículo 72 de la citada noma legal, establece el rol de Estado con referencia al uso de las TIC'S, el despliegue y uso de infraestructura, el desarrollo de contenidos y aplicaciones, la protección de las usuarias y usuarios, la seguridad informática y redes como mecanismos de democratización de oportunidades para todos los sectores de la sociedad y especialmente para aquellos con menores ingresos y con necesidades especiales, a su vez el Artículo 75 de la citada norma legal, hace referencia a Gobierno Electrónico, mismo que establece de forma expresa lo siguiente:
-"I. El nivel central del Estado promueve la incorporación del Gobierno Electrónico a los procedimientos gubernamentales, a la prestación de sus servicios y a la difusión de información, mediante una estrategia enfocada al servicio de la población. II. El Órgano Ejecutivo del nivel central del Estado, elaborará los lineamientos para la incorporación del Gobierno Electrónico.".
-Asimismo el Artículo 76, define el Alcance de Gobierno Electrónico, mismo que señala lo siguiente:
-"...El Estado fijará los mecanismos y condiciones que las entidades públicas aplicarán para garantizar el máximo aprovechamiento de las tecnologías de la información y comunicación, que permitan lograr la prestación de servicios eficientes."
+También, el Artículo 76, define el Alcance de Gobierno Electrónico, señalando lo siguiente:
 
-Otra normativa que regula lo referente al Gobierno Electrónico, se puede citar al Reglamento para el Desarrollo de Tecnologías de Información y Comunicación - Decreto Supremo N° 1793, mismo que en su Art. 17 establece el objetivo de Gobierno Electrónico, señalando lo siguiente:
-"...I. Modernizar y transparentar la gestión pública, otorgando servicios y atención de calidad a la ciudadanía, garantizando el derecho a la información, así como contribuir a la eficiencia y eficacia de los actos administrativos en los procesos internos del gobierno, mediante el uso de las tecnologías de información y comunicación y otras herramientas. II. Generar mecanismos tecnológicos de participación y control social, mediante el uso de TIC por parte de los ciudadanos, organizaciones sociales y pueblos y naciones indígena originario campesinos."
+#quote[...El Estado fijará los mecanismos y condiciones que las entidades públicas aplicarán para garantizar el máximo aprovechamiento de las tecnologías de la información y comunicación, que permitan lograr la prestación de servicios eficientes.]
 
-== Sistema de Información Ambiental Industrial
-=== RASIM
+Otra normativa que regula lo referente al Gobierno Electrónico, es el "Reglamento para el Desarrollo de Tecnologías de Información y Comunicación", mismo que en su Art. 17 establece el objetivo de Gobierno Electrónico, señalando lo siguiente:
+
+#quote[...I. Modernizar y transparentar la gestión pública, otorgando servicios y atención de calidad a la ciudadanía, garantizando el derecho a la información, así como contribuir a la eficiencia y eficacia de los actos administrativos en los procesos internos del gobierno, mediante el uso de las tecnologías de información y comunicación y otras herramientas. II. Generar mecanismos tecnológicos de participación y control social, mediante el uso de TIC por parte de los ciudadanos, organizaciones sociales y pueblos y naciones indígena originario campesinos.]
+
+== Reglamento ambiental para el sector industrial manufacturero
+
+El Artículo 1 del Decreto Supremo 26376, aprueba el Reglamento Ambiental para el Sector Industrial Manufacturero @DecretoSupremo263762002. En dicho reglamento se regulan las actividades del sector industrial manufacturero para reducir la generación de contaminantes y el uso de sustancias peligrosas, optimizar el uso de recursos naturales y de energía para proteger y conservar el medio ambiente @ReglamentoAmbientalPara.
+
+Para lograr lo anterior, se plantean una serie de procedimientos, desde el registro de industrias mediante un formulario llamado RAI (Registro Ambiental Industrial). Si bien el reglamento detalla dichos procedimientos y documentos (llamados Instrumentos de Regulación Ambiental Particular), existe también una guía @garciaGuiaGeneralAplicacion2003, la cual lista los siguientes IRAPs:
+
+- RAI: Registro Ambiental Industrial
+- EEIA: Estudio de Evaluación de Impacto Ambiental
+- DP: Descripción del Proyecto
+- PMA: Plan de Manejo Ambiental
+- MAI: Manifiesto Ambiental Industrial
+- ARI-PC: Análisis de Riesgos Industriales y Plan de Contingencias
+- IAA: Informe Ambiental Anual
+
+Cada uno de los instrumentos listados conlleva a una serie de trámites para su presentación. Además, existe relación entre ellos, pudiendo uno habilitar al otro.
+
+=== SIAI
+
+El Sistema de Información Ambiental Industrial (SIAI), establecido en el Artículo 99 del RASIM @ReglamentoAmbientalPara, aglutina los distintos instrumentos de regulación para garantizar el acceso a la información, además de difundir documentos relacionados.
+
+La implementación actual del SIAI contempla el llenado de instrumentos de regulación atendiendo las características de cada trámite y sus relaciones. Los trámites consisten de forma general en la presentación de documentos para la aceptación por diferentes niveles de administración de acuerdo a verificaciones específicas hasta conseguir un resultado, que puede ser el registro de una industria o la obtención de un certificado.
 
 == FOSS y Soberanía digital
-=== Normativa en Bolivia
 
-Respetando el orden jerárquico de la normativa en Bolivia, en referencia al uso de software libre y soberanía digital, se tiene en la Constitución Política del Estado Plurinacional de Bolivia, el deber de:
+Cuando Richard Stallman comenzó a trabajar como programador en el Laboratorio de Inteligencia Artificial del MIT el año 1971,
+pasó a formar parte, por primera vez, de una comunidad de
+"hackers" #footnote[El término hacker es entendido por Stallman como aquel que hace referencia a una persona inteligente y curiosa con espíritu de sagacidad imaginativa y de exploración]
+que *compartían software* y, sin saberlo porque en aquel entonces la práctica era tan común que no tenía un término propio, eran también una comunidad de "software libre" @stallmanSoftwareLibrePara.
+
+Actualmente software libre significa a grandes rasgos que los usuarios tienen la libertad de ejecutar, copiar, distribuir, estudiar, modificar y mejorar el software @QueEsSoftware.
+Por la ambigüedad del término en inglés #footnote[_free_ también puede significar "gratis"]
+nació otra forma de referirse a lo mismo, salvo diferencias filosóficas según Stallman @WhyOpenSource, y que se popularizó bastante: _Open Source_. Posteriormente se crearía un término que abarca ambos, _free software_ y _open source_, el cual es _free and open source software_ (FOSS).
+En este documento nos referimos a ellos casi indistintamente y teniendo preferencia por el uso de *FOSS*.
+
+% Por qué se prefiere FOSS
+% Los gobiernos prefieren FOSS
+El software libre tiene un efecto democratizador en los gobiernos @donorfioPoliticsFreeOpen2004,
+además de brindar soberanía sobre el código utilizado por los mismos permitiéndoles tener el control de la tecnología empleada @LibertadSoftwareSu.
+De acuerdo a Stallman, es necesario usar software libre en el gobierno electrónico para no tener la necesidad de pedir permiso a un tercero para manipular el código fuente y para que gobiernos de todo el mundo puedan utilizar, corregir, difundir y contribuir a la mejora del software @SoftwareLibreGobierno.
+
+Al respecto, en el "Plan de Implementación de Software Libre y Estándares Abiertos" de Bolivia se define al software libre del modo siguiente:
+
+#quote[
+  El Software Libre se basa en una filosofía que busca que el desarrollo de la tecnología se
+  oriente al bienestar de los seres humanos en términos de igualdad; que el conocimiento sea
+  lo que realmente es: un bien común de la humanidad; que la cooperación sea el modelo de
+  su desarrollo y que todos puedan libremente disfrutar de sus resultados, sin mellar los
+  mismos derechos para los demás
+
+  [...]
+
+  La incorporación y uso del Software Libre y estándares abiertos, promueve valores de
+  innovación, solidaridad, búsqueda del bien común y el desarrollo de los individuos y de la
+  sociedad, coincidentes con los del Estado. A través de la implementación del Software Libre
+  se busca que el Estado adquiera y desarrolle la capacidad de controlar las aplicaciones
+  informáticas que utiliza con soberanía tecnológica.
+]
+
+=== Normativa
+
+A continuación se lista la normativa relevante al software libre. Respetando el orden jerárquico de la normativa en Bolivia, en referencia al uso de software libre y soberanía digital, se debe primero señalar que en la Constitución Política del Estado Plurinacional de Bolivia, existe el deber de:
 
 #quote(attribution: [Constitución Política del Estado Plurinacional de Bolivia, Artículo 108])[
   Defender la unidad, la soberanía y la integridad territorial de Bolivia, y respetar sus símbolos
   y valores
 ]
 
-Al respecto del software libre y su regulación normativa en nuestro país es importante citar la Ley N° 164 @Ley164Ley2011, misma que establece lo siguiente acerca del software libre:
+Es muy importante citar la Ley N° 164 @Ley164Ley2011, misma que establece lo siguiente acerca del software libre:
 
 #quote(attribution: [Artículo 77, Ley Nº 164])[
   #par(
@@ -155,10 +216,6 @@ Al respecto del software libre y su regulación normativa en nuestro país es im
   implementación de software libre y estándares abiertos* en coordinación con los
     demás órganos del Estado y entidades de la administración pública.]
 ]
-
-Asimismo, el Plan de Implementación de Software Libre y estándares abiertos en su marco conceptual define al SOFTWARE LIBRE de la siguiente manera:
-
-#quote[…El software libre se fundamenta en una filosofía que busca mejorar la vida de las personas al orientar el desarrollo tecnológico hacia la igualdad y el bienestar común. Esta filosofía promueve la cooperación y permite que todos disfruten libremente de los avances tecnológicos, siempre respetando los derechos de los demás, promoviendo la libertad de usar, aprender y compartir tecnología y conocimiento…]
 
 Como se evidencia de la normativa señalada anteriormente el Software libre hoy en día se encuentra regulado y se establecen los lineamientos y directrices para su implementación y posterior aplicación en nuestro país.
 
@@ -242,7 +299,7 @@ El seguimiento de trámites requiere que tengamos guardada la información de to
 De los tres paquetes anteriores, sin duda el de las máquinas de estados es el que más se acerca a lo que se requiere en este proyecto. La funcionalidad es similar a la que se pretende, pero no es específica a los procesos administrativos y por lo tanto no brinda ciertas herramientas que podrían ser necesarias en los mismos, como el seguimiento, el cual podría ser implementado con la ayuda del segundo paquete mencionado.
 
 
-
+/*
 == Sistemas de flujo de procesos
 === WFMS
 === WfMC
@@ -294,3 +351,4 @@ De los tres paquetes anteriores, sin duda el de las máquinas de estados es el q
 === Asistentes de Desarrollo
 === APIs de inferencia LLM
 === Simulador de Redes de Petri
+*/
