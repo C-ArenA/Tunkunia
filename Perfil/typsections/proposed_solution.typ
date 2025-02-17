@@ -5,7 +5,7 @@
 Se propone la creación de un módulo de software libre que aglutine las funcionalidades alrededor de los flujos de trámite que, como una forma específica de los sistemas de gestión de flujos de trabajo (WFMS), cuente con la capacidad de realizar su definición, ejecución, registro, y control (@fig:modfun), permitiendo la interoperabilidad mediante REST API e interfaces de usuario opcionales, tanto de administración como de ciudadano, para el fácil seguimiento de los distintos procesos en concordancia con la normativa boliviana. El módulo tendrá los mecanismos necesarios para poder integrarlo en otros sistemas, permitiendo el uso del mismo para la lógica del negocio del sistema en el que se use, esto es, siguiendo un enfoque modular (@fig:modulegraph). Los detalles de implementación del módulo a nivel de arquitectura se definirán a partir del grado de cohesión requerido con otros módulos, como ser el de autenticación y las tecnologías de desarrollo utilizadas, que pueden condicionar ciertas decisiones. 
 
 #figure(
-  image("../assets/modulegraph.svg"),
+  image("../assets/modulegraph.png"),
   caption: [Representación gráfica a grandes rasgos del módulo Tunkunia\ Fuente: Elaboración propia]
 )<fig:modulegraph>
 
