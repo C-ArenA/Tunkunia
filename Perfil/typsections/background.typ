@@ -55,7 +55,7 @@ Es por tanto un actor que *materializa el poder del estado hacia la población*.
 // Necesidad de practicar la burocracia
 
 Este sistema requiere casi siempre la práctica de la *burocracia*
-(término acuñado en el siglo 18 por el filósofo francés Vincent de Gournay, derivando del francés _bureau_ y _cratie_ que significan "Escritorio para escribir" y "Gobierno" respectivamente @rockmanBureaucracyStructureProcesses2024,
+#footnote[término acuñado en el siglo 18 por el filósofo francés Vincent de Gournay, derivando del francés _bureau_ y _cratie_ que significan "Escritorio para escribir" y "Gobierno" respectivamente @rockmanBureaucracyStructureProcesses2024],
 que según Weber es técnicamente "la forma más avanzada de ejercer o empuñar el poder por aquellos que lo controlan" @watersWeberRationalismModern2015[pág. 114] (el gobierno).
 
 // Qué es Burocracia
@@ -118,7 +118,7 @@ En todas estas definiciones se tiene como común denominador a los términos:
 // MARK: Trámite Defs.
 
 Según la Real Academia de la Lengua Española, se define al trámite como:
-\say{Cada uno de los *pasos* y diligencias que hay que recorrer en un asunto hasta su conclusión} @asaleDiccionarioLenguaEspanola.
+"Cada uno de los *pasos* y diligencias que hay que recorrer en un asunto hasta su conclusión" @asaleDiccionarioLenguaEspanola.
 
 Para acercarnos a la acepción popular existe una definición que el Gobierno de México indica en uno de sus portales web, de acuerdo a la cual se entiende como trámite a:
 
@@ -153,7 +153,7 @@ Desde esta definición, se puede agrupar a los trámites en las siguientes cuatr
 
 Si bien el trámite se ha convertido en una herramienta necesaria del aparato burocrático estatal y una forma de comunicar al ciudadano con su gobierno, el mismo presenta importantes problemas que llegan a perjudicar a los ciudadanos.
 
-Tal es el caso de \textbf{Domitila Murillo}, una ciudadana boliviana que quien a causa de un trámite se vio obligada a trasladarse entre varias localidades del país, realizar interminables filas y vagar perdida entre una cantidad indefinida y mal documentada de requisitos. Su caso es muy popular ya que fue motivo de preocupación y cuando finalmente logró recibir su cédula (el motivo del trámite), no le quedaron más que dos semanas antes de fallecer @charoskyQuejaComoEnergia2014.
+Tal es el caso de *Domitila Murillo*, una ciudadana boliviana que a causa de un trámite se vio obligada a trasladarse entre varias localidades del país, realizar interminables filas y vagar perdida entre una cantidad indefinida y mal documentada de requisitos. Su caso es muy popular ya que fue motivo de preocupación y cuando finalmente logró recibir su cédula (el cual era el motivo del trámite), no le quedaron más que dos semanas antes de fallecer @charoskyQuejaComoEnergia2014.
 
 El caso de Domitila, lastimosamente, no es aislado.
 Las distancias, la corrupción, la falta de definición y documentación en los requerimientos y la burocracia afectan al proceso del trámite.
@@ -165,9 +165,9 @@ El tiempo que estos demandan suele causar un perjuicio para la población, mucha
 )<fig:horastramite>
 
 
-Además, como puede verse en la figura @fig:tramites_una_interaccion, un trámite no suele ser concluido en una sola interacción.
-En Bolivia, por ejemplo, el año 2017 sólo el 38\percentsign ~ de los trámites se resolvieron en un solo encuentro con alguna entidad de la administración pública.
-La situación no es tan diferente en el resto de países de la región, donde en promedio sólo el 50\percentsign de los trámites se lograron en una sola interacción.
+Además, como puede verse en la @fig:tramites_una_interaccion, un trámite no suele ser concluido en una sola interacción.
+En Bolivia, por ejemplo, el año 2017 sólo el 38% de los trámites se resolvieron en un solo encuentro con alguna entidad de la administración pública.
+La situación no es tan diferente en el resto de países de la región, donde en promedio sólo el 50% de los trámites se lograron en una sola interacción.
 
 #figure(
   image("../assets/tramites_una_interaccion.png", width: 70%),
@@ -233,19 +233,17 @@ Ante esta situación, el Ministerio de Desarrollo Productivo y Tierras, solicit�
 
 == SIAI: Un sistema con muchos trámites
 
-El SIAI consiste en muchos módulos con muchas funcionalidades que tienen que ver también con la realización de varios trámites
-
 El D.S. 26736 que aprueba el Reglamento Ambiental del Sector Industrial Manufacturero (RASIM) en su Artículo 9 (Organismo Sectorial Competente), señala las competencias, atribuciones y funciones del Viceministro de Industria y Comercio Interno que actualmente es el Viceministro del Políticas de Industrialización, y en su inciso f), señala: "Establecer y administrar el Sistema de Información Ambiental Industrial (SIAI) y el Sistema de Evaluación y Revelación de Información (SERI)".
 
-A través de un análisis realizado, en la gestión 2020 se determinó que el SIAI requiere una adecuación para, primeramente reducir los tiempos de envió de la información desde los GADs y los GAMs, facilitando el llenado a través de internet, generar usuarios y autorizaciones para este llenado.
+El SIAI es un sistema que aglutina funcionalidades referentes al manejo de información entre distintos actores y, como veremos más adelante, su implementación consiste de muchos módulos y funcionalidades que tienen que ver también con la realización de una cantidad importante de trámites.
 
-El SIAI es un sistema que aglutina funcionalidades referentes al manejo de información entre distintos actores.
+A través de un análisis realizado en la gestión 2020 se determinó que el SIAI requiere una adecuación para, primeramente, reducir los tiempos de envió de la información desde los GADs y los GAMs, facilitando el llenado a través de internet, generando usuarios y autorizaciones para este llenado.
 
-Por lo anterior descrito, se requirió el año 2023, mediante licitación la implementación de este sistema, bajo el objetivo:
+Por lo anterior descrito, se requirió el año 2023, mediante licitación, la implementación de este sistema, bajo el objetivo:
 
-Diseñar e implementar un sistema informático denominado “Sistema de Información Ambiental Industrial (SIAI)”, que permita un Registro en Línea de la Información Ambiental Industrial y que ayude en el monitoreo y seguimiento Nacional a través del MDPyEP y los gobiernos Subnacionales competentes en el marco de lo establecido en el Reglamento Industrial para el Sector Industrial Manufacturero, actualizando los datos ambientales de la industria a nivel nacional y acreditar la idoneidad de los mismos, asegurando el cumplimiento de la normativa ambiental vigente
+#quote(attribution: [Términos de Referencia - SIAI @ConsultoriaPorProducto])[Diseñar e implementar un sistema informático denominado “Sistema de Información Ambiental Industrial (SIAI)”, que permita un Registro en Línea de la Información Ambiental Industrial y que ayude en el monitoreo y seguimiento Nacional a través del MDPyEP y los gobiernos Subnacionales competentes en el marco de lo establecido en el Reglamento Industrial para el Sector Industrial Manufacturero, actualizando los datos ambientales de la industria a nivel nacional y acreditar la idoneidad de los mismos, asegurando el cumplimiento de la normativa ambiental vigente]
 
-== Consultora 2IES
+== Consultoría de 2IES
 
 La consultora 2IES - Ingeniería Estructural e Ingeniería de Telecomunicaciones -, es una empresa fundada en Bolivia el año 1997 y cuenta con experiencia en sectores de infraestructura y en áreas relacionadas con la planificación estratégica, la regulación, el mejoramiento de negocios, y el desarrollo de sistemas, así como la aplicación e integración en Tecnologías de la Información y Comunicación, tanto en empresas como entidades del sector público.
 
@@ -253,7 +251,7 @@ En años recientes, con la adopción de tecnologías de la información cada vez
 
 === Experiencias en el desarrollo del SIAI
 
-La empresa 2IES obtuvo la licitación del proyecto licitado por el MDPyEP y, atendiendo a las especificaciones técnicas del Documento Base de Contratación se identificaron distintos módulos para la implementación del nuevo SIAI.
+Esta consultora obtuvo la licitación del proyecto licitado por el MDPyEP y, atendiendo a las especificaciones técnicas del Documento Base de Contratación se identificaron distintos módulos para la implementación del nuevo SIAI.
 
 El sistema se implementó utilizando PHP con el framework de desarrollo Laravel para el backend y la implementación de la lógica del negocio, exponiendo un servicio REST API consumido por un SPA realizado con el framework de frontend Vue.
 
@@ -261,7 +259,7 @@ Además de atender los requerimientos iniciales, 2IES propuso funcionalidades qu
 
 Dado que una gran parte de la funcionalidad de este sistema, consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora 2IES hizo una implementación recurriendo al manejo de estados y de roles, creando formularios e integrando los datos al modelo del negocio general.
 
-Terminado el proyecto con éxito, se identificaron posibles mejoras al software desarrollado que tienen que ver con funcionalidades comunes en cada trámite Y las necesidades que estos conllevan como la realización de seguimiento, la auditoría y la gestión en general.
+Terminado el proyecto con éxito, se identificaron posibles mejoras al software desarrollado que tienen que ver con la identificación de funcionalidades comunes a cada trámite y las necesidades a las que estos conllevan como la realización de seguimiento, la auditoría y la gestión en general.
 
 // TODO: citar el sitio de 2IES
 
@@ -269,6 +267,6 @@ Terminado el proyecto con éxito, se identificaron posibles mejoras al software 
 
 Como una forma de evolucionar en base a las experiencias y poder ofrecer cada vez mejores productos y servicios, la consultora 2IES adoptó la posición de modularizar algunas funcionalidades comunes dentro de los sistemas gubernamentales.
 
-Además, como propuesta para la sociedad y en el afán de generar y formar parte de la comunidad de desarrolladores del país, se abre la posibilidad de optar a proyectos tipo FOSS como también otras empresas del rubro tecnológico lo hacen. Algunos ejemplos son Facebook con React, Google con Angular o incluso Odoo, con su ERP con licencia LGPLv3.
+Además, como propuesta para la sociedad y en el afán de generar y formar parte de la comunidad de desarrolladores de código abierto del país, se abre la posibilidad de optar a proyectos de tipo FOSS como también otras empresas del rubro tecnológico lo hacen. Algunos ejemplos son Facebook con React, Google con Angular o incluso Odoo, con su ERP con licencia LGPLv3.
 
 // Todo listar otras y citar

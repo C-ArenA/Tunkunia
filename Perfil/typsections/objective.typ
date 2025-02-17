@@ -9,9 +9,11 @@ Este objetivo se conseguirá bajo la premisa de que se consiga también:
 - *Elegir* el método adecuado de distribución del módulo y su modo de utilización
 - *Evaluar* formas de validación de documentos con asistencia de grandes modelos de lenguaje
 - *Implementar* el módulo siguiendo el correcto proceso del software @sommervilleSoftwareEngineering2016 @pressmanSoftwareEngineeringPractitioner2010
+- *Incorporar* de forma experimental el uso de grandes modelos de lenguaje para asistencia en la verificación de documentos
+- *Permitir* la interoperabilidad con otros sistemas
 - *Testear* correctamente el código
 - *Publicar* el repositorio git del proyecto con la licencia FOSS adecuada
-- *Publicar* el módulo en repositorios de distribución de _software packages_ 
+- *Publicar* el módulo en repositorios de distribución adecuados de acuerdo a su naturaleza final y para fácil reutilización
 - *Aplicar* el módulo de software a trámites del SIAI, en una versión mínima de dicho sistema.
 - *Documentar* la pieza de software
 - *Realizar* el _release_ de la versión 1.0
