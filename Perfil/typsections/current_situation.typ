@@ -298,7 +298,39 @@ El seguimiento de trámites requiere que tengamos guardada la información de to
 
 De los tres paquetes anteriores, sin duda el de las máquinas de estados es el que más se acerca a lo que se requiere en este proyecto. La funcionalidad es similar a la que se pretende, pero no es específica a los procesos administrativos y por lo tanto no brinda ciertas herramientas que podrían ser necesarias en los mismos, como el seguimiento, el cual podría ser implementado con la ayuda del segundo paquete mencionado.
 
+== WFMS y BPM
 
+Existe en la actualidad un tipo de sistema que va muy de la mano con el propuesto en este proyecto, el cual es el WFMS (Workflow Management System). Estos sistemas contemplan de forma general el manejo de flujos de trabajo. De forma similar, y a veces usado de forma indistinta con WFM existe el término BPM (Business Process Management), que de modo más amplio es el arte y la ciencia de supervisar cómo el trabajo es realizado dentro de una organización.
+
+Toda organización, incluido por supuesto el aparato gubernamental, debe manejar *procesos* @dumasFundamentalsBusinessProcess2013, siendo los trámites típicos ejemplos. Es por esto que tanto los WFMS y BPM tienen bastante relevancia en los sistemas de software.
+
+Tal es la relevancia que existe una organización dedicada a estandarizar los WFMS y BPM, la cual fue fundada el año 1993 y es llamada "Workflow Management Coalition" (WfMC) @WorkflowManagementCoalition. Dicha organización define a los WFMS de la siguiente manera:
+
+#quote(attribution: [Workflow Management Coalition])[
+  A workflow management system (WMS) is a software application that is designed to help organizations automate and manage their business processes. A WMS allows an organization to define and implement a workflow - a series of tasks, steps, and decisions - that need to be followed to complete a specific process. The system can then be used to track the progress of the workflow, manage the flow of information and documents, and ensure that tasks are completed in the correct order and by the right people.
+
+  A WMS can be used to automate a wide range of business processes, such as invoicing, order fulfillment, human resources, and project management. It can also be used to integrate different systems, such as email, calendar, and customer relationship management (CRM) software. WMS allows you to streamline the process and make it more efficient, reduce errors and delays, and give you real-time visibility into the status of your processes, also it's common to have a built-in reporting and analytics tools to measure the performance of the process.
+]
+
+La necesidad de manejar flujos de trabajo es realmente frecuente en muchos sistemas, por lo que ciertos autores creen que debe ser un módulo tan importante como el sistema de gestión de bases de datos, como se puede aproximar mediante la @fig:wfms_history.
+
+#figure(
+  image("../assets/wfms_history.png"),
+  caption: [WFMS desde una perspectiva histórica\ Fuente: The Application of Petri Nets
+    to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+)<fig:wfms_history>
+
+Es importante entender que, de forma general y sintética, el propósito principal de los sistemas de flujo de trabajo (WFMS) es el apoyo en la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que posteriormente podría guiar en la implementación de un sistema específico a los trámites administrativos.
+
+== LLMs e Inferencia
+
+Un modelo grande de lenguaje (LLM) es un tipo de inteligencia artificial que reconoce y genera texto, entre otras tareas. Los LLMs son entrenados en conjuntos grandes de datos, por eso el nombre de "grande" (large). Los LLMs se construyen en base a machine learning, en específico un tipo de red neuronal llamado transformer @WhatLLMLarge.
+
+Con la salida al mercado de forma gratuita de ChatGPT el 30 de Noviembre de 2022 @ChatGPTTurns1euro, el mundo sufrió un cambio importante, ya que se empezaron a utilizar de forma masiva los grandes modelos de lenguaje (LLMs). Los modelos de lenguaje, si bien existen ya hace mucho tiempo, no lograron el nivel de precisión e inteligencia aparente sino hasta hace un par de años.
+
+Uno de los servicios alrededor de los LLMs es el uso de APIs que permiten la integración de dichas herramientas en distintos sistemas. Las aplicaciones son muchas y aún se siguen explorando. Sin embargo, es claro el uso de la inferencia en base a inteligencia artificial.
+
+La inferencia consiste en usar modelos de inteligencia artificial ya entrenados para reconocer patrones y sacar conclusiones sobre información nueva que no vieron antes @WhatAIInference2024. Dicho enfoque puede usarse para analizar documentos y, en general, datos, sin necesidad de entrenar otro modelo.
 /*
 == Sistemas de flujo de procesos
 === WFMS
