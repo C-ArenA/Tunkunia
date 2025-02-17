@@ -9,14 +9,14 @@
 
   #set text(lang: "es", region: "bo", size: 11pt, font: "New Computer Modern")
 
-  #set par(first-line-indent: 1em, spacing: 0.75em, justify: true)
+  #set par(first-line-indent: 1em, justify: true)
 
   // Configuración de headings
   #set heading(numbering: "1.")
   #show heading: it => {
     set align(left)
-    set text(weight: "regular")
     if it.level == 1 {
+      set text(weight: "regular")
       align(smallcaps(it), center)
     } else {
       it
@@ -33,6 +33,13 @@
     it.page
   }
 
+  // Quotes
+  #set quote(block: true)
+
+  // Figuras en general
+  #show figure: set block(inset: (top: 1em, bottom: 2em)) 
+  #show list: set block(inset: (top: 1em, bottom: 1em)) 
+  
   // Figuras de Tipo Tabla
   #show figure.where(kind: table): it => {
     set block(breakable: true)
