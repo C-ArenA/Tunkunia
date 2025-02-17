@@ -28,18 +28,20 @@
   // Configura el TOC
   #show outline.entry.where(level: 1): it => {
     v(1.5em, weak: true)
-    smallcaps(it.body)
-    box(width: 1fr, repeat()[~])
-    it.page
+    link(it.element.location())[
+      #smallcaps(it.body)
+      #box(width: 1fr, repeat()[~])
+      #it.page
+    ]
   }
 
   // Quotes
   #set quote(block: true)
 
   // Figuras en general
-  #show figure: set block(inset: (top: 1em, bottom: 2em)) 
-  #show list: set block(inset: (top: 1em, bottom: 1em)) 
-  
+  #show figure: set block(inset: (top: 1em, bottom: 2em))
+  #show list: set block(inset: (top: 1em, bottom: 1em))
+
   // Figuras de Tipo Tabla
   #show figure.where(kind: table): it => {
     set block(breakable: true)
