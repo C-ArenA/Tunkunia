@@ -14,7 +14,7 @@
 #include "typsections/justification.typ"
 #include "typsections/scope_and_limitations.typ"
 #include "typsections/proposed_solution.typ"
-#include "typsections/tentative_budget.typ"
+// #include "typsections/tentative_budget.typ"
 #include "typsections/syllabus.typ"
 #include "typsections/schedule.typ"
 
