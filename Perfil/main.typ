@@ -6,6 +6,7 @@
 
 // CONTENIDO
 #include "typsections/introduction.typ"
+#include "typsections/key_terms.typ"
 #include "typsections/background.typ"
 #include "typsections/current_situation.typ"
 #include "typsections/problem_statement.typ"
