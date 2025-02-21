@@ -15,7 +15,7 @@
 
 == Introducción
 #figure(
-  image("assets/bg.png")
+  image("../assets/bg.png")
 )
 
 === El trámite
@@ -50,7 +50,7 @@ Modularizar funcionalidades comunes a los procesos de trámite gubernamental en 
 == Solución
 
 #v(1fr)
-#image("assets/modulegraph.png")
+#image("../assets/modulegraph.png")
 
 #v(1fr)
-#image("assets/stateprocedureexample.png")
+#image("../assets/stateprocedureexample.png")

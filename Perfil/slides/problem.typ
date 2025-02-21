@@ -15,7 +15,7 @@
 
 == El trámite tradicional
 #v(1fr)
-- Corrupción enla administración pública
+- Corrupción en la administración pública
 - Distancias recorridas para la realización de trámites
 - Tiempos de ejecución del trámite elevados
 - Costos para el ciudadano en la realización del trámite
