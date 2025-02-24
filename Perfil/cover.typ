@@ -8,7 +8,7 @@
   projectTitle: none,
   student: "Ernesto Carlos Arena Alarcon",
   tutor: "Jorge Antonio Nava Amador",
-  professor: "Jorge León",
+  professor: "Jorge Mario León Gómez",
   documentType: "Perfil de Proyecto de Grado",
 ) = {
   page()[#align(center)[
@@ -23,7 +23,7 @@
 
       #upper([Postulante: #student]) #v(0.5cm)
       #upper([Asesor: #tutor]) #v(0.5cm)
-      #upper([Docente D.A.M.: #professor])
+      #upper([D.A.M.: #professor])
       #v(1fr)
 
       #let today = datetime.today()

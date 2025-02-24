@@ -1,7 +1,7 @@
 #import "conf.typ": conf, appendix
 
 #show: conf.with(
-  title: [_TUNKUNIA_: Desarrollo de un módulo de gestión y seguimiento de flujos de trámite\ Caso de Estudio: Trámites del _SIAI_],
+  title: [Tunkunia: Subsistema reutilizable de software libre para la gestión de flujos de trámite en gobiernos electrónicos],
 )
 
 // CONTENIDO
