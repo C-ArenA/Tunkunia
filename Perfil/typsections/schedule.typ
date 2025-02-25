@@ -1,4 +1,4 @@
-#import "@preview/timeliney:0.1.0"
+#import "@preview/timeliney:0.2.0"
 
 = Cronograma
 

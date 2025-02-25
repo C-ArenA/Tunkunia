@@ -104,7 +104,7 @@ Sin embargo, por conocimiento popular se sabe lo que significa.
 Se sabe también lo estrechamente relacionado que está con el gobierno, la burocracia y el *manejo de documentos* y,
 a pesar de que también se puede usar en otros contextos, la sociedad parece asociarlo casi siempre con lo aquí descrito.
 
-La palabra trámite viene del latín "trames", "tramitis", que para los romanos significaba "senda]" "camino",
+La palabra trámite viene del latín "trames", "tramitis", que para los romanos significaba "senda" "camino",
 de donde se derivó el sentido actual de "vía legal o *procedimiento* que debe seguir una gestión" @TramiteCastellanoPagina.
 
 En inglés no existe una palabra que tenga la traducción exacta de trámite, pero en la literatura de este idioma se usan distintas palabras como "Procedure", "Transaction" o "Paperwork".
