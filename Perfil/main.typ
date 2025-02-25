@@ -1,26 +1,26 @@
 #import "conf.typ": conf, appendix
 
 #show: conf.with(
-  title: [Tunkunia: Subsistema reutilizable de software libre para la gestión de flujos de trámite en gobiernos electrónicos],
+  title: [_Tunkunia_: Subsistema reutilizable de software libre para la gestión de flujos de trámite en gobiernos electrónicos],
 )
 
 // CONTENIDO
-#include "typsections/introduction.typ"
-#include "typsections/background.typ"
-#include "typsections/current_situation.typ"
-#include "typsections/problem_statement.typ"
-#include "typsections/objective.typ"
-#include "typsections/justification.typ"
-#include "typsections/scope_and_limitations.typ"
-#include "typsections/proposed_solution.typ"
-// #include "typsections/tentative_budget.typ"
-#include "typsections/syllabus.typ"
-//#include "typsections/schedule.typ"
+#include "sections/introduction.typ"
+#include "sections/background.typ"
+#include "sections/current_situation.typ"
+#include "sections/problem_statement.typ"
+#include "sections/objective.typ"
+#include "sections/justification.typ"
+#include "sections/scope_and_limitations.typ"
+#include "sections/proposed_solution.typ"
+// #include "sections/tentative_budget.typ"
+#include "sections/syllabus.typ"
+//#include "sections/schedule.typ"
 
 // BIBLIOGRAFÍA
 #bibliography("main.bib", title: "Bibliografía y Referencias")
 
 // ANEXOS
 #appendix[
-  #include "typsections/glossary.typ"
+  #include "sections/glossary.typ"
 ]

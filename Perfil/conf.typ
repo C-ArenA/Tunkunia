@@ -1,5 +1,5 @@
 #import "cover.typ": makeCover
-#import "typsections/acronyms.typ": acronyms 
+#import "sections/acronyms.typ": acronyms 
 #import "@preview/acrostiche:0.5.1": print-index, init-acronyms
 // ---------------- CONFIGURACIONES --------------------
 #let conf(doc, title: "Mi Perfil") = [
