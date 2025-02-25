@@ -1,3 +1,5 @@
+// TODO: Arreglar los quotes con párrafos que no hacen saltos de línea
+
 = Situación Actual <section:current_situation>
 
 En relación al contexto planteado en la sección de antecedentes, así como el desarrollo de sistemas modernos de software y la modularización de funcionalidades,
@@ -224,6 +226,7 @@ Como se evidencia de la normativa señalada anteriormente el Software libre hoy 
 
 Debido a la cantidad de procesos administrativos que existen en distintas instituciones, podemos encontrar una gran cantidad de proyectos de grado realizados en la región que tratan sobre la implementación de sistemas de control de trámites:
 
+// TODO Citar los trabajos similares
 - SISTEMA DE CONTROL DE TRÁMITES UTILIZANDO MAQUINAS DE TURING CASO: DIVISIÓN DE GESTIONES ADMISIONES Y REGISTROS U.M.S.A.
 - Desarrollo e Implementación del Sistema de Tramite
   Documentario en la Municipalidad Provincial de

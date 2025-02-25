@@ -1,3 +1,5 @@
+// TODO: Modificar las justificaciones de acuerdo a lo indicado por el Ingeniero León. Considerar no poner subtítulos
+
 = Justificación
 
 La solución propuesta tiene 3 pilares importantes que la componen y muestran relevancia cada una por su cuenta:
