@@ -6,7 +6,6 @@
 
 // CONTENIDO
 #include "typsections/introduction.typ"
-#include "typsections/key_terms.typ"
 #include "typsections/background.typ"
 #include "typsections/current_situation.typ"
 #include "typsections/problem_statement.typ"
@@ -16,12 +15,12 @@
 #include "typsections/proposed_solution.typ"
 // #include "typsections/tentative_budget.typ"
 #include "typsections/syllabus.typ"
-#include "typsections/schedule.typ"
+//#include "typsections/schedule.typ"
 
 // BIBLIOGRAFÍA
 #bibliography("main.bib", title: "Bibliografía y Referencias")
 
 // ANEXOS
 #appendix[
-  #include "typsections/draft.typ"
+  #include "typsections/glossary.typ"
 ]
