@@ -2,31 +2,27 @@
 
 = Introducción
 
-Durante el desarrollo del sistema *#acr("SIAI")* del
-“#acr("MDPyEP")” por parte de la empresa *2IES*,
-se identificaron funcionalidades comunes a muchos sistemas de software gubernamentales que tienen que ver con los procesos administrativos conocidos localmente como trámites.
+Durante el desarrollo del #acr("SIAI") del #acr("MDPyEP") por parte de la empresa *2IES*,
+se identificaron funcionalidades comunes a muchos sistemas de software gubernamentales relacionadas con los procesos administrativos conocidos localmente como trámites,
+entendidos en este contexto como el conjunto de requisitos, pasos o acciones a través de los cuales los individuos o las empresas solicitan o entregan información a una entidad pública,
+con el fin de obtener un derecho —como la generación de un registro, el acceso a un servicio o la obtención de un permiso—, o para cumplir con una obligación @rosethFinTramiteEterno2018.
 
-En el afán de enfrentar nuevos proyectos de este tipo y de poder colaborar al desarrollo del país en el propósito de adoptar las tecnologías de la información y la mejora de procesos burocráticos, 
-en este documento se propone la implementación de un módulo reutilizable de gestión y seguimiento de trámites que modele dichos procesos administrativos y ayude a hacerlos más eficientes.
-Esto se llevará a cabo recogiendo la experiencia existente sobre el desarrollo del #acr("SIAI") por parte de 2IES y atendiendo a los trámites descritos por el #acr("RASIM") a manera de caso de estudio.
+Con el objetivo de enfrentar nuevos proyectos de este tipo y contribuir al desarrollo del país mediante la adopción de tecnologías de la información y la mejora de procesos burocráticos,
+en este documento se propone la implementación de un *subsistema reutilizable de gestión y seguimiento de trámites* que modele dichos procesos administrativos y contribuya a hacerlos más eficientes, robustos y modulares.
 
-Se propone el uso de técnicas de modelado distintas e inspiradas por los #acrpl("WFMS"), como son las redes de Petri, máquinas de estado finitas y diagramas de actividad UML. Además, se propone que dicho modelado resalte características comunes y específicas a los procesos administrativos de tipo trámite. Una de estas características es la validación de documentos, para lo cual se propone también el uso de grandes modelos de lenguaje para asistir al funcionario público en la toma de decisiones.
+Aquí se entiende por _subsistema_ un grupo lógico de elementos que puede formar parte de un sistema mayor, pero que también puede operar de manera independiente, pudiendo construirse de distintas formas y estar compuesto, a su vez, por otros subsistemas o módulos @ingenoSoftwareArchitectsHandbook2018.
 
-Con esto se pretende hacer más eficiente y sencilla la implementación de trámites digitales en distintas instituciones públicas, buscando brindar ventajas para el ciudadano con la adopción de enfoques de gobierno electrónico.
+Lo anterior se llevará a cabo recogiendo principalmente la experiencia adquirida en el desarrollo del #acr("SIAI") por parte de 2IES
+y atendiendo trámites descritos por el #acr("RASIM") u otras normativas como ejemplos de aplicación.
+
+Se propone el uso de técnicas de modelado inspiradas en los #acrpl("WFMS"), como las redes de Petri, las máquinas de estados finitos y los diagramas de actividad UML. Además, se busca que dicho modelado resalte características comunes de de los procesos administrativos tipo trámite. Una de estas características es la validación de documentos, para lo cual se plantea también el uso de grandes modelos de lenguaje que asistan al funcionario público en la toma de decisiones, así como capacidades de interoperabilidad que permitan adaptarse a distintos flujos de trabajo y métodos de validación documental.
+
+Con esto, se pretende facilitar y optimizar la implementación de trámites digitales en diversas instituciones públicas, con el objetivo de brindar beneficios al ciudadano mediante la adopción de enfoques de gobierno electrónico.
 
 == Notas y Aclaraciones Preliminares
 
-Como se verá más adelante, una vez realizado el análisis de la solución propuesta, la identidad de este proyecto gira en torno a los *flujos de trabajo (WF)* que, en el caso de los trámites, implican la secuencia de una serie de pasos. 
-De esta manera, para referenciar al proyecto de manera sencilla y darle identidad, se le asigna el nombre de *Tunkunia*.
+La identidad de este proyecto gira en torno a los *flujos de trabajo*, los cuales, en el contexto de los trámites, se entienden como la secuencia ordenada de pasos o actividades necesarias para completar un proceso administrativo.
 
-Este documento emplea términos técnicos relativos al desarrollo de software. En algunos casos, se preferirá el uso de términos en inglés para evitar ambigüedades en la traducción o para apegarse a las prácticas y términos usados en la industria.
+Con el fin de facilitar su referencia y dotarlo de una identidad propia, se ha asignado al proyecto el nombre de *Tunkunia*, en honor al tradicional juego boliviano que también consiste en seguir una secuencia estructurada de movimientos para alcanzar un objetivo.
 
-=== Sobre el uso de la palabra "Módulo"
-
-Si uno busca en la red puede encontrar definiciones ligeramente distintas de lo que es un "módulo". Para efectos de este trabajo se parte de la definición de Joseph Ingeno @ingenoSoftwareArchitectsHandbook2018, expuesta en la sección de términos clave, pero esto no quiere decir que el producto realizado no pueda evolucionar a adoptar ciertas características de un "subsistema", dependiendo de las decisiones tomadas durante la implementación.
-
-=== Sobre el uso de la palabra "Trámite"
-
-Existen pocas definiciones para la palabra "trámite", pero pueden llegar a depender de la región en la que se use y hay pocos escritos académicos que ayuden a aclararla.
-En este documento se adopta principalmente la definición realizada por el Banco de Desarrollo Interamericano mediante una de sus publicaciones @rosethFinTramiteEterno2018 (incluida en la sección de términos clave)
-y el Gobierno de México en uno de sus portales web @epnQueEsTramite, ya que estos se asemejan más a la acepción que se maneja comúnmente en la región de Latinoamérica, particularmente en Bolivia. Además, se usará de forma casi indistinta, aunque con menor frecuencia, el término "Proceso administrativo", tomándose en cuenta que este último es más amplio, pero poco empleado por el ciudadano.
+Este documento emplea terminología técnica propia del desarrollo de software. En ciertos casos, se prefiere el uso de términos en inglés para evitar ambigüedades en la traducción o mantener coherencia con las prácticas establecidas en la industria.
