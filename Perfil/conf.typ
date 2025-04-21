@@ -1,5 +1,5 @@
 #import "cover.typ": makeCover
-#import "sections/acronyms.typ": acronyms 
+#import "sections/acronyms.typ": acronyms
 #import "@preview/acrostiche:0.5.1": print-index, init-acronyms
 // ---------------- CONFIGURACIONES --------------------
 #let conf(doc, title: "Mi Perfil") = [
@@ -23,8 +23,7 @@
     } else {
       it
     }
-    linebreak()
-    v(-.7em)
+    v(.7em)
   }
 
   // Configura el TOC
@@ -60,7 +59,12 @@
   #outline()
   #pagebreak()
   #init-acronyms(acronyms)
-  #print-index(outlined: true, title: "Nomenclatura, Símbolos, Acrónimos y Abreviaciones", sorted: "up", row-gutter: 1.5em)
+  #print-index(
+    outlined: true,
+    title: "Nomenclatura, Símbolos, Acrónimos y Abreviaciones",
+    sorted: "up",
+    row-gutter: 1.5em,
+  )
   #pagebreak()
   #doc
 ]
