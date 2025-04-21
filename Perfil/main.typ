@@ -4,7 +4,6 @@
 #show: conf.with(
   title: [_Tunkunia_: Subsistema reutilizable de software libre para la gestión de flujos de trámite en gobiernos electrónicos],
 )
-
 // CONTENIDO
 #include "sections/introduction.typ"
 #include "sections/background.typ"
@@ -17,8 +16,7 @@
 // #include "sections/tentative_budget.typ"
 #include "sections/syllabus.typ"
 // TODO: Añadir Metodología
-// TODO: Solucionar el cronograma
-//#include "sections/schedule.typ"
+#include "sections/schedule.typ"
 // TODO Considerar el volver a subir la bibliografía al repositorio remoto ahora que en Zotero tengo pineados los citation keys
 // BIBLIOGRAFÍA
 #bibliography("main.bib", title: "Bibliografía y Referencias")
