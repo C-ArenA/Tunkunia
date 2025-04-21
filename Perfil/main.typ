@@ -2,7 +2,7 @@
 
 // TODO: Revisar documento en busca de inconsistencias respecto al uso de la palabra módulo en contra de la palabra subsistema y revisar el cambio de enfoque del título y cómo afecta al resto del documento
 #show: conf.with(
-  title: [_Tunkunia_: Subsistema reutilizable de software libre para la gestión de flujos de trámite en gobiernos electrónicos],
+  title: [_Tunkunia_: Subsistema de software libre reutilizable para la gestión de flujos de trámite en entornos de gobierno electrónico],
 )
 // CONTENIDO
 #include "sections/introduction.typ"
