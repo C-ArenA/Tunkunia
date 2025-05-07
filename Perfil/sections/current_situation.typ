@@ -1,10 +1,7 @@
-// TODO: Arreglar los quotes con párrafos que no hacen saltos de línea
-
 = Situación Actual <section:current_situation>
 
 En relación al contexto planteado en la sección de antecedentes, así como el desarrollo de sistemas modernos de software y la modularización de funcionalidades,
 resulta fundamental exponer, antes de abordar los aspectos específicos del proyecto, el estado de la situación en distintos niveles, como pueden ser la normativa vigente, definiciones y acepciones relevantes, trabajos similares en el campo, tecnologías utilizadas, investigaciones académicas pertinentes, y buenas prácticas de la industria, entre otros.
-
 
 == Trámites y Procedimientos Administrativos en la actualidad
 
@@ -16,34 +13,23 @@ La anterior cita, si bien se realiza en base a un estudio realizado el año 2018
 === Normativa
 Al respecto del trámite administrativo es menester citar al Decreto Supremo N° 3525 que tiene como uno de sus objetos normar la *tramitación digital* @DECRETOSUPREMO35252018. En dicho Decreto, podemos resaltar lo siguiente:
 
-\
-*Trámites Administrativos:*
-
 #quote(attribution: [Decreto Supremo Nº 3525, Artículo 12])[
-  #par(
-    first-line-indent: 0em,
-    spacing: 1.4em,
-  )[
-    I. Las instituciones públicas *deberán priorizar en todos sus trámites el uso de tecnologías de información* y comunicación a efecto de digitalizar, automatizar, interoperar y simplificar la tramitación de los asuntos que son de su competencia.
+  *Trámites Administrativos:*
 
-    II. Para facilitar la realización de trámites a la ciudadanía, las entidades públicas, en observancia de su normativa específica, deberán intercambiar entre ellas datos e información mediante interoperabilidad. Los mecanismos y condiciones de publicación y acceso a los servicios de interoperabilidad serán establecidos por el Ente Rector de Gobierno Electrónico y Tecnologías de Información y Comunicación.
+  I. Las instituciones públicas *deberán priorizar en todos sus trámites el uso de tecnologías de información* y comunicación a efecto de digitalizar, automatizar, interoperar y simplificar la tramitación de los asuntos que son de su competencia.
 
-    III. El intercambio de datos e información mediante interoperabilidad no afectará la percepción de recursos de las entidades públicas titulares de la información por la prestación del servicio público.
+  II. Para facilitar la realización de trámites a la ciudadanía, las entidades públicas, en observancia de su normativa específica, deberán intercambiar entre ellas datos e información mediante interoperabilidad. Los mecanismos y condiciones de publicación y acceso a los servicios de interoperabilidad serán establecidos por el Ente Rector de Gobierno Electrónico y Tecnologías de Información y Comunicación.
 
-    IV. Las entidades públicas no podrán exigir al administrado como requisito ningún documento que hubiera sido emitido por la misma entidad, o cuya información esté disponible mediante servicios de interoperabilidad de otra entidad.
+  III. El intercambio de datos e información mediante interoperabilidad no afectará la percepción de recursos de las entidades públicas titulares de la información por la prestación del servicio público.
 
-    V. Las entidades públicas no podrán exigir al administrado como requisito ningún documento que hubiera sido requerido con anterioridad, salvo actualización o modificación y conforme a normativa legal vigente. VI. Las entidades públicas tendrán un plazo máximo de veinte (20) días hábiles a partir de la publicación de un nuevo servicio de interoperabilidad para adecuar sus procesos y procedimientos al mismo]]
+  IV. Las entidades públicas no podrán exigir al administrado como requisito ningún documento que hubiera sido emitido por la misma entidad, o cuya información esté disponible mediante servicios de interoperabilidad de otra entidad.
 
-\
-*Entidades generadoras de información:*
+  V. Las entidades públicas no podrán exigir al administrado como requisito ningún documento que hubiera sido requerido con anterioridad, salvo actualización o modificación y conforme a normativa legal vigente. VI. Las entidades públicas tendrán un plazo máximo de veinte (20) días hábiles a partir de la publicación de un nuevo servicio de interoperabilidad para adecuar sus procesos y procedimientos al mismo]
 
 #quote(attribution: [Decreto Supremo Nº 3525, Artículo 13])[
+  *Entidades generadoras de información:*
 
-  #par(
-    first-line-indent: 0em,
-    spacing: 1.4em,
-  )[
-    ...II. En el marco de procesos de actualización, certificación o emisión de copias legalizadas de documentos que aún se encuentren en formato físico, los datos e información pertinente consignados en los mismos deberán ser registrados en medios digitales que permitan ser publicados mediante servicios de interoperabilidad.]]
+  ...II. En el marco de procesos de actualización, certificación o emisión de copias legalizadas de documentos que aún se encuentren en formato físico, los datos e información pertinente consignados en los mismos deberán ser registrados en medios digitales que permitan ser publicados mediante servicios de interoperabilidad.]
 
 Asimismo, la ley 2341 tiene como uno de sus objetos "Establecer las normas que regulan la actividad administrativa y el *procedimiento
 administrativo* del sector público" @ley2341, por lo que contiene normativa relevante al proceso del trámite y a la ejecución de los mismos. Podemos resaltar su Artículo 4, de "Principios Generales de la Actividad Administrativa" que cuenta con dos principios importantes en nuestro contexto, que son el "Principio de eficacia" y el "Principio de economía, simplicidad y celeridad". También, en el mismo documento, se indican los derechos de las personas, que en su Artículo 16 lista, entre otros, los siguientes derechos:
@@ -104,17 +90,12 @@ Es menester citar inicialmente a la Constitución Política del Estado Plurinaci
 Además, reconoce como prioridad el uso de las tecnologías y comunicación para el vivir bien:
 
 #quote(attribution: "Artículo 103 de la Constitución Política del Estado Plurinacional de Bolivia")[
+  I. El Estado garantizará el desarrollo de la ciencia y la investigación científica, técnica y tecnológica en beneficio del interés general. Se destinarán los recursos necesarios y se creará el sistema estatal de ciencia y tecnología.
 
-  #par(
-    first-line-indent: 0em,
-    hanging-indent: 2em,
-    spacing: 1.4em,
-  )[I. El Estado garantizará el desarrollo de la ciencia y la investigación científica, técnica y tecnológica en beneficio del interés general. Se destinarán los recursos necesarios y se creará el sistema estatal de ciencia y tecnología.
+  II. El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y aplicación de nuevas tecnologías de información y comunicación.
 
-    II. El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y aplicación de nuevas tecnologías de información y comunicación.
-
-    III. El Estado, las universidades, las empresas productivas y de servicio públicas y privadas, y las naciones y pueblos indígena originario campesinos, desarrollarán y coordinarán procesos de investigación, innovación, promoción, divulgación, aplicación y transferencia de ciencia y tecnología para fortalecer la base productiva e impulsar el desarrollo integral de la sociedad, de acuerdo con la ley.
-  ]]
+  III. El Estado, las universidades, las empresas productivas y de servicio públicas y privadas, y las naciones y pueblos indígena originario campesinos, desarrollarán y coordinarán procesos de investigación, innovación, promoción, divulgación, aplicación y transferencia de ciencia y tecnología para fortalecer la base productiva e impulsar el desarrollo integral de la sociedad, de acuerdo con la ley.
+]
 
 #quote(attribution: [Artículo 298 de la Constitución Política del Estado Plurinacional de Bolivia])[
   ...Declara prioridad nacional la promoción del uso de las tecnologías de información y comunicación para procurar el vivir bien de todas las bolivianos y bolivianos.]
@@ -205,19 +186,13 @@ A continuación se lista la normativa relevante al software libre. Respetando el
 Es muy importante citar la Ley N° 164 @Ley164Ley2011, misma que establece lo siguiente acerca del software libre:
 
 #quote(attribution: [Artículo 77, Ley Nº 164])[
-  #par(
-    first-line-indent: 0em,
-    hanging-indent: 2em,
-    spacing: 1.4em,
-  )[
-    I. Los Órganos Ejecutivo, Legislativo, Judicial y Electoral en todos sus niveles,
-    promoverán y priorizarán la *utilización del software libre y estándares abiertos*, en
-    el marco de la soberanía y seguridad nacional.
+  I. Los Órganos Ejecutivo, Legislativo, Judicial y Electoral en todos sus niveles,
+  promoverán y priorizarán la *utilización del software libre y estándares abiertos*, en
+  el marco de la soberanía y seguridad nacional.
 
-    II. El Órgano Ejecutivo del nivel central del Estado, elaborará el *plan de
+  II. El Órgano Ejecutivo del nivel central del Estado, elaborará el *plan de
   implementación de software libre y estándares abiertos* en coordinación con los
-    demás órganos del Estado y entidades de la administración pública.]
-]
+  demás órganos del Estado y entidades de la administración pública.]
 
 Como se evidencia de la normativa señalada anteriormente el Software libre hoy en día se encuentra regulado y se establecen los lineamientos y directrices para su implementación y posterior aplicación en nuestro país.
 
@@ -226,9 +201,8 @@ Como se evidencia de la normativa señalada anteriormente el Software libre hoy 
 
 Debido a la cantidad de procesos administrativos que existen en distintas instituciones, podemos encontrar una gran cantidad de proyectos de grado realizados en la región que tratan sobre la implementación de sistemas de control de trámites:
 
-// TODO Citar los trabajos similares
 - SISTEMA DE CONTROL DE TRÁMITES UTILIZANDO MAQUINAS DE TURING CASO: DIVISIÓN DE GESTIONES ADMISIONES Y REGISTROS U.M.S.A. @nachoSISTEMACONTROLTRAMITES2007.
-- Desarrollo e Implementación del Sistema de Tramite Documentario en la Municipalidad Provincial de   Huancayo para la atencion de expedientes @bastidasparragaDesarrolloImplementacionSistema2016.
+- Desarrollo e Implementación del Sistema de Tramite Documentario en la Municipalidad Provincial de Huancayo para la atencion de expedientes @bastidasparragaDesarrolloImplementacionSistema2016.
 - DESARROLLO DE UN SISTEMA WEB PARA MEJORAR EL PROCESO DE TRÁMITE DOCUMENTARIO ADMINISTRATIVO DEL HOSPITAL SUB REGIONAL DE ANDAHUAYLAS @quispeperezDESARROLLOSISTEMAWEB2018.
 - Sistema de información de trámite documentario basado en tecnología web para institutos de educación superior tecnológicos de la región Ancash en el año 2016 @tapiajacintoSistemaInformacionTramite2017.
 - Programa de automatización de los procedimientos de trámite documentario en la calidad del servicio a los usuarios del Hospital Nacional Arzobispo Loayza - Lima, 2016 @cepedagamioProgramaAutomatizacionProcedimientos2017.
