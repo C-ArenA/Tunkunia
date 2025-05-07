@@ -38,7 +38,7 @@
   #set quote(block: true)
 
   // Figuras en general
-  #show figure: set block(inset: (top: 1em, bottom: 2em))
+  #show figure: set block(inset: (top: 1em, bottom: 1em))
   #show list: set block(inset: (top: 1em, bottom: 1em))
 
   // Figuras de Tipo Tabla
