@@ -1,14 +1,15 @@
 #import "@preview/timeliney:0.2.1"
+#import "@preview/acrostiche:0.5.1": *
 
 = Cronograma
 
-El cronograma de trabajo (@fig:gantt) estará fuertemente influenciado por las fases de la metodología _RUP (Rational Unified Process)_,
+El cronograma de trabajo (@fig:gantt) estará fuertemente influenciado por las etapas de la metodología _#acr("RUP")_,
 la cual cuenta con 4 fases y 6 actividades principales que se realizan de forma iterativa en cada una de estas fases.
 La @fig:rupphases muestra cuánto de cada actividad se debe realizar en cada etapa y permite entender el cronograma presentado.
 
 #figure(
-  image("../assets/rupphases.svg", width: 70%),
-  caption: [Fases del Proceso Unificado y los esfuerzos de cada actividad en las mismas],
+  image("../assets/rupphases.svg", width: 90%),
+  caption: [Fases del Proceso Unificado y los esfuerzos de cada actividad en las mismas], // TODO: Añadir fuente
 )<fig:rupphases>
 
 #figure(
@@ -45,10 +46,10 @@ La @fig:rupphases muestra cuánto de cada actividad se debe realizar en cada eta
       )
 
       taskgroup(
-        title: [*Caso de\ Estudio*],
+        title: [*Aplicación del Subsistema*],
         {
           task(align(center)[Fork SIAI\ mínimo], (18, 19), style: (stroke: 8pt + gray))
-          task(align(center)[Integración de\ módulo], (19, 21), style: (stroke: 8pt + gray))
+          task(align(center)[Integración de\ subsistema], (19, 21), style: (stroke: 8pt + gray))
         },
       )
 

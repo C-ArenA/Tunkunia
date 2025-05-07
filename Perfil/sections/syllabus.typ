@@ -6,7 +6,7 @@ Para el temario del documento final de proyecto se considerará una estructura q
 De acuerdo a la ingeniería de software, el software tiene un ciclo de vida o un "proceso del software", el cual se modela de acuerdo a la metodología de desarrollo sobre la cual se realice. Sin embargo, varios autores concuerdan en que existen ciertas etapas estructurales ajenas a cualquier metodología. Según _Pressman_ @pressmanSoftwareEngineeringPractitioner2010[pág. 13], estas etapas serían las indicadas en la @fig:proceso_pressman.
 
 #figure(
-  image("../assets/proceso_pressman_white.png", height: 14%),
+  image("../assets/proceso_pressman_white.png", height: 13%),
   caption: [Proceso del Software - Pressman],
 )<fig:proceso_pressman>
 
@@ -33,7 +33,7 @@ Nótese, sin embargo, que este temario es tentativo, lo cual quiere decir que pu
         - Agradecimientos
         - Resumen
         - Índice
-        - Glosario
+        - Glosario y Acrónimos
       + *Generalidades del Proyecto*
         + *Introducción:* Describirá los antecedentes del proyecto, así como la problemática que se ha identificado, para la cual se plantea una solución a través del objetivo. De igual modo se hará referencia a la justificación del proyecto y los alcances y límites que se plantearon durante su gestación.
         + *Marco Referencial:* Se proporciona el contexto general en el cual se sitúa el proyecto. Se describen temas relevantes al tópico principal y que buscan delimitarlo en varios aspectos que pueden ser históricos, geográficos, sociales, políticos, económicos, tecnológicos, etc.
@@ -43,9 +43,9 @@ Nótese, sin embargo, que este temario es tentativo, lo cual quiere decir que pu
         + Modelado y Diseño
         + Desarrollo y Construcción
         + Pruebas y Validaciones (Tests)
-        + Despliegue
-      + *Integración en el SIAI:* El paquete ya desplegado se integrará en un _fork_ del SIAI. En este apartado se hará una bitácora del proceso y se expondrán los resultados del mismo.
-      + *Resultados y Conclusiones:* El resultado general del proyecto y algunas recomendaciones para seguir trabajando en él, siendo especialmente importante considerando la naturaleza _open source_ y colaborativa del paquete a desarrollar. Se deben dar algunas ideas para seguir desarrollando las siguientes versiones del software.
+        + Publicación y Despliegue
+      + *Aplicación en el SIAI:* El subsistema ya publicado se aplicará a trámites pertenecientes al SIAI. En este apartado se hará una bitácora del proceso y se expondrán los resultados de la aplicación.
+      + *Resultados y Conclusiones:* El resultado general del proyecto y algunas recomendaciones para seguir trabajando en él, siendo especialmente importante considerando la naturaleza _open source_ y colaborativa del subsistema. Se deben dar algunas ideas y pautas para seguir desarrollando las siguientes versiones del software, así como recomendaciones para su uso y aplicación.
       - *Bibliografía y Referencias*
       - *Anexos*
     ],

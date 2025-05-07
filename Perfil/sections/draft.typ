@@ -41,7 +41,7 @@ El mismo ayuda a identificar los aspectos principales de la propuesta de proyect
 
     Al existir varios trámites y procesos administrativos alrededor de documentos y su respectivo seguimiento, se vio que el código se repetía bastante para funcionalidades similares que luego implicaban una dificultad importante al necesitar cambios.
 
-    Esta repetición puede ser mitigada modularizando la funcionalidad específica a los trámites, que se cree puede ser reutilizada para muchos de ellos. Al hablar de reutilización se suele hablar de paquetes o librerías de software de código abierto (FOSS). La modularización permite además enfocar ciertos aspectos que hacen de la pieza de código más robusta y completa.],
+    Esta repetición puede ser mitigada modularizando la funcionalidad específica a los trámites, que se cree puede ser reutilizada para muchos de ellos. Al hablar de reutilización se suele hablar de paquetes o librerías de software de código abierto (FOSS), pero también de subsistemas completos. La modularización permite además enfocar ciertos aspectos que hacen de la pieza de código más robusta y completa.],
 
     rowdesc((
       "Para qué",
@@ -50,7 +50,7 @@ El mismo ayuda a identificar los aspectos principales de la propuesta de proyect
 
     [_Implementar un módulo reutilizable de gestión y seguimiento de trámites tomando como caso de estudio a los trámites implementados por 2IES para el SIAI_
     
-    Crear un paquete de software de tipo FOSS para la utilización en sistemas gubernamentales que involucren trámites. 
+    Crear un subsistema de software de tipo FOSS para la utilización en sistemas gubernamentales que involucren trámites. 
     
     Se usará como motor de los flujos de trámite a modelos matemáticos de estados finitos como las Redes de Petri o las máquinas de estado
     
@@ -90,7 +90,7 @@ El mismo ayuda a identificar los aspectos principales de la propuesta de proyect
 
     [Se usarán una metodología híbrida ágil que tome aspectos de SCRUM y de RUP, con ciertos matices considerándose un solo desarrollador. De esta manera, tomaremos aspectos de comunicación y creación de tareas como historias de usuario desde SCRUM y la organización de etapas de desarrollo para una buena planificación con generación de documentación UML desde RUP.
     
-    El módulo se distribuirá como un paquete de software libre de Laravel, lo cual permitirá su utilización en proyectos monolíticos así como en arquitecturas de tipo SOA.
+    El módulo se distribuirá como un proyecto de software libre en Laravel, lo cual permitirá su utilización en proyectos monolíticos así como en arquitecturas de tipo SOA o microservicios.
     
     Se emplearán librerías de terceros populares en el mercado.],
 

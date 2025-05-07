@@ -18,7 +18,7 @@ procedimientos más comunes en el ámbito público, brinda a los gobiernos la
 posibilidad de aprovechar de mejor manera los datos resultantes de un trámite y
 dan a la población herramientas que hacen más fáciles sus vidas.
 
-El paquete no sólo facilitará la implementación de sistemas de software con
+El subsistema no sólo facilitará la implementación de sistemas de software con
 módulos de trámites, sino que de forma más directa simplificará la tarea de los
 desarrolladores, siendo una pieza tecnológica dentro de proyectos más amplios.
 

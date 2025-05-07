@@ -10,7 +10,7 @@ De acuerdo a los objetivos planteados es menester delinear el campo de acción d
     - El producto además será publicado en medios para su fácil distribución y reutilización.
     - Se usará una licencia de software libre que permita el uso de esta idea sin restricciones, pero mencionando al autor.
     - El proyecto contará con la implementación de una documentación en línea para facilitar el uso de Tunkunia. Dicha documentación contará con las especificaciones de interoperabilidad.
-    - Se demostrará el uso del paquete en una implementación de un clon con características reducidas del sistema SIAI.
+    - Se demostrará el uso del subsistema en una implementación de un clon con características reducidas del sistema SIAI.
     - Se usarán buenas prácticas de programación para lograr código legible y sobre el cual sea sencillo colaborar.
     - Los lineamientos, fruto de la creación conceptual de este software serán creados con la ayuda de herramientas para desarrolladores como un CLI.
     - Se recibirá al menos un _pull request_ en el repositorio para demostrar las bondades del software libre y se atenderá al menos un _issue_ reportado.
