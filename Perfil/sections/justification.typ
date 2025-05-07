@@ -31,8 +31,7 @@ disminuir costos en la producción de sistemas gracias a su naturaleza de
 comunidad y lo demandado de su funcionalidad.
 
 De no existir el software reutilizable se deben invertir recursos para cada
-proyecto que requiera la misma funcionalidad. Recursos que, de usar un paquete
-de software, podrían conservarse, siendo que una parte del desarrollo ya estaría
+proyecto que requiera la misma funcionalidad. Recursos que, de usar un subsistema reutilizable, podrían conservarse, siendo que una parte del desarrollo ya estaría
 implementada. Existen excepciones a este caso en proyectos con necesidades muy
 específicas, pero en la mayoría de proyectos, un módulo, bien
 implementado es esencial para disminuir costos de producción en el largo plazo.
