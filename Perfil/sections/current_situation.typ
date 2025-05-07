@@ -227,17 +227,15 @@ Como se evidencia de la normativa señalada anteriormente el Software libre hoy 
 Debido a la cantidad de procesos administrativos que existen en distintas instituciones, podemos encontrar una gran cantidad de proyectos de grado realizados en la región que tratan sobre la implementación de sistemas de control de trámites:
 
 // TODO Citar los trabajos similares
-- SISTEMA DE CONTROL DE TRÁMITES UTILIZANDO MAQUINAS DE TURING CASO: DIVISIÓN DE GESTIONES ADMISIONES Y REGISTROS U.M.S.A.
-- Desarrollo e Implementación del Sistema de Tramite
-  Documentario en la Municipalidad Provincial de
-  Huancayo para la atencion de expedientes.
-- DESARROLLO DE UN SISTEMA WEB PARA MEJORAR EL PROCESO DE TRÁMITE DOCUMENTARIO ADMINISTRATIVO DEL HOSPITAL SUB REGIONAL DE ANDAHUAYLAS
-- Sistema de información de trámite documentario basado en tecnología web para institutos de educación superior tecnológicos de la región Ancash en el año 2016
-- Programa de automatización de los procedimientos de trámite documentario en la calidad del servicio a los usuarios del Hospital Nacional Arzobispo Loayza - Lima, 2016
-- Implementación de un sistema de trámite documentario para la Agencia de Compras de las Fuerzas Armadas
-- Implementación De Un Módulo De Control Y Seguimiento Para Mejorar La Gestión Del Trámite Documentario En La Municipalidad Distrital De Cayaltí, 2018
-- Desarrollo de una aplicación _web responsive_ para mejorar el proceso de trámite documentario en un colegio profesional
-- Desarrollar un sistema web de trámite documental para mantener las acreditadoras de la escuela de ingeniería informática de la URP
+- SISTEMA DE CONTROL DE TRÁMITES UTILIZANDO MAQUINAS DE TURING CASO: DIVISIÓN DE GESTIONES ADMISIONES Y REGISTROS U.M.S.A. @nachoSISTEMACONTROLTRAMITES2007.
+- Desarrollo e Implementación del Sistema de Tramite Documentario en la Municipalidad Provincial de   Huancayo para la atencion de expedientes @bastidasparragaDesarrolloImplementacionSistema2016.
+- DESARROLLO DE UN SISTEMA WEB PARA MEJORAR EL PROCESO DE TRÁMITE DOCUMENTARIO ADMINISTRATIVO DEL HOSPITAL SUB REGIONAL DE ANDAHUAYLAS @quispeperezDESARROLLOSISTEMAWEB2018.
+- Sistema de información de trámite documentario basado en tecnología web para institutos de educación superior tecnológicos de la región Ancash en el año 2016 @tapiajacintoSistemaInformacionTramite2017.
+- Programa de automatización de los procedimientos de trámite documentario en la calidad del servicio a los usuarios del Hospital Nacional Arzobispo Loayza - Lima, 2016 @cepedagamioProgramaAutomatizacionProcedimientos2017.
+- Implementación de un sistema de trámite documentario para la Agencia de Compras de las Fuerzas Armadas @yrupailladiazImplementacionSistemaTramite2019.
+- Implementación De Un Módulo De Control Y Seguimiento Para Mejorar La Gestión Del Trámite Documentario En La Municipalidad Distrital De Cayaltí, 2018 @murosalazarImplementacionModuloControl2018.
+- Desarrollo de una aplicación _web responsive_ para mejorar el proceso de trámite documentario en un colegio profesional @cajusolvallejosDesarrolloAplicacionWeb2020
+- Desarrollar un sistema web de trámite documental para mantener las acreditadoras de la escuela de ingeniería informática de la URP @zegarrajibajaDesarrollarSistemaWeb2019.
 
 De estos trabajos podemos destacar dos por su relevancia con el proyecto que se propone en este documento:
 
