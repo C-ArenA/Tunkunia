@@ -17,7 +17,6 @@
 #include "sections/syllabus.typ"
 // TODO: Añadir Metodología
 #include "sections/schedule.typ"
-// TODO Considerar el volver a subir la bibliografía al repositorio remoto ahora que en Zotero tengo pineados los citation keys
 // BIBLIOGRAFÍA
 #bibliography("main.bib", title: "Bibliografía y Referencias")
 
