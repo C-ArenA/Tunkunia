@@ -197,6 +197,7 @@ Es muy importante citar la Ley N° 164 @Ley164Ley2011, misma que establece lo si
 Como se evidencia de la normativa señalada anteriormente el Software libre hoy en día se encuentra regulado y se establecen los lineamientos y directrices para su implementación y posterior aplicación en nuestro país.
 
 == Proyectos y trabajos similares
+// TODO: Añadir POTyS, que aparentemente no cae en académico ni comercial, así que debemos reformular la sección
 === A nivel académico
 
 Debido a la cantidad de procesos administrativos que existen en distintas instituciones, podemos encontrar una gran cantidad de proyectos de grado realizados en la región que tratan sobre la implementación de sistemas de control de trámites:
