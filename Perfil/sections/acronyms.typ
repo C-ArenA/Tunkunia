@@ -20,7 +20,7 @@
   "ERP": "Enterprise Resource Planning",
   "LGPLv3": "GNU Lesser General Public License v3",
   "AGETIC": "Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación",
-  "TIC": "Tecnologías de la Información y Comunicación",
+  "TICs": "Tecnologías de la Información y Comunicación",
   "EGDI": "E-government Development Index",
   "RAI": "Registro Ambiental Industrial",
   "EEIA": "Estudio de Evaluación de Impacto Ambiental",
