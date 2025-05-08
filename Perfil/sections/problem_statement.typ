@@ -6,6 +6,10 @@ La ubicuidad del trámite en distintos espacios del estado y la cantidad de los 
 
 Si bien existen varios productos de gestión de flujos de trabajo (WFMS), como se vio en el apartado de situación actual, debe tomarse en cuenta que estos no son reutilizables en sistemas independientes, suelen ser de código cerrado y propietario, están estrechamente relacionados con otros productos comerciales (Como ERPs) y no son específicos a los trámites.
 
+// TODO: Bolivia tiene normativa y lineamientos específicos para la gestión de trámites, que deben ser considerados
+
+// TODO: Una ventanilla única no se integra de manera consistente con las distintas necesidades de las oficinas de gobierno.
+
 Además, dada la conexión de los trámites con el modelo del negocio de las distintas instituciones, se requiere la capacidad de integrar estas funcionalidades en algún tipo de módulo o servicio que sea aprovechable y que además permita la interoperabilidad.
 
 La falta de un elemento reutilizable para el manejo de estos procesos administrativos, dificulta la adopción del trámite digital, manteniendo los problemas del trámite tradicional como los que se listan a continuación:
@@ -16,8 +20,12 @@ La falta de un elemento reutilizable para el manejo de estos procesos administra
 - Costos para el ciudadano en la realización del trámite
 - Susceptibilidad a errores humanos
 - Baja eficiencia en el uso de los recursos
+- Uso de papel y otros recursos físicos
+- Falta de trazabilidad y seguimiento del trámite
+- Falta de transparencia en la gestión del trámite
+- Falta de información sobre los requisitos del trámite
 
-También conlleva a muchas desventajas directas:
+También conlleva a muchas desventajas directas: //TODO: Añadir las ventajas del software reutilizable de Sommerville 
 
 - Violación del principio DRY (Don't Repeat Yourself) o, como se conoce en términos coloquiales, reinvención de la rueda.
 - Baja atención al detalle sobre el módulo de trámite, ofuscado en medio de sistemas más grandes, a pesar de su importancia.
