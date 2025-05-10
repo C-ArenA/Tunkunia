@@ -61,7 +61,7 @@ Un ejemplo de esto es el caso de *Domitila Murillo*, una ciudadana boliviana que
 
 Estos problemas dentro de la administración pública, despiertan el interés acerca del impacto que podría tener la utilización de las tecnologías de la información en este ámbito, llevando a la creación del concepto de *Gobierno Electrónico* o *e-government*. 
 
-== e-government: Hacia la modernización administrativa
+== La Modernización Administrativa
 
 #let governmentFootNote = [
   No existe consenso en la definición y uso del término "Gobierno Electrónico" por ser relativamente incipiente y más de una vez se emplean los términos
@@ -81,16 +81,16 @@ la eliminación de barreras temporales y espaciales,
 acceso igualitario a la información, colaboración, aumento en la producción de bienes y servicios,
 en suma, brinda mayor calidad de vida a la ciudadanía @naserGobiernoElectronicoGestion2011. Los esfuerzos por digitalizar los trámites se enmarcarían dentro de este concepto.
 
-Sin embargo, la implementación de un gobierno electrónico no es una tarea sencilla, ya que requiere la realización de esfuerzos en conjunto dentro de los gobiernos. En Bolivia, a partir del año 2009 se han promulgado decretos, leyes y reglamentos que buscan promover el uso de las tecnologías de la información y comunicación en la administración pública, pero aún queda un largo camino por recorrer para lograr una implementación efectiva y eficiente.
+Sin embargo, la implementación de un gobierno electrónico no es una tarea sencilla, ya que requiere la realización de esfuerzos en conjunto dentro de los gobiernos. En Bolivia, a partir del año 2009, se han promulgado decretos, leyes y reglamentos que buscan promover el uso de las tecnologías de la información y comunicación en la administración pública, pero aún queda un largo camino por recorrer para lograr una implementación efectiva y eficiente.
 
 ==  Bolivia: Gobierno Electrónico
 
-En Bolivia, la nueva constitución política del estado, promulgada el año 2009, establece en su artículo 103 que 
+En Bolivia, la nueva Constitución Política del Estado, promulgada el 7 de febrero del año 2009, establece en su Artículo 103 que: 
 "El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y *aplicación de nuevas tecnologías de información y comunicación*" @BoliviaConstitucionPolitica. 
-Esto dio lugar, el año 2011, a la creación de la Ley General de Telecomunicaciones, Tecnologías de Información y Comunicación (Ley Nº 164) que tiene entre sus objetivos el de "Promover el uso de las tecnologías de información y comunicación para
+Esto dio lugar, el año 2011, a la creación de la Ley General de Telecomunicaciones, Tecnologías de Información y Comunicación (Ley Nº 164) que tiene entre sus principales objetivos: "Promover el uso de las tecnologías de información y comunicación para
 *mejorar las condiciones de vida de las bolivianas y bolivianos*" @Ley164Ley2011.
 
-Esta ley establece, en su Artículo 71, que la promoción del uso de las tecnologías de información y comunicación es *prioridad nacional*, 
+La citada norma legal establece, en su Artículo 71, que la promoción del uso de las tecnologías de información y comunicación es *prioridad nacional*, 
 mientras que el Artículo 72 del mismo documento indica que las entidades públicas deberán adoptar *todas las medidas necesarias* para su máximo aprovechamiento en el desarrollo de *sus funciones* y el Artículo 77 señala que se promoverá y priorizará el uso de *software libre* y estándares abiertos en todos los niveles del gobierno en el marco de la *soberanía y seguridad nacional*.
 
 A su vez, la Ley 164, dio lugar a una serie de políticas públicas, reglamentos y planes que profundizan en la incorporación del Gobierno Electrónico y el desarrollo de software para el estado, además de requerir a las instancias públicas su adopción, como se puede ver en la @fig:bolivia_norms, en la que se muestran los principales documentos normativos relacionados con el gobierno electrónico en Bolivia. 
@@ -102,7 +102,7 @@ A su vez, la Ley 164, dio lugar a una serie de políticas públicas, reglamentos
 
 Dentro de estos documentos, el Plan de Implementación de Gobierno Electrónico, aprobado mediante Decreto Supremo Nº 3251 @DecretoSupremoNo2017, señala en su línea estratégica número 3, que se debe asegurar el intercambio de información entre entidades públicas y con la ciudadanía mediante la interoperabilidad.
 
-Adicionalmente, dada la situación de emergencia sanitaria provocada por la pandemia de COVID-19, el gobierno boliviano ha acelerado la implementación de #acr("TICs") en la administración pública, promoviendo el uso de plataformas digitales para la atención al ciudadano y la gestión de trámites y aprobando mediante Resolución Ministerial Nº 079/20 el documento de "Lineamientos y estándares técnicos para el desarrollo e implementación de Servicios Digitales", mismo que no sólo insiste en la digitalización de servicios como el trámite, sino que guía a entidades públicas y privadas que desarrollan software con este propósito, indicando la disponibilidad de diferentes herramientas creadas por la AGETIC, como la de Ciudadanía Digital.
+Adicionalmente, dada la situación de emergencia sanitaria provocada por la pandemia de COVID-19, el gobierno boliviano ha acelerado la implementación de #acr("TICs") en la administración pública, promoviendo el uso de plataformas digitales para la atención al ciudadano y la gestión de trámites. Por esto mismo, se aprobó, mediante Resolución Ministerial Nº 079/20, el documento de "Lineamientos y estándares técnicos para el desarrollo e implementación de Servicios Digitales", mismo que no sólo insiste en la digitalización de servicios como el trámite, sino que proporciona una guía a las entidades públicas y privadas que desarrollan software bajo este propósito, indicando la disponibilidad de diferentes herramientas creadas por la AGETIC, como la de Ciudadanía Digital.
 
 No se debe ignorar que en lineas generales, la Constitución Política del Estado Plurinacional de Bolivia, en su Artículo 21, también establece el derecho de la ciudadanía a acceder a la información pública y a la administración pública, así como el derecho a la participación en la gestión pública.
 
@@ -112,11 +112,11 @@ Como puede notarse, aunque se lista solamente lo considerado más relevante, exi
 
 Un caso que ilustra la implementación de un sistema con características de gestión de trámites es el Sistema de Información Ambiental Industrial (SIAI), desarrollado por el Ministerio de Desarrollo Productivo y Economía Plural (MDPyEP) en Bolivia.
 
-El D.S. 26736, que aprueba el Reglamento Ambiental del Sector Industrial Manufacturero (RASIM), en su Artículo 9 (Organismo Sectorial Competente), indica las competencias, atribuciones y funciones del Viceministro de Industria y Comercio Interno que actualmente es el Viceministro del Políticas de Industrialización, y en su inciso f) señala: "Establecer y administrar el Sistema de Información Ambiental Industrial (SIAI) y el Sistema de Evaluación y Revelación de Información (SERI)".
+El D.S. 26736, que aprueba el Reglamento Ambiental del Sector Industrial Manufacturero (RASIM), en su Artículo 9 (Organismo Sectorial Competente), indica las competencias, atribuciones y funciones del Viceministro de Industria y Comercio Interno que actualmente es el Viceministro del Políticas de Industrialización, y en su inciso f) señala: "Establecer y administrar el Sistema de Información Ambiental Industrial (SIAI) y el Sistema de Evaluación y Revelación de Información (SERI)" @DecretoSupremo263762002.
 
 A través de un análisis realizado en la gestión 2020 se determinó que el SIAI requiere una adecuación para, primeramente, reducir los tiempos de envió de la información desde las instancias departamentales y municipales, facilitando el llenado a través de internet, además de generar usuarios y autorizaciones para este llenado.
 
-Por lo anterior, se requirió el año 2023, mediante licitación, la implementación de este sistema, bajo el objetivo:
+Por lo anterior, se requirió el año 2023, mediante licitación, la implementación de este sistema, con el siguiente objetivo:
 
 #quote(
   attribution: [Términos de Referencia del proyecto de implementación del SIAI @ConsultoriaPorProducto],
@@ -126,16 +126,40 @@ Por lo anterior, se requirió el año 2023, mediante licitación, la implementac
 
 La consultora 2IES #sym.dash.em Ingeniería Estructural e Ingeniería de Telecomunicaciones #sym.dash.em, es una empresa fundada en Bolivia el año 1997 y cuenta con experiencia en sectores de infraestructura y en áreas relacionadas con la planificación estratégica, la regulación, el mejoramiento de negocios, y el desarrollo de sistemas, así como la aplicación e integración en Tecnologías de la Información y Comunicación, tanto en empresas como entidades del sector público.
 
-En años recientes, con la adopción de tecnologías de la información cada vez más relevante, el desarrollo de sistemas de software se volvió un pilar fundamental para 2IES.
+En años recientes, con la adopción de las tecnologías de la información cada vez más relevante en el mercado local boliviano, el desarrollo de sistemas de software se volvió un pilar fundamental para 2IES, lo que llevó a su presentación en la licitación del proyecto de implementación del SIAI.
 
 === Experiencias en el desarrollo del SIAI
 
-Esta consultora ejecutó el proyecto licitado por el #acr("MDPyEP") y, atendiendo a las especificaciones técnicas del Documento Base de Contratación, se identificaron distintos módulos para la implementación del nuevo SIAI.
+La ejecución del proyecto, licitado por el #acr("MDPyEP"), estuvo entonces a cargo de la consultora 2IES que, atendiendo a las especificaciones técnicas del Documento Base de Contratación, así como a las distintas interacciones efectuadas con el cliente, procedió a la implementación del nuevo #acr("SIAI").
 
-El sistema se implementó utilizando PHP con el framework de desarrollo Laravel para el backend y la implementación de la lógica del negocio, exponiendo un servicio REST API consumido por un SPA realizado con el framework de frontend Vue.
+Para responder a futuras integraciones y a la interoperabilidad, se optó por una separación entre el frontend y el backend, comunicados mediante un servicio #acr("REST") #acr("API") abierto y bien documentado. Esto representa una implementación común y moderna de aplicaciones web con la arquitectura cliente-servidor, con un backend monolítico y un frontend construido como un #acr("SPA"), aunque permitiendo otro tipo de implementaciones para el cliente.
 
-Además de atender a los requerimientos iniciales, 2IES propuso funcionalidades que modernicen el trabajo con el SIAI.
+Se adoptó el estilo de arquitectura por capas (Layered architecture style), con tres unidades físicas desplegables, como se puede ver en la @fig:siai_architecture_style, que correspondería a una arquitectura monolítica muy común en aplicaciones web. La capa de negocio, sin embargo, interopera con otros sistemas mediante servicios #acr("REST") #acr("API"), siendo un híbrido entre una arquitectura monolítica y una arquitectura de microservicios.
+
+#figure(
+  image("../assets/siai_architecture_style.png", width: 40%),
+  caption: [Arquitectura por capas (layered architecture) del sistema SIAI\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  placement: auto,
+)<fig:siai_architecture_style>
+
+El backend fue desarrollado utilizando el lenguaje de programación PHP, con uno de los frameworks de desarrollo más populares y completos en su ecosistema, Laravel. El frontend fue desarrollado utilizando el framework Vue.js, que permite crear aplicaciones web interactivas y dinámicas. Se utilizó el sistema de gestión de bases de datos PostgreSQL, relacional, completo y eficiente.
+
+Además de atender a los requerimientos iniciales del DBC, 2IES propuso funcionalidades que modernicen el trabajo con el SIAI. A partir del requerimiento de hacer seguimiento a las solicitudes de los distintos documentos ambientales y la generación de los mismos, se entendió a estos procesos como trámites, los cuales debían ser digitalizados.
 
 Dado que una gran parte de la funcionalidad de este sistema, consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora 2IES hizo una implementación recurriendo al manejo de estados y de roles, creando formularios e integrando los datos al modelo del negocio general.
 
-Una vez concluido el proyecto, se identificaron posibles mejoras al software desarrollado que tienen que ver con la identificación de funcionalidades comunes a cada trámite y las necesidades a las que estos conllevan como la realización de seguimiento, la auditoría y la gestión en general. Se notó que los distintos trámites tienen características comunes y que el sistema SIAI podría ser modularizado para facilitar la implementación de ciertos componentes en otros sistemas gubernamentales.
+Sin embargo, se debe notar que una particularidad del SIAI es que trabaja con distintos documentos llamados #acr("IRAP", plural: true), que son los siguientes:
+
+- RAI: Registro Ambiental Industrial
+- EEIA: Estudio de Evaluación de Impacto Ambiental
+- DP: Descripción del Proyecto
+- PMA: Plan de Manejo Ambiental
+- MAI: Manifiesto Ambiental Industrial
+- ARI-PC: Análisis de Riesgos Industriales y Plan de Contingencias
+- IAA: Informe Ambiental Anual
+
+Cada uno de estos instrumentos involucra algún tipo de trámite específico, pudiendo existir dependencias entre los mismos y existiendo condiciones diversas. Por ejemplo, el RAI es un requisito para la obtención del EEIA y el PMA, dependiendo de ciertas condiciones como la categoría con la que se califica a la industria que realiza las solicitudes.
+
+Al implementar los diferentes componentes referentes a dichos trámites, se identificaron claras similitudes entre ellos, como la necesidad de permitir un  seguimiento transparente, la aprobación de documentos por etapas, la auditoría y la gestión general de cada trámite.
+
+Si bien el proyecto del SIAI llegó a su conclusión, estas similitudes identificadas a la hora de implementar los distintos trámites, además de la potencial similitud con trámites de distintas instancias del sector público, motivaron a la realización del presente proyecto.

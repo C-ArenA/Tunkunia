@@ -22,6 +22,7 @@
   "AGETIC": "Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación",
   "TICs": "Tecnologías de la Información y Comunicación",
   "EGDI": "E-government Development Index",
+  "IRAP": ("Instrumento de Regulación Ambiental Particular", "Instrumentos de Regulación Ambiental Particular"),
   "RAI": "Registro Ambiental Industrial",
   "EEIA": "Estudio de Evaluación de Impacto Ambiental",
   "DP": "Descripción del Proyecto",
