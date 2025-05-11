@@ -3,7 +3,7 @@
 
 = Antecedentes
 
-A continuación se hace un repaso histórico en torno al trámite, su relevancia, sus problemas originales, la necesidad de adopción de tecnologías de la información por el gobierno boliviano, la atención a dicha necesidad en el sistema #acr("SIAI") y cómo esto deriva en la identificación de similitudes entre trámites distintos (@fig:background).
+A continuación se hace un repaso histórico en torno al trámite, su relevancia, sus problemas originales, la necesidad de adopción de tecnologías de la información por el gobierno boliviano, la atención a dicha necesidad en el sistema #acr("SIAI") mediante la consultora 2IES y cómo esto deriva posteriormente en la identificación de características comunes a diversos trámites (@fig:background).
 
 #figure(
   image("../assets/background.png", width: 80%),
@@ -96,7 +96,7 @@ mientras que el Artículo 72 del mismo documento indica que las entidades públi
 A su vez, la Ley 164, dio lugar a una serie de políticas públicas, reglamentos y planes que profundizan en la incorporación del Gobierno Electrónico y el desarrollo de software para el estado, además de requerir a las instancias públicas su adopción, como se puede ver en la @fig:bolivia_norms, en la que se muestran los principales documentos normativos relacionados con el gobierno electrónico en Bolivia. 
 
 #figure(
-  image("../assets/bolivia_norms.png", width: 80%),
+  image("../assets/bolivia_norms.png", width: 70%),
   caption: [Documentos normativos relacionados con el gobierno electrónico en Bolivia y las relaciones más relevantes entre las mismas\ Fuente: Elaboración propia],
 )<fig:bolivia_norms>
 
@@ -120,7 +120,7 @@ Por lo anterior, se requirió el año 2023, mediante licitación, la implementac
 
 #quote(
   attribution: [Términos de Referencia del proyecto de implementación del SIAI @ConsultoriaPorProducto],
-)[Diseñar e implementar un sistema informático denominado “Sistema de Información Ambiental Industrial (SIAI)”, que permita un Registro en Línea de la Información Ambiental Industrial y que ayude en el monitoreo y seguimiento Nacional a través del MDPyEP y los gobiernos Subnacionales competentes en el marco de lo establecido en el Reglamento Industrial para el Sector Industrial Manufacturero, actualizando los datos ambientales de la industria a nivel nacional y acreditar la idoneidad de los mismos, asegurando el cumplimiento de la normativa ambiental vigente]
+)[Diseñar e implementar un sistema informático denominado “Sistema de Información Ambiental Industrial (SIAI)”, que permita un Registro en Línea de la Información Ambiental Industrial y que ayude en el monitoreo y seguimiento Nacional a través del MDPyEP y los gobiernos subnacionales competentes en el marco de lo establecido en el Reglamento Industrial para el Sector Industrial Manufacturero, actualizando los datos ambientales de la industria a nivel nacional y acreditar la idoneidad de los mismos, asegurando el cumplimiento de la normativa ambiental vigente]
 
 == Consultoría de 2IES
 
@@ -130,11 +130,18 @@ En años recientes, con la adopción de las tecnologías de la información cada
 
 === Experiencias en el desarrollo del SIAI
 
-La ejecución del proyecto, licitado por el #acr("MDPyEP"), estuvo entonces a cargo de la consultora 2IES que, atendiendo a las especificaciones técnicas del Documento Base de Contratación, así como a las distintas interacciones efectuadas con el cliente, procedió a la implementación del nuevo #acr("SIAI").
+La ejecución del proyecto, licitado por el #acr("MDPyEP"), estuvo entonces a cargo de la consultora 2IES, 
+que procedió a la implementación del nuevo #acr("SIAI") atendiendo a las especificaciones técnicas del Documento Base de Contratación,
+así como a las distintas interacciones efectuadas con el cliente.
 
-Para responder a futuras integraciones y a la interoperabilidad, se optó por una separación entre el frontend y el backend, comunicados mediante un servicio #acr("REST") #acr("API") abierto y bien documentado. Esto representa una implementación común y moderna de aplicaciones web con la arquitectura cliente-servidor, con un backend monolítico y un frontend construido como un #acr("SPA"), aunque permitiendo otro tipo de implementaciones para el cliente.
+El sistema fue construido como una aplicación web con la arquitectura cliente-servidor, con un backend monolítico y un frontend construido como una #acr("SPA"). En base a esto y para poder responder a necesidades de integración e interoperabilidad futuras, se optó además por una comunicación entre el frontend y el backend mediante una #acr("API") de tipo #acr("REST"), abierta y bien documentada.
 
-Se adoptó el estilo de arquitectura por capas (Layered architecture style), con tres unidades físicas desplegables, como se puede ver en la @fig:siai_architecture_style, que correspondería a una arquitectura monolítica muy común en aplicaciones web. La capa de negocio, sin embargo, interopera con otros sistemas mediante servicios #acr("REST") #acr("API"), siendo un híbrido entre una arquitectura monolítica y una arquitectura de microservicios.
+De forma más específica, se adoptó el estilo de arquitectura por capas (Layered Architecture Style), 
+con tres unidades físicas desplegables, como se puede ver en la @fig:siai_architecture_style, 
+que correspondería a una arquitectura monolítica muy común en aplicaciones web.
+La capa de negocio, sin embargo, interopera a su vez con otros sistemas mediante servicios #acr("REST") #acr("API")
+#footnote[El SIAI consume datos de un servicio provisional del SEPREC para obtener información sobre las industrias registradas en el país], 
+dándole características híbridas al sistema entre una arquitectura principalmente monolítica y una arquitectura de microservicios.
 
 #figure(
   image("../assets/siai_architecture_style.png", width: 40%),
@@ -142,13 +149,11 @@ Se adoptó el estilo de arquitectura por capas (Layered architecture style), con
   placement: auto,
 )<fig:siai_architecture_style>
 
-El backend fue desarrollado utilizando el lenguaje de programación PHP, con uno de los frameworks de desarrollo más populares y completos en su ecosistema, Laravel. El frontend fue desarrollado utilizando el framework Vue.js, que permite crear aplicaciones web interactivas y dinámicas. Se utilizó el sistema de gestión de bases de datos PostgreSQL, relacional, completo y eficiente.
+El backend fue desarrollado utilizando el lenguaje de programación PHP, con uno de los frameworks de desarrollo más populares y completos de su ecosistema, Laravel. El frontend, por su lado, fue desarrollado utilizando el framework Vue.js, que permite crear aplicaciones web interactivas y dinámicas. Además, se utilizó el sistema de gestión de bases de datos PostgreSQL, de tipo relacional.
 
-Además de atender a los requerimientos iniciales del DBC, 2IES propuso funcionalidades que modernicen el trabajo con el SIAI. A partir del requerimiento de hacer seguimiento a las solicitudes de los distintos documentos ambientales y la generación de los mismos, se entendió a estos procesos como trámites, los cuales debían ser digitalizados.
+Inicialmente, se debe mencionar que el sistema #acr("SIAI") atiende una amplia variedad de requerimientos, de los cuales son relevantes en este documento aquellos de tipo administrativo, que involucran un grupo de documentos ambientales a ser obtenidos y actualizados por las industrias manufactureras del país, dependiendo de ciertas características y condiciones dadas a conocer en un primer trámite de registro (RAI).
 
-Dado que una gran parte de la funcionalidad de este sistema, consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora 2IES hizo una implementación recurriendo al manejo de estados y de roles, creando formularios e integrando los datos al modelo del negocio general.
-
-Sin embargo, se debe notar que una particularidad del SIAI es que trabaja con distintos documentos llamados #acr("IRAP", plural: true), que son los siguientes:
+Es decir, el SIAI tiene como protagonistas a las industrias manufactureras que deben cumplir con la normativa ambiental vigente de acuerdo al #acr("RASIM"). Esta normativa demanda la obtención de una serie de documentos llamados #acr("IRAP", plural: true), que se listan a continuación:
 
 - RAI: Registro Ambiental Industrial
 - EEIA: Estudio de Evaluación de Impacto Ambiental
@@ -158,8 +163,10 @@ Sin embargo, se debe notar que una particularidad del SIAI es que trabaja con di
 - ARI-PC: Análisis de Riesgos Industriales y Plan de Contingencias
 - IAA: Informe Ambiental Anual
 
-Cada uno de estos instrumentos involucra algún tipo de trámite específico, pudiendo existir dependencias entre los mismos y existiendo condiciones diversas. Por ejemplo, el RAI es un requisito para la obtención del EEIA y el PMA, dependiendo de ciertas condiciones como la categoría con la que se califica a la industria que realiza las solicitudes.
+Además de atender a los requerimientos iniciales del DBC, 2IES propuso funcionalidades que modernicen el trabajo con el SIAI. A partir del requerimiento de hacer seguimiento a las solicitudes de distintos documentos ambientales y la generación de los mismos, se entendió a estos procesos como trámites, los cuales debían ser digitalizados.
+
+Dado que una gran parte de la funcionalidad de este sistema, consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora 2IES hizo una implementación recurriendo al manejo de estados y de roles, creando formularios e integrando los datos al modelo del negocio general.
 
 Al implementar los diferentes componentes referentes a dichos trámites, se identificaron claras similitudes entre ellos, como la necesidad de permitir un  seguimiento transparente, la aprobación de documentos por etapas, la auditoría y la gestión general de cada trámite.
 
-Si bien el proyecto del SIAI llegó a su conclusión, estas similitudes identificadas a la hora de implementar los distintos trámites, además de la potencial similitud con trámites de distintas instancias del sector público, motivaron a la realización del presente proyecto.
+Si bien el proyecto del SIAI llegó a su conclusión, estas similitudes identificadas a la hora de implementar los distintos trámites, además de la potencial similitud con trámites de otras distintas instancias del sector público, motivaron a la realización del presente proyecto.
