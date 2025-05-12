@@ -45,4 +45,5 @@
   "UMSA": "Universidad Mayor de San Andrés",
   "CLI": "Command Line Interface",
   "RUP": "Rational Unified Process",
+  "UIT": "Unión Internacional de Telecomunicaciones",
 )
