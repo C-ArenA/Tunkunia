@@ -38,7 +38,7 @@
   #set quote(block: true)
 
   // Figuras en general
-  #show figure: set block(inset: (top: 1em, bottom: 1em))
+  #show figure.where(kind: image): set block(inset: (top: 1em, bottom: 1em))
   #show list: set block(inset: (top: 1em, bottom: 1em))
 
   // Figuras de Tipo Tabla
@@ -47,7 +47,7 @@
     set figure.caption(separator: linebreak())
     v(1.5em)
     text(size: 11pt)[
-      #upper(it.caption.supplement) #it.caption.numbering\
+      #upper(it.caption.supplement) #it.caption.counter.display()\
       #smallcaps(it.caption.body)
       #it.body
     ]
