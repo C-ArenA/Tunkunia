@@ -26,9 +26,9 @@ Es decir que el país se encontraría por encima del promedio mundial de adopci�
   placement: auto,
 )<fig:internet_use_bolivia>
 
-Se debe tomar en cuenta que la adopción de Internet se debe a los beneficios que trae consigo mediante la Web y las "webapps" (aplicaciones web), que son aplicaciones que se ejecutan en un navegador web y no requieren instalación en el dispositivo del usuario. Inicialmente, dichas aplicaciones eran puramente informativas, pero con la llegada de la Web 2.0, estas webapps evolucionaron a plataformas digitales completas, integrándose con aplicaciones de negocios @pressmanSoftwareEngineeringPractitioner2010. Muchas aplicaciones móviles también utilizan la red de redes para brindar sus servicios de manera similar.
+Se debe tomar en cuenta que uno de los factores posiblemente acelerando la adopción de Internet es la cantidad de beneficios que trae consigo mediante la Web y las "webapps" (aplicaciones web), que son aplicaciones que se ejecutan en un navegador web y no requieren instalación en el dispositivo del usuario. Inicialmente, dichas aplicaciones eran puramente informativas, pero con la llegada de la Web 2.0, estas webapps evolucionaron a plataformas digitales completas, integrándose con aplicaciones de negocios @pressmanSoftwareEngineeringPractitioner2010. Muchas aplicaciones móviles también utilizan la red de redes para brindar sus servicios de manera similar.
 
-De este modo, el uso de las plataformas digitales también ha incrementado bastante. Particularmente, podemos ver ejemplos como el de la @fig:ecommerce_adoption, en la que se ve la tendencia en la adopción de plataformas de comercio electrónico y cómo esta parece haber sido acelerada por la pandemia del COVID-19 en distintos países de América Latina y el Caribe.
+De este modo, el uso de las plataformas digitales también ha incrementado bastante. Podemos ver ejemplos como el de la @fig:ecommerce_adoption, en la que se ve la tendencia en la adopción de plataformas de comercio electrónico y cómo esta parece haber sido acelerada por la pandemia del COVID-19 en distintos países de América Latina y el Caribe.
 
 #figure(
   image("../assets/ecommerce_adoption.png", width: 80%),

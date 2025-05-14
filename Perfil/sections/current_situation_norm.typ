@@ -2,7 +2,7 @@
 
 == Normativa relevante vigente en Bolivia
 
-Como se pudo ver en la sección de antecedentes, y de forma resumida en la @fig:bolivia_norms, Bolivia cuenta con una normativa bastante amplia en relación al uso de las #acr("TICs"), el gobierno electrónico, la digitalización de trámites y el desarrollo de software gubernamental. A continuación se presentan algunos elementos relevantes adicionales y, aunque no se pretende abarcar toda la normativa existente, dada su extensión, sí se desea poder atender a los aspectos más importantes como punto de partida.
+Como se pudo ver en la sección de antecedentes, y de forma resumida en la @fig:bolivia_norms, Bolivia cuenta con una normativa bastante amplia en relación al uso de las #acr("TICs"), el gobierno electrónico, la digitalización de trámites y el desarrollo de software gubernamental. A continuación se presentan algunos elementos relevantes adicionales y, aunque no se pretende abarcar toda la normativa existente, dada su extensión, sí se desea poder atender a los aspectos más importantes como punto de partida para entender la situación normativa del país.
 
 === Acerca del Trámite
 
@@ -31,52 +31,42 @@ Muchas veces, los trámites que se digitalizan cuentan con documentos físicos i
 #quote(attribution: [Decreto Supremo Nº 3525, Artículo 13])[
   *Entidades generadoras de información:*
 
-  ...II. En el marco de procesos de actualización, certificación o emisión de copias legalizadas de documentos que aún se encuentren en formato físico, los datos e información pertinente consignados en los mismos deberán ser registrados en medios digitales que permitan ser publicados mediante servicios de interoperabilidad.]
+  ...II. En el marco de procesos de actualización, certificación o emisión de copias legalizadas de documentos que aún se encuentren en formato físico, los datos e información pertinente consignados en los mismos *deberán ser registrados en medios digitales* que permitan ser publicados mediante servicios de interoperabilidad.]
 
-Asimismo, la ley 2341 tiene como uno de sus objetos "Establecer las normas que regulan la actividad administrativa y el *procedimiento
+Asimismo, la Ley Nº 2341 tiene como uno de sus objetos "Establecer las normas que regulan la actividad administrativa y el *procedimiento
 administrativo* del sector público" @ley2341, por lo que contiene normativa relevante al proceso del trámite y a la ejecución de los mismos. Podemos resaltar su Artículo 4, de "Principios Generales de la Actividad Administrativa" que cuenta con dos principios importantes en nuestro contexto, que son el "Principio de eficacia" y el "Principio de economía, simplicidad y celeridad". También, en el mismo documento, se indican los derechos de las personas, que en su Artículo 16 lista, entre otros, los siguientes derechos:
 
-- d) A conocer *el estado del procedimiento* en que sea parte
-- j) A *obtener* certificados y copias de documentos que estén en poder de la Administración Pública
-- k) A *acceder* a registros y archivos administrativos
+- Derecho a conocer *el estado del procedimiento* en que sea parte
+- Derecho a *obtener* certificados y copias de documentos que estén en poder de la Administración Pública
+- Derecho a *acceder* a registros y archivos administrativos
 
-Esta ley también define la acción correspondiente a los silencios administrativos y otras situaciones propias del proceso administrativo. Podemos resaltar finalmente lo siguiente:
-
-#quote(attribution: [Ley 2341, Artículo 18])[
-  ...Las personas tienen derecho a *acceder* a los archivos, registros públicos y a los documentos
-  que obren en poder de la Administración Pública, así como a obtener certificados o copias
-  legalizadas de tales documentos *cualquiera que sea la forma de expresión*, gráfica, sonora,
-  en imagen u otras, o el tipo de soporte material en que figuren...
-]
+Esta ley también define la acción correspondiente a los silencios administrativos y otras situaciones propias del proceso administrativo.
 
 La anterior normativa es importante porque, si bien es general, establece condiciones que pueden fácilmente ser atendidas con el uso de un sistema de gestión y seguimiento de trámites digitalizado. Estas necesidades pueden traducirse en objetivos del sistema propuesto en este proyecto, como el de poder consultar el estado de un trámite o poder obtener copias de documentos que obren en poder de la administración pública.
 
 === Planes de Implementación
 
-Si bien la Ley Nº 164 establece los fundamentos sobre el uso de las tecnologías de la información en Bolivia a nivel normativo, a su vez establece la creación de planes de implementación, con una naturaleza más práctica. Esto es establecido a partir de lo siguiente:
+Si bien la Ley Nº 164 establece los fundamentos sobre el uso de las tecnologías de la información en Bolivia a nivel normativo, a su vez establece la creación de planes de implementación, con una naturaleza más práctica. Esto se encuentra definido a partir de sus artículos 71 y 75, que establecen lo siguiente:
 
 #quote(attribution: [Ley Nº 164, Artículo 75])[
   ...
-
   II. El Órgano Ejecutivo del nivel central del Estado, elaborará los lineamientos para la incorporación del Gobierno Electrónico
 ]
 
 #quote(attribution: [Ley Nº 164, Artículo 71])[
   ...
-
   II. El Órgano Ejecutivo del nivel central del Estado, elaborará el plan de implementación de software libre y estándares
   abiertos en coordinación con los demás órganos del Estado y entidades de la administración pública.
 ]
 
-Todo esto es nuevamente requerido en el reglamento aprobado por el Decreto Supremo 1793, que es el "Reglamento para el Desarrollo de Tecnologías de Información y comunicación", mismo que contiene definiciones y normativa importante para personas naturales o jurídicas, públicas o privadas que realicen actividades o presten servicios relacionados con la certificación digital, gobierno electrónico, software libre, correo electrónico y el uso de documentos y firmas digitales en el Estado Plurinacional de Bolivia. Este reglamento tiene bastante importancia para este proyecto, pero su contenido sigue la misma filosofía encontrada tanto en la Ley Nº 164 como en los planes de implementación.
+Estos planes serían nuevamente requeridos en el reglamento aprobado por el Decreto Supremo Nº 1793, que es el "Reglamento para el Desarrollo de Tecnologías de Información y Comunicación", mismo que contiene definiciones y normativa importante para personas naturales o jurídicas, públicas o privadas que *realicen actividades o presten servicios relacionados con la certificación digital, gobierno electrónico, software libre, correo electrónico y el uso de documentos y firmas digitales en el Estado Plurinacional de Bolivia*. Este reglamento tiene bastante importancia para este proyecto, y su contenido sigue la misma filosofía encontrada tanto en la Ley Nº 164 como en los planes de implementación realizados de forma posterior a su aprobación.
 
-Dado lo anterior es que, mediante Decreto Supremo 3251, se aprobaron el "Plan de Implementación de Gobierno Electrónico" y el "Plan de Implementación de Software Libre y Estándares Abiertos".
+Dado lo anterior es que, mediante Decreto Supremo Nº 3251, se aprobaron tanto el "Plan de Implementación de Gobierno Electrónico" como el "Plan de Implementación de Software Libre y Estándares Abiertos".
 
 === Implementación del Gobierno Electrónico
 
-El "Plan de Implementación de Gobierno Electrónico" es un documento en el que se definen los ejes estratégicos y las líneas estratégicas para la implementación de la política de gobierno electrónico en el país, como puede verse en la @table:ejes_egob. Estos ejes definen mucho de lo contenido en las distintas leyes y reglamentos y tienen bastante relevancia para afrontar cualquier proyecto de software gubernamental.
+El "Plan de Implementación de Gobierno Electrónico" es un documento en el que se definen los ejes estratégicos y las líneas estratégicas para la implementación de la política de gobierno electrónico en el país, como puede verse en la @table:ejes_egob. Estos ejes definen mucho de lo que se puede encontrar en las distintas leyes y reglamentos relevantes a este proyecto y tienen bastante importancia para afrontar cualquier proyecto de software gubernamental.
 
-#pagebreak()
 #figure(
   table(
     columns: (1fr, 1.5fr),
@@ -116,9 +106,9 @@ El "Plan de Implementación de Gobierno Electrónico" es un documento en el que 
 
 === Implementación de Software Libre y Estándares Abiertos
 
-Bolivia también cuenta con el "Plan de Implementación de Software Libre y Estándares Abiertos", en el que se define al software libre del modo siguiente:
+Bolivia también cuenta con un "Plan de Implementación de Software Libre y Estándares Abiertos", en el que se define al software libre del modo siguiente:
 
-#quote[
+#quote(attribution: "Plan de Implementación de Software Libre y Estándares Abiertos")[
   El Software Libre se basa en una filosofía que busca que el desarrollo de la tecnología se
   oriente al bienestar de los seres humanos en términos de igualdad; que el conocimiento sea
   lo que realmente es: un bien común de la humanidad; que la cooperación sea el modelo de
@@ -130,11 +120,11 @@ Bolivia también cuenta con el "Plan de Implementación de Software Libre y Est�
   La incorporación y uso del Software Libre y estándares abiertos, promueve valores de
   innovación, solidaridad, búsqueda del bien común y el desarrollo de los individuos y de la
   sociedad, coincidentes con los del Estado. A través de la implementación del Software Libre
-  se busca que el Estado adquiera y desarrolle la capacidad de controlar las aplicaciones
-  informáticas que utiliza con soberanía tecnológica.
+  *se busca que el Estado adquiera y desarrolle la capacidad de controlar las aplicaciones
+  informáticas que utiliza con soberanía tecnológica*.
 ]
 
-Es muy importante citar la Ley N° 164 @Ley164Ley2011, misma que establece lo siguiente acerca del software libre:
+Este plan derivaría directamente de la Ley N° 164 @Ley164Ley2011 que, en la misma línea, establece lo siguiente acerca del software libre:
 
 #quote(attribution: [Artículo 77, Ley Nº 164])[
   I. Los Órganos Ejecutivo, Legislativo, Judicial y Electoral en todos sus niveles,
@@ -142,7 +132,7 @@ Es muy importante citar la Ley N° 164 @Ley164Ley2011, misma que establece lo si
   el marco de la soberanía y seguridad nacional.
 ]
 
-En base a ello, al igual que con el "Plan de Implementación de Gobierno Electrónico", se establecen los ejes estratégicos y líneas estratégicas para la implementación de la política de software libre y estándares abiertos en el país, como puede verse en la @table:ejes_software, que además incluye las metas planteadas para el año 2025.
+En base a ello, al igual que con el "Plan de Implementación de Gobierno Electrónico", se establecen los ejes estratégicos y líneas estratégicas para la implementación de la política de software libre y estándares abiertos en el país, como puede verse en la @table:ejes_software, que además incluye las metas que se plantearon para el año 2025.
 
 #figure(
   table(
@@ -195,6 +185,6 @@ El mismo documento hace un análisis del estado de situación respecto al softwa
 - La mayor parte de las empresas de software no trabajan con herramientas de desarrollo libres. El 59% de las empresas no trabajan desarrollando con herramientas de software libre, el 19% usan herramientas de software libre para sus desarrollos internos y sólo el 22% usan herramientas de desarrollo libre para los clientes.
 - Las entidades públicas cuentan con buenas condiciones para iniciar el proceso de implementación de software libre y estándares abiertos.
 
-Como se evidencia de la normativa señalada anteriormente el Software libre hoy en día se encuentra regulado y se establecen los lineamientos y directrices para su implementación y posterior aplicación en nuestro país.
+Como se evidencia de la normativa señalada anteriormente el Software libre hoy en día se encuentra regulado y se establecen los lineamientos y directrices para su implementación y posterior aplicación en nuestro país de un modo prioritario.
 //NOTE: Podríamos añadir subtítulo sobre los lineamientos aprobados por RM 079/2, pero a pesar de su relevancia, lo dejaremos para el final, porque ya tenemos mucha información. Quizá podríamos añadir lo que se indica sobre que cada entidad pública debe digitalizar los trámites por su cuenta
 
