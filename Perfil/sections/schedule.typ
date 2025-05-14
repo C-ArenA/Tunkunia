@@ -9,7 +9,7 @@ La @fig:rupphases muestra cuánto de cada actividad se debe realizar en cada eta
 
 #figure(
   image("../assets/rupphases.svg", width: 50%),
-  caption: [Fases del Proceso Unificado y los esfuerzos de cada actividad en las mismas\ Fuente: Imagen de Dominio Público (CC0) extraída de Wikibooks @RUPIBMRational y elaborada por Jakob Farian Krarup], 
+  caption: [Fases del Proceso Unificado y los esfuerzos de cada actividad en las mismas\ Fuente: Imagen de Dominio Público (CC0) extraída de Wikibooks @RUPIBMRational y elaborada por Jakob Farian Krarup],
 )<fig:rupphases>
 
 #figure(

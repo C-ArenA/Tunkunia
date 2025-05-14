@@ -59,7 +59,7 @@ Un ejemplo de esto es el caso de *Domitila Murillo*, una ciudadana boliviana que
   placement: auto,
 )<fig:tramites_una_interaccion>
 
-Estos problemas dentro de la administración pública, despiertan el interés acerca del impacto que podría tener la utilización de las tecnologías de la información en este ámbito, llevando a la creación del concepto de *Gobierno Electrónico* o *e-government*. 
+Estos problemas dentro de la administración pública, despiertan el interés acerca del impacto que podría tener la utilización de las tecnologías de la información en este ámbito, llevando a la creación del concepto de *Gobierno Electrónico* o *e-government*.
 
 == La Modernización Administrativa
 
@@ -83,17 +83,17 @@ en suma, brinda mayor calidad de vida a la ciudadanía @naserGobiernoElectronico
 
 Sin embargo, la implementación de un gobierno electrónico no es una tarea sencilla, ya que requiere la realización de esfuerzos en conjunto dentro de los gobiernos. En Bolivia, a partir del año 2009, se han promulgado decretos, leyes y reglamentos que buscan promover el uso de las tecnologías de la información y comunicación en la administración pública, pero aún queda un largo camino por recorrer para lograr una implementación efectiva y eficiente.
 
-==  Bolivia: Gobierno Electrónico
+== Bolivia: Gobierno Electrónico
 
-En Bolivia, la nueva Constitución Política del Estado, promulgada el 7 de febrero del año 2009, establece en su Artículo 103 que: 
-"El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y *aplicación de nuevas tecnologías de información y comunicación*" @BoliviaConstitucionPolitica. 
+En Bolivia, la nueva Constitución Política del Estado, promulgada el 7 de febrero del año 2009, establece en su Artículo 103 que:
+"El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y *aplicación de nuevas tecnologías de información y comunicación*" @BoliviaConstitucionPolitica.
 Esto dio lugar, el año 2011, a la creación de la Ley General de Telecomunicaciones, Tecnologías de Información y Comunicación (Ley Nº 164) que tiene entre sus principales objetivos: "Promover el uso de las tecnologías de información y comunicación para
 *mejorar las condiciones de vida de las bolivianas y bolivianos*" @Ley164Ley2011.
 
-La citada norma legal establece, en su Artículo 71, que la promoción del uso de las tecnologías de información y comunicación es *prioridad nacional*, 
+La citada norma legal establece, en su Artículo 71, que la promoción del uso de las tecnologías de información y comunicación es *prioridad nacional*,
 mientras que el Artículo 72 del mismo documento indica que las entidades públicas deberán adoptar *todas las medidas necesarias* para su máximo aprovechamiento en el desarrollo de *sus funciones* y el Artículo 77 señala que se promoverá y priorizará el uso de *software libre* y estándares abiertos en todos los niveles del gobierno en el marco de la *soberanía y seguridad nacional*.
 
-A su vez, la Ley 164, dio lugar a una serie de políticas públicas, reglamentos y planes que profundizan en la incorporación del Gobierno Electrónico y el desarrollo de software para el estado, además de requerir a las instancias públicas su adopción, como se puede ver en la @fig:bolivia_norms, en la que se muestran los principales documentos normativos relacionados con el gobierno electrónico en Bolivia. 
+A su vez, la Ley 164, dio lugar a una serie de políticas públicas, reglamentos y planes que profundizan en la incorporación del Gobierno Electrónico y el desarrollo de software para el estado, además de requerir a las instancias públicas su adopción, como se puede ver en la @fig:bolivia_norms, en la que se muestran los principales documentos normativos relacionados con el gobierno electrónico en Bolivia.
 
 #figure(
   image("../assets/bolivia_norms.png", width: 70%),
@@ -130,17 +130,17 @@ En años recientes, con la adopción de las tecnologías de la información cada
 
 === Experiencias en el desarrollo del SIAI
 
-La ejecución del proyecto, licitado por el #acr("MDPyEP"), estuvo entonces a cargo de la consultora 2IES, 
+La ejecución del proyecto, licitado por el #acr("MDPyEP"), estuvo entonces a cargo de la consultora 2IES,
 que procedió a la implementación del nuevo #acr("SIAI") atendiendo a las especificaciones técnicas del Documento Base de Contratación,
 así como a las distintas interacciones efectuadas con el cliente.
 
 El sistema fue construido como una aplicación web con la arquitectura cliente-servidor, con un backend monolítico y un frontend construido como una #acr("SPA"). En base a esto y para poder responder a necesidades de integración e interoperabilidad futuras, se optó además por una comunicación entre el frontend y el backend mediante una #acr("API") de tipo #acr("REST"), abierta y bien documentada.
 
-De forma más específica, se adoptó el estilo de arquitectura por capas (Layered Architecture Style), 
-con tres unidades físicas desplegables, como se puede ver en la @fig:siai_architecture_style, 
+De forma más específica, se adoptó el estilo de arquitectura por capas (Layered Architecture Style),
+con tres unidades físicas desplegables, como se puede ver en la @fig:siai_architecture_style,
 que correspondería a una arquitectura monolítica muy común en aplicaciones web.
 La capa de negocio, sin embargo, interopera a su vez con otros sistemas mediante servicios #acr("REST") #acr("API")
-#footnote[El SIAI consume datos de un servicio provisional del SEPREC para obtener información sobre las industrias registradas en el país], 
+#footnote[El SIAI consume datos de un servicio provisional del SEPREC para obtener información sobre las industrias registradas en el país],
 dándole características híbridas al sistema entre una arquitectura principalmente monolítica y una arquitectura de microservicios.
 
 #figure(
@@ -167,6 +167,6 @@ Además de atender a los requerimientos iniciales del DBC, 2IES propuso funciona
 
 Dado que una gran parte de la funcionalidad de este sistema, consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora 2IES hizo una implementación recurriendo al manejo de estados y de roles, creando formularios e integrando los datos al modelo del negocio general.
 
-Al implementar los diferentes componentes referentes a dichos trámites, se identificaron claras similitudes entre ellos, como la necesidad de permitir un  seguimiento transparente, la aprobación de documentos por etapas, la auditoría y la gestión general de cada trámite.
+Al implementar los diferentes componentes referentes a dichos trámites, se identificaron claras similitudes entre ellos, como la necesidad de permitir un seguimiento transparente, la aprobación de documentos por etapas, la auditoría y la gestión general de cada trámite.
 
 Si bien el proyecto del SIAI llegó a su conclusión, estas similitudes identificadas a la hora de implementar los distintos trámites, además de la potencial similitud con trámites de otras distintas instancias del sector público, motivaron a la realización del presente proyecto.

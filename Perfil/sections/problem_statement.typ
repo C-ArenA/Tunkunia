@@ -2,7 +2,7 @@
 
 El desarrollo de trámites en sistemas gubernamentales enfrenta desafíos significativos debido a la falta de herramientas reutilizables y estándares modulares.
 
-La ubicuidad del trámite en distintos espacios del estado y la cantidad de los mismos implican el desarrollo de características o funcionalidades similares en muchos proyectos de software de la administración pública. 
+La ubicuidad del trámite en distintos espacios del estado y la cantidad de los mismos implican el desarrollo de características o funcionalidades similares en muchos proyectos de software de la administración pública.
 
 Si bien existen varios productos de gestión de flujos de trabajo (WFMS), como se vio en el apartado de situación actual, debe tomarse en cuenta que estos no son reutilizables en sistemas independientes, suelen ser de código cerrado y propietario, están estrechamente relacionados con otros productos comerciales (Como ERPs) y no son específicos a los trámites.
 
@@ -25,7 +25,7 @@ La falta de un elemento reutilizable para el manejo de estos procesos administra
 - Falta de transparencia en la gestión del trámite
 - Falta de información sobre los requisitos del trámite
 
-También conlleva a muchas desventajas directas: //TODO: Añadir las ventajas del software reutilizable de Sommerville 
+También conlleva a muchas desventajas directas: //TODO: Añadir las ventajas del software reutilizable de Sommerville
 
 - Violación del principio DRY (Don't Repeat Yourself) o, como se conoce en términos coloquiales, reinvención de la rueda.
 - Baja atención al detalle sobre el módulo de trámite, ofuscado en medio de sistemas más grandes, a pesar de su importancia.
