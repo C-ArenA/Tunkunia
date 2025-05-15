@@ -102,8 +102,6 @@ Tal es la relevancia que existe una organización dedicada a estandarizar los WF
   A WMS can be used to automate a wide range of business processes, such as invoicing, order fulfillment, human resources, and project management. It can also be used to integrate different systems, such as email, calendar, and customer relationship management (CRM) software. WMS allows you to streamline the process and make it more efficient, reduce errors and delays, and give you real-time visibility into the status of your processes, also it's common to have a built-in reporting and analytics tools to measure the performance of the process.
 ]
 
-La necesidad de manejar flujos de trabajo es realmente frecuente en muchos sistemas, por lo que ciertos autores creen que debe ser un módulo tan importante como el sistema de gestión de bases de datos, como se puede aproximar mediante la @fig:wfms_history.
-
 #figure(
   image("../assets/wfms_history.png"),
   caption: [WFMS desde una perspectiva histórica\ Fuente: The Application of Petri Nets
@@ -111,7 +109,9 @@ La necesidad de manejar flujos de trabajo es realmente frecuente en muchos siste
   placement: auto,
 )<fig:wfms_history>
 
-Es importante entender que, de forma general y sintética, el propósito principal de los sistemas de flujo de trabajo (WFMS) es el apoyo en la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que posteriormente podría guiar en la implementación de un sistema específico a los trámites administrativos.
+La necesidad de manejar flujos de trabajo es realmente frecuente en muchos sistemas, por lo que ciertos autores creen que debe ser un módulo tan importante como el sistema de gestión de bases de datos, como se puede aproximar mediante la @fig:wfms_history.
+
+Podemos entender, de forma general y sintética, que el propósito principal de los sistemas de flujo de trabajo (WFMS) es el apoyo en la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que posteriormente podría guiar en la implementación de un sistema específico a los trámites administrativos.
 
 === Arquitecturas Modulares y Distribuidas
 
