@@ -46,4 +46,5 @@
   "CLI": "Command Line Interface",
   "RUP": "Rational Unified Process",
   "UIT": "Unión Internacional de Telecomunicaciones",
+  "NPM": "Node Package Manager",
 )

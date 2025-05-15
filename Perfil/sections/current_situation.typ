@@ -64,8 +64,28 @@ Las necesidades que surgen alrededor de la digitalización de trámites son dive
 
 === Reutilización de Software
 
-// Hablaremos sobre la reutilización del software y cómo se hizo cada vez más común
-// Hablaremos de los beneficios de la reutilización del software
+La reutilización de software (software reuse) es el uso sistemático de piezas existentes de software para construir otras nuevas, modificadas o incluso productos de software completos a partir de las mismas. Estas piezas pueden ser código fuente, ejecutables, guìas de diseño, componentes de software libre, componentes comerciales, o arquitecturas completas. Es importante resaltar que el conocimiento también es reutilizable y se ve reflejado en la reutilización de patrones, procesos o arquitecturas de software @mohagheghiQualityProductivityEconomic2007. Las formas en que las piezas reutilizables se materializan son variadas y pueden incluir bibliotecas o librerías, frameworks, componentes, sistemas de software completos, etc (@fig:reuse_landscape).
+
+#figure(
+  image("../assets/reuse_landscape.png", width: 60%),
+  caption: [Reuse landscape\ Fuente: Sommerville, Software Engineering @sommervilleSoftwareEngineering2016],
+  placement: auto,
+)<fig:reuse_landscape>
+
+Por la naturaleza de la reutilización del software, que consiste en usar trabajo existente como bloques de construcción para proyectos más grandes, se relaciona a esta práctica con un aumento en la productividad y una disminución en los costos. Sin embargo, medir de forma empírica estos beneficios es bastante difícil y algunos intentos realizados, si bien pueden no contemplar todas las variables posibles, dada la naturaleza particular de cada proyecto, han mostrado resultados positivos, indicando que existe un claro aumento de productividad al reutilizar software @basiliHowReuseInfluences1996. Esto implicaría también beneficios en los tiempos y costos de desarrollo, reafirmando lo atractivo de la reutilización del software.
+
+#figure(
+  image("../assets/mobile_reuse.png", width: 60%),
+  caption: [Porcentaje de reutilización de software en aplicaciones móviles\ Fuente: A large-scale empirical study of the reuse of software components in mobile applications @mojicaLargeScaleEmpiricalStudy2014],
+  placement: auto,
+)<fig:mobile_reuse>
+
+La reutilización de software se ha popularizado bastante en los últimos años, particularmente con el auge de los sistemas de código abierto y la creación de plataformas digitales. Esta tendencia también responde a la demanda por la disminución de costos de producción y mantenimiento de software, entregas más rápidas de los sistemas y mejoras en la calidad del software @sommervilleSoftwareEngineering2016. 
+
+En este sentido, la @fig:mobile_reuse, que forma parte de un estudio publicado el año 2014, sobre la reutilización de software en el desarrollo de aplicaciones móviles, halló que en las distintas categorías de aplicaciones analizadas, existe un alto porcentaje de reutilización #footnote[La reutilización en este estudio fue medida calculando la proporción de clases reutilizadas sobre la cantidad total de clases de cada proyecto], por encima del 62% @mojicaLargeScaleEmpiricalStudy2014.
+
+Esta tendencia se ve también en otros campos del desarrollo de software, particularmente en el desarrollo web, donde se popularizó la herramienta de gestión de paquetes #acr("NPM") para facilitar la reutilización de código en el desarrollo de aplicaciones web y sobre la cual se puede evidenciar un aumento significativo de paquetes reutilizables, con más de un millón registrados el año 2022 y con un crecimiento del 60% entre los meses de enero del 2019 y 2022 @mujahidWhatAreCharacteristics2023. Una búsqueda actual (2025) en el sitio oficial de #acr("NPM") muestra que existen ya más de dos millones de paquetes disponibles en su registro y que cuenta con la contribución de más de 17 millones de desarrolladores de software a nivel mundial @NpmHome.
+
 // Hablaremos de cómo se reutiliza el software en la actualidad (métodos)
 
 === Sistemas de Gestión de Flujos de Trabajo y Procesos
