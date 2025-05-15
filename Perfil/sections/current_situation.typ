@@ -117,7 +117,7 @@ Podemos entender, de forma general y sintética, que el propósito principal de 
 
 Se puede advertir al día de hoy que queda cada vez más claro que una ingeniería de software efectiva requiere del diseño de la arquitectura del software, una práctica que siempre se lleva a cabo de forma implícita al desarrollar software, pero que conviene aplicar de forma fundamentada.
 Primero, es importante poder reconocer paradigmas comunes para que se puedan entender las relaciones de alto nivel entre sistemas y para que se puedan construir nuevos sistemas como variaciones de sistemas antiguos.
-Segundo, conseguir la arquitectura correcta es a menudo crucial para el éxito del diseño de un sistema de software, mientras que hacer esto de manera  incorrecta puede llevar a resultados desastrosos.
+Segundo, conseguir la arquitectura correcta es a menudo crucial para el éxito del diseño de un sistema de software, mientras que hacer esto de manera incorrecta puede llevar a resultados desastrosos.
 Tercero, un entendimiento detallado de las arquitecturas de software permite al ingeniero hacer elecciones fundamentadas entre alternativas de diseño.
 Cuarto, una representación arquitectónica del sistema es a menudo esencial para el análisis y la descripción de las propiedades de alto nivel de un sistema complejo @Garlan94SAIntroTR. En el presente, la arquitectura de software eficaz y su representación y diseño explícitos se han vuelto los temas dominantes en la ingeniería de software @pressmanSoftwareEngineeringPractitioner2010
 

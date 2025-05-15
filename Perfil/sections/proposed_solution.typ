@@ -7,7 +7,7 @@ Se propone la creación de un módulo de software libre que aglutine las funcion
 #figure(
   image("../assets/modulegraph.png"),
   caption: [Representación gráfica a grandes rasgos del módulo Tunkunia\ Fuente: Elaboración propia],
-  placement: auto
+  placement: auto,
 )<fig:modulegraph>
 
 Esto se conseguirá mediante el modelado del proceso del trámite usando como motor a las máquinas de estado finitas, redes de Petri, diagramas de actividad UML y otras técnicas de modelado. Se identificarán patrones comunes en los trámites, como el manejo de documentos, la verificación y aceptación de datos, etc., partiendo de flujos comunes como el de la @fig:stateex o el de la @fig:petricomplaints.
@@ -15,7 +15,7 @@ Esto se conseguirá mediante el modelado del proceso del trámite usando como mo
 #figure(
   image("../assets/stateprocedureexample.png", width: 70%),
   caption: [Modelado simplificado del proceso de trámite\ Fuente: Elaboración propia],
-  placement: auto
+  placement: auto,
 )<fig:stateex>
 
 Se explorarán técnicas para ayudar en el proceso de verificación y aceptación de datos, como el uso de modelos grandes de lenguaje con inteligencia artificial así como métodos determinísticos de validación de datos.
