@@ -105,19 +105,29 @@ De acuerdo a Richard Stallman, gran referente en el área, es necesario usar sof
 
 Actualmente software libre significa a grandes rasgos que los usuarios tienen la *libertad* de *ejecutar, copiar, distribuir, estudiar, modificar y mejorar* el software @QueEsSoftware.
 Por la ambigüedad del término en inglés #footnote[_free_ también puede significar "gratis"]
-nació otra forma de referirse a lo mismo, salvo diferencias filosóficas según Stallman @WhyOpenSource, y que se popularizó bastante: _Open Source_. Posteriormente se crearía un término que abarca a ambos, _free software_ y _open source_, el cual es _free and open source software_ (FOSS).
+nació el término _Open Source_ como otra forma de referirse a lo mismo, salvo diferencias filosóficas según Stallman @WhyOpenSource. Posteriormente se crearía un término que abarca a ambos, _free software_ y _open source_, el cual es _free and open source software_ (FOSS).
 En este documento nos referimos a ellos casi indistintamente y teniendo preferencia por el uso de *FOSS*.
 
 Cuando Richard Stallman comenzó a trabajar como programador en el Laboratorio de Inteligencia Artificial del MIT el año 1971,
 pasó a formar parte, por primera vez, de una *comunidad* de "hackers" 
 #footnote[El término hacker es entendido por Stallman como aquel que hace referencia a una persona inteligente y curiosa con espíritu de sagacidad imaginativa y de exploración]
-que *compartían software* y, sin saberlo porque en aquel entonces la práctica era tan común que no tenía un término propio, eran también una comunidad de "software libre" @stallmanSoftwareLibrePara.
+que *compartían software* y, sin saberlo porque en aquel entonces la práctica era tan común que no tenía un término propio, eran también una comunidad de "software libre" @stallmanSoftwareLibrePara. Estas comunidades de hackers y de software libre no dejaron de existir a pesar de que la industria del software comenzó a ver el software como un producto comercial. 
 
-Estas comunidades de hackers y de software libre no dejaron de existir a pesar de que la industria del software comenzó a ver el software como un producto comercial. En años recientes, los proyectos de software libre sentaron las bases para muchos de los avances tecnológicos que hoy tenemos disponibles.
+En años recientes, los proyectos de software libre sentaron las bases para muchos de los avances tecnológicos que hoy tenemos disponibles e incluso las grandes empresas tecnológicas, que otrora daban exclusiva preferencia al software propietario, ahora los utilizan de forma masiva y contribuyen a su desarrollo @vonkroghCarrotsRainbowsMotivation2012.
 
-Un claro ejemplo de esto es el sistema operativo Linux, que fue creado por Linus Torvalds en 1991 como un proyecto de software libre. Desde entonces, Linux ha crecido y se ha convertido en uno de los sistemas operativos más utilizados en el mundo, especialmente en servidores y dispositivos móviles.
+#figure(
+  image("../assets/github_contributions.png", width: 50%),
+  caption: [Número de contribuciones a proyectos públicos y de software libre en GitHub (2021-2024)\ Fuente: GitHub Octoverse],
+  placement: auto,
+)<fig:github_contributions>
 
-Muchas herramientas reutilizables que se usan hoy en día, como el servidor web Apache, el sistema de gestión de bases de datos MySQL y el lenguaje de programación Python, son ejemplos de software libre que han sido desarrollados por comunidades de programadores y que han sido adoptados por empresas y organizaciones en todo el mundo. Su importancia es de tal magnitud que grandes empresas como Alphabet, Microsoft, Meta y Amazon han contribuido al desarrollo de proyectos de software libre y han utilizado software libre en sus propias infraestructuras.
+Una de estas empresas es Microsoft que, entre otras cosas, adquirió la plataforma de colaboración GitHub en el año 2018, la cual es la plataforma más popular para el desarrollo de software libre y de código abierto. Como parte del trabajo realizado por esta compañía, tenemos disponibles algunos datos sobre el estado del software libre en el reporte "GitHub Octoverse" @staffOctoverseAILeads2024. Estos son algunos datos relevantes:
+
+
+- El año 2024, desarrolladores de todo el mundo realizaron cerca de 1000 millones de contribuciones (1 billion contributions) a proyectos públicos y de software libre en GitHub. Esto representa un aumento respecto a años anteriores, como puede apreciarse en la @fig:github_contributions.
+- Una de las principales motivaciones para contribuir a proyectos de software libre es el poder aportar a la comunidad y generar cambios positivos en la sociedad. Algunos proyectos que han motivado a contribuidores nóveles están relacionados con el sistema de orfanatos para personas jóvenes, la investigación de drogas en países de ingresos medios y bajos, y la creación de herramientas para ayudar a las personas a denunciar maltratos de forma anónima.
+
+Este último dato señala algo importante y sobre lo cual Haefliger, von Krogh y Spaeth profundizan en uno de sus artículos @vonkroghCarrotsRainbowsMotivation2012 y es que el desarrollo del software libre podría tener una motivación social y comunitaria, más allá de lo económico.
 
 === Herramientas de Modelado de Procesos
 
