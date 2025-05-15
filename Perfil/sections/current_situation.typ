@@ -185,23 +185,40 @@ Una de estas empresas es Microsoft que, entre otras cosas, adquirió la platafor
 
 Este último dato señala algo importante y sobre lo cual Haefliger, von Krogh y Spaeth profundizan en uno de sus artículos @vonkroghCarrotsRainbowsMotivation2012 y es que el desarrollo del software libre podría tener una motivación social y comunitaria, más allá de lo económico.
 
-=== Herramientas de Modelado de Procesos
+=== Lenguajes de Modelado de Procesos
 
-Cuando se habla de trámites, de acuerdo a las definiciones establecidas en la sección de antecedentes, se hace referencia a *procesos* administrativos. Por lo tanto, es importante mencionar que existen herramientas de modelado de procesos que permiten representar gráficamente los mismos. Estas herramientas son útiles para entender y analizar los procesos, así como para identificar áreas de mejora. También, muchas de estas herramientas podrían servir para la definición de los trámites que puedan ser llevados a cabo mediante el subsistema propuesto en este proyecto.
+Cuando se habla de trámites, de acuerdo a las definiciones establecidas en la sección de antecedentes, se hace referencia a *procesos*. Por lo tanto, es importante mencionar que existen varios lenguajes para modelar procesos que permiten representar gráficamente los mismos y que, de forma general, consisten mínimamente en conjuntos de nodos de dos tipos: actividad y control @dumasFundamentalsBusinessProcess2013. A continuación se describen algunos de estos lenguajes o herramientas para modelar procesos:
 
-Algunas de estas herramientas son:
+#figure(
+  image("../assets/bpmn.png", width: 60%),
+  caption: [Ejemplo de un diagrama BPMN\ Fuente: Business Process Model and Notation (BPMN) Version 2.0.2 @bpmn202],
+  placement: auto,
+)<fig:bpmn>
 
-- BPMN (Business Process Model and Notation): Es un estándar de modelado de procesos que permite representar gráficamente los procesos de negocio. BPMN es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos.
-- EPC (Event-driven Process Chain): Es una técnica de modelado de procesos que se utiliza para representar procesos de negocio de manera gráfica. EPC es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos.
-- UML (Unified Modeling Language): Es un lenguaje de modelado que se utiliza para representar sistemas de software. UML es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos.
-- IDEF (Integration Definition): Es un conjunto de métodos y técnicas de modelado de procesos que se utilizan para representar procesos de negocio de manera gráfica. IDEF es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos.
-- ARIS (Architecture of Integrated Information Systems): Es una herramienta de modelado de procesos que se utiliza para representar procesos de negocio de manera gráfica. ARIS es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos.
-- Flowchart: Es una técnica de modelado de procesos que se utiliza para representar procesos de negocio de manera gráfica. Flowchart es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos.
-- SIPOC (Suppliers, Inputs, Process, Outputs, Customers): Es una técnica de modelado de procesos que se utiliza para representar procesos de negocio de manera gráfica. SIPOC es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos.
-- Six Sigma: Es una metodología de mejora de procesos que se utiliza para representar procesos de negocio de manera gráfica. Six Sigma es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos.
-- Máquinas de Turing: Es un modelo matemático de computación que se utiliza para representar procesos de negocio de manera gráfica. Las máquinas de Turing son ampliamente utilizadas en la industria y son compatibles con muchas herramientas de modelado de procesos.
-- Máquinas de estados: Es un modelo matemático de computación que se utiliza para representar procesos de negocio de manera gráfica. Las máquinas de estados son ampliamente utilizadas en la industria y son compatibles con muchas herramientas de modelado de procesos.
-- Redes de Petri: Es un modelo matemático de computación que se utiliza para representar procesos de negocio de manera gráfica. Las redes de Petri son ampliamente utilizadas en la industria y son compatibles con muchas herramientas de modelado de procesos.
+- *Diagramas de flujo:* Quizá uno de los lenguajes más antiguos para describir procesos, en su forma más básica consiste de rectángulos para representar actividades (no de actividad) y rombos o diamantes para representar puntos de decisión (nodo de control).
+- *Diagramas de actividad UML (Unified Modeling Language):* Es un lenguaje de modelado que se utiliza para representar sistemas de software. UML es ampliamente utilizado en la industria del software. Los diagramas de actividad de UML son una forma de representar procesos de negocio de manera gráfica a través de distintas organizaciones.
+- *EPC (Event-driven Process Chain):* Es una técnica de modelado de procesos que se utiliza para representar procesos de negocio de manera gráfica. EPC es ampliamente utilizado en la industria y es compatible con muchas herramientas de modelado de procesos. Tiene ciertas similitudes con los diagramas de flujo, pero se diferencia en que trata a los eventos como ciudadanos de primera clase.
+- *Familia IDEF (Integration Definition):* Es un conjunto de métodos y técnicas de modelado de procesos que se utilizan para representar procesos de negocio de manera gráfica, que fue creado por la fuerza aérea estadounidense y están basados en el manejo de escenarios. IDEF3 provee un mecanismo par recolectar y documentar procesos @IDEF3ProcessDescription.
+- *BPMN (Business Process Model and Notation):* Es un estándar de modelado de procesos que permite representar gráficamente los procesos de negocio. Su última versión es BPMN 2.0.2 y fue publicada como un estándar del Object Management Group (OMG) el año 2014. En este lenguaje las actividades se representan mediante rectángulos redondeados, los nodos de control (llamados gateways) se representan usando formas de diamante. Los nodos se conectan mediante arcos, como se puede ver en la @fig:bpmn, donde se muestra un proceso colaborativo entre un paciente y la recepción de un médico.
+
+Adicionalmente, existen otros lenguajes de modelado de sistemas que no son tan comunes para describir procesos, pero que pueden ser útiles ya que reflejan la naturaleza paso a paso de los trámites. Algunas de estas herramientas son:
+
+#figure(
+  image("../assets/statediagramex.png", width: 50%),
+  caption: [Ejemplo de una máquina de estados\ Fuente: Elaboración propia],
+  placement: auto,
+)<fig:statediagramex>
+
+#figure(
+  image("../assets/petricomplaints.png", width: 70%),
+  caption: [Red de Petri de un proceso de queja\ Fuente: The Application Of Petri Nets to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+  placement: auto,
+)<fig:petricomplaints>
+
+- *Máquinas de Estados:* Si bien las máquinas de estado no se suelen mencionar como lenguaje para modelar gráficamente los procesos administrativos, no hay duda de que pueden cumplir con este propósito (ver @fig:statediagramex). Una máquina de estados es un conjunto de 5 elementos $M=(S,I,O,v,w)$, donde $S$ representa a la colección de estados de $M$; $I$ representa al alfabeto de entradas para $M$; $O$ es el alfabeto de salidas de $M$; $v:S x I->S$ es la función del siguiente estado; y $w:S x I->O$ es la función de salida @grimaldiDiscreteCombinatorialMathematics1998.
+- *Redes de Petri:* Una de las técnicas de modelado más antiguas en el campo de las ciencias de la computación, inspiró en algunos aspectos al actualmente predominante lenguaje universal de modelado UML, tiene diversas variantes y está definido de manera formal y matemática, permitiendo el análisis de los sistemas modelados con esta técnica @reisigUnderstandingPetriNets2013. Las Redes de Petri también son llamadas place/transition nets por el hecho de estar formadas precisamente por lugares, representados por círculos, y transiciones, representadas por rectángulos, formando así un lenguaje matemático y una forma de representar sistemas distribuidos discretos @simonStateMachinesPetri. Algunos autores defienden que esta técnica es capaz de modelar procesos @vanderaalstAPPLICATIONPETRINETS1998, y existen ejemplos como el de la @fig:petricomplaints.
+
+Podemos ver que al día de hoy tenemos disponibles una gran cantidad de lenguajes, herramientas y técnicas para modelar sistemas de software y procesos. La elección del lenguaje dependerá de la naturaleza del sistema a modelar y de los beneficios que cada uno de ellos pueda aportar. Aún así, es posible modelar un mismo sistema de procesos usando distintos lenguajes.
 
 === Inteligencia Artificial
 
