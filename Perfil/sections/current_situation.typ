@@ -80,7 +80,7 @@ Por la naturaleza de la reutilización del software, que consiste en usar trabaj
   placement: auto,
 )<fig:mobile_reuse>
 
-La reutilización de software se ha popularizado bastante en los últimos años, particularmente con el auge de los sistemas de código abierto y la creación de plataformas digitales. Esta tendencia también responde a la demanda por la disminución de costos de producción y mantenimiento de software, entregas más rápidas de los sistemas y mejoras en la calidad del software @sommervilleSoftwareEngineering2016. 
+La reutilización de software se ha popularizado bastante en los últimos años, particularmente con el auge de los sistemas de código abierto y la creación de plataformas digitales. Esta tendencia también responde a la demanda por la disminución de costos de producción y mantenimiento de software, entregas más rápidas de los sistemas y mejoras en la calidad del software @sommervilleSoftwareEngineering2016.
 
 En este sentido, la @fig:mobile_reuse, que forma parte de un estudio publicado el año 2014, sobre la reutilización de software en el desarrollo de aplicaciones móviles, halló que en las distintas categorías de aplicaciones analizadas, existe un alto porcentaje de reutilización #footnote[La reutilización en este estudio fue medida calculando la proporción de clases reutilizadas sobre la cantidad total de clases de cada proyecto], por encima del 62% @mojicaLargeScaleEmpiricalStudy2014.
 
@@ -108,6 +108,7 @@ La necesidad de manejar flujos de trabajo es realmente frecuente en muchos siste
   image("../assets/wfms_history.png"),
   caption: [WFMS desde una perspectiva histórica\ Fuente: The Application of Petri Nets
     to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+  placement: auto,
 )<fig:wfms_history>
 
 Es importante entender que, de forma general y sintética, el propósito principal de los sistemas de flujo de trabajo (WFMS) es el apoyo en la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que posteriormente podría guiar en la implementación de un sistema específico a los trámites administrativos.
@@ -129,9 +130,9 @@ nació el término _Open Source_ como otra forma de referirse a lo mismo, salvo 
 En este documento nos referimos a ellos casi indistintamente y teniendo preferencia por el uso de *FOSS*.
 
 Cuando Richard Stallman comenzó a trabajar como programador en el Laboratorio de Inteligencia Artificial del MIT el año 1971,
-pasó a formar parte, por primera vez, de una *comunidad* de "hackers" 
+pasó a formar parte, por primera vez, de una *comunidad* de "hackers"
 #footnote[El término hacker es entendido por Stallman como aquel que hace referencia a una persona inteligente y curiosa con espíritu de sagacidad imaginativa y de exploración]
-que *compartían software* y, sin saberlo porque en aquel entonces la práctica era tan común que no tenía un término propio, eran también una comunidad de "software libre" @stallmanSoftwareLibrePara. Estas comunidades de hackers y de software libre no dejaron de existir a pesar de que la industria del software comenzó a ver el software como un producto comercial. 
+que *compartían software* y, sin saberlo porque en aquel entonces la práctica era tan común que no tenía un término propio, eran también una comunidad de "software libre" @stallmanSoftwareLibrePara. Estas comunidades de hackers y de software libre no dejaron de existir a pesar de que la industria del software comenzó a ver el software como un producto comercial.
 
 En años recientes, los proyectos de software libre sentaron las bases para muchos de los avances tecnológicos que hoy tenemos disponibles e incluso las grandes empresas tecnológicas, que otrora daban exclusiva preferencia al software propietario, ahora los utilizan de forma masiva y contribuyen a su desarrollo @vonkroghCarrotsRainbowsMotivation2012.
 
@@ -177,7 +178,7 @@ Con la salida al mercado de forma gratuita de ChatGPT el 30 de Noviembre de 2022
 
 Uno de los servicios alrededor de los LLMs es el uso de APIs que permiten la integración de dichas herramientas en diversos sistemas. Las aplicaciones son muchas y aún se siguen explorando. Sin embargo, una de ellas es claramente el uso de la inferencia en base a inteligencia artificial.
 
-La inferencia consiste en usar modelos de inteligencia artificial ya entrenados para reconocer patrones y sacar conclusiones sobre información nueva que no vieron antes @WhatAIInference2024. Dicho enfoque puede usarse para analizar documentos y, en general, datos, sin necesidad de entrenar otro modelo. 
+La inferencia consiste en usar modelos de inteligencia artificial ya entrenados para reconocer patrones y sacar conclusiones sobre información nueva que no vieron antes @WhatAIInference2024. Dicho enfoque puede usarse para analizar documentos y, en general, datos, sin necesidad de entrenar otro modelo.
 
 Este análisis de documentos tiene cierto parecido con el análisis realizado por funcionarios públicos al momento de revisar los formularios de un trámite. Sin embargo, hoy en día se siguen empleando servidores fuera de Bolivia para emplear estos modelos de lenguaje, por lo que su utilización podría estar limitada por la normativa vigente en el país. Aún así, es importante mencionar este tipo de posibles aplicaciones dentro del proceso de digitalización de trámites.
 
@@ -204,7 +205,7 @@ Debido a la cantidad de procesos administrativos que existen en distintas instit
 - *Implementación De Un Módulo De Control Y Seguimiento Para Mejorar La Gestión Del Trámite Documentario En La Municipalidad Distrital De Cayaltí, 2018* @murosalazarImplementacionModuloControl2018: Esta tesis busca demostrar la importancia de la creación de un módulo específico de trámites que sea *reutilizable*. Brinda algunas recomendaciones sobre su implementación, pero no realiza ninguna implementación práctica.
 
 - *Desarrollo de una aplicación _web responsive_ para mejorar el proceso de trámite documentario en un colegio profesional* @cajusolvallejosDesarrolloAplicacionWeb2020
-   
+
 - *Desarrollar un sistema web de trámite documental para mantener las acreditadoras de la escuela de ingeniería informática de la URP* @zegarrajibajaDesarrollarSistemaWeb2019.
 
 === Fuera del ámbito académico
