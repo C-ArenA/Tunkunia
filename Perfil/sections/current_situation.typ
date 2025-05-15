@@ -97,7 +97,7 @@ Toda organización, incluido por supuesto el aparato gubernamental, debe manejar
 Tal es la relevancia que existe una organización dedicada a estandarizar los WFMS y BPM, la cual fue fundada el año 1993 y es llamada "Workflow Management Coalition" (WfMC) @WorkflowManagementCoalition. Dicha organización define a los WFMS de la siguiente manera:
 
 #quote(attribution: [Workflow Management Coalition])[
-  A workflow management system (WMS) is a software application that is designed to help organizations automate and manage their business processes. A WMS allows an organization to define and implement a workflow - a series of tasks, steps, and decisions - that need to be followed to complete a specific process. The system can then be used to track the progress of the workflow, manage the flow of information and documents, and ensure that tasks are completed in the correct order and by the right people.
+  A workflow management system (WMS) is a software application that is designed to help organizations automate and manage their business processes. A WMS allows an organization to define and implement a workflow #sym.dash.em\a series of tasks, steps, and decisions#sym.dash.em that need to be followed to complete a specific process. The system can then be used to track the progress of the workflow, manage the flow of information and documents, and ensure that tasks are completed in the correct order and by the right people.
 
   A WMS can be used to automate a wide range of business processes, such as invoicing, order fulfillment, human resources, and project management. It can also be used to integrate different systems, such as email, calendar, and customer relationship management (CRM) software. WMS allows you to streamline the process and make it more efficient, reduce errors and delays, and give you real-time visibility into the status of your processes, also it's common to have a built-in reporting and analytics tools to measure the performance of the process.
 ]
@@ -113,11 +113,46 @@ La necesidad de manejar flujos de trabajo es realmente frecuente en muchos siste
 
 Podemos entender, de forma general y sintética, que el propósito principal de los sistemas de flujo de trabajo (WFMS) es el apoyo en la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que posteriormente podría guiar en la implementación de un sistema específico a los trámites administrativos.
 
-=== Arquitecturas Modulares y Distribuidas
+=== Arquitectura y Modularidad
 
-// Hablaremos de modularidad
-// Hablaremos de nuevas arquitecturas como microservicios
-// Hablaremos de la interoperabilidad y los subsistemas con el ejemplo del proyecto SINER
+Se puede advertir al día de hoy que queda cada vez más claro que una ingeniería de software efectiva requiere del diseño de la arquitectura del software, una práctica que siempre se lleva a cabo de forma implícita al desarrollar software, pero que conviene aplicar de forma fundamentada.
+Primero, es importante poder reconocer paradigmas comunes para que se puedan entender las relaciones de alto nivel entre sistemas y para que se puedan construir nuevos sistemas como variaciones de sistemas antiguos.
+Segundo, conseguir la arquitectura correcta es a menudo crucial para el éxito del diseño de un sistema de software, mientras que hacer esto de manera  incorrecta puede llevar a resultados desastrosos.
+Tercero, un entendimiento detallado de las arquitecturas de software permite al ingeniero hacer elecciones fundamentadas entre alternativas de diseño.
+Cuarto, una representación arquitectónica del sistema es a menudo esencial para el análisis y la descripción de las propiedades de alto nivel de un sistema complejo @Garlan94SAIntroTR. En el presente, la arquitectura de software eficaz y su representación y diseño explícitos se han vuelto los temas dominantes en la ingeniería de software @pressmanSoftwareEngineeringPractitioner2010
+
+Para los arquitectos de software es crucial entender la modularidad en los sistemas para poder aplicarla, dado que casi siempre los sistemas desarrollados están compuestos de varias piezas y la modularidad es un principio de organización importante en este contexto. De este modo modularidad es un término general para denotar grupos relacionados de código @richardsFundamentalsSoftwareArchitecture2020. Entonces el agrupamiento de código está relacionado con la reutilización del mismo y la organización de un sistema de software que busca tener modularidad para facilitar su mantenimiento y evolución consiguiendo el correcto orden.
+
+Con esto en mente, muchos patrones y estilos de arquitectura buscan lograr modularidad en algún sentido. Por ejemplo, cuando hablamos de estilos de arquitectura, podemos mencionar la arquitectura en capas, la arquitectura orientada a servicios (SOA), la arquitectura basada en microservicios, la arquitectura de eventos, la arquitectura hexagonal, etc. Cada uno de estos estilos tiene sus propias características, ventajas y desventajas, pero todos buscan lograr modularidad y facilitar el mantenimiento y la evolución del software.
+
+#figure(
+  image("../assets/micro_topo.png", width: 60%),
+  caption: [Topología del estilo de arquitectura de microservicios\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  placement: auto,
+)<fig:micro_topo>
+
+#figure(
+  image("../assets/soa_topo.png", width: 60%),
+  caption: [Topología del estilo de arquitectura #acr("SOA")\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  placement: auto,
+)<fig:soa_topo>
+
+En la actualidad, muchos de estos estilos se consolidaron como los más usados o se están haciendo cada vez más populares. Los siguientes estilos tienen bastante relevancia en el contexto de este proyecto y en la actualidad del desarrollo de software:
+
+- *La arquitectura por capas* es un estándar de facto para muchas aplicaciones, principalmente por su simplicidad, familiaridad y sus bajos costos. También es una forma muy natural de desarrollar aplicaciones siguiendo la ley de Conway de reflejar la estructura de una organización en el diseño de un producto. Ya se vio en la @fig:siai_architecture_style una topología común de este tipo.
+- *La arquitectura de microservicios* es un estilo de arquitectura extremadamente popular en la actualidad que se basa en la creación de pequeños servicios totalmente independientes que pueden comunicarse entre sí con el objetivo de garantizar un alto desacoplamiento. Este estilo es complejo y requiere independencia incluso en las bases de datos, como puede verse en la @fig:micro_topo.
+- *La arquitectura orientada a servicios (SOA)* es un estilo de arquitectura pragmático y flexible que, si bien se basa en la creación de servicios independientes, no tiene el mismo nivel de complejidad que tienen los microservicios y otras arquitecturas distribuidas (ver @fig:soa_topo). Este estilo se volvió popular en muchas aplicaciones relacionadas a las empresas.
+
+Finalmente, en lo que respecta a la arquitectura de software y modularidad, es importante mencionar que las distintas "piezas" modulares de un sistema pueden recibir un nombre, aunque este depende de la organización o persona que lo use. Por ejemplo, Ingeno, en su libro "Software Architect's Handbook" @ingenoSoftwareArchitectsHandbook2018, trata de definir estas piezas en seis categorías:
+
+- Estructura: Agrupación e interrelación entre elementos.
+- Elemento: Término genérico para referirse a cualquiera de estas "piezas".
+- Sistema: Representa el proyecto de software en su totalidad, representando el nivel más grande de abstracción del diseño.
+- Subsistema: Como ya se definió en la introducción de este documento, un subsistema es un sistema que forma parte de otro sistema más grande con cierto nivel de independencia y puede, a su vez, estar conformado por otros subsistemas. No se debe olvidar que un subsistema no deja de ser en sí mismo un sistema en términos generales.
+- Módulo: De forma similar a los subsistemas, son una parte de un sistema más grande, pero se enfocan en un área lógica específica de responsabilidad.
+- Componente: Son el nivel más pequeño de agrupación, con el nivel más bajo de abstracción.
+
+Estos términos pueden ser intercambiables entre sí ante la falta de definiciones universales. Sin embargo, respecto al subsistema, conviene mencionar un proyecto licitado en años recientes por el gobierno boliviano, para la Autoridad de Regulación y Fiscalización de Telecomunicaciones y Transportes (ATT), que es el "Sistema Integrado Nacional del Espectro Radioeléctrico" (SINER) @GobiernoLanzaSegunda2023. Este sistema cuenta con dos componentes de software que el documento base de contratación de dicha licitación define como subsistemas, haciendo referencia a que forman parte de un sistema más grande, a pesar de que los mismos pueden también ser utilizados, aunque parcialmente, de forma independiente. De hecho, se toma esto como inspiración para categorizar lo propuesto en este proyecto como un subsistema.
 
 === Proyectos de Software Libre
 
