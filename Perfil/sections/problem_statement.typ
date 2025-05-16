@@ -1,21 +1,19 @@
 = Planteamiento del Problema
 
-El desarrollo de trámites en sistemas gubernamentales enfrenta desafíos significativos debido a la falta de herramientas reutilizables y estándares modulares.
+La @section:related_work hace un repaso por algunos de los trabajos relacionados a la digitalización de trámites, haciendo evidente que existe una cantidad importante de trámites que se buscan digitalizar. En su mayoría, estas implementaciones comparten características similares que se estarían replicando y que se seguirán replicando en el futuro, para trámites aún no digitalizados. Además, como pudo observarse en los antecedentes de este trabajo, la digitalización de trámites en instancias públicas del estado debe responder a los lineamientos marcados por la normativa vigente y los diferentes planes, reglamentos y recomendaciones del gobierno boliviano.
 
-La ubicuidad del trámite en distintos espacios del estado y la cantidad de los mismos implican el desarrollo de características o funcionalidades similares en muchos proyectos de software de la administración pública.
+La ubicuidad del trámite en distintos espacios del estado y la cantidad de los mismos implican el desarrollo de características o funcionalidades similares en muchos proyectos de software de la administración pública y, si bien existen varios productos de gestión de flujos de trabajo que podrían responder a la necesidad de gestionar estos procedimientos administrativos, estos no son reutilizables para su integración en otros sistemas más grandes, suelen ser de código cerrado y propietario o no son específicos a los trámites.
 
-Si bien existen varios productos de gestión de flujos de trabajo (WFMS), como se vio en el apartado de situación actual, debe tomarse en cuenta que estos no son reutilizables en sistemas independientes, suelen ser de código cerrado y propietario, están estrechamente relacionados con otros productos comerciales (Como ERPs) y no son específicos a los trámites.
+Además, dado que muchas veces los trámites están estrechamente relacionados con el modelo del negocio de las distintas instituciones, se requiere la capacidad de integrar funcionalidades específicas en las implementaciones realizadas, dificultando la adopción de las ventanillas únicas, mismas que, adicionalmente, no se hicieron efectivas a nivel nacional, por lo que las distintas instancias del estado aún deben desarrollar sus propios sistemas de gestión de trámites.
 
-// TODO: Bolivia tiene normativa y lineamientos específicos para la gestión de trámites, que deben ser considerados
+Los planes de implementación derivados de la Ley Nº 164 y otras normativas citadas en la @section:current_situation demandan que, además, todos estos sistemas implementen otras características particulares como la interoperabilidad, la firma digital (u otro tipo de validación de documentos), el ingreso por Ciudadanía Digital, el seguimiento y control ciudadano, entre otras, incrementando así las similitudes entre las distintas implementaciones realizadas.
 
-// TODO: Una ventanilla única no se integra de manera consistente con las distintas necesidades de las oficinas de gobierno.
+Por lo tanto, podemos indicar que el desarrollo de sistemas alrededor de los trámites en entornos gubernamentales enfrenta desafíos significativos debido a la falta de herramientas reutilizables especializadas.
 
-Además, dada la conexión de los trámites con el modelo del negocio de las distintas instituciones, se requiere la capacidad de integrar estas funcionalidades en algún tipo de módulo o servicio que sea aprovechable y que además permita la interoperabilidad.
-
-La falta de un elemento reutilizable para el manejo de estos procesos administrativos, dificulta la adopción del trámite digital, manteniendo los problemas del trámite tradicional como los que se listan a continuación:
+Adicionalmente, no se puede ignorar que la falta de un elemento reutilizable para el manejo de estos procesos administrativos, dificulta la adopción del trámite digital por las distintas instancias públicas, derivando en la práctica del trámite tradicional, con sus propios problemas, como los que se listan a continuación:
 
 - Corrupción en la administración pública
-- Distancias recorridas para la realización de trámites
+- Distancias recorridas para la realización de trámites y múltiples interacciones necesarias
 - Tiempos de ejecución del trámite elevados
 - Costos para el ciudadano en la realización del trámite
 - Susceptibilidad a errores humanos
@@ -25,39 +23,34 @@ La falta de un elemento reutilizable para el manejo de estos procesos administra
 - Falta de transparencia en la gestión del trámite
 - Falta de información sobre los requisitos del trámite
 
-También conlleva a muchas desventajas directas: //TODO: Añadir las ventajas del software reutilizable de Sommerville
+También conlleva a muchas desventajas directas, principalmente las que nacen de no aprovechar los beneficios del software reutilizable @sommervilleSoftwareEngineering2016[pág. 439], que son:
 
 - Violación del principio DRY (Don't Repeat Yourself) o, como se conoce en términos coloquiales, reinvención de la rueda.
 - Baja atención al detalle sobre el módulo de trámite, ofuscado en medio de sistemas más grandes, a pesar de su importancia.
-- Tiempos de desarrollo mayores. Esto para el aparato estatal es impensable, ya que la mayoría de sus licitaciones piden desarrollos en tiempo récord y ante la falta de módulos reutilizables, los proyectos corren peligro de fracasar por cumplimiento de plazos.
-- Costos elevados de desarrollo.
-- Dificultad innecesaria en proyectos pequeños. La funcionalidad del trámite debería ser básica y aplicable fácilmente en proyectos pequeños, pero al no existir herramientas, la gestión de trámites puede terminar implicando un proyecto de mayor envergadura.
+- Tiempos de desarrollo mayores. Esto para el aparato estatal es un problema impensable, ya que la mayoría de sus licitaciones piden desarrollos en tiempo récord y ante la falta de módulos reutilizables, los proyectos corren peligro de fracasar por cumplimiento de plazos.
+- Costos y productividad. En general, a pesar de no ser siempre el caso, la reutilización de software conlleva a un aumento en la productividad y una consecuente reducción de costos. De no aplicar esta filosofía, nos enfrentamos a costos elevados, mucho más si los sistemas de gestión de trámites se implementan múltiples veces en distintas instancias públicas.
 - Fricción en la digitalización de trámites. La dificultad de hacer buen software y el costo del mismo pueden complicar su adopción.
 - Mayor susceptibilidad a desarrollos fallidos. Se sabe que en distintos países los desarrollos de software para instancias gubernamentales acaban en fracaso, entre otros motivos, por falta de entendimiento en la entidad pública que tiene problemas comunicando sus necesidades y ausencia de modelado de procesos comunes.
-- Falta de características esenciales. Al no prestarle atención específica a un módulo de software muchas veces se ignoran funcionalidades que podrían beneficiar a los usuarios, como por ejemplo, en este caso, métodos digitales de validación de documentos usando inteligencia artificial.
-- Falta de modularidad y violación del principio SRP (Single Responsibility Principle), primer componente del principio SOLID.
-- Dificultad en el mantenimiento del software. Al tener la funcionalidad del trámite estrechamente relacionada con el resto del sistema, el mantenimiento se dificulta.
-- Mala documentación. El código no modularizado raras veces cuenta con buena documentación que pueda facilitar el futuro mantenimiento del software. A menudo, por ejemplo, las librerías de software cuentan con documentación útil que implica fácil adopción de tecnologías por una mayor cantidad de desarrolladores.
+- Falta de características y estandarización. Al no prestarle atención específica a un módulo de software muchas veces se ignoran funcionalidades que podrían beneficiar a los usuarios, que son requeridas por la normativa nacional, o que presentan algún tipo de innovación. Además, dificulta o no ayuda a identificar la estandarización de los sistemas de gestión de trámites, a pesar de las similitudes que existen entre estos.
+- Dificultad en el mantenimiento del software. Los esfuerzos de mantenimiento de cada sistema de gestión de trámites implementado en las distintas instancias públicas se distribuyen entre ellas, cuando podrían centralizarse en un solo componente reutilizable. Además, futuras actualizaciones suelen depender de la persona o entidad que desarrolló el sistema en un principio, presentando el riesgo de acabar con un sistema obsoleto.
+- Mala documentación. El código no reutilizado raras veces cuenta con buena documentación que pueda facilitar el futuro mantenimiento del software. A menudo, por ejemplo, las librerías de software cuentan con documentación útil que implica fácil adopción de tecnologías por una mayor cantidad de desarrolladores. Esto se debe a que se continúan sacando nuevas versiones de dichas librerías en un proceso de mejora constante.
+
 
 == Abordaje al Problema
 
-Estas desventajas se pueden atacar implementando un módulo que, buscando cumplir con normativa boliviana y atendiendo a la necesidad de la sociedad, sea de tipo FOSS. Dicho módulo enfrentaría funcionalidades comunes a los distintos procesos de trámite, considerando su definición, ejecución, registro, y control, permitiendo en general su correcta gestión y seguimiento.
+Estas desventajas podrían ser atacadas implementando un módulo, componte o subsistema reutilizable que atienda las características comunes entre distintos sistemas de gestión de trámites, buscando cumplir con normativa boliviana, siendo de tipo FOSS, con capacidad de integración de funcionalidades, interoperabilidad y considerando la definición, ejecución, registro, y control de dichos procesos administrativos.
 
 == Desafíos
 
-Sin embargo, la realización de módulos de software acarrea varios desafíos, entre ellos académicos. A continuación se listan algunos:
+Sin embargo, la realización de elementos reutilizables de software acarrea varios desafíos técnicos y académicos, particularmente en el contexto de los trámites gubernamentales. A continuación se listan algunos de estos:
 
-- Modelado del trámite: Al querer atacar en específico estos procesos administrativos, se deben inicialmente modelar, partiendo de las características comunes a cada trámite, usando herramientas disponibles como las redes de Petri, las máquinas de estado finitas, diagramas de actividad UML, entre otras. Esto implica la exploración y estudio de dichas herramientas de modelado.
-- Elección de tipo de módulo: Se debe realizar un análisis para decidir la manera en la que se facilitará el módulo a los usuarios del mismo y contemplar el alcance del mismo, de acuerdo a un análisis de arquitectura de software.
-- Metodología de Desarrollo: Adoptar una buena metodología es importante para cualquier proyecto, pero en un módulo FOSS existen ciertas particularidades, ya que éste será utilizado por muchos otros proyectos que confiarán en el mismo y puede enriquecerse de participaciones futuras de la comunidad.
-- Arquitectura de Software: Este es un tema poco estudiado durante el transcurso de la carrera de Ingeniería Electrónica de la UMSA, por lo que representa un desafío académico importante para el éxito de este proyecto, debido a que es crucial para la elaboración de un producto de software robusto y de calidad.
+- Modelado del trámite: Al querer atacar en específico estos procesos administrativos, pero deseando atenderlos de forma general, se deben inicialmente modelar, partiendo de las características comunes a cada trámite, usando herramientas disponibles como las redes de Petri, las máquinas de estado finitas, diagramas de actividad UML, entre otras. Esto implica la exploración y estudio de dichas herramientas de modelado, además de un conocimiento profundo de la normativa alrededor de los trámites.
+- Elección de tipo de módulo: Se debe realizar un análisis para decidir la manera en la que se facilitará el módulo a los usuarios del mismo y contemplar el alcance del mismo, de acuerdo a un análisis de arquitectura de software. Existen muchas formas de materializar la solución al problema presentado.
+- Metodología de Desarrollo: Adoptar una buena metodología es importante para cualquier proyecto, pero en un módulo FOSS existen ciertas particularidades, ya que este será utilizado por muchos otros proyectos que confiarán en el mismo y puede enriquecerse de participaciones futuras de una posible comunidad.
+- Arquitectura de Software: Este es un tema poco estudiado durante el transcurso de la carrera de Ingeniería Electrónica de la UMSA, por lo que representa un desafío académico importante para el éxito de este proyecto, debido a que es crucial para la elaboración de un producto de software robusto y de calidad, que use patrones de diseño y emplee las mejores prácticas.
 - Documentación: Escribir la documentación de una pieza de software reutilizable es de mayor relevancia. Se requiere el uso de un lenguaje técnico correcto y habilidades de redacción para que la adopción de la herramienta por otros desarrolladores sea sencilla.
-- Know-how FOSS: Se cuenta con muy poco conocimiento del desarrollo de software libre en el contexto local y mucho menos de sistemas con éxito. Se debe documentar bien el proceso para inspirar proyectos futuros en la región.
-- Control de versiones: Cualquier proyecto de software moderno requiere el uso de sistemas de versionado, pero en un proyecto de código abierto esto es especialmente importante para permitir colaboraciones externas y evolución constante.
-- Buenas prácticas de desarrollo y uso de patrones de diseño: Para tener una buena implementación existen recomendaciones y patrones que pueden ser empleados, además de experiencias compartidas en internet por distintos desarrolladores. Las mismas pueden potenciar un proyecto y son importantes de estudiar.
-- Interoperabilidad: Se debe pensar en cómo interactuará el módulo con los sistemas que lo empleen, lo cual no necesariamente es trivial y requiere el estudio de estándares como ser REST, JWT y OpenAPI.
+- Control de versiones y colaboración: Cualquier proyecto de software moderno requiere el uso de sistemas de versionado, pero en un proyecto de código abierto esto es especialmente importante para permitir colaboraciones externas y evolución constante.
+- Integración: Se debe pensar en cómo se interactuará con los sistemas que reutilicen el módulo propuesto, además, en el cómo se lograrán las capacidades de interoperabilidad, lo cual no necesariamente es trivial y requiere el estudio de estándares como ser REST, JWT y OpenAPI.
 - Testabilidad: Los proyectos de software moderno tienen como proceso importante el del testing, el cual permite realizar desarrollos que cumplan con lo que se desea en su diseño y que no hagan algo distinto @myersArtSoftwareTesting2012. Sin embargo, el campo del testing no es explorado en instituciones universitarias, a pesar de su importancia.
-- Escalabilidad y Robustez: Una pieza de software reutilizable debe garantizar robustez y posibilidad de escalar a los usuarios de la misma. Las estrategias para enfrentar dichos requerimientos demandan un estudio y análisis adicional, probablemente, el uso de microservicios.
-- Flexibilidad: Es difícil poder predecir que un sistema contemple todos los posibles casos de uso existentes alrededor del trámite. Por esto mismo el desarrollo debe estar orientado a la flexibilidad, a que los usuarios del código puedan modificarlo a sus necesidades.
-- Los sistemas que no piensan en el usuario no son útiles: La carrera de Ingeniería Electrónica en su mención de sistemas contempla aspectos más cercanos al "bajo nivel" de las computadoras. Si bien este proyecto contempla temas de modelado de sistemas, infraestructura, arquitectura e ingeniería de software, también requiere la consideración de factores muy lejanos a la materia, como la experiencia de usuario y, probablemente, las interfaces de usuario.
+- Flexibilidad: Es difícil poder predecir que un sistema contemple todos los posibles casos de uso existentes alrededor del trámite. Por esto mismo el desarrollo de un elemento reutilizable debe estar orientado a la flexibilidad, a que los usuarios del código puedan modificarlo a sus necesidades específicas.
 - Infraestructura y despliegue: La realización de pruebas del módulo requiere que se aprendan técnicas de despliegue de aplicaciones, como administración de VPSs o manejo de contenedores. Además, esto se debe documentar para que los usuarios sepan cómo hacer el despliegue y la instalación correspondiente.

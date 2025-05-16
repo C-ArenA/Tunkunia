@@ -231,7 +231,7 @@ La inferencia consiste en usar modelos de inteligencia artificial ya entrenados 
 
 Este análisis de documentos tiene cierto parecido con el análisis realizado por funcionarios públicos al momento de revisar los formularios de un trámite. Sin embargo, hoy en día se siguen empleando servidores fuera de Bolivia para emplear estos modelos de lenguaje, por lo que su utilización podría estar limitada por la normativa vigente en el país. Aún así, es importante mencionar este tipo de posibles aplicaciones dentro del proceso de digitalización de trámites.
 
-== Trabajos Relacionados
+== Trabajos Relacionados<section:related_work>
 
 Para poder identificar los trabajos relacionados a este proyecto se buscaron los mismos en torno al trámite digital y distintos procesos administrativos, tanto en el sector público, como en el sector privado. Esto nos permite abarcar trabajos relacionados de forma directa e indirecta. Se debe tomar en cuenta que estos trabajos carecen de características fundamentales como la reutilización o la naturaleza de software libre y no se encontró ninguno que cumpla con todas las características deseadas. Sin embargo, muchos de ellos sí tienen una gran cantidad de funcionalidades o conceptos que podrían inspirar el desarrollo del subsistema propuesto en este proyecto.
 
