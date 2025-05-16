@@ -49,4 +49,5 @@
   "NPM": "Node Package Manager",
   "SOA": "Service Oriented Architecture",
   "XP": "Extreme Programming",
+  "BPMN": "Business Process Model and Notation",
 )

@@ -258,29 +258,19 @@ Debido a la cantidad de procesos administrativos que existen en distintas instit
 
 === Fuera del ámbito académico
 
-Si bien, no existen módulos de trámite que se puedan integrar en sistemas más grandes de manera comercial, sí se pueden ver sistemas completos con la funcionalidad de gestión de trámites que ofrecen todo lo necesario para llevar a cabo procesos administrativos. Algunos son:
-
-- *SoftExpert - Gestión de Trámites:* Visibilidad y control sobre el procesamiento de documentos, archivos y objetos
-
-- *R2 Docuo:* Expedientes, Solicitudes y trámites a toda velocidad: En su _homepage_ puede verse la funcionalidad de seguimiento temporal de trámites (@fig:r2docuotimeline)
+Si bien no se pudo encontrar módulos especializados en la gestión de trámites que se puedan integrar en sistemas más grandes con un enfoque de reutilización de software, sí existen sistemas con características similares a la funcionalidad de gestión de trámites o que incluso ofrecen todo lo necesario para gestionar procesos administrativos. A su vez, existen casos dentro de instancias públicas que podrían inspirar la solución propuesta más adelante.
 
 #figure(
-  image("../assets/r2docuotimeline.png", width: 50%),
+  image("../assets/r2docuotimeline.png", width: 40%),
   caption: [Captura de pantalla del homepage de R2 Docuo donde se puede ver el timeline de un trámite\ Fuente: www.r2docuo.com],
   placement: auto,
 )<fig:r2docuotimeline>
 
-- *Filestage:* Si bien no es específico para trámites, tiene un sistema de tránsito de documentos hasta su aceptación, que es una funcionalidad común en los trámites.
-
-- *Odoo:* Es un ERP @ERPCRMCodigo con herramientas para el manejo de flujos de trabajo (BPM) y cuenta con un diseño modular, permitiendo la creación de soluciones de terceros, entre las cuales existe una, ya sin mantenimiento, que permite crear flujos desde una GUI (@fig:odoowfms).
-
 #figure(
-  image("../assets/odoowfms.png", width: 50%),
+  image("../assets/odoowfms.png", width: 40%),
   caption: [Descripción de módulo de manejo de flujos de trabajo en Odoo\ Fuente: Captura de pantalla tomada de la tienda de extensiones de Odoo],
   placement: auto,
 )<fig:odoowfms>
-
-- *COSA:* Un gestor de flujos de trabajo antiguo que se menciona como ejemplo de caso de uso de redes de Petri en un WFMS @vanderaalstAPPLICATIONPETRINETS1998, esto mediante una herramienta llamada CONE (@fig:conecosa).
 
 #figure(
   image("../assets/conecosa.png", width: 40%),
@@ -288,14 +278,22 @@ Si bien, no existen módulos de trámite que se puedan integrar en sistemas más
   placement: auto,
 )<fig:conecosa>
 
-- *Insite CRM:* CRM desarrollado por Insite @tanjaOPERATIONALCRM2024, el cual cuenta con un módulo de gestión de flujos de trabajo (@fig:insitecrm)
-
 #figure(
-  image("../assets/insitecrm.png", width: 50%),
+  image("../assets/insitecrm.jpg", width: 50%),
   caption: [Screenshot de video tutorial del producto Insite CRM],
   placement: auto,
 )<fig:insitecrm>
 
-- *Sistema de Otorgamientos OTTO:*
+#figure(
+  image("../assets/att_platform.png", width: 50%),
+  caption: [Captura de pantalla de la vista de ingreso a PlATTaformas Virtuales para acceder al sistema OTTO\ Fuente: https://plataformas.att.gob.bo/],
+  placement: auto,
+)<fig:att_platform>
 
-- *Sistema de Trámites POTyS:*
+- *SoftExpert BPM:* Solución de software para la gestión de procesos de negocio @BusinessProcessManagemente. Si bien su foco no son los trámites, cuenta con elementos de modelado y seguimiento de procesos que podrían ser útiles en el contexto de los trámites digitales.
+- *R2 Docuo:* Sistema completo de gestión de procesos que cuenta con una funcionalidad para el manejo de solicitudes y trámites @SoftwareParaGestionb. Crea fichas de información, define los pasos de cada trámite, almacena documentos asociados y ahorra tiempo con formularios y avisos (@fig:r2docuotimeline)
+- *Odoo:* Es un #acr("ERP") @ERPCRMCodigo con herramientas para el manejo de flujos de trabajo y con un diseño modular que permite la creación de soluciones de terceros, entre las cuales existe una, ya sin mantenimiento, que permite crear flujos desde una herramienta gráfica de modelado de procesos (@fig:odoowfms). Es importante resaltar que Odoo cuenta con una edición llamada "Community" que es totalmente de código abierto, y dado que es un ERP completo con capacidad de manejo de procesos, podría ser un punto de partida interesante para proyectos de digitalizazción de trámites.
+- *COSA:* Un gestor de flujos de trabajo antiguo que se menciona como ejemplo de caso de uso de redes de Petri en un #acr("WFMS") @vanderaalstAPPLICATIONPETRINETS1998, esto mediante una herramienta llamada CONE (@fig:conecosa).
+- *Insite CRM:* Es un CRM desarrollado por Insite @tanjaOPERATIONALCRM2024, el cual cuenta con un módulo de gestión de flujos de trabajo (@fig:insitecrm), mediante el cual se permite la definición de procesos en una interfaz de usuario avanzada que parece ser un editor de diagramas #acr("BPMN"), como los vistos en la @fig:bpmn.
+- *POTyS:* En palabras de Marco Antonio Bravo Fabián, director general del Instituto Quintanarroense de Innovación y Tecnología, el Portal Oficial de Trámites y Servicios (POTyS) tiene como objetivo que la ciudadanía pueda realizar los trámites de gobierno en línea, disminuyendo al máximo el contacto físico, las filas y la corrupción @candurizDigitalizanTramitesGobierno. Esta plataforma busca ser una ventanilla única de trámites, que pueda centralizar los distintos trámites existentes en el estado de Quintana Roo de México. Para finales del año 2022, esta plataforma llegó a incluir un total de 26 trámites @ramirezQuintanaRoo262022.
+- *OTTO:* La plataforma digital de Otorgamientos en Telecomunicaciones OTTO, que fue aprobada mediante Resolución Administrativa Interna ATT-DJ-RAI LP 8/2019 de la Autoridad de Regulación y Fiscalización de Telecomunicaciones y Transportes, atiende distintos trámites de solicitud y renovación de licencias para el uso de frecuencias @ResolucionAdministrativaInterna. Estos trámites tienen como un componente importante la realización de un análisis técnico interno especializado relativo al campo de la gestión del espectro radioeléctrico para determinar el resultado de los mismos. Esta particularidad implica que, si bien hay características comunes en distintos trámites, la ejecución de verificaciones no es homogénea, siendo necesario que las distintas instancias públicas puedan implementar sus propios sistemas de gestión de trámites, conforme a sus propios modelos de negocio, en contraposición con la idea de usar una ventanilla única. Además, vale la pena notar que, como puede verse en la @fig:att_platform, el ingreso a la plataforma OTTO se puede hacer mediante el uso de Ciudadanía Digital, siguiendo las guías de implementación de gobierno electrónico en Bolivia.
