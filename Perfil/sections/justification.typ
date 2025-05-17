@@ -1,79 +1,32 @@
-// TODO: Modificar las justificaciones de acuerdo a lo indicado por el Ingeniero León. Considerar no poner subtítulos
-
 = Justificación
 
-La solución propuesta tiene 3 pilares importantes que la componen y muestran relevancia cada una por su cuenta:
+El subsistema reutilizable que se plantea implementar en este proyecto busca contribuir a la adopción del gobierno electrónico en Bolivia mediante la simplificación en la digitalización de trámites en diferentes instancias públicas, permitiendo que la ciudadanía pueda efectuar esta actividad burocrática de una forma sencilla y rápida, minimizando el riesgo de ser víctimas de corrupción, discriminación, clientelismo o de gastos excesivos de tiempo y dinero en estos procedimientos administrativos, es decir, evitando las desventajas del trámite presencial tradicional. Esto es deseable porque, como se ha mencionado en los antecedentes de este documento, los trámites son una de las herramientas más importantes que tiene el gobierno para comunicarse con la ciudadanía y, por lo tanto, es importante que sean accesibles y fáciles de usar.
 
-- La figura del *módulo* de software reutilizable.
-- La figura del *trámite* en instancias gubernamentales y su *modernización*.
-- El desarrollo de *software libre*.
+Al haber identificado que los trámites tienen muchas similitudes entre sí, este trabajo desea modelar estos procedimientos administrativos de forma general, ante la falta de otras definiciones formales en el ámbito académico, utilizando técnicas de modelado de procesos modernos. Además, se espera sentar las bases para la creación de estándares alrededor de los sistemas de trámites en Bolivia. Esta abstracción permitirá también que este sistema demuestre cómo se aplica la normativa boliviana en el ámbito de los desarrollos de software gubernamentales, inspirando trabajos futuros en este campo y guiando implementaciones que se vayan a realizar para el aparato estatal.
 
-De acuerdo a esto podemos ver la importancia de esta solución en distintos ámbitos:
+Si bien cada vez más instancias del estado priorizan el uso del software libre en sus desarrollos propios (en cumplimiento de la normativa vigente), el código fuente de los sistemas resultantes no es accesible al público. Es por esto que el subsistema reutilizable propuesto, al ser totalmente abierto y FOSS, en caso de aplicarse en trámites reales del gobierno, se busca que pueda permitir que el motor que corra detrás de estos procedimientos administrativos gubernamentales no venga del gobierno sino de la población. Esto permitirá que la ciudadanía tenga acceso al núcleo de los diferentes sistemas de gestión de trámites implementados, que pueda estudiarlos, analizarlos, agregar funcionalidades, probarlos, etc. De este modo habrá mayor confianza en los sistemas de trámites de gobierno que utilicen este elemento reutilizable. Se desea que la aplicación de este proyecto sea una garantía para el ciudadano de que sus trámites usan un código que es abierto y que puede ser auditado por cualquier persona. Esto es un paso hacia la transparencia del gobierno y la confianza de la ciudadanía en el mismo y debería ser un enfoque común en el software gubernamental que, más allá del uso del software libre, el software resultante sea abierto al público en gran medida.
 
-== Tecnológico
+Como puede percibirse, la característica de software libre tiene mucha importancia en este proyecto. No sólo atiende a una necesidad y requerimiento del gobierno boliviano mediante la normativa vigente, sino que además, busca contribuir al ecosistema de software libre en Bolivia, particularmente dentro del alma mater donde se realiza este proyecto, incentivando a la realización de más proyectos de este tipo, con un enfoque colaborativo, de comunidad y de crecimiento incluso después de finalizado el proyecto.
 
-La creación de un módulo de software reutilizable para la creación y
-seguimiento de trámites ayuda en el proceso de digitalización de uno de los
-procedimientos más comunes en el ámbito público, brinda a los gobiernos la
-posibilidad de aprovechar de mejor manera los datos resultantes de un trámite y
-dan a la población herramientas que hacen más fáciles sus vidas.
+/*
+Cuando se habla de digitalización de procesos administrativos, suele hablarse del impacto positivo que tiene en el medio ambiente. Esto es cierto, ya que la digitalización de los trámites permite reducir el uso de papel y otros recursos físicos. Sin embargo, no se puede ignorar el impacto negativo que tiene la digitalización en el medio ambiente, ya que la producción de dispositivos electrónicos y su desecho también tienen un impacto negativo en el medio ambiente. Por lo tanto, si bien se menciona este posible impacto, promovido por este proyecto, no se considerará una justificación válida para este trabajo.
+*/
 
-El subsistema no sólo facilitará la implementación de sistemas de software con
-módulos de trámites, sino que de forma más directa simplificará la tarea de los
-desarrolladores, siendo una pieza tecnológica dentro de proyectos más amplios.
+Por otra parte, el impacto económico positivo que se espera lograr con el proyecto es muy importante de mencionar, ya que se espera que el módulo de software reutilizable permita a las instituciones públicas implementar nuevos trámites de forma rápida y sencilla, lo que a su vez permitirá reducir costos y mejorar la eficiencia en la gestión de los trámites. Medir el impacto económico en un proyecto de software libre es difícil, pero algunos autores como Sommerville @sommervilleSoftwareEngineering2016, consideran que los costos de desarrollo son proporcionales al tamaño del software siendo desarrollado y la reutilización de software implica una menor cantidad de líneas de código escritas. Esta afirmación es controversial, ya que el número de líneas de código podría no ser un indicador serio para medir el tamaño del software, pero en base a ella podríamos determinar el impacto en los costos de implementación de los sistemas que utilizan el producto de este proyecto como motor para sus trámites de la siguiente manera:
 
-Se buscará el uso de las herramientas de inteligencia artificial disponibles en la actualidad para darle una funcionalidad moderna al producto y aprovechar la tecnología disponible, pero además, esta aplicación servirá como ejemplo de uso de los LLMs.
+$ C prop \L\O\C $
+$ \L\O\C_"sr" > \L\O\C_"cr" $
+$ therefore C_"sr" > C_"cr" $
 
-== Económico
+Donde:
 
-El software reutilizable de código abierto suele ser aprovechado hoy en día con el objetivo de
-disminuir costos en la producción de sistemas gracias a su naturaleza de
-comunidad y lo demandado de su funcionalidad.
+- $C$ es el costo de desarrollo del software.
+- $\L\O\C$ es la cantidad de líneas de código.
+- $C_"sr"$ es el costo de desarrollo del software sin reutilización de código.
+- $C_"cr"$ es el costo de desarrollo del software con reutilización de código.
+- $\L\O\C_"sr"$ es la cantidad de líneas de código del software sin reutilización de código.
+- $\L\O\C_"cr"$ es la cantidad de líneas de código del software con reutilización de código.
 
-De no existir el software reutilizable se deben invertir recursos para cada
-proyecto que requiera la misma funcionalidad. Recursos que, de usar un subsistema reutilizable, podrían conservarse, siendo que una parte del desarrollo ya estaría
-implementada. Existen excepciones a este caso en proyectos con necesidades muy
-específicas, pero en la mayoría de proyectos, un módulo, bien
-implementado es esencial para disminuir costos de producción en el largo plazo.
+A su vez, aunque estrechamente relacionado con el factor económico, existe un factor de tiempo que se busca atender con este proyecto. Un sistema que digitalice trámites en base a una implementación reutilizable inicial que requiera tan sólo algunas configuraciones para adaptarse a cada caso específico, es un sistema que toma menos tiempo de implementar. Las instituciones públicas están en constante cambio y muchas veces aparecen nuevos trámites que requieren ser implementados rápidamente. Este proyecto busca ser una solución a este problema, permitiendo que las instituciones públicas puedan implementar nuevos trámites de forma rápida y sencilla, sin necesidad de desarrollar un sistema desde cero.
 
-La digitalización de los trámites en sí misma también implica un uso más eficiente de recursos y menor susceptibilidad a actos de corrupción. A su vez, el ciudadano incurre en menores costos y tiempos de ejecución de trámites.
-
-== Académico
-
-Los proyectos de software libre a nivel regional y a nivel universidad son
-realmente escasos y al momento de redacción de este documento se desconoce de
-algún caso de éxito en la carrera de Ingeniería Electrónica de la UMSA.
-
-Es por eso que este proyecto busca ser un punto de partida hacia la realización
-de más proyectos del mismo tipo, es decir, de software libre reutilizable. Todo
-esto a partir de esta travesía que a modo de ejemplo busca inspirar a más
-estudiantes de la carrera.
-
-Al usar máquinas de estados finitas y redes de Petri logramos el aprovechamiento del conocimiento
-en sistemas secuenciales digitales dentro del ámbito de sistemas de software
-para lograr una abstracción del trámite. Además, se ponen en práctica enfoques de implementación de WFMS.
-
-== Político
-
-La realización de este proyecto no sólo se alinea con la necesidad de los
-distintos gobiernos del mundo de digitalizar sus procesos administrativos - como
-se puede constatar en Bolivia por el decreto 3251 donde se solicita a las
-distintas instituciones gubernamentales la realización de planes hacia un
-gobierno electrónico -, sino además apunta a la preferencia que los gobiernos
-tienen por el software libre, como se describe en el Artículo 77 de la Ley 164.
-
-== Social
-
-Los trámites son un dolor de cabeza para gran parte de la sociedad. Los
-gobiernos hacen el intento por digitalizar los mismos y así aliviar a la
-población, pero la existencia de herramientas reutilizables pueden acelerar
-drásticamente este proceso. Se espera que más y más trámites sean digitalizados
-en tanto más fácil sea hacerlo. De esta manera, los distintos actores de la
-sociedad podrán aprovechar las bondades de las tecnologías de la información.
-
-La digitalización de trámites, que sería facilitada por este proyecto, mejora
-además los mecanismos por los cuales la sociedad participa del gobierno. Impulsa
-la apertura de la información de los gobiernos hacia la gente y se adecúa a las
-nuevas necesidades de las personas.
-
-La interacción mediante medios digitales, a menudo reduce la discriminación o preferencias de cualquier tipo, debido a la menor interacción entre personas, permitiendo promover la igualdad.
+Finalmente, no se puede ignorar que este proyecto también busca validar ciertos patrones, estilos y prácticas de la ingeniería y la arquitectura de software. Incluso al día de hoy se considera a estas ciencias relativamente nuevas y no existen definiciones claras en muchos aspectos como la modularidad @richardsFundamentalsSoftwareArchitecture2020[pág. 37], a pesar de su importancia. Además, en la práctica, los términos usados alrededor del desarrollo del software sufren de una constante evolución. En este sentido, se busca validar el empleo del concepto de subsistema reutilizable para abarcar lo que también podría referirse a un marco de trabajo (framework) especializado, pero que además contemple cierta independencia y pueda integrarse en sistemas más grandes, pertenecientes a instancias públicas diversas. A partir de esto, también se desea desafiar el enfoque de ventanilla única que se hizo popular en años recientes, considerando que los trámites muchas veces deben integrarse a modelos de negocio específicos a cada entidad y en opinión del autor no deberían centralizarse en su totalidad.
