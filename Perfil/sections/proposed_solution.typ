@@ -1,4 +1,5 @@
 #import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
+#import "@preview/acrostiche:0.5.1": acr
 
 = Solución Propuesta
 
@@ -71,3 +72,48 @@ Algunas funcionalidades que se espera tener son:
   caption: [Funciones a grandes rasgos del módulo],
   placement: auto,
 )<fig:modfun>
+
+== Transición de lo presencial a lo digital
+
+El funcionario se vuelve un asistente de uso del sistema, ya no un ejecutir del trámite en sí mismo.
+
+== Arquitectura del módulo
+
+Es un subsistema
+
+Desde la perspectica dee reusabilidad
+Es una aplicación completa e independiente de forma parcial
+Además principalmente es un marco de trabajo
+
+Inspirado en otros frameworks como Django, Spring, .Net, Laravel, etc.. pero será un marco de trabajo especializado en los trámites con funcionalidad out-of-the-box para la gestión de flujos de trámite, pero las actividades específicas de cada trámite se deben implementar o configurar. Los frameworks genéricos ya implementan muchas funcionalidades necesarias y se priorizará su uso, pero en base a ello se especializará.
+
+Arquitectua abieta y bien documentada
+
+== Integración e interoperabilidad
+
+Al ser un marco de trabajo se debe configurar para cada caso de trámite
+No se debe olvidar que es específico al trámite y no atiende todas las funcionalidades de un sistema de gestión de flujos de trabajo ni las funcionalidades de cada institución pública. Por esto no se debe mezclar con otros sistemas internos, pero se puede integrar con ellos.
+
+== Tecnologías a usar y decisiones
+
+Las tecnologías a usar dedpenderán de las necesidades y la situación actual. Al ser desarrollado inicialmente por un solo desarrollador, se priorizará el uso de tecnologías que ya conozca y que le permitan avanzar rápidamente. Se espera que el módulo sea desarrollado en PHP, con Laravel, pero no se descartan otras tecnologías.
+
+Se debe atender a las limitaciones
+
+Se comenzará a partir de un framework genérico para lograr un desarrollo rápido y luego se especializará. Se espera que el módulo sea desarrollado en PHP, con Laravel, pero no se descartan otras tecnologías.
+
+== Configuración y personalización
+
+Por deefecto el sistema no se espera que atienda por completo un trámitre, sino que se debe afinar, personalizar o congigurar para lograrlo.
+
+Al ser un marco ded trabajo se espera que cada institucióin, mediante sus desarrolladores modeifque el sistema a su gusot
+
+Sin embargho, también se espera poder bvrindar cierta funcionalidad de configurtación para el usuario final que administra el sistema en cada instanciapública.
+
+Algo similar se ve en Wordpress, donde el usuario final puede configurar ciertos aspectos del sistema, pero no puede modificar el código fuente. En este caso se espera que el usuario final pueda configurar ciertos aspectos del sistema, como los formularios de trámite, pero no podrá modificar el código fuente.
+
+Dado que el módulo no implementa por completo ningún trámite, se aplicará a ciertos trámites, inicialmente del RASIM por la experiencia del autor, pero no está limitado a ellos. Ejemplificación puede incluir OTTO, vidrios polarizados, etc.
+
+// Añadir gráfico que muestre cómo el subsistema se distribuirá a las distintas instancias públicas, como el que usé para explicar a Diana
+
+// Es un subsistema con características de un marco de trabajo especializado, porque no sólo funciona independiente y como parte de otros sistemas, sino que además está pensado para modificarse,. adaptarse y configurarse para atender distintos trámites. El problema es que los cambios en código posibles son tan limitados (a menos que hablemos de modificaciones del subsistema en sí), que practicamente es sólo un subsistema y no un marco de trabajo.
