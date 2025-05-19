@@ -1,5 +1,5 @@
 #import "@preview/acrostiche:0.5.1": acr
-= Objetivo
+= Objetivos
 
 El objetivo general del proyecto es el siguiente:
 

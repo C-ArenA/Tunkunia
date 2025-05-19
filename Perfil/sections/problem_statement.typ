@@ -1,4 +1,4 @@
-= Planteamiento del Problema
+= Planteamiento del Problema<section:problem_statement>
 
 La @section:related_work hace un repaso por algunos de los trabajos relacionados a la digitalización de trámites, haciendo evidente que existe una cantidad importante de trámites que se buscan digitalizar. En su mayoría, estas implementaciones comparten características similares que se estarían replicando y que se seguirán replicando en el futuro, para trámites aún no digitalizados. Además, como pudo observarse en los antecedentes de este trabajo, la digitalización de trámites en instancias públicas del estado debe responder a los lineamientos marcados por la normativa vigente y los diferentes planes, reglamentos y recomendaciones del gobierno boliviano.
 
