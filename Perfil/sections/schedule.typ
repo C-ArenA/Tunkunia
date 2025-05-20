@@ -8,7 +8,7 @@ la cual cuenta con 4 fases y 6 actividades principales que se realizan de forma 
 La @fig:rupphases muestra cuánto de cada actividad se debe realizar en cada etapa y permite entender el cronograma presentado.
 
 #figure(
-  image("../assets/rupphases.svg", width: 50%),
+  image("../assets/rupphases.svg", width: 55%),
   caption: [Fases del Proceso Unificado y los esfuerzos de cada actividad en las mismas\ Fuente: Imagen de Dominio Público (CC0) extraída de Wikibooks @RUPIBMRational y elaborada por Jakob Farian Krarup],
 )<fig:rupphases>
 
