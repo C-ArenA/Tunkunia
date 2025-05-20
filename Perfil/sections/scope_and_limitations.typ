@@ -14,13 +14,13 @@ Como se indicó, el sistema estará dirigido principalmente a desarrolladores de
 + facilidades de creación de formularios,
 + interfaz out-of-the-box para el seguimiento de trámites por parte del ciudadano,
 + capacidad de auditoría de los datos manejados por el sistema,
-+ conexión con ciudadanía digital para la autenticación de usuarios
-+ conexión con ciudadanía digital para la validación de documentos, en lugar de la firma digital
-+ dashboard de gestión de trámites para los administradores,
++ conexión con ciudadanía digital para la autenticación de usuarios,
++ conexión con ciudadanía digital para la validación de documentos, en lugar de la firma digital,
++ capacidad de interoperabilidad mediante interfaces API de tipo REST y webhooks,
++ dashboard de gestión de trámites para los distintos tipos de usuario,
 + varios niveles de validación de documentos,
-+ interfaces para conexión e interoperabilidad con otros sistemas,
 + emisión de notificaciones por correo electrónico para informar acerca de eventos del trámite al ciudadano y
-+ generación de reportes y estadísticas de cada trámite y de los procesos de trámite en general.
++ generación de reportes y estadísticas de cada trámite y de los procesos de trámite en general
 
 Se elegirán tecnologías web modernas de desarrollo con documentación adecuada para que los usuarios finales puedan emplear el sistema fácilmente y que futuros contribuidores no tengan problemas en modificarlo, tanto en apariencia como en funcionalidad. En cuanto a la distribución del elemento reutilizable se empleará la plataforma GitHub y adicionalmente, en caso de ser conveniente para la reutilizaación, algún distribuidor de paquetes adecuado, de acuerdo a la tecnología utilizada. Asimismo, es importante notar que no se partirá desde cero en esta implementación y se pretende reutilizar código para facilitar el desarrollo de este proyecto. Es decir, se seguirá el mismo principio de reutilización que se pretende promover.
 
@@ -40,3 +40,5 @@ Finalmente, se debe considerar lo siguiente:
 - Para garantizar la creación de una comunidad colaborativa mínima alrededor del proyecto, se recibirá al menos un "pull request" en el repositorio para demostrar las bondades del software libre y se atenderá al menos un "issue" reportado.
 - La funcionalidad de Ciudadanía Digital y otras que tengan que ver con instancias del estado no se implementarán necesariamente de forma completa, sino conceptual, debido a que dependen del aparato burocrático estatal, que debe brindar permisos para su utilización. Sin embargo, se emplearán servicios similares o simulados que aproximen el funcionamiento de estas plataformas y su integración, en base a la documentación facilitada en línea por la AGETIC.
 - No se pretende profundizar en aspectos de eficiencia y escalabilidad, debido a que se implementará un producto mínimo viable y las optimizaciones se dejan a versiones futuras, posteriores a la ejecución de este proyecto.
+- El funcionamiento del subsistema como sistema independiente para la gestión de trámites recién instalado será limitado en configuración y personalización, por lo que modificaciones específicas en el proceso del trámite pueden requerir intervención empleando algún lenguaje de programación. Esto representa un caso de uso esperado por el sistema, por lo que estas intervenciones deberán seguir los lineamientos del subsistema como marco de trabajo, mismos que estarán detallados en la documentación.
+

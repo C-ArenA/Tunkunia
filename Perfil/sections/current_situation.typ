@@ -5,7 +5,7 @@
 En relación al contexto planteado en la sección de antecedentes, resulta fundamental exponer, antes de abordar la problemática del proyecto,
 la situación actual en el campo o área de trabajo en distintos niveles, como pueden ser la normativa vigente, las tendencias tecnológicas y los trabajos o proyectos similares.
 
-== Adopción del Internet y las Plataformas Digitales
+== Adopción del Internet y las Plataformas Digitales<section:adoption>
 
 Desde la aparición de Internet, el mundo ha cambiado drásticamente. La forma en que las personas se comunican, trabajan y realizan transacciones ha evolucionado de una forma acelerada.
 Esta tendencia puede evidenciarse en el ritmo de adopción de Internet en el mundo que, de acuerdo a estimaciones de la #acr("UIT"), pasó de un 53% de la población mundial en el año 2019 a un 68% en el año 2024, como puede apreciarse en la @fig:internet_use.
@@ -86,7 +86,7 @@ En este sentido, la @fig:mobile_reuse, que forma parte de un estudio publicado e
 
 Esta tendencia se ve también en otros campos del desarrollo de software, particularmente en el desarrollo web, donde se popularizó la herramienta de gestión de paquetes #acr("NPM") para facilitar la reutilización de código en el desarrollo de aplicaciones web y sobre la cual se puede evidenciar un aumento significativo de paquetes reutilizables, con más de un millón registrados el año 2022 y con un crecimiento del 60% entre los meses de enero del 2019 y 2022 @mujahidWhatAreCharacteristics2023. Una búsqueda actual (2025) en el sitio oficial de #acr("NPM") muestra que existen ya más de dos millones de paquetes disponibles en su registro y que cuenta con la contribución de más de 17 millones de desarrolladores de software a nivel mundial @NpmHome.
 
-=== Sistemas de Gestión de Flujos de Trabajo y Procesos
+=== Sistemas de Gestión de Flujos de Trabajo y Procesos<section:wfms>
 
 Existe en la actualidad un tipo de sistema que va muy de la mano con el propuesto en este proyecto, el cual es el #acr("WFMS"). Estos sistemas contemplan de forma general el manejo de flujos de trabajo. De forma similar, y a veces usado de forma indistinta con WFM existe el término BPM (Business Process Management), que de modo más amplio es el arte y la ciencia de supervisar cómo el trabajo es realizado dentro de una organización.
 
@@ -182,7 +182,7 @@ Una de estas empresas es Microsoft que, entre otras cosas, adquirió la platafor
 
 Este último dato señala algo importante y sobre lo cual Haefliger, von Krogh y Spaeth profundizan en uno de sus artículos @vonkroghCarrotsRainbowsMotivation2012 y es que el desarrollo del software libre podría tener una motivación social y comunitaria, más allá de lo económico.
 
-=== Lenguajes de Modelado de Procesos
+=== Lenguajes de Modelado de Procesos<section:modeling>
 
 Cuando se habla de trámites, de acuerdo a las definiciones establecidas en la sección de antecedentes, se hace referencia a *procesos*. Por lo tanto, es importante mencionar que existen varios lenguajes para modelar procesos que permiten representar gráficamente los mismos y que, de forma general, consisten mínimamente en conjuntos de nodos de dos tipos: actividad y control @dumasFundamentalsBusinessProcess2013. A continuación se describen algunos de estos lenguajes o herramientas para modelar procesos:
 
