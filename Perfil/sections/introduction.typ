@@ -15,10 +15,6 @@ Este subsistema podrá interoperar con otros para permitir la integración con s
 Lo anterior se llevará a cabo recogiendo principalmente la experiencia adquirida en el desarrollo del #acr("SIAI") por parte de 2IES
 y atendiendo trámites descritos por el #acr("RASIM") u otras normativas como ejemplos de aplicación.
 
-/* TODO: Esto debería ir a la solución propuesta
-Se propone el uso de técnicas de modelado inspiradas en los #acrpl("WFMS"), como las redes de Petri, las máquinas de estados finitos y los diagramas de actividad UML. Además, se busca que dicho modelado resalte características comunes de de los procesos administrativos tipo trámite como la validación de documentos, el ingreso de datos y la toma de decisiones. Se hará uso de herramientas como los grandes modelos de lenguaje que asistan al funcionario público en la toma de decisiones, pero también se brindará la capacidad de interoperar con sistemas de terceros para lograr adaptarse a distintos flujos de trabajo y métodos de validación documental.
-*/
-
 Además, en favor de la soberanía tecnológica y la normativa vigente en Bolivia, se hará uso de software libre y estándares abiertos para la implementación del subsistema y se licenciará al mismo como #acr("FOSS")#footnote[
   Este documento emplea terminología técnica propia del desarrollo de software. En ciertos casos, se prefiere el uso de términos en inglés para evitar ambigüedades en la traducción o mantener coherencia con las prácticas establecidas en la industria.
 ].
