@@ -2,8 +2,8 @@
 #import "@preview/timeliney:0.1.0"
 
 #show: slides.with(
-  title: [_TUNKUNIA_: Desarrollo de un módulo de gestión y seguimiento de flujos de trámite],
-  subtitle: "Caso de Estudio: Trámites del SIAI",
+  title: [_TUNKUNIA_],
+  subtitle: "Subsistema Reutilizable de Software Libre para la Gestión de Flujos de Trámite Orientado al Gobierno Electrónico en Bolivia",
   date: none,
   authors: ("Ernesto Carlos Arena Alarcon", "Jorge Antonio Nava Amador"),
   layout: "medium",
@@ -13,10 +13,8 @@
 
 = Presentación del Perfil de Proyecto
 
-== Introducción
-#figure(
-  image("../assets/bg.png")
-)
+== Contexto
+#figure(image("../assets/background.png"))
 
 === El trámite
 #v(1fr)
@@ -33,24 +31,26 @@
 
 #v(1fr)
 
-La ubicuidad del trámite en distintos espacios del estado y la cantidad de los mismos implican el desarrollo de características o funcionalidades similares en muchos proyectos de software de la administración pública.
+Distintas instituciones públicas o instancias del estado que desean digitalizar sus trámites, realizan implementaciones propias desde cero (tanto por cuenta propia, como mediante el lanzamiento de licitaciones públicas), cada una por su lado, de forma independiente, sin seguir los mismos lineamientos y estándares ni responder de forma estricta a la normativa boliviana.
 
-- Mayores costos de desarrollo
-- Tiempos de Desarrollo elevados
-- Falta de robustez ante un enfoque no modular
+El desarrollo de sistemas alrededor de los trámites en entornos gubernamentales enfrenta desafíos significativos debido a la falta de herramientas reutilizables especializadas.
+
+#v(1fr)
+
+== Solución
+
+#v(1fr)
+#image("../assets/tunkunia_dist.excalidraw.png")
+
+#v(1fr)
+#image("../assets/modulegraph.png")
 
 #v(1fr)
 
 == Objetivo
 
 #v(1fr)
-Modularizar funcionalidades comunes a los procesos de trámite gubernamental en base al "Sistema de Información Ambiental Industrial" utilizando software de tipo FOSS y a partir del modelado de algunos de sus flujos para agilizar la integración de sistemas de gestión y seguimiento de trámites y así colaborar con la digitalización del país.
+*Implementar*, como producto mínimo viable (MVP), un *subsistema reutilizable de software libre* especializado en la gestión de flujos de *trámite* que, mediante el uso de técnicas de modelado de sistemas y procesos, represente e implemente los aspectos *comunes* del trámite y pueda ser adoptado por *distintas instituciones públicas* del estado *boliviano* mediante adaptación o configuración mínima y siguiendo los lineamientos establecidos por la normativa nacional sobre gobierno electrónico.
 #v(1fr)
 
-== Solución
 
-#v(1fr)
-#image("../assets/modulegraph.png")
-
-#v(1fr)
-#image("../assets/stateprocedureexample.png")
