@@ -1,19 +1,20 @@
 #import "@preview/acrostiche:0.5.1": acr
-= Objetivos
-
-El objetivo general del proyecto es el siguiente:
+= Objetivo
 
 #quote()[
-  #par()[*Desarrollar*, como producto mínimo viable (MVP), un *subsistema de software libre reutilizable* o marco de trabajo especializado en la gestión de flujos de *trámite* en entornos de gobierno electrónico, que modele e implemente los aspectos y necesidades *comunes* del trámite y pueda ser utilizado por *distintas instituciones públicas* del estado *boliviano* mediante simple adaptación o configuración.]
+  #par()[*Implementar*, como producto mínimo viable (MVP), un *subsistema reutilizable de software libre* especializado en la gestión de flujos de *trámite* que, mediante el uso de técnicas de modelado de sistemas y procesos, represente e implemente los aspectos *comunes* del trámite y pueda ser adoptado por *distintas instituciones públicas* del estado *boliviano* mediante adaptación o configuración mínima y siguiendo los lineamientos establecidos por la normativa nacional sobre gobierno electrónico.]
 ]
 
-A su vez, se tienen los siguientes objetivos específicos:
+Para alcanzar este objetivo será necesario:
 // Cada elemento listado podría fácilmente comenzar con la expresión "Quiero lograr..."
 
-- *Modelar* las funcionalidades comunes de los trámites gubernamentales en Bolivia en al menos un lenguaje de modelado de procesos.
-- *Seguir* un correcto proceso o ciclo de vida del software @sommervilleSoftwareEngineering2016 @pressmanSoftwareEngineeringPractitioner2010, atendiendo cada etapa.
-- *Publicar* el proyecto con una licencia FOSS adecuada en un repositorio público, como GitHub o GitLab, para su uso y mejora por parte de la comunidad.
-- *Responder* a la normativa boliviana vigente siguiendo los lineamientos derivados de la Ley Nº 164.
-- *Aplicar* el sistema creado, a manera de ejemplo, en al menos tres casos de trámites reales, como pueden ser aquellos encontrados en el #acr("RASIM") u otros similares.
-- *Documentar* la pieza de software y su proceso de implementación en medios digitales, atendiendo tanto a la documentación técnica como a la de usuario.
-- *Crear* una comunidad de al menos tres desarrolladores que permita la evolución del módulo y su adopción por otras instituciones públicas.
+- *Elaborar un modelo formal del proceso general del trámite gubernamental*, empleando técnicas como las Redes de Petri o BPMN (Business Process Model and Notation), con énfasis en identificar estructuras recurrentes y patrones reutilizables, alineado con la normativa boliviana sobre gobierno electrónico y trámites digitales.
+- *Desarrollar el subsistema siguiendo las etapas del ciclo de vida del software*, incluyendo al menos:
+  - Análisis y definición de requerimientos, en función del modelo de trámite elaborado.
+  - Diseño y modelado del sistema.
+  - Implementación del software
+  - Ejecución de pruebas,
+  - Despliegue del MVP.
+  - Recomendaciones para mantenimiento y evolución.
+- *Publicar el proyecto como software libre*, bajo una licencia FOSS reconocida, en un repositorio público, asegurando su disponibilidad y potencial reutilización.
+- *Elaborar documentación técnica y funcional*, orientada tanto al uso como al mantenimiento del subsistema por parte de equipos técnicos institucionales.
