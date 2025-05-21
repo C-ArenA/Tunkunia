@@ -97,7 +97,7 @@ A su vez, la Ley 164, dio lugar a una serie de políticas públicas, reglamentos
 
 #figure(
   image("../assets/bolivia_norms.png", width: 70%),
-  caption: [Documentos normativos relacionados con el gobierno electrónico en Bolivia y las relaciones más relevantes entre las mismas\ Fuente: Elaboración propia],
+  caption: [Documentos normativos relacionados con el gobierno electrónico en Bolivia y las relaciones más relevantes entre los mismas\ Fuente: Elaboración propia],
 )<fig:bolivia_norms>
 
 Dentro de estos documentos, el Plan de Implementación de Gobierno Electrónico, aprobado mediante Decreto Supremo Nº 3251 @DecretoSupremoNo2017, señala en su línea estratégica número 3, que se debe asegurar el intercambio de información entre entidades públicas y con la ciudadanía mediante la interoperabilidad.
@@ -114,7 +114,7 @@ Un caso que ilustra la implementación de un sistema con características de ges
 
 El D.S. 26736, que aprueba el Reglamento Ambiental del Sector Industrial Manufacturero (RASIM), en su Artículo 9 (Organismo Sectorial Competente), indica las competencias, atribuciones y funciones del Viceministro de Industria y Comercio Interno que actualmente es el Viceministro del Políticas de Industrialización, y en su inciso f) señala: "Establecer y administrar el Sistema de Información Ambiental Industrial (SIAI) y el Sistema de Evaluación y Revelación de Información (SERI)" @DecretoSupremo263762002.
 
-A través de un análisis realizado en la gestión 2020 se determinó que el SIAI requiere una adecuación para, primeramente, reducir los tiempos de envió de la información desde las instancias departamentales y municipales, facilitando el llenado a través de internet, además de generar usuarios y autorizaciones para este llenado.
+A través de un análisis realizado en la gestión 2020 se determinó que el SIAI requería una adecuación para, primeramente, reducir los tiempos de envió de la información desde las instancias departamentales y municipales, facilitando el llenado a través de internet, además de generar usuarios y autorizaciones para este llenado.
 
 Por lo anterior, se requirió el año 2023, mediante licitación, la implementación de este sistema, con el siguiente objetivo:
 
@@ -134,14 +134,14 @@ La ejecución del proyecto, licitado por el #acr("MDPyEP"), estuvo entonces a ca
 que procedió a la implementación del nuevo #acr("SIAI") atendiendo a las especificaciones técnicas del Documento Base de Contratación,
 así como a las distintas interacciones efectuadas con el cliente.
 
-El sistema fue construido como una aplicación web con la arquitectura cliente-servidor, con un backend monolítico y un frontend construido como una #acr("SPA"). En base a esto y para poder responder a necesidades de integración e interoperabilidad futuras, se optó además por una comunicación entre el frontend y el backend mediante una #acr("API") de tipo #acr("REST"), abierta y bien documentada.
+El sistema fue construido como una aplicación web con la arquitectura cliente-servidor, con un backend monolítico y un frontend elaborado como una #acr("SPA"). En base a esto y para poder responder a necesidades de integración e interoperabilidad futuras, se optó además por una comunicación entre el frontend y el backend mediante una #acr("API") de tipo #acr("REST"), abierta y bien documentada.
 
 De forma más específica, se adoptó el estilo de arquitectura por capas (Layered Architecture Style),
 con tres unidades físicas desplegables, como se puede ver en la @fig:siai_architecture_style,
 que correspondería a una arquitectura monolítica muy común en aplicaciones web.
 La capa de negocio, sin embargo, interopera a su vez con otros sistemas mediante servicios #acr("REST") #acr("API")
 #footnote[El SIAI consume datos de un servicio provisional del SEPREC para obtener información sobre las industrias registradas en el país],
-dándole características híbridas al sistema entre una arquitectura principalmente monolítica y una arquitectura de microservicios.
+dándole características híbridas al sistema entre una arquitectura principalmente monolítica y una arquitectura de servicios.
 
 #figure(
   image("../assets/siai_architecture_style.png", width: 40%),
@@ -163,10 +163,10 @@ Es decir, el SIAI tiene como protagonistas a las industrias manufactureras que d
 - ARI-PC: Análisis de Riesgos Industriales y Plan de Contingencias
 - IAA: Informe Ambiental Anual
 
-Además de atender a los requerimientos iniciales del DBC, 2IES propuso funcionalidades que modernicen el trabajo con el SIAI. A partir del requerimiento de hacer seguimiento a las solicitudes de distintos documentos ambientales y la generación de los mismos, se entendió a estos procesos como trámites, los cuales debían ser digitalizados.
+Además de atender a los requerimientos iniciales del DBC, 2IES propuso funcionalidades que modernicen el trabajo con el SIAI. A partir del requerimiento de hacer seguimiento a las solicitudes de distintos documentos ambientales y la generación de los mismos, se identificó a estos procesos como trámites, los cuales debían ser digitalizados.
 
 Dado que una gran parte de la funcionalidad de este sistema, consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora 2IES hizo una implementación recurriendo al manejo de estados y de roles, creando formularios e integrando los datos al modelo del negocio general.
 
 Al implementar los diferentes componentes referentes a dichos trámites, se identificaron claras similitudes entre ellos, como la necesidad de permitir un seguimiento transparente, la aprobación de documentos por etapas, la auditoría y la gestión general de cada trámite.
 
-Si bien el proyecto del SIAI llegó a su conclusión, estas similitudes identificadas a la hora de implementar los distintos trámites, además de la potencial similitud con trámites de otras distintas instancias del sector público, motivaron a la realización del presente proyecto.
+Si bien el proyecto del SIAI llegó a su conclusión, estas similitudes identificadas a la hora de implementar los distintos trámites, además de la potencial similitud con trámites de otras distintas instancias del sector público, guiaron a la identificación del problema presentado en este proyecto.
