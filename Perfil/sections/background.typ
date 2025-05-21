@@ -29,15 +29,15 @@ Esta ciencia tiene la importante responsabilidad de poner en *contacto directo* 
 
 Para lograr este propósito los gobiernos casi siempre ponen en práctica la *burocracia*
 #footnote[término acuñado en el siglo 18 por el filósofo francés Vincent de Gournay, derivando del francés _bureau_ y _cratie_ que significan "Escritorio para escribir" y "Gobierno" respectivamente @rockmanBureaucracyStructureProcesses2024],
-que según el sociólogo alemán Max Weber no sólo es la forma más avanzada de ejercer o empuñar el poder por aquellos que lo controlan @watersWeberRationalismModern2015[pág. 114], sino que también es una *forma racional de organización* que en su opinión es la forma más pura de sistema legal de autoridad, es necesaria y algunas de sus características fundamentales son las jerarquías, la especialización y la definición estricta de *reglas y regulaciones* @archerDictionaryPublicAdministration2022.
+que según el sociólogo alemán Max Weber, no sólo es la forma más avanzada de ejercer o empuñar el poder por aquellos que lo controlan @watersWeberRationalismModern2015[pág. 114], sino que también es una *forma racional de organización*, que en su opinión es la forma más pura de sistema legal de autoridad, es necesaria y algunas de sus características fundamentales son las jerarquías, la especialización y la definición estricta de *reglas y regulaciones* @archerDictionaryPublicAdministration2022.
 
 De este modo, el gobierno, mediante la administración pública, y practicando la burocracia, emplea diferentes mecanismos, entre los cuales se encuentra el trámite como una forma de hacer efectiva la comunicación con la población.
 
 == El trámite tradicional y sus problemas
 
-La palabra trámite viene del latín "trames", "tramitis", que para los romanos significaba "senda" "camino" @TramiteCastellanoPagina.
+La palabra trámite viene del latín "trames", "tramitis", que para los romanos significaba "senda" o "camino" @TramiteCastellanoPagina.
 Según la Real Academia de la Lengua Española, se define como "Cada uno de los *pasos* y diligencias que hay que recorrer en un asunto hasta su conclusión" @asaleDiccionarioLenguaEspanola.
-Algunos términos para referirse a lo mismo son: "Procedimiento Administrativo", "Servicio Público Transaccional", o, en inglés, "Procedure", "Paperwork".
+Algunos términos para referirse a lo mismo son: "Procedimiento Administrativo", "Servicio Público Transaccional", o, en inglés, "Procedure" y "Paperwork".
 
 Para efectos de este documento, se entiende por trámite al conjunto de requisitos, pasos o acciones a través de los cuales los individuos o las empresas *piden o entregan información* a una entidad pública, con *el fin de obtener* un derecho o *para cumplir* con una obligación @rosethFinTramiteEterno2018[pág. 36].
 

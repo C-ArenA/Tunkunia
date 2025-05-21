@@ -1,26 +1,22 @@
 = Índice Tentativo
 
-
-Para el temario del documento final de proyecto se considerará una estructura que describa bien la naturaleza del proyecto y que además se adecúe a este que, después de todo, será un producto de software.
-
-De acuerdo a la ingeniería de software, el software tiene un ciclo de vida o un "proceso del software", el cual se modela de acuerdo a la metodología de desarrollo sobre la cual se realice. Sin embargo, varios autores concuerdan en que existen ciertas etapas estructurales ajenas a cualquier metodología. Según _Pressman_ @pressmanSoftwareEngineeringPractitioner2010[pág. 13], estas etapas serían las indicadas en la @fig:proceso_pressman.
+Para el temario del documento final de proyecto se considerará una estructura que describa bien la naturaleza del proyecto y que por lo tanto tome en cuenta la ingeniería de software, de acuerdo a la cual, el software tiene un ciclo de vida, o de manera más precisa, un "proceso del software", que se modela de acuerdo a la metodología de desarrollo sobre la cual se realice. Sin embargo, varios autores concuerdan en que existen ciertas etapas estructurales ajenas a cualquier metodología. Según _Pressman_ @pressmanSoftwareEngineeringPractitioner2010[pág. 13], estas etapas serían las indicadas en la @fig:proceso_pressman. Mientras tanto, _Sommerville_ las simplifica en las 4 etapas mostradas en la @fig:proceso_sommerville.
 
 #figure(
   image("../assets/proceso_pressman_white.png", height: 13%),
   caption: [Proceso del Software - Pressman],
+  placement: top
 )<fig:proceso_pressman>
 
-Por su lado, _Sommerville_ las simplifica en las 4 etapas mostradas en la @fig:proceso_sommerville.
 
 #figure(
-  image("../assets/proceso_sommerville_white.png", height: 14%),
+  image("../assets/proceso_sommerville_white.png", height: 13%),
   caption: [Proceso del Software - Sommerville],
+  placement: auto
 )<fig:proceso_sommerville>
 
-El temario del documento final del proyecto obedecerá entonces a esta definiciones del proceso de software para no depender estrictamente de la metodología usada, como se ve en la @fig:syllabus.
+El temario del documento final del proyecto, mostrado en la @fig:syllabus obedecerá entonces a estas definiciones del proceso de software para no depender estrictamente de la metodología usada, tomando en cuenta que es tentativo y pueden surgir cambios durante la realización del proyecto.
 
-Nótese, sin embargo, que este temario es tentativo, lo cual quiere decir que pueden surgir cambios durante la realización del proyecto.
-#v(1.5em)
 #show figure: set block(breakable: true)
 #figure(
   caption: [Temario Tentativo],
@@ -44,7 +40,7 @@ Nótese, sin embargo, que este temario es tentativo, lo cual quiere decir que pu
         + Desarrollo y Construcción
         + Pruebas y Validaciones (Tests)
         + Publicación y Despliegue
-      + *Aplicación en el SIAI:* El subsistema ya publicado se aplicará a trámites pertenecientes al SIAI. En este apartado se hará una bitácora del proceso y se expondrán los resultados de la aplicación.
+      + *Aplicación del subsistema:* El subsistema ya publicado se aplicará a trámites correspondientes al RASIM u otros casos reales. En este apartado se hará una bitácora del proceso y se expondrán los resultados de dicha aplicación.
       + *Resultados y Conclusiones:* El resultado general del proyecto y algunas recomendaciones para seguir trabajando en él, siendo especialmente importante considerando la naturaleza _open source_ y colaborativa del subsistema. Se deben dar algunas ideas y pautas para seguir desarrollando las siguientes versiones del software, así como recomendaciones para su uso y aplicación.
       - *Bibliografía y Referencias*
       - *Anexos*
