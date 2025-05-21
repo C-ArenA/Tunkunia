@@ -1,7 +1,7 @@
 #import "conf.typ": conf, appendix
 
 #show: conf.with(
-  title: [_Tunkunia_: Subsistema de software libre reutilizable para la gestión de flujos de trámite en entornos de gobierno electrónico],
+  title: [_Tunkunia_: Subsistema de software libre para la gestión de flujos de trámite orientado al gobierno electrónico en Bolivia],
 )
 // CONTENIDO
 #include "sections/introduction.typ"
