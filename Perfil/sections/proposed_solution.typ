@@ -1,5 +1,5 @@
-#import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
-#import "@preview/acrostiche:0.5.1": acr
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/acrostiche:0.7.0": acr
 
 = Solución Propuesta
 

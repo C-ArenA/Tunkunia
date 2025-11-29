@@ -1,4 +1,4 @@
-#import "@preview/acrostiche:0.5.1": *
+#import "@preview/acrostiche:0.7.0": *
 
 = Introducción
 

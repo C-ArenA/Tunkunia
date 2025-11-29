@@ -1,5 +1,5 @@
-#import "@preview/timeliney:0.2.1"
-#import "@preview/acrostiche:0.5.1": *
+#import "@preview/timeliney:0.4.0"
+#import "@preview/acrostiche:0.7.0": *
 #pagebreak()
 = Cronograma
 

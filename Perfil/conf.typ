@@ -1,6 +1,6 @@
 #import "cover.typ": makeCover
 #import "sections/acronyms.typ": acronyms
-#import "@preview/acrostiche:0.5.1": print-index, init-acronyms
+#import "@preview/acrostiche:0.7.0": print-index, init-acronyms
 // ---------------- CONFIGURACIONES --------------------
 #let conf(doc, title: "Mi Perfil") = [
   #set page(

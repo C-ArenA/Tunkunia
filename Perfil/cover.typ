@@ -1,4 +1,4 @@
-#import "@preview/icu-datetime:0.1.2": fmt-date
+#import "@preview/icu-datetime:0.2.0": fmt
 
 #let college = "Universidad Mayor de San Andrés"
 #let faculty = "Facultad de Ingeniería"
@@ -27,7 +27,7 @@
       #v(1fr)
 
       #let today = datetime.today()
-      La Paz, #fmt-date(today, locale: "es", length: "long")
+      La Paz, #fmt(today, locale: "es", length: "long")
     ]
   ]
 }
