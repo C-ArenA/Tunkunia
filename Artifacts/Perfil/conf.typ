@@ -1,8 +1,26 @@
-#import "../shared/umsa-fi-cover/lib.typ": makeCover
-#import "sections/acronyms.typ": acronyms
-#import "@preview/acrostiche:0.7.0": print-index, init-acronyms
-// ---------------- CONFIGURACIONES --------------------
-#let conf(doc, title: "Mi Perfil") = [
+#import "@preview/acrostiche:0.7.0": print-index
+
+// Incluye Sección de Acrónimos
+#let includeAcronyms() = {
+  print-index(
+    outlined: true,
+    title: "Nomenclatura, Símbolos, Acrónimos y Abreviaciones",
+    sorted: "up",
+    row-gutter: 1.5em,
+  )
+}
+
+// Define entorno de apéndices
+#let appendix(body) = {
+  set heading(numbering: "A.", supplement: [Apéndice])
+  pagebreak()
+  counter(heading).update(0)
+  set page(numbering: "I")
+  body
+}
+
+// ---------------- TEMPLATE --------------------
+#let conf(doc) = [
   #set page(
     paper: "us-letter",
     margin: (x: 3cm, y: 1in),
@@ -28,6 +46,10 @@
 
   // Configura el TOC
   #set outline.entry(fill: repeat()[.~~])
+  #show outline: it => {
+    it
+    pagebreak()
+  }
   #show outline.entry.where(level: 1): set outline.entry(fill: none)
   #show outline.entry.where(level: 1): it => {
     v(1.5em, weak: true)
@@ -54,26 +76,7 @@
   }
 
   // Comienza documento
-  #makeCover(documentTitle: title, date: datetime(year: 2025, month: 5, day: 21))
-  #set page(numbering: "1")
-  #outline()
-  #pagebreak()
-  #init-acronyms(acronyms)
-  #print-index(
-    outlined: true,
-    title: "Nomenclatura, Símbolos, Acrónimos y Abreviaciones",
-    sorted: "up",
-    row-gutter: 1.5em,
-  )
-  #pagebreak()
   #doc
 ]
 
-// Define entorno de apéndices
-#let appendix(body) = {
-  set heading(numbering: "A.", supplement: [Apéndice])
-  pagebreak()
-  counter(heading).update(0)
-  set page(numbering: "I")
-  body
-}
+
