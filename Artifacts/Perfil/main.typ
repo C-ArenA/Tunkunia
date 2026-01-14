@@ -1,7 +1,6 @@
 #import "@preview/acrostiche:0.7.0": init-acronyms
 #import "sections/acronyms.typ": acronyms
-#import "conf.typ": appendix, conf, includeAcronyms
-#import "../shared/umsa-electronics-engineering-cover/lib.typ": makeCover
+#import "../shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
 
 #set document(
   description: "Perfil de Proyecto de Grado",
