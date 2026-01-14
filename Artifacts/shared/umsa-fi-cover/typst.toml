@@ -1,0 +1,7 @@
+[package]
+name = "umsa-fi-cover"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Ernesto Carlos Arena Alarcon"]
+license = "MIT"
+description = "Cover template for UMSA - Facultad de Ingeniería"

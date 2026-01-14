@@ -1,4 +1,4 @@
-#import "cover.typ": makeCover
+#import "../shared/umsa-fi-cover/lib.typ": makeCover
 #import "sections/acronyms.typ": acronyms
 #import "@preview/acrostiche:0.7.0": print-index, init-acronyms
 // ---------------- CONFIGURACIONES --------------------
@@ -54,7 +54,7 @@
   }
 
   // Comienza documento
-  #makeCover(projectTitle: title)
+  #makeCover(documentTitle: title, date: datetime(year: 2025, month: 5, day: 21))
   #set page(numbering: "1")
   #outline()
   #pagebreak()
