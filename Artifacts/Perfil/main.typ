@@ -1,15 +1,12 @@
 #import "@preview/acrostiche:0.7.0": init-acronyms
-#import "sections/acronyms.typ": acronyms
+#import "../shared/acronyms.typ": acronyms
 #import "../shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
+#import "../shared/constants.typ": authors, projectTitle
 
 #set document(
   description: "Perfil de Proyecto de Grado",
-  title: [_Tunkunia_: Subsistema reutilizable de software libre para la gestión de flujos de trámite orientado al gobierno electrónico en Bolivia],
-  author: (
-    "Postulante: Ernesto Carlos Arena Alarcon",
-    "Asesor: Jorge Antonio Nava Amador",
-    "D.A.M.: Jorge Mario León Gómez",
-  ),
+  title: projectTitle,
+  author: authors,
   date: datetime(day: 21, month: 5, year: 2025),
   keywords: ("Tunkunia", "Trámites", "Gobierno Electrónico", "Software Libre", "Sistema"),
 )
