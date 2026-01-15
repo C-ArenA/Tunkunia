@@ -1,12 +1,12 @@
 #import "@preview/acrostiche:0.7.0": init-acronyms
-#import "../shared/acronyms.typ": acronyms
-#import "../shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
-#import "../shared/constants.typ": authors, projectTitle
+#import "shared/acronyms.typ": acronyms
+#import "shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
+#import "shared/constants.typ": damName, projectTitle, studentName, tutorName
 
 #set document(
   description: "Perfil de Proyecto de Grado",
   title: projectTitle,
-  author: authors,
+  author: ("Postulante: " + studentName, "Asesor: " + tutorName, "D.A.M.: " + damName),
   date: datetime(day: 21, month: 5, year: 2025),
   keywords: ("Tunkunia", "Trámites", "Gobierno Electrónico", "Software Libre", "Sistema"),
 )
