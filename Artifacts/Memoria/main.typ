@@ -1,7 +1,7 @@
 #import "@preview/acrostiche:0.7.0": init-acronyms
-#import "/shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
-#import "/shared/constants.typ": projectTitle, studentName, tutorName
-#import "/shared/acronyms.typ": acronyms
+#import "shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
+#import "shared/constants.typ": projectTitle, studentName, tutorName
+#import "shared/acronyms.typ": acronyms
 
 #set document(
   description: "Proyecto de Grado",
@@ -26,5 +26,5 @@
 
 // CONTENT
 #set page(numbering: "1")
-#include "/Memoria/introduction.typ"
-#include "Memoria/methodology.typ"
+#include "sections/introduction.typ"
+#include "sections/methodology.typ"
