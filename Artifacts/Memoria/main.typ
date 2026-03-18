@@ -20,11 +20,16 @@
 
 // Agradecimientos
 
+#include "./content/P1_preamble/main.typ"
 // Resumen
 #outline()
 #includeAcronyms()
 
 // CONTENT
 #set page(numbering: "1")
-#include "sections/introduction.typ"
-#include "sections/methodology.typ"
+#include "./content/P2_fundamentals/main.typ"
+#include "./content/P3_process/main.typ"
+#include "./content/P4_resolution/main.typ"
+
+// BIBLIOGRAFÍA
+#bibliography("main.bib", title: "Bibliografía y Referencias")
