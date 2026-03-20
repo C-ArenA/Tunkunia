@@ -1,0 +1,20 @@
+{
+    "folders": [
+        {
+            "name": "Tunkunia Root",
+            "path": "."
+        },
+        {
+            "name": "Memoria",
+            "path": "./Artifacts/Memoria"
+        },
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+        },
+        "cSpell.words": [
+            "Tunkunia"
+        ],
+    }
+}
