@@ -8,6 +8,10 @@
             "name": "Memoria",
             "path": "./Artifacts/Memoria"
         },
+        {
+            "name": "Perfil",
+            "path": "./Artifacts/Perfil"
+        },
     ],
     "settings": {
         "files.exclude": {
