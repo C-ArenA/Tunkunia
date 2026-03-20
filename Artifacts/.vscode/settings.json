@@ -31,5 +31,7 @@
         "subnacionales",
         "Tunkunia",
         "Viceministro"
-    ]
+    ],
+    "editor.lineHeight": 1.6,
+    "tinymist.formatterPrintWidth": 120
 }

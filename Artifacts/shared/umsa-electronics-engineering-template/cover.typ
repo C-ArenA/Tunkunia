@@ -5,7 +5,7 @@
   let college = "Universidad Mayor de San Andrés"
   let faculty = "Facultad de Ingeniería"
   let degree = "Ingeniería Electrónica"
-  page()[#align(center)[
+  page(numbering: none)[#align(center)[
       #set par(justify: false)
       #text(upper([#college - #faculty\ #degree]), size: 10pt, weight: "bold")
       #v(2cm)

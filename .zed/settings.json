@@ -1,0 +1,50 @@
+{
+  // Folder-specific settings
+  //
+  // For a full list of overridable settings, and general information on folder-specific settings,//zed.dev/docs/configuring-zed#settings-files
+  "project_name": "Tunkunia",
+  "lsp": {
+    "tinymist": {
+      "settings": {
+        "exportPdf": "onSave",
+        "outputPath": "$dir/build/$name",
+        "formatterMode": "typstyle",
+      },
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "classFunctions": ["cva", "cx"],
+        "includeLanguages": {
+          "vue": "html",
+        },
+        "experimental": {
+          "classRegex": [
+            "class=\"([^\"]*)\"",
+            "class='([^']*)'",
+            ":class=\"([^\"]*)\"",
+            ":class='([^']*)'",
+            "[cls|className]\\s\\:\\=\\s\"([^\"]*)",
+          ],
+        },
+      },
+    },
+  },
+  "languages": {
+    "Typst": {
+      "tab_size": 2,
+      "format_on_save": "on",
+      "formatter": {
+        "language_server": {
+          "name": "tinymist",
+        },
+      },
+    },
+    "CSS": {
+      "language_servers": [
+        "tailwindcss-intellisense-css",
+        "!vscode-css-language-server",
+        "...",
+      ],
+    },
+  },
+}
