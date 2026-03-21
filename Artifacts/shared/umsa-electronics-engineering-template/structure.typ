@@ -22,11 +22,23 @@
       it
     }
   }
+  show outline.entry.where(level: 2): it => {
+    if it.element.func() == heading {
+      upper(link(
+        it.element.location(),
+        it.indented(none, rect(
+          stroke: (bottom: .07em),
+          inset: (bottom: 0.3em, x: 0pt, top: 0pt),
+        )[#it.prefix() #it.inner()]),
+      ))
+    } else {
+      it
+    }
+  }
   show outline.entry.where(level: 2): set block(above: 1.5em, below: 1.5em)
   show outline.entry.where(level: 2): set text(weight: "semibold")
   show outline.entry.where(level: 1): set outline.entry(fill: none)
   show outline.entry.where(level: 2): set outline.entry(fill: repeat()[~])
-  show outline.entry.where(level: 2): underline
   show outline.entry.where(level: 3): it => {
     if it.prefix() == none {
       text(style: "italic", it)
@@ -34,9 +46,6 @@
       it
     }
   }
-  show selector.or(
-    outline.entry.where(level: 2),
-  ): upper
 
   let chapterCounter = counter("chapter-counter")
   show heading.where(level: 2): it => chapterCounter.step() + it
@@ -79,5 +88,28 @@
     heading.where(level: 1),
     heading.where(level: 2),
   ): upper
+  body
+}
+
+#let justChapter(body) = {
+  set heading(numbering: "1.")
+  show heading: it => {
+    set align(left)
+    if it.level == 1 {
+      set text(weight: "regular")
+      align(smallcaps(it), center)
+    } else {
+      it
+    }
+    v(.7em)
+  }
+
+  // Configura el TOC
+  set outline.entry(fill: repeat()[.~~])
+  show outline.entry.where(level: 1): set outline.entry(fill: none)
+  show outline.entry.where(level: 1): it => {
+    v(1.5em, weak: true)
+    smallcaps(it)
+  }
   body
 }

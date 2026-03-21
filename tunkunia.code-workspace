@@ -1,24 +1,18 @@
 {
-    "folders": [
-        {
-            "name": "Tunkunia Root",
-            "path": "."
-        },
-        {
-            "name": "Memoria",
-            "path": "./Artifacts/Memoria"
-        },
-        {
-            "name": "Perfil",
-            "path": "./Artifacts/Perfil"
-        },
-    ],
-    "settings": {
-        "files.exclude": {
-            "**/.git": true,
-        },
-        "cSpell.words": [
-            "Tunkunia"
-        ],
-    }
+  "folders": [
+    {
+      "name": "Memoria",
+      "path": "./Artifacts/Memoria",
+    },
+    {
+      "name": "Tunkunia Root",
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+    },
+    "cSpell.words": ["Tunkunia"],
+  },
 }

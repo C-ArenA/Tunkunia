@@ -1,4 +1,4 @@
-#import "shared/umsa-electronics-engineering-template/lib.typ": appendix, memoria
+#import "shared/umsa-electronics-engineering-template/lib.typ": memoria
 #import "shared/constants.typ": projectTitle, studentName, tutorName
 #import "shared/acronyms.typ": acronyms
 
@@ -9,6 +9,7 @@
   acknowledgements: include "content/preamble/acknowledgements.typ",
   abstract: include "content/preamble/abstract.typ",
   acronyms: acronyms,
+  font: "Lekton Nerd Font",
 )
 
 = Fundamentos del Proyecto

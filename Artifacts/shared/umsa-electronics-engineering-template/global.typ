@@ -5,14 +5,18 @@
     number-align: center,
   )
 
-  set text(lang: "es", region: "bo", size: 11pt, font: "Lekton Nerd Font")
+  set text(lang: "es", region: "bo", size: 11pt)
 
   set par(first-line-indent: (amount: 1em, all: true), justify: true)
-  set outline(title: "Índice General")
   set outline.entry(fill: repeat()[.~~])
   set quote(block: true)
-  set heading(numbering: "1.")
+  set bibliography(title: "Bibliografía y Referencias")
 
+  show outline: it => {
+    pagebreak(weak: true)
+    it
+    pagebreak(weak: true)
+  }
   show list: set block(inset: (top: 1em, bottom: 1em))
   show figure.where(kind: image): set block(inset: (top: 1em, bottom: 1em))
 
@@ -29,4 +33,13 @@
     ]
   }
   doc
+}
+
+// Define entorno de apéndices
+#let appendix(body) = {
+  set heading(numbering: "A.", supplement: [Apéndice])
+  pagebreak()
+  counter(heading).update(0)
+  set page(numbering: "I")
+  body
 }

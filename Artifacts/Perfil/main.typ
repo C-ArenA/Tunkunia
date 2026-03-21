@@ -1,24 +1,13 @@
-#import "@preview/acrostiche:0.7.0": init-acronyms
 #import "shared/acronyms.typ": acronyms
-#import "shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
+#import "shared/umsa-electronics-engineering-template/lib.typ": perfil
 #import "shared/constants.typ": damName, projectTitle, studentName, tutorName
 
-#set document(
-  description: "Perfil de Proyecto de Grado",
+#show: perfil.with(
   title: projectTitle,
-  author: ("Postulante: " + studentName, "Asesor: " + tutorName, "D.A.M.: " + damName),
+  authors: ("Postulante: " + studentName, "Asesor: " + tutorName, "D.A.M.: " + damName),
   date: datetime(day: 21, month: 5, year: 2025),
-  keywords: ("Tunkunia", "Trámites", "Gobierno Electrónico", "Software Libre", "Sistema"),
+  acronyms: acronyms,
 )
-
-#show: conf
-#init-acronyms(acronyms)
-
-// PORTADA
-#makeCover()
-#set page(numbering: "1")
-#outline()
-#includeAcronyms()
 
 // CONTENIDO
 #include "sections/introduction.typ"
@@ -32,5 +21,4 @@
 #include "sections/syllabus.typ"
 #include "sections/schedule.typ"
 
-// BIBLIOGRAFÍA
-#bibliography("main.bib", title: "Bibliografía y Referencias")
+#bibliography("main.bib")
