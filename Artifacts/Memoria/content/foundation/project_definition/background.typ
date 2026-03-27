@@ -86,7 +86,7 @@ Sin embargo, la implementación de un gobierno electrónico no es una tarea senc
 == Bolivia: Gobierno Electrónico
 
 En Bolivia, la nueva Constitución Política del Estado, promulgada el 7 de febrero del año 2009, establece en su Artículo 103 que:
-"El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y *aplicación de nuevas tecnologías de información y comunicación*" @BoliviaConstitucionPolitica.
+"El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y *aplicación de nuevas tecnologías de información y comunicación*" @BoliviaConstitucionPolitica2009.
 Esto dio lugar, el año 2011, a la creación de la Ley General de Telecomunicaciones, Tecnologías de Información y Comunicación (Ley Nº 164) que tiene entre sus principales objetivos: "Promover el uso de las tecnologías de información y comunicación para
 *mejorar las condiciones de vida de las bolivianas y bolivianos*" @Ley164Ley2011.
 

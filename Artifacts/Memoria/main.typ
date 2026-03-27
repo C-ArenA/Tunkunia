@@ -20,7 +20,7 @@
 = Proceso del Software
 #include "content/process/communication.typ"
 #include "content/process/methodology.typ"
-#include "content/process/planning.typ"
+#include "content/process/project_management.typ"
 #include "content/process/business_modeling.typ"
 #include "content/process/requirements.typ"
 #include "content/process/analysis_design.typ"
