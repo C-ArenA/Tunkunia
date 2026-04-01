@@ -18,16 +18,15 @@
 #include "content/foundation/reference_framework.typ"
 
 = Proceso del Software
-#include "content/process/communication.typ"
-#include "content/process/methodology.typ"
 #include "content/process/project_management.typ"
+#include "content/process/configuration.typ"
+#include "content/process/environment.typ"
 #include "content/process/business_modeling.typ"
 #include "content/process/requirements.typ"
 #include "content/process/analysis_design.typ"
 #include "content/process/implementation.typ"
 #include "content/process/testing.typ"
 #include "content/process/deployment.typ"
-#include "content/process/documentation.typ"
 
 = Resolución del Proyecto
 #include "content/resolution/use.typ"
