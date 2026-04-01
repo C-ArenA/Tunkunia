@@ -7,5 +7,6 @@
     title: "Nomenclatura, Símbolos, Acrónimos y Abreviaciones",
     sorted: "up",
     row-gutter: 1.5em,
+    used-only: true
   )
 }

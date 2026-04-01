@@ -44,6 +44,7 @@
   "VPS": "Virtual Private Server",
   "UMSA": "Universidad Mayor de San Andrés",
   "CLI": "Command Line Interface",
+  "UP": "Unified Process",
   "RUP": "Rational Unified Process",
   "UIT": "Unión Internacional de Telecomunicaciones",
   "NPM": "Node Package Manager",
