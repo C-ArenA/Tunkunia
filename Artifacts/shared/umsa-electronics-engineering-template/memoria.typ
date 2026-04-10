@@ -68,6 +68,11 @@
     target: figure.where(kind: image),
   )
 
+  outline(
+    title: "Índice de Tablas",
+    target: figure.where(kind: table),
+  )
+
   if acronyms.len() > 0 {
     pagebreak(weak: true)
     includeAcronyms()
