@@ -5,33 +5,33 @@
 #show: memoria.with(
   title: projectTitle,
   authors: ("Postulante: " + studentName, "Tutor: " + tutorName),
-  dedication: include "Memoria/content/preamble/dedication.typ",
-  acknowledgements: include "Memoria/content/preamble/acknowledgements.typ",
-  abstract: include "Memoria/content/preamble/abstract.typ",
+  dedication: include "memoria/preamble/dedication.typ",
+  acknowledgements: include "memoria/preamble/acknowledgements.typ",
+  abstract: include "memoria/preamble/abstract.typ",
   acronyms: acronyms,
   font: "Lekton Nerd Font",
 )
 
 = Fundamentos del Proyecto
-#include "Memoria/content/foundation/project_definition.typ"
-#include "Memoria/content/foundation/theoretical_framework.typ"
-#include "Memoria/content/foundation/reference_framework.typ"
+#include "memoria/foundation/project_definition.typ"
+#include "memoria/foundation/theoretical_framework.typ"
+#include "memoria/foundation/reference_framework.typ"
 
 = Proceso del Software
-#include "Memoria/content/process/project_management.typ"
-#include "Memoria/content/process/configuration.typ"
-#include "Memoria/content/process/environment.typ"
-#include "Memoria/content/process/business_modeling.typ"
-#include "Memoria/content/process/requirements.typ"
-#include "Memoria/content/process/analysis_design.typ"
-#include "Memoria/content/process/implementation.typ"
-#include "Memoria/content/process/testing.typ"
-#include "Memoria/content/process/deployment.typ"
+#include "memoria/process/project_management.typ"
+#include "memoria/process/configuration.typ"
+#include "memoria/process/environment.typ"
+#include "memoria/process/business_modeling.typ"
+#include "memoria/process/requirements.typ"
+#include "memoria/process/analysis_design.typ"
+#include "memoria/process/implementation.typ"
+#include "memoria/process/testing.typ"
+#include "memoria/process/deployment.typ"
 
 = Resolución del Proyecto
-#include "Memoria/content/resolution/use.typ"
-#include "Memoria/content/resolution/conclusions.typ"
-#include "Memoria/content/resolution/recommendations.typ"
+#include "memoria/resolution/use.typ"
+#include "memoria/resolution/conclusions.typ"
+#include "memoria/resolution/recommendations.typ"
 
 #pagebreak(weak: true)
 #bibliography("main.bib", title: "Bibliografía y Referencias")

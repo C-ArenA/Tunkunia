@@ -10,15 +10,15 @@
 )
 
 // CONTENIDO
-#include "Perfil/sections/introduction.typ"
-#include "Perfil/sections/background.typ"
-#include "Perfil/sections/current_situation.typ"
-#include "Perfil/sections/problem_statement.typ"
-#include "Perfil/sections/objective.typ"
-#include "Perfil/sections/justification.typ"
-#include "Perfil/sections/scope_and_limitations.typ"
-#include "Perfil/sections/proposed_solution.typ"
-#include "Perfil/sections/syllabus.typ"
-#include "Perfil/sections/schedule.typ"
+#include "perfil/introduction.typ"
+#include "perfil/background.typ"
+#include "perfil/current_situation.typ"
+#include "perfil/problem_statement.typ"
+#include "perfil/objective.typ"
+#include "perfil/justification.typ"
+#include "perfil/scope_and_limitations.typ"
+#include "perfil/proposed_solution.typ"
+#include "perfil/syllabus.typ"
+#include "perfil/schedule.typ"
 
 #bibliography("main.bib")
