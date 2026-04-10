@@ -51,4 +51,5 @@
   "SOA": "Service Oriented Architecture",
   "XP": "Extreme Programming",
   "BPMN": "Business Process Model and Notation",
+  "BDFL": "Benevolent Dictator For Life",
 )
