@@ -14,7 +14,7 @@
 = Presentación del Perfil de Proyecto
 
 == Contexto
-#figure(image("../assets/background.png"))
+#figure(image("/assets/background.png"))
 
 === El trámite
 #v(1fr)
@@ -40,10 +40,10 @@ El desarrollo de sistemas alrededor de los trámites en entornos gubernamentales
 == Solución
 
 #v(1fr)
-#image("../assets/tunkunia_dist.excalidraw.png")
+#image("/assets/tunkunia_dist.excalidraw.png")
 
 #v(1fr)
-#image("../assets/modulegraph.png")
+#image("/assets/modulegraph.png")
 
 #v(1fr)
 

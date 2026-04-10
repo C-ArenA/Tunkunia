@@ -3,14 +3,14 @@
 Para el temario del documento final de proyecto se considerará una estructura que describa bien la naturaleza del proyecto y que por lo tanto tome en cuenta la ingeniería de software, de acuerdo a la cual, el software tiene un ciclo de vida, o de manera más precisa, un "proceso del software", que se modela de acuerdo a la metodología de desarrollo sobre la cual se realice. Sin embargo, varios autores concuerdan en que existen ciertas etapas estructurales ajenas a cualquier metodología. Según _Pressman_ @pressmanSoftwareEngineeringPractitioner2010[pág. 13], estas etapas serían las indicadas en la @fig:proceso_pressman. Mientras tanto, _Sommerville_ las simplifica en las 4 etapas mostradas en la @fig:proceso_sommerville.
 
 #figure(
-  image("../assets/proceso_pressman_white.png", height: 13%),
+  image("/assets/proceso_pressman_white.png", height: 13%),
   caption: [Proceso del Software - Pressman],
   placement: top
 )<fig:proceso_pressman>
 
 
 #figure(
-  image("../assets/proceso_sommerville_white.png", height: 13%),
+  image("/assets/proceso_sommerville_white.png", height: 13%),
   caption: [Proceso del Software - Sommerville],
   placement: auto
 )<fig:proceso_sommerville>

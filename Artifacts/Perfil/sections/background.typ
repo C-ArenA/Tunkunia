@@ -1,4 +1,4 @@
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "@preview/acrostiche:0.7.0": acr
 
 = Antecedentes
@@ -6,7 +6,7 @@
 A continuación se hace un repaso histórico en torno al trámite, su relevancia, sus problemas originales, la necesidad de adopción de tecnologías de la información por el gobierno boliviano, la atención a dicha necesidad en el sistema #acr("SIAI") mediante la consultora 2IES y cómo esto deriva posteriormente en la identificación de características comunes a diversos trámites (@fig:background).
 
 #figure(
-  image("../assets/background.png", width: 80%),
+  image("/assets/background.png", width: 80%),
   caption: [Antecedentes a la identificación de la problemática de este proyecto\ Fuente: Elaboración propia],
 )<fig:background>
 
@@ -48,13 +48,13 @@ Sin embargo, esto deriva en una serie de problemas que suelen afectar a la pobla
 Un ejemplo de esto es el caso de *Domitila Murillo*, una ciudadana boliviana que, a causa de un trámite, se vio obligada a trasladarse entre varias localidades del país (recorriendo al menos 900km durante 11 meses), realizando interminables filas y vagando perdida entre una cantidad indefinida y mal documentada de requisitos. Su caso fue motivo de preocupación y cuando finalmente logró recibir su cédula (el cual era el motivo del trámite), no le quedaron más que dos semanas antes de fallecer @charoskyQuejaComoEnergia2014[pag. 23].
 
 #figure(
-  image("../assets/horastramite.png", width: 50%),
+  image("/assets/horastramite.png", width: 50%),
   caption: [Horas necesarias para completar un trámite, por país\ Fuente: Datos del Latinobarómetro, 2017],
   placement: auto,
 )<fig:horastramite>
 
 #figure(
-  image("../assets/tramites_una_interaccion.png", width: 50%),
+  image("/assets/tramites_una_interaccion.png", width: 50%),
   caption: [Porcentaje de trámites resueltos en una interacción\ Fuente: Datos del Latinobarómetro, 2017],
   placement: auto,
 )<fig:tramites_una_interaccion>
@@ -86,7 +86,7 @@ Sin embargo, la implementación de un gobierno electrónico no es una tarea senc
 == Bolivia: Gobierno Electrónico
 
 En Bolivia, la nueva Constitución Política del Estado, promulgada el 7 de febrero del año 2009, establece en su Artículo 103 que:
-"El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y *aplicación de nuevas tecnologías de información y comunicación*" @BoliviaConstitucionPolitica.
+"El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y *aplicación de nuevas tecnologías de información y comunicación*" @BoliviaConstitucionPolitica2009.
 Esto dio lugar, el año 2011, a la creación de la Ley General de Telecomunicaciones, Tecnologías de Información y Comunicación (Ley Nº 164) que tiene entre sus principales objetivos: "Promover el uso de las tecnologías de información y comunicación para
 *mejorar las condiciones de vida de las bolivianas y bolivianos*" @Ley164Ley2011.
 
@@ -96,7 +96,7 @@ mientras que el Artículo 72 del mismo documento indica que las entidades públi
 A su vez, la Ley 164, dio lugar a una serie de políticas públicas, reglamentos y planes que profundizan en la incorporación del Gobierno Electrónico y el desarrollo de software para el estado, además de requerir a las instancias públicas su adopción, como se puede ver en la @fig:bolivia_norms, en la que se muestran los principales documentos normativos relacionados con el gobierno electrónico en Bolivia.
 
 #figure(
-  image("../assets/bolivia_norms.png", width: 70%),
+  image("/assets/bolivia_norms.png", width: 70%),
   caption: [Documentos normativos relacionados con el gobierno electrónico en Bolivia y las relaciones más relevantes entre los mismas\ Fuente: Elaboración propia],
 )<fig:bolivia_norms>
 
@@ -144,7 +144,7 @@ La capa de negocio, sin embargo, interopera a su vez con otros sistemas mediante
 dándole características híbridas al sistema entre una arquitectura principalmente monolítica y una arquitectura de servicios.
 
 #figure(
-  image("../assets/siai_architecture_style.png", width: 40%),
+  image("/assets/siai_architecture_style.png", width: 40%),
   caption: [Arquitectura por capas (layered architecture) del sistema SIAI\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
   placement: auto,
 )<fig:siai_architecture_style>

@@ -4,7 +4,7 @@
 = Solución Propuesta
 
 #figure(
-  image("../assets/tunkunia_dist.excalidraw.png", width: 100%),
+  image("/assets/tunkunia_dist.excalidraw.png", width: 100%),
   caption: [Método de distribución y uso del subsistema Tunkunia\ Fuente: Elaboración propia],
   placement: auto,
 )<fig:tunkunia_dist>
@@ -14,7 +14,7 @@ En función de lo establecido en secciones anteriores, principalmente en la pres
 El subsistema tendrá funcionalidad out-of-the-box simplificada para usuarios finales sin conocimiento de programación, pero además marcará una serie de lineamientos para usuarios avanzados que deseen adaptar el software a casos de trámite particulares. Por lo tanto, se podría considerar que este subsistema es a su vez un marco de trabajo de desarrollo, pero especializado en el manejo de trámites. Al ser principalmente un subsistema, el mismo contará con ciertas integraciones como la de Ciudadanía Digital, pero además ofrecerá interfaces REST API para facilitar la interoperabilidad e integración con otros subsistemas que formen parte del mismo sistema.
 
 #figure(
-  image("../assets/framework2subsystem.png", width: 80%),
+  image("/assets/framework2subsystem.png", width: 80%),
   caption: [Construcción a partir de un framework de desarrollo\ Fuente: Elaboración propia],
   placement: auto,
 )<fig:framework2subsystem>
@@ -52,7 +52,7 @@ Las funciones anteriores obligarán a contemplar distintos tipos de roles de usu
 Es fundamental para el éxito de este proyecto, como se sugiere en uno de los objetivos específicos, conseguir un modelado general de los aspectos comunes del proceso del trámite. Para lograr esto se emplearan técnicas y lenguajes de modelado de procesos como los listados en la @section:modeling. Incluso antes de comenzar con la implementación del proyecto, se pueden identificar ciertos patrones comunes en los trámites, como el manejo de documentos con cambios de estado, la verificación y aceptación de datos, etc. Esto podría, por ejemplo, modelarse con máquinas de estados como se muestra en la @fig:stateex. Afortunadamente, como se vio en la @fig:petricomplaints, donde se muestra una Red de Petri, también existen ejemplos de modelado de procesos que, si bien no son generalizaciones del trámite, son un buen punto de partida.
 
 #figure(
-  image("../assets/stateprocedureexample.png", width: 60%),
+  image("/assets/stateprocedureexample.png", width: 60%),
   caption: [Modelado simplificado del proceso de trámite\ Fuente: Elaboración propia],
   placement: bottom,
 )<fig:stateex>
@@ -60,7 +60,7 @@ Es fundamental para el éxito de este proyecto, como se sugiere en uno de los ob
 El modelado señalado se formulará principalmente alrededor de los distintos trámites establecidos o sugeridos por el #acr("RASIM"), debido a la experiencia existente en los mismos (Ver antecedentes). Sin embargo, para lograr cubrir una mayor cantidad de características comunes no se descarta el uso de otros casos de trámites para la consolidación del modelo general del trámite.
 
 #figure(
-  image("../assets/modulegraph.png"),
+  image("/assets/modulegraph.png"),
   caption: [Representación gráfica, a grandes rasgos, del módulo Tunkunia\ Fuente: Elaboración propia],
   placement: auto,
 )<fig:modulegraph>

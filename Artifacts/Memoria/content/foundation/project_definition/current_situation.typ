@@ -12,7 +12,7 @@ Esta tendencia puede evidenciarse en el ritmo de adopción de Internet en el mun
 Esto significa que el año 2024 se registró que cerca de 5,5 mil millones de personas usan internet, mientras que 1,3 mil millones aún no estarían en línea a nivel mundial @Statistics.
 
 #figure(
-  image("../assets/internet_use.png", width: 60%),
+  image("/assets/internet_use.png", width: 60%),
   caption: [Número de usuarios de Internet en el mundo\ Fuente: #acr("UIT")],
   placement: auto,
 )<fig:internet_use>
@@ -21,7 +21,7 @@ Bolivia no es la excepción a esta tendencia, ya que el año 2023 se estima que 
 Es decir que el país se encontraría por encima del promedio mundial de adopción de Internet. Sin embargo, aún queda un 29,8% de la población que no tiene acceso a Internet @IndividualsUsingInternet.
 
 #figure(
-  image("../assets/internet_use_bolivia.png", width: 80%),
+  image("/assets/internet_use_bolivia.png", width: 80%),
   caption: [Número de usuarios de Internet en Bolivia y su crecimiento\ Fuente: #acr("UIT")],
   placement: auto,
 )<fig:internet_use_bolivia>
@@ -31,7 +31,7 @@ Se debe tomar en cuenta que uno de los factores posiblemente acelerando la adopc
 De este modo, el uso de las plataformas digitales también ha incrementado bastante. Podemos ver ejemplos como el de la @fig:ecommerce_adoption, en la que se ve la tendencia en la adopción de plataformas de comercio electrónico y cómo esta parece haber sido acelerada por la pandemia del COVID-19 en distintos países de América Latina y el Caribe.
 
 #figure(
-  image("../assets/ecommerce_adoption.png", width: 80%),
+  image("/assets/ecommerce_adoption.png", width: 80%),
   caption: [Tendencia de adopción de plataformas de comercio electrónico en América Latina y el Caribe\ Fuente: Latinobarómetro],
   placement: auto,
 )<fig:ecommerce_adoption>
@@ -46,7 +46,7 @@ en el que el indicador #acr("EGDI"), que mide la adopción de políticas que fav
 tuvo un aumento relevante en tan sólo dos años (@fig:egdi2020_2022).
 
 #figure(
-  image("../assets/egdi2020_2022.png", width: 60%),
+  image("/assets/egdi2020_2022.png", width: 60%),
   caption: [Valores promedio del EGDI y sus componentes\ Fuente: 2020 and 2022 United Nations E-Government Surveys],
   placement: auto,
 )<fig:egdi2020_2022>
@@ -67,7 +67,7 @@ Las necesidades que surgen alrededor de la digitalización de trámites son dive
 La reutilización de software (software reuse) es el uso sistemático de piezas existentes de software para construir otras nuevas, modificadas o incluso productos de software completos a partir de las mismas. Estas piezas pueden ser código fuente, ejecutables, guìas de diseño, componentes de software libre, componentes comerciales, o arquitecturas completas. Es importante resaltar que el conocimiento también es reutilizable y se ve reflejado en la reutilización de patrones, procesos o arquitecturas de software @mohagheghiQualityProductivityEconomic2007. Las formas en que las piezas reutilizables se materializan son variadas y pueden incluir bibliotecas o librerías, frameworks, componentes, sistemas de software completos, etc (@fig:reuse_landscape).
 
 #figure(
-  image("../assets/reuse_landscape.png", width: 60%),
+  image("/assets/reuse_landscape.png", width: 60%),
   caption: [Reuse landscape\ Fuente: Sommerville, Software Engineering @sommervilleSoftwareEngineering2016],
   placement: auto,
 )<fig:reuse_landscape>
@@ -75,7 +75,7 @@ La reutilización de software (software reuse) es el uso sistemático de piezas 
 Por la naturaleza de la reutilización del software, que consiste en usar trabajo existente como bloques de construcción para proyectos más grandes, se relaciona a esta práctica con un aumento en la productividad, un posible aumento de calidad @selbyEnablingReusebasedSoftware2005 y una disminución en los costos. Sin embargo, medir de forma empírica estos beneficios es bastante difícil y algunos intentos realizados, si bien pueden no contemplar todas las variables posibles, dada la naturaleza particular de cada proyecto, han mostrado resultados positivos, indicando que existe un claro aumento de productividad al reutilizar software @basiliHowReuseInfluences1996. Esto implicaría también beneficios en los tiempos y costos de desarrollo, reafirmando lo atractivo de la reutilización del software.
 
 #figure(
-  image("../assets/mobile_reuse.png", width: 60%),
+  image("/assets/mobile_reuse.png", width: 60%),
   caption: [Porcentaje de reutilización de software en aplicaciones móviles\ Fuente: A large-scale empirical study of the reuse of software components in mobile applications @mojicaLargeScaleEmpiricalStudy2014],
   placement: auto,
 )<fig:mobile_reuse>
@@ -101,7 +101,7 @@ Tal es la relevancia que existe una organización dedicada a estandarizar los WF
 ]
 
 #figure(
-  image("../assets/wfms_history.png"),
+  image("/assets/wfms_history.png"),
   caption: [WFMS desde una perspectiva histórica\ Fuente: The Application of Petri Nets
     to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
   placement: auto,
@@ -124,13 +124,13 @@ Para los arquitectos de software es crucial entender la modularidad en los siste
 Con esto en mente, muchos patrones y estilos de arquitectura buscan lograr modularidad en algún sentido. Por ejemplo, cuando hablamos de estilos de arquitectura, podemos mencionar la arquitectura en capas, la arquitectura orientada a servicios (SOA), la arquitectura basada en microservicios, la arquitectura de eventos, la arquitectura hexagonal, etc. Cada uno de estos estilos tiene sus propias características, ventajas y desventajas, pero todos buscan lograr modularidad y facilitar el mantenimiento y la evolución del software.
 
 #figure(
-  image("../assets/micro_topo.png", width: 60%),
+  image("/assets/micro_topo.png", width: 60%),
   caption: [Topología del estilo de arquitectura de microservicios\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
   placement: auto,
 )<fig:micro_topo>
 
 #figure(
-  image("../assets/soa_topo.png", width: 60%),
+  image("/assets/soa_topo.png", width: 60%),
   caption: [Topología del estilo de arquitectura #acr("SOA")\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
   placement: auto,
 )<fig:soa_topo>
@@ -170,7 +170,7 @@ que *compartían software* y, sin saberlo porque en aquel entonces la práctica 
 En años recientes, los proyectos de software libre sentaron las bases para muchos de los avances tecnológicos que hoy tenemos disponibles e incluso las grandes empresas tecnológicas, que otrora daban exclusiva preferencia al software propietario, ahora los utilizan de forma masiva y contribuyen a su desarrollo @vonkroghCarrotsRainbowsMotivation2012.
 
 #figure(
-  image("../assets/github_contributions.png", width: 50%),
+  image("/assets/github_contributions.png", width: 50%),
   caption: [Número de contribuciones a proyectos públicos y de software libre en GitHub (2021-2024)\ Fuente: GitHub Octoverse],
   placement: auto,
 )<fig:github_contributions>
@@ -187,7 +187,7 @@ Este último dato señala algo importante y sobre lo cual Haefliger, von Krogh y
 Cuando se habla de trámites, de acuerdo a las definiciones establecidas en la sección de antecedentes, se hace referencia a *procesos*. Por lo tanto, es importante mencionar que existen varios lenguajes para modelar procesos que permiten representar gráficamente los mismos y que, de forma general, consisten mínimamente en conjuntos de nodos de dos tipos: actividad y control @dumasFundamentalsBusinessProcess2013. A continuación se describen algunos de estos lenguajes o herramientas para modelar procesos:
 
 #figure(
-  image("../assets/bpmn.png", width: 60%),
+  image("/assets/bpmn.png", width: 60%),
   caption: [Ejemplo de un diagrama BPMN\ Fuente: Business Process Model and Notation (BPMN) Version 2.0.2 @bpmn202],
   placement: auto,
 )<fig:bpmn>
@@ -201,13 +201,13 @@ Cuando se habla de trámites, de acuerdo a las definiciones establecidas en la s
 Adicionalmente, existen otros lenguajes de modelado de sistemas que no son tan comunes para describir procesos, pero que pueden ser útiles ya que reflejan la naturaleza paso a paso de los trámites. Algunas de estas herramientas son:
 
 #figure(
-  image("../assets/statediagramex.png", width: 50%),
+  image("/assets/statediagramex.png", width: 50%),
   caption: [Ejemplo de una máquina de estados\ Fuente: Elaboración propia],
   placement: auto,
 )<fig:statediagramex>
 
 #figure(
-  image("../assets/petricomplaints.png", width: 70%),
+  image("/assets/petricomplaints.png", width: 70%),
   caption: [Red de Petri de un proceso de queja\ Fuente: The Application Of Petri Nets to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
   placement: auto,
 )<fig:petricomplaints>
@@ -258,31 +258,31 @@ Debido a la cantidad de procesos administrativos que existen en distintas instit
 Si bien no se pudo encontrar módulos especializados en la gestión de trámites que se puedan integrar en sistemas más grandes con un enfoque de reutilización de software, sí existen sistemas con características similares a la funcionalidad de gestión de trámites o que incluso ofrecen todo lo necesario para gestionar procesos administrativos. A su vez, existen casos dentro de instancias públicas que podrían inspirar la solución propuesta más adelante.
 
 #figure(
-  image("../assets/r2docuotimeline.png", width: 40%),
+  image("/assets/r2docuotimeline.png", width: 40%),
   caption: [Captura de pantalla del homepage de R2 Docuo donde se puede ver el timeline de un trámite\ Fuente: www.r2docuo.com],
   placement: auto,
 )<fig:r2docuotimeline>
 
 #figure(
-  image("../assets/odoowfms.png", width: 40%),
+  image("/assets/odoowfms.png", width: 40%),
   caption: [Descripción de módulo de manejo de flujos de trabajo en Odoo\ Fuente: Captura de pantalla tomada de la tienda de extensiones de Odoo],
   placement: auto,
 )<fig:odoowfms>
 
 #figure(
-  image("../assets/conecosa.png", width: 40%),
+  image("/assets/conecosa.png", width: 40%),
   caption: [Screenshot tomada del artículo "The Application of Petri Nets to Workflow Management" @vanderaalstAPPLICATIONPETRINETS1998],
   placement: auto,
 )<fig:conecosa>
 
 #figure(
-  image("../assets/insitecrm.jpg", width: 50%),
+  image("/assets/insitecrm.jpg", width: 50%),
   caption: [Screenshot de video tutorial del producto Insite CRM],
   placement: auto,
 )<fig:insitecrm>
 
 #figure(
-  image("../assets/att_platform.png", width: 50%),
+  image("/assets/att_platform.png", width: 50%),
   caption: [Captura de pantalla de la vista de ingreso a PlATTaformas Virtuales para acceder al sistema OTTO\ Fuente: https://plataformas.att.gob.bo/],
   placement: auto,
 )<fig:att_platform>

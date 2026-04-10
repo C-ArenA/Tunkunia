@@ -25,12 +25,12 @@ Todo lo anterior, con costos aproximados basados en el mercado actual, se detall
 )<table:budget>
 
 #figure(
-  image("../assets/domain.png", width: 60%),
+  image("/assets/domain.png", width: 60%),
   caption: [Costo anual del Dominio en Cloudflare],
 )<fig:domain>
 
 #figure(
-  image("../assets/vps.png", width: 50%),
+  image("/assets/vps.png", width: 50%),
   caption: [Costo mensual de VPS en Hostinger],
 )<fig:vps>
 
