@@ -5,6 +5,7 @@
 #[
   #set heading(offset: 2)
   #include "project_management/methodology.typ"
+  #include "project_management/schedule.typ"
 ]
 === Planificación
 === Seguimiento y Control

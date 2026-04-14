@@ -1,7 +1,7 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "@preview/acrostiche:0.7.0": acr
 
-= Metodología
+= Metodología<sec:meth>
 
 Para atacar el objetivo principal de este proyecto, se requiere una metodología que logre alinearse con el mismo y tome como experiencia enfoques ya existentes, pero considerando sus características únicas que, entre otras son:
 
