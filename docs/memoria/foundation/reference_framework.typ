@@ -19,7 +19,9 @@ Este decreto tiene como objeto crear la plataforma digital del Estado Plurinacio
 
 === AGETIC
 ==== Plataforma gob.bo
+La plataforma gob.bo funciona como un catálogo o directorio de trámites, registrando información relevante de los mismos. No digitaliza trámites, pero contiene información valiosa para el modelado de los mismos.
+
 ==== Mecanismos de creación de sitios institucionales
 ==== Ciudadanía Digital
 ===== Autenticación
-===== Validación de documentos 
+===== Validación de documentos
