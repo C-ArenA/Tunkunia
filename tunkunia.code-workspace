@@ -9,12 +9,16 @@
       "path": "./server",
     },
     {
+      "name": "ui",
+      "path": "./ui",
+    },
+    {
       "name": "site",
       "path": "./site",
     },
     {
-      "name": "ui",
-      "path": "./ui",
+      "name": "tooling",
+      "path": "./tooling",
     },
     {
       "name": "root",

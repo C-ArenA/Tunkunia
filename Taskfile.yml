@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+vars:
+  GREETING: Hello, world!
+
+tasks:
+  default:
+    desc: Print a greeting message
+    cmds:
+      - echo "{{.GREETING}}"
+
+  typstout:
+    desc: Run the Typstout application
+    cmds:
+      - go run tooling/typstout/main.go -target ./docs
+      
+  plantuml:
+    desc: Generate PlantUML diagrams
+    cmds:
+      - plantuml ./docs/**/*.puml --svg
