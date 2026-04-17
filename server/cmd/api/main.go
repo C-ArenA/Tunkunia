@@ -1,0 +1,51 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/C-ArenA/Tunkunia/server/internal/api"
+	"github.com/C-ArenA/Tunkunia/server/internal/tramite"
+)
+
+type App struct {
+	Name   string `json:"name"`
+	Author string `json:"author"`
+}
+
+type Config struct {
+	Port string `json:"port"`
+	Env  string `json:"env"`
+}
+
+func getHealthHandler(app App) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		json.NewEncoder(w).Encode(app)
+	}
+}
+
+func main() {
+	app := App{Name: "Tunkunia", Author: "Carlos Arena"}
+	config := Config{Port: ":8080", Env: "development"}
+	fmt.Printf("Welcome to %s, made by %s\n", app.Name, app.Author)
+	fmt.Println("Starting Tunkunia API server on localhost", config.Port)
+
+	mux := http.NewServeMux()
+	mux.HandleFunc("GET /health", getHealthHandler(app))
+
+	tramitesStore := tramite.NewStore()
+	tramite.RegisterRoutes(mux, tramitesStore)
+
+	server := &http.Server{
+		Addr: config.Port,
+		Handler: api.ApplyMiddlewares(mux, []api.Middleware{
+			api.LoggingMiddleware{},
+			api.CorsMiddleware{Environment: config.Env},
+			api.AuthMiddleware{},
+		}),
+	}
+
+	log.Fatal(server.ListenAndServe())
+}
