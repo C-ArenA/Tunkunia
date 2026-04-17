@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -29,8 +28,8 @@ func getHealthHandler(app App) http.HandlerFunc {
 func main() {
 	app := App{Name: "Tunkunia", Author: "Carlos Arena"}
 	config := Config{Port: ":8080", Env: "development"}
-	fmt.Printf("Welcome to %s, made by %s\n", app.Name, app.Author)
-	fmt.Println("Starting Tunkunia API server on localhost", config.Port)
+	log.Printf("Welcome to %s, made by %s\n", app.Name, app.Author)
+	log.Println("Starting Tunkunia API server on localhost", config.Port)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /health", getHealthHandler(app))
@@ -38,12 +37,13 @@ func main() {
 	tramitesStore := tramite.NewStore()
 	tramite.RegisterRoutes(mux, tramitesStore)
 
+	apiKey := "4354"
 	server := &http.Server{
 		Addr: config.Port,
 		Handler: api.ApplyMiddlewares(mux, []api.Middleware{
-			api.LoggingMiddleware{},
-			api.CorsMiddleware{Environment: config.Env},
-			api.AuthMiddleware{},
+			api.LoggingMiddleware,
+			api.CorsMiddleware(config.Env),
+			api.AuthMiddleware(apiKey),
 		}),
 	}
 

@@ -6,38 +6,33 @@ import (
 	"time"
 )
 
-type Middleware interface {
-	apply(http.Handler) http.Handler
-}
+type Middleware func(http.Handler) http.Handler
 
-func ApplyMiddlewares(next http.Handler, middlewares []Middleware) http.Handler {
+func ApplyMiddlewares(h http.Handler, middlewares []Middleware) http.Handler {
 	for i := len(middlewares) - 1; i >= 0; i-- {
-		next = middlewares[i].apply(next)
+		h = middlewares[i](h)
 	}
-	return next
+	return h
 }
 
-type CorsMiddleware struct {
-	Environment string
+func CorsMiddleware(env string) Middleware {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if env == "development" {
+				w.Header().Set("Access-Control-Allow-Origin", "*")
+				w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+				w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-TUNKUNIA-KEY")
+			}
+			if r.Method == "OPTIONS" {
+				w.WriteHeader(http.StatusNoContent)
+				return
+			}
+			next.ServeHTTP(w, r)
+		})
+	}
 }
 
-func (c CorsMiddleware) apply(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if c.Environment == "development" {
-			w.Header().Set("Access-Control-Allow-Origin", "*")
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-TUNKUNIA-KEY")
-		}
-		if r.Method == "OPTIONS" {
-			return
-		}
-		next.ServeHTTP(w, r)
-	})
-}
-
-type LoggingMiddleware struct{}
-
-func (l LoggingMiddleware) apply(next http.Handler) http.Handler {
+func LoggingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		log.Printf("Requested: %s %s From Origin: %s", r.Method, r.URL.Path, r.Header.Get("Origin"))
@@ -46,16 +41,16 @@ func (l LoggingMiddleware) apply(next http.Handler) http.Handler {
 	})
 }
 
-type AuthMiddleware struct{}
-
-func (a AuthMiddleware) apply(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Checking Authentication\n")
-		apiKey := r.Header.Get("X-TUNKUNIA-KEY")
-		if apiKey != "4354" {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
-		}
-		next.ServeHTTP(w, r)
-	})
+func AuthMiddleware(apiKey string) Middleware {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			log.Println("Checking Authentication")
+			key := r.Header.Get("X-TUNKUNIA-KEY")
+			if key != apiKey {
+				http.Error(w, "Unauthorized", http.StatusUnauthorized)
+				return
+			}
+			next.ServeHTTP(w, r)
+		})
+	}
 }
