@@ -1,0 +1,59 @@
+@startchen
+skinparam backgroundcolor transparent
+skinparam shadowing false
+
+entity tramites {
+  id <<key>>
+  nombre
+  descripción
+  tipo
+  estado
+  procedimiento
+}
+
+entity resources {
+  id <<key>>
+  nombre
+  filter_rule
+}
+entity usuarios{
+    id <<key>>
+    nombre
+    correo
+    contraseña
+}
+
+entity roles{
+    id <<key>>
+    nombre
+}
+
+entity tunkunias{
+    id <<key>>
+    marking
+    eventos
+    estado
+}
+
+relationship instancia{
+}
+relationship pertenece{
+}
+relationship cumple{
+}
+relationship ejecuta{
+}
+relationship define{
+}
+
+instancia -1- tramites
+instancia -N- tunkunias
+cumple -N- usuarios
+cumple -N- roles
+pertenece -N- resources
+pertenece -N- usuarios
+ejecuta -N- tunkunias
+ejecuta -1- usuarios
+define -1- tramites
+define -N- resources
+@endchen
