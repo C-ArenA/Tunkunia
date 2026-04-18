@@ -11,6 +11,9 @@ importers:
       '@astrojs/starlight':
         specifier: ^0.38.3
         version: 0.38.3(astro@6.1.5(@types/node@24.12.2)(rollup@4.60.1))
+      '@scalar/astro':
+        specifier: ^0.2.9
+        version: 0.2.9(astro@6.1.5(@types/node@24.12.2)(rollup@4.60.1))
       astro:
         specifier: ^6.0.1
         version: 6.1.5(@types/node@24.12.2)(rollup@4.60.1)
@@ -603,6 +606,24 @@ packages:
     resolution: {integrity: sha512-lWMnixq/QzxyhTV6NjQJ4SFo1J6PvOX8vUx5Wb4bBPsEb+8xZ89Bz6kOXpfXj9ak9AHTQVQzlgzBEc1SyM27xQ==}
     cpu: [x64]
     os: [win32]
+
+  '@scalar/astro@0.2.9':
+    resolution: {integrity: sha512-KOmQMAolj3vkvHXnLmKY3kL8q2/yml2gsY0s6Mn3Wr372xPIiF+CTuWoog3z4BU+VlvEgTdpltq0cIl53yyEHg==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      astro: ^4.0.0 || ^5.0.0
+
+  '@scalar/client-side-rendering@0.1.2':
+    resolution: {integrity: sha512-gX2QIc+lpErO9RWkJmt02sBZoCOjyZ7EiLLEyGj7x9UKkk7E4zj6Wbk1eUPo6i3oIwhtZ+Vybj/xzexCK2bxwA==}
+    engines: {node: '>=22'}
+
+  '@scalar/helpers@0.5.1':
+    resolution: {integrity: sha512-9VvPfv8b+YZVIFwR3SWeq4Y8ij/kU3/kf2M6NKcbf2iVyh63d8s0ssap5m/nOhiz/Puidv/29MAJlJCA0LRssA==}
+    engines: {node: '>=22'}
+
+  '@scalar/types@0.9.1':
+    resolution: {integrity: sha512-3EbkhtQc+XuDE8Ur1MPosM3YTACFIFNba4M3vGulqv8jcvhMXT+KWPvGUJxq0CDvySqjGa8cE6w85v8T+MjDng==}
+    engines: {node: '>=22'}
 
   '@shikijs/core@3.23.0':
     resolution: {integrity: sha512-NSWQz0riNb67xthdm5br6lAkvpDJRTgB36fxlo37ZzM2yq0PQFFzbd8psqC2XMPgCzo1fW6cVi18+ArJ44wqgA==}
@@ -1308,6 +1329,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@5.1.9:
+    resolution: {integrity: sha512-ZUvP7KeBLe3OZ1ypw6dI/TzYJuvHP77IM4Ry73waSQTLn8/g8rpdjfyVAh7t1/+FjBtG4lCP42MEbDxOsRpBMw==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   neotraverse@0.6.18:
     resolution: {integrity: sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==}
     engines: {node: '>= 10'}
@@ -1556,6 +1582,10 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   tiny-inflate@1.0.3:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
 
@@ -1589,6 +1619,10 @@ packages:
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
+  type-fest@5.6.0:
+    resolution: {integrity: sha512-8ZiHFm91orbSAe2PSAiSVBVko18pbhbiB3U9GglSzF/zCGkR+rxpHx6sEMCUm4kxY4LjDIUGgCfUMtwfZfjfUA==}
+    engines: {node: '>=20'}
 
   ufo@1.6.3:
     resolution: {integrity: sha512-yDJTmhydvl5lJzBmy/hyOAA0d+aqCBuwl818haVdYCRrWV84o7YyeVm4QlVHStqNrrJSTb6jKuFAVqAFsr+K3Q==}
@@ -2269,6 +2303,24 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.60.1':
     optional: true
+
+  '@scalar/astro@0.2.9(astro@6.1.5(@types/node@24.12.2)(rollup@4.60.1))':
+    dependencies:
+      '@scalar/client-side-rendering': 0.1.2
+      astro: 6.1.5(@types/node@24.12.2)(rollup@4.60.1)
+
+  '@scalar/client-side-rendering@0.1.2':
+    dependencies:
+      '@scalar/types': 0.9.1
+
+  '@scalar/helpers@0.5.1': {}
+
+  '@scalar/types@0.9.1':
+    dependencies:
+      '@scalar/helpers': 0.5.1
+      nanoid: 5.1.9
+      type-fest: 5.6.0
+      zod: 4.3.6
 
   '@shikijs/core@3.23.0':
     dependencies:
@@ -3483,6 +3535,8 @@ snapshots:
 
   nanoid@3.3.11: {}
 
+  nanoid@5.1.9: {}
+
   neotraverse@0.6.18: {}
 
   nlcst-to-string@4.0.0:
@@ -3888,6 +3942,8 @@ snapshots:
       picocolors: 1.1.1
       sax: 1.6.0
 
+  tagged-tag@1.0.0: {}
+
   tiny-inflate@1.0.3: {}
 
   tinyclip@0.1.12: {}
@@ -3907,6 +3963,10 @@ snapshots:
 
   tslib@2.8.1:
     optional: true
+
+  type-fest@5.6.0:
+    dependencies:
+      tagged-tag: 1.0.0
 
   ufo@1.6.3: {}
 
