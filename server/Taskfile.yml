@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+output: prefixed
+
+tasks:
+  dev:
+    desc: Run server with hot reload (air)
+    cmds:
+      - air
+
+  build:
+    desc: Build server binary
+    cmds:
+      - go build -o bin/server ./cmd/api

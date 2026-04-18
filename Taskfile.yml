@@ -2,76 +2,38 @@
 
 version: "3"
 
-vars:
-  GREETING: Hello, world!
+output: prefixed
+
+includes:
+  server:
+    taskfile: ./server/Taskfile.yml
+    dir: ./server
+  site:
+    taskfile: ./site/Taskfile.yml
+    dir: ./site
+  ui:
+    taskfile: ./ui/Taskfile.yml
+    dir: ./ui
+  docs:
+    taskfile: ./docs/Taskfile.yml
+    dir: ./docs
 
 tasks:
-  default:
-    desc: Print a greeting message
-    cmds:
-      - echo "{{.GREETING}}"
-
-  dev:server:
-    desc: Run server with hot reload (air)
-    dir: ./server
-    cmds:
-      - air
-
-  dev:site:
-    desc: Run site dev server
-    dir: ./site
-    cmds:
-      - pnpm run dev
-
-  dev:ui:
-    desc: Run UI dev server
-    dir: ./ui
-    cmds:
-      - pnpm run dev
-
   dev:all:
     desc: Run all dev servers in parallel
     deps:
-      - dev:server
-      - dev:site
-      - dev:ui
+      - server:dev
+      - site:dev
+      - ui:dev
     cmds:
       - echo ""
-
-  build:server:
-    desc: Build server binary
-    dir: ./server
-    cmds:
-      - go build -o bin/server ./cmd/api
-
-  build:site:
-    desc: Build site for production
-    dir: ./site
-    cmds:
-      - pnpm run build
-
-  build:ui:
-    desc: Build UI for production
-    dir: ./ui
-    cmds:
-      - pnpm run build
 
   build:all:
     desc: Build all projects
     cmds:
-      - task: build:server
-      - task: build:site
-      - task: build:ui
-
-  docs:typstout:
-    desc: Run Typstout documentation generator
-    cmds:
-      - go run tooling/typstout/main.go -target ./docs
-
-  docs:plantuml:
-    desc: Generate PlantUML diagrams
-    cmds:
-      - plantuml ./docs/**/*.puml --svg
+      - task: server:build
+      - task: site:build
+      - task: ui:build
 
   docs:all:
     desc: Generate all documentation

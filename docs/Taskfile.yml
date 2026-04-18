@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+output: prefixed
+
+tasks:
+  typstout:
+    desc: Run Typstout documentation generator
+    cmds:
+      - cd .. && go run tooling/typstout/main.go -target .
+
+  plantuml:
+    desc: Generate PlantUML diagrams
+    cmds:
+      - plantuml ./**/*.puml --svg

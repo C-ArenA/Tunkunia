@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+output: prefixed
+
+tasks:
+  dev:
+    desc: Run site dev server
+    cmds:
+      - pnpm dev
+
+  build:
+    desc: Build site for production
+    cmds:
+      - pnpm build
