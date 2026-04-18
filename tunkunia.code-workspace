@@ -17,10 +17,6 @@
       "path": "./site",
     },
     {
-      "name": "tooling",
-      "path": "./tooling",
-    },
-    {
       "name": "root",
       "path": ".",
     },

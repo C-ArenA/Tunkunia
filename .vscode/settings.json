@@ -3,7 +3,6 @@
     "docs": true,
     "server": true,
     "site": true,
-    "tooling": true,
     "ui": true
   }
 }

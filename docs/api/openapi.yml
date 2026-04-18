@@ -1,7 +1,7 @@
-openapi: '3.0.3'
+openapi: "3.0.3"
 info:
   title: Tunkunia API
-  version: '1.0'
+  version: "1.0"
 servers:
   - url: http://localhost:8080
   - url: https://api.server.test/v1
@@ -18,23 +18,23 @@ components:
 paths:
   /health:
     parameters:
-      - $ref: '#/components/parameters/ApiKeyHeader'
+      - $ref: "#/components/parameters/ApiKeyHeader"
     summary: Health check endpoint
     get:
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
   /tramites:
     parameters:
-      - $ref: '#/components/parameters/ApiKeyHeader'
+      - $ref: "#/components/parameters/ApiKeyHeader"
     summary: Tramites endpoint
     get:
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
     post:
       requestBody:
@@ -49,8 +49,8 @@ paths:
                 description:
                   type: string
       responses:
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
       deprecated: false
