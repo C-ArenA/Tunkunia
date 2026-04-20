@@ -75,9 +75,7 @@ De este modo, los datos a relevar para cada trámite son:
   - Características Resaltantes
 - Dimensión de recursos:
   - Involucrados
-  - Sistemas y Herramientas externas
   - Dependencias
-  - Dependientes
 - Dimensión de Proceso
   - Desencadenante
   - Modelado con BPMN
@@ -98,34 +96,59 @@ En función a la metodología se hace la selección de los siguientes trámites:
 - Trámite simplificado: Cédula de Identidad
 - Trámite complejo: Inscripción de división y partición DDRR
 
+=== Cédula de Identidad
+
+- *Nombre:* Trámite para obtener Cédula de Identidad por Primera Vez.
+- *Descripción*: Trámite esencial para el ciudadano boliviano, para ingresar al Registro Único de Identificación.
+- *Marco Legal*: DS 4861, DS 4342
+- *Tipo de Trámite*: Trámite de Registro y Certificación
+- *Características Resaltantes*:
+  - La normativa existente alrededor de este trámite solamente especifica los objetivos del trámite y no el trámite en sí mismo dejando esto a criterio de la institución. Este es un antecedente importante para otros trámites que no pueden ser simplificados debido al andamiaje legal que los aprisionan.
+  - Para comunicar al ciudadano, se divide el trámite en dos, uno para menores de edad y otro para mayores de edad. Sin embargo, para enriquecer este análisis se consideran ambos como parte del mismo trámite.
+- *Involucrados*:
+  - Funcionario del SEGIP
+  - Ciudadano que desea obtener su Cédula
+  - Tercero encargado en caso de que el ciudadano sea menor de edad
+- *Dependencias*:
+  - SERECI: Certificado de Nacimiento y otros
+  - Entidad Bancaria: Pagos
+- *Desencadenante*: Ciudadano con intención de obtener su cédula de identidad
+- *Modelos*: Se modeló el trámite usando una Red de Petri de tipo WFNet como se puede ver en la @fig:ci_wfnet.
+
+#figure(
+  image("assets/ci_wfnet.png", width: 80%),
+  caption: [Red de Petri para Trámite de Obtención de Cédula de Identidad\ Elaboración propia],
+)<fig:ci_wfnet>
+
 === Trámite: Solicitud de Patente SENAPI
 
-- Respaldado por la Decisión 486 de La Comisión de la Comunidad Andina en sus capítulos III y IV
-- Se detallan características de los plazos: días hábiles
-- Existen condiciones claras para el inicio de la solicitud: Condiciones de sí o no
-- Existen requisitos obligatorios cuya ausencia imposibilita el inicio del trámite (Artículo 33)
-- La solicitud debe contener:
-  - 1 comprobante de pago (g)
-  - 1 elemento de texto plano (e)
-  - 2 formularios (a, b)
-  - 1 colección de elementos de texto plano (c)
-  - 1 colección de elementos multimedia (d)
-  - 3 copias de documentos existentes (h,i,k)
-  - 1 colección de documentos originales de certificación existente (f, j)
-- Existen requisitos opcionales que sólo son necesarios si se cumplen otras condiciones. Esto sugiere que pueden pertenecer a otras subetapas
-- El trámite inicia con la presentación de requisitos de solicitud. Es decir, cuando el solicitante lo desee
-- El trámite parece ser de tipo servicio
-- El solicitante puede modificar su información de solicitud durante el trámite e incluso la naturaleza del trámite. Esto sugiere un cambio de trámite (mismo caso o diferente caso) que pueda heredar información del anterior.
-- Existe una etapa de examen de documentos
-- Existe un plazo de 30 días para examinar la solicitud
-- Existe una etapa de reparación de solicitud con plazo de 2 meses
-- La etapa de reparación de solicitud tiene un número máximo de retries
-- La "oficina" debe notificar al "solicitante" cada decisión
-- Tras cumplir el primer examen de forma, se publican los resultados y sólo entonces se pasa a una segunda ronda de examen de patentabilidad
-- El segundo examen debe ser inicializado por el solicitante
-- Actores externos pueden influir con oposiciones a la solicitud de patentado
-- Tras el segundo examen se toma una decisión que se convierte en un título de patente (un certificado)
-- Al conjunto de información que se va recolectando se le llama expediente, similar a como se hace en juzgados
+- *Características Resaltantes*:
+  - Respaldado por la Decisión 486 de La Comisión de la Comunidad Andina en sus capítulos III y IV
+  - Se detallan características de los plazos: días hábiles
+  - Existen condiciones claras para el inicio de la solicitud: Condiciones de sí o no
+  - Existen requisitos obligatorios cuya ausencia imposibilita el inicio del trámite (Artículo 33)
+  - La solicitud debe contener:
+    - 1 comprobante de pago (g)
+    - 1 elemento de texto plano (e)
+    - 2 formularios (a, b)
+    - 1 colección de elementos de texto plano (c)
+    - 1 colección de elementos multimedia (d)
+    - 3 copias de documentos existentes (h,i,k)
+    - 1 colección de documentos originales de certificación existente (f, j)
+  - Existen requisitos opcionales que sólo son necesarios si se cumplen otras condiciones. Esto sugiere que pueden pertenecer a otras subetapas
+  - El trámite inicia con la presentación de requisitos de solicitud. Es decir, cuando el solicitante lo desee
+  - El trámite parece ser de tipo servicio
+  - El solicitante puede modificar su información de solicitud durante el trámite e incluso la naturaleza del trámite. Esto sugiere un cambio de trámite (mismo caso o diferente caso) que pueda heredar información del anterior.
+  - Existe una etapa de examen de documentos
+  - Existe un plazo de 30 días para examinar la solicitud
+  - Existe una etapa de reparación de solicitud con plazo de 2 meses
+  - La etapa de reparación de solicitud tiene un número máximo de retries
+  - La "oficina" debe notificar al "solicitante" cada decisión
+  - Tras cumplir el primer examen de forma, se publican los resultados y sólo entonces se pasa a una segunda ronda de examen de patentabilidad
+  - El segundo examen debe ser inicializado por el solicitante
+  - Actores externos pueden influir con oposiciones a la solicitud de patentado
+  - Tras el segundo examen se toma una decisión que se convierte en un título de patente (un certificado)
+  - Al conjunto de información que se va recolectando se le llama expediente, similar a como se hace en juzgados
 
 #figure(
   diagram(
