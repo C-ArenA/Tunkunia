@@ -1,0 +1,13 @@
+@startuml catGoal
+actor Ciudadano as c
+participant Catalogue as cat
+participant Execution as exe
+participant "Auth" as a
+c -> cat: Ver catálogo de trámites
+cat --> c: Listar trámites
+c -> cat: Seleccionar trámite
+cat --> c: Detalles del trámite
+c -> a: Solicitar autenticación
+a --> c: Autentificación exitosa
+c -> exe: Ejecutar trámite
+@enduml

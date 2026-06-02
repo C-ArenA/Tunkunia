@@ -1,0 +1,17 @@
+@startuml
+left to right direction
+actor Guest as g
+package Catalogue {
+  usecase "Seleccionar Trámite" as st
+  usecase "Buscar Trámite" as bt
+  usecase "Ver Detalles de Trámite" as vt
+  st .> vt : include
+}
+package gob.bo {
+  usecase "Seleccionar Trámite Digital" as gbst
+}
+gbst .> vt : include
+g --> st
+g --> bt
+g --> gbst
+@enduml
