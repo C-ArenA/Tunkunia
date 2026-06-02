@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/C-ArenA/Tunkunia/internal/api"
-	"github.com/C-ArenA/Tunkunia/internal/tramite"
+	"github.com/C-ArenA/Tunkunia/internal/catalog"
 )
 
 type App struct {
@@ -34,16 +34,16 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /health", getHealthHandler(app))
 
-	tramitesStore := tramite.NewStore()
-	tramite.RegisterRoutes(mux, tramitesStore)
+	catalogRepo := catalog.NewMemStore()
+	catalogService := catalog.NewService(catalogRepo)
+	catalogHandler := catalog.NewHandler(catalogService)
+	catalogHandler.RegisterRoutes(mux)
 
-	apiKey := "4354"
 	server := &http.Server{
 		Addr: config.Port,
 		Handler: api.ApplyMiddlewares(mux, []api.Middleware{
 			api.LoggingMiddleware,
 			api.CorsMiddleware(config.Env),
-			api.AuthMiddleware(apiKey),
 		}),
 	}
 
