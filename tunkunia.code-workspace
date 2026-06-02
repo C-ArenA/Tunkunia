@@ -1,24 +1,20 @@
 {
   "folders": [
-    {
-      "name": "docs",
-      "path": "./docs",
-    },
-    {
-      "name": "server",
-      "path": "./server",
+  {
+      "name": "root",
+      "path": ".",
     },
     {
       "name": "ui",
       "path": "./ui",
     },
     {
-      "name": "site",
-      "path": "./site",
+      "name": "docs",
+      "path": "./docs",
     },
     {
-      "name": "root",
-      "path": ".",
+      "name": "site",
+      "path": "./site",
     },
   ],
   "settings": {

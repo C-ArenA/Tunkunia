@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/C-ArenA/Tunkunia/server/internal/api"
-	"github.com/C-ArenA/Tunkunia/server/internal/tramite"
+	"github.com/C-ArenA/Tunkunia/internal/api"
+	"github.com/C-ArenA/Tunkunia/internal/tramite"
 )
 
 type App struct {

@@ -1,8 +1,8 @@
 {
   "files.exclude": {
     "docs": true,
-    "server": true,
     "site": true,
-    "ui": true
-  }
+    "ui": true,
+    ".zed": true,
+  },
 }

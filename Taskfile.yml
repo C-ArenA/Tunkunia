@@ -5,9 +5,6 @@ version: "3"
 output: prefixed
 
 includes:
-  server:
-    taskfile: ./server/Taskfile.yml
-    dir: ./server
   site:
     taskfile: ./site/Taskfile.yml
     dir: ./site
@@ -19,6 +16,16 @@ includes:
     dir: ./docs
 
 tasks:
+  server:dev:
+    desc: Run server with hot reload (air)
+    cmds:
+      - air
+
+  server:build:
+    desc: Build server binary
+    cmds:
+      - go build -o bin/server ./cmd/api
+
   dev:all:
     desc: Run all dev servers in parallel
     deps:
