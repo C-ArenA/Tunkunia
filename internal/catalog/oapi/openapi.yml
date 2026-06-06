@@ -1,0 +1,124 @@
+openapi: "3.0.3"
+info:
+  title: CatalogModuleAPI
+  version: "1.0"
+  description: |
+    Deals with the lifecycle of "Trámites" (Government Procedures) and their associated Petri net execution structures.
+
+    ### Authorization Rules:
+    - **Published** trámites are accessible by anyone (including anonymous `guest` users).
+    - **Draft** and **Archived** trámites are strictly restricted to their `creator` or an `admin`.
+servers:
+  - url: http://localhost:8080
+    description: Development server
+paths:
+  /api/v1/catalog/tramites:
+    get:
+      operationId: getTramites
+      summary: List all trámites
+      description: |
+        Retrieves a paginated list of trámites.
+        - **Guests** will only see `published` items.
+        - **Creators** will see their own drafts/archived items alongside published ones.
+        - **Admins** will see everything.
+      parameters:
+        - name: status
+          in: query
+          description: Filter trámites by status
+          required: false
+          schema:
+            $ref: "#/components/schemas/TramiteStatus"
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: A paginated list of trámites.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - page
+                  - limit
+                  - total
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TramiteResponse"
+                  page:
+                    type: integer
+                  limit:
+                    type: integer
+                  total:
+                    type: integer
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Enter your application JWT token
+  schemas:
+    TramiteStatus:
+      type: string
+      enum: [draft, published, archived]
+      example: draft
+
+    TramiteResponse:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Inscripción de Personería Jurídica"
+        description:
+          type: string
+          example: "Trámite legal para la obtención y registro de personería jurídica de asociaciones civiles."
+        procedureDescription:
+          type: string
+          example: "El usuario debe cargar los requisitos formales, esperar validación de actas y proceder a la firma digital."
+        type:
+          type: string
+          example: "Trámite de Registro"
+        status:
+          $ref: "#/components/schemas/TramiteStatus"
+        legalFramework:
+          type: array
+          items:
+            type: string
+          example: ["Ley Nº 351", "Artículo 5"]
+        createdBy:
+          type: integer
+          example: 4
+        createdAt:
+          type: string
+          format: date-time
+          example: "2026-03-15T14:30:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2026-04-02T11:15:22Z"
+
+  responses:
+    BadRequest:
+      description: The request contains invalid body syntax or structural validation errors.
+    Unauthorized:
+      description: Authentication credentials (JWT token) are missing or invalid.
