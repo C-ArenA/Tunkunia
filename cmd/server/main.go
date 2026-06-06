@@ -36,8 +36,8 @@ func main() {
 
 	catalogRepo := catalog.NewMemStore()
 	catalogService := catalog.NewService(catalogRepo)
-	catalogHandler := catalog.NewHandler(catalogService)
-	catalogHandler.RegisterRoutes(mux)
+	catalogServer := catalog.NewServer(catalogService)
+	catalogServer.RegisterRoutes(mux)
 
 	server := &http.Server{
 		Addr: config.Port,

@@ -10,8 +10,8 @@ type MemStore struct {
 func NewMemStore() *MemStore {
 	return &MemStore{
 		tramites: []Tramite{
-			Tramite{
-				ID: 1,
+			{
+				ID:   1,
 				Name: "Cédula de Identidad",
 			},
 		},
