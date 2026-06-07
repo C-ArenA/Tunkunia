@@ -17,6 +17,31 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+const (
+	BearerAuthScopes bearerAuthContextKey = "BearerAuth.Scopes"
+)
+
+// Defines values for HealthResponseStatus.
+const (
+	DEGRADED HealthResponseStatus = "DEGRADED"
+	DOWN     HealthResponseStatus = "DOWN"
+	UP       HealthResponseStatus = "UP"
+)
+
+// Valid indicates whether the value is a known member of the HealthResponseStatus enum.
+func (e HealthResponseStatus) Valid() bool {
+	switch e {
+	case DEGRADED:
+		return true
+	case DOWN:
+		return true
+	case UP:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for TramiteStatus.
 const (
 	Archived  TramiteStatus = "archived"
@@ -37,6 +62,15 @@ func (e TramiteStatus) Valid() bool {
 		return false
 	}
 }
+
+// HealthResponse defines model for HealthResponse.
+type HealthResponse struct {
+	Status    HealthResponseStatus `json:"status"`
+	Timestamp *time.Time           `json:"timestamp,omitempty"`
+}
+
+// HealthResponseStatus defines model for HealthResponse.Status.
+type HealthResponseStatus string
 
 // TramiteResponse defines model for TramiteResponse.
 type TramiteResponse struct {
@@ -66,11 +100,30 @@ type GetTramitesParams struct {
 	Limit  *int           `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
+// PostTramiteJSONBody defines parameters for PostTramite.
+type PostTramiteJSONBody struct {
+	Description          *string        `json:"description,omitempty"`
+	LegalFramework       *[]string      `json:"legalFramework,omitempty"`
+	Name                 string         `json:"name"`
+	ProcedureDescription *string        `json:"procedureDescription,omitempty"`
+	Status               *TramiteStatus `json:"status,omitempty"`
+	Type                 string         `json:"type"`
+}
+
+// PostTramiteJSONRequestBody defines body for PostTramite for application/json ContentType.
+type PostTramiteJSONRequestBody PostTramiteJSONBody
+
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
+
+	// (GET /api/v1/catalog/health)
+	GetHealth(w http.ResponseWriter, r *http.Request)
 	// List all trámites
 	// (GET /api/v1/catalog/tramites)
 	GetTramites(w http.ResponseWriter, r *http.Request, params GetTramitesParams)
+	// Crear trámite nuevo
+	// (POST /api/v1/catalog/tramites)
+	PostTramite(w http.ResponseWriter, r *http.Request)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -81,6 +134,20 @@ type ServerInterfaceWrapper struct {
 }
 
 type MiddlewareFunc func(http.Handler) http.Handler
+
+// GetHealth operation middleware
+func (siw *ServerInterfaceWrapper) GetHealth(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetHealth(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
 
 // GetTramites operation middleware
 func (siw *ServerInterfaceWrapper) GetTramites(w http.ResponseWriter, r *http.Request) {
@@ -132,6 +199,26 @@ func (siw *ServerInterfaceWrapper) GetTramites(w http.ResponseWriter, r *http.Re
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.GetTramites(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// PostTramite operation middleware
+func (siw *ServerInterfaceWrapper) PostTramite(w http.ResponseWriter, r *http.Request) {
+
+	ctx := r.Context()
+
+	ctx = context.WithValue(ctx, BearerAuthScopes, []string{})
+
+	r = r.WithContext(ctx)
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.PostTramite(w, r)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -261,12 +348,52 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 		ErrorHandlerFunc:   options.ErrorHandlerFunc,
 	}
 
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/api/v1/catalog/health", wrapper.GetHealth)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/api/v1/catalog/tramites", wrapper.GetTramites)
+	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/api/v1/catalog/tramites", wrapper.PostTramite)
 
 	return m
 }
 
+type BadRequestResponse struct {
+}
+
 type UnauthorizedResponse struct {
+}
+
+type GetHealthRequestObject struct {
+}
+
+type GetHealthResponseObject interface {
+	VisitGetHealthResponse(w http.ResponseWriter) error
+}
+
+type GetHealth200JSONResponse HealthResponse
+
+func (response GetHealth200JSONResponse) VisitGetHealthResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetHealth503JSONResponse HealthResponse
+
+func (response GetHealth503JSONResponse) VisitGetHealthResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(503)
+	_, err := buf.WriteTo(w)
+	return err
 }
 
 type GetTramitesRequestObject struct {
@@ -303,11 +430,69 @@ func (response GetTramites401Response) VisitGetTramitesResponse(w http.ResponseW
 	return nil
 }
 
+type PostTramiteRequestObject struct {
+	Body *PostTramiteJSONRequestBody
+}
+
+type PostTramiteResponseObject interface {
+	VisitPostTramiteResponse(w http.ResponseWriter) error
+}
+
+type PostTramite201JSONResponse TramiteResponse
+
+func (response PostTramite201JSONResponse) VisitPostTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(201)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type PostTramite400Response = BadRequestResponse
+
+func (response PostTramite400Response) VisitPostTramiteResponse(w http.ResponseWriter) error {
+	w.WriteHeader(400)
+	return nil
+}
+
+type PostTramite401Response = UnauthorizedResponse
+
+func (response PostTramite401Response) VisitPostTramiteResponse(w http.ResponseWriter) error {
+	w.WriteHeader(401)
+	return nil
+}
+
+type PostTramite403Response struct {
+}
+
+func (response PostTramite403Response) VisitPostTramiteResponse(w http.ResponseWriter) error {
+	w.WriteHeader(403)
+	return nil
+}
+
+type PostTramite422Response struct {
+}
+
+func (response PostTramite422Response) VisitPostTramiteResponse(w http.ResponseWriter) error {
+	w.WriteHeader(422)
+	return nil
+}
+
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
+
+	// (GET /api/v1/catalog/health)
+	GetHealth(ctx context.Context, request GetHealthRequestObject) (GetHealthResponseObject, error)
 	// List all trámites
 	// (GET /api/v1/catalog/tramites)
 	GetTramites(ctx context.Context, request GetTramitesRequestObject) (GetTramitesResponseObject, error)
+	// Crear trámite nuevo
+	// (POST /api/v1/catalog/tramites)
+	PostTramite(ctx context.Context, request PostTramiteRequestObject) (PostTramiteResponseObject, error)
 }
 
 type StrictHandlerFunc func(ctx context.Context, w http.ResponseWriter, r *http.Request, request any) (any, error)
@@ -339,6 +524,30 @@ type strictHandler struct {
 	options     StrictHTTPServerOptions
 }
 
+// GetHealth operation middleware
+func (sh *strictHandler) GetHealth(w http.ResponseWriter, r *http.Request) {
+	var request GetHealthRequestObject
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetHealth(ctx, request.(GetHealthRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetHealth")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetHealthResponseObject); ok {
+		if err := validResponse.VisitGetHealthResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
 // GetTramites operation middleware
 func (sh *strictHandler) GetTramites(w http.ResponseWriter, r *http.Request, params GetTramitesParams) {
 	var request GetTramitesRequestObject
@@ -358,6 +567,37 @@ func (sh *strictHandler) GetTramites(w http.ResponseWriter, r *http.Request, par
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(GetTramitesResponseObject); ok {
 		if err := validResponse.VisitGetTramitesResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// PostTramite operation middleware
+func (sh *strictHandler) PostTramite(w http.ResponseWriter, r *http.Request) {
+	var request PostTramiteRequestObject
+
+	var body PostTramiteJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.PostTramite(ctx, request.(PostTramiteRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "PostTramite")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(PostTramiteResponseObject); ok {
+		if err := validResponse.VisitPostTramiteResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

@@ -12,6 +12,23 @@ servers:
   - url: http://localhost:8080
     description: Development server
 paths:
+  /api/v1/catalog/health:
+    get:
+      operationId: getHealth
+      responses:
+        "200":
+          description: The service is healthy and operating normally
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+        "503":
+          description: The service is unhealthy or degraded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
   /api/v1/catalog/tramites:
     get:
       operationId: getTramites
@@ -63,7 +80,55 @@ paths:
                     type: integer
         "401":
           $ref: "#/components/responses/Unauthorized"
-
+    post:
+      operationId: postTramite
+      summary: Crear trámite nuevo
+      description: Permite a usuarios con rol de administración la creación de nuevos trámites en el catálogo de trámites. Los mismos nacerán con estado draft y pueden contener un procedimiento vacío
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - type
+              properties:
+                name:
+                  type: string
+                  example: "Inscripción de Personería Jurídica"
+                description:
+                  type: string
+                procedureDescription:
+                  type: string
+                type:
+                  type: string
+                  example: "De Registro"
+                status:
+                  $ref: "#/components/schemas/TramiteStatus"
+                  default: draft
+                legalFramework:
+                  type: array
+                  items:
+                    type: string
+                  example: ["Ley N° 351, Artículo 5"]
+      responses:
+        "201":
+          description: Creación de Trámite exitosa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TramiteResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: "El usuario no tiene los permisos suficientes"
+        "422":
+          description: "Hay un error en los datos recibidos"
 components:
   securitySchemes:
     BearerAuth:
@@ -116,9 +181,23 @@ components:
           type: string
           format: date-time
           example: "2026-04-02T11:15:22Z"
-
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - UP
+            - DOWN
+            - DEGRADED
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-06-06T15:30:00Z"
   responses:
     BadRequest:
-      description: The request contains invalid body syntax or structural validation errors.
+      description: La solicitud es incorrecta.
     Unauthorized:
-      description: Authentication credentials (JWT token) are missing or invalid.
+      description: Usuario no autenticado.

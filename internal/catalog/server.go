@@ -11,6 +11,16 @@ type Server struct {
 	service *Service
 }
 
+// GetHealth implements [oapi.StrictServerInterface].
+func (s *Server) GetHealth(ctx context.Context, request oapi.GetHealthRequestObject) (oapi.GetHealthResponseObject, error) {
+	panic("unimplemented")
+}
+
+// PostTramite implements [oapi.StrictServerInterface].
+func (s *Server) PostTramite(ctx context.Context, request oapi.PostTramiteRequestObject) (oapi.PostTramiteResponseObject, error) {
+	panic("unimplemented")
+}
+
 func NewServer(service *Service) *Server {
 	return &Server{service: service}
 }
