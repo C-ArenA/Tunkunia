@@ -16,6 +16,11 @@ includes:
     dir: ./docs
 
 tasks:
+  server:dev:api:
+    desc: Serves API specs with Scalar
+    cmds:
+      - scalar document serve --watch --port 8491 ./internal/catalog/oapi/openapi.yml
+
   server:dev:
     desc: Run server with hot reload (air)
     cmds:
@@ -29,6 +34,7 @@ tasks:
   dev:all:
     desc: Run all dev servers in parallel
     deps:
+      - server:dev:api
       - server:dev
       - site:dev
       - ui:dev
