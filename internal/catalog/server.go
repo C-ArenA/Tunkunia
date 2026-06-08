@@ -3,6 +3,7 @@ package catalog
 import (
 	"context"
 	"net/http"
+	"time"
 
 	"github.com/C-ArenA/Tunkunia/internal/catalog/oapi"
 )
@@ -13,7 +14,16 @@ type Server struct {
 
 // GetHealth implements [oapi.StrictServerInterface].
 func (s *Server) GetHealth(ctx context.Context, request oapi.GetHealthRequestObject) (oapi.GetHealthResponseObject, error) {
-	panic("unimplemented")
+	if s.service == nil {
+		return oapi.GetHealth503JSONResponse{
+			Status:    oapi.DOWN,
+			Timestamp: time.Now().UTC(),
+		}, nil
+	}
+	return oapi.GetHealth200JSONResponse{
+		Status:    oapi.UP,
+		Timestamp: time.Now().UTC(),
+	}, nil
 }
 
 // PostTramite implements [oapi.StrictServerInterface].
