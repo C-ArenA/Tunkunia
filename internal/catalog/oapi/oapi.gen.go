@@ -66,7 +66,7 @@ func (e TramiteStatus) Valid() bool {
 // HealthResponse defines model for HealthResponse.
 type HealthResponse struct {
 	Status    HealthResponseStatus `json:"status"`
-	Timestamp *time.Time           `json:"timestamp,omitempty"`
+	Timestamp time.Time            `json:"timestamp"`
 }
 
 // HealthResponseStatus defines model for HealthResponse.Status.
@@ -115,14 +115,14 @@ type PostTramiteJSONRequestBody PostTramiteJSONBody
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-
-	// (GET /api/v1/catalog/health)
+	// Estado Módulo Catálogo
+	// (GET /catalog/health)
 	GetHealth(w http.ResponseWriter, r *http.Request)
-	// List all trámites
-	// (GET /api/v1/catalog/tramites)
+	// Listar Trámites
+	// (GET /catalog/tramites)
 	GetTramites(w http.ResponseWriter, r *http.Request, params GetTramitesParams)
 	// Crear trámite nuevo
-	// (POST /api/v1/catalog/tramites)
+	// (POST /catalog/tramites)
 	PostTramite(w http.ResponseWriter, r *http.Request)
 }
 
@@ -154,6 +154,12 @@ func (siw *ServerInterfaceWrapper) GetTramites(w http.ResponseWriter, r *http.Re
 
 	var err error
 	_ = err
+
+	ctx := r.Context()
+
+	ctx = context.WithValue(ctx, BearerAuthScopes, []string{})
+
+	r = r.WithContext(ctx)
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params GetTramitesParams
@@ -348,9 +354,9 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 		ErrorHandlerFunc:   options.ErrorHandlerFunc,
 	}
 
-	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/api/v1/catalog/health", wrapper.GetHealth)
-	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/api/v1/catalog/tramites", wrapper.GetTramites)
-	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/api/v1/catalog/tramites", wrapper.PostTramite)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/catalog/health", wrapper.GetHealth)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/catalog/tramites", wrapper.GetTramites)
+	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/catalog/tramites", wrapper.PostTramite)
 
 	return m
 }
@@ -484,14 +490,14 @@ func (response PostTramite422Response) VisitPostTramiteResponse(w http.ResponseW
 
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
-
-	// (GET /api/v1/catalog/health)
+	// Estado Módulo Catálogo
+	// (GET /catalog/health)
 	GetHealth(ctx context.Context, request GetHealthRequestObject) (GetHealthResponseObject, error)
-	// List all trámites
-	// (GET /api/v1/catalog/tramites)
+	// Listar Trámites
+	// (GET /catalog/tramites)
 	GetTramites(ctx context.Context, request GetTramitesRequestObject) (GetTramitesResponseObject, error)
 	// Crear trámite nuevo
-	// (POST /api/v1/catalog/tramites)
+	// (POST /catalog/tramites)
 	PostTramite(ctx context.Context, request PostTramiteRequestObject) (PostTramiteResponseObject, error)
 }
 

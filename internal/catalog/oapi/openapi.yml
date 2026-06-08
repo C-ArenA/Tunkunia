@@ -1,6 +1,9 @@
 openapi: "3.0.3"
 info:
   title: CatalogModuleAPI
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
   version: "1.0"
   description: |
     Deals with the lifecycle of "Trámites" (Government Procedures) and their associated Petri net execution structures.
@@ -9,12 +12,14 @@ info:
     - **Published** trámites are accessible by anyone (including anonymous `guest` users).
     - **Draft** and **Archived** trámites are strictly restricted to their `creator` or an `admin`.
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:8080/api/v1
     description: Development server
 paths:
-  /api/v1/catalog/health:
+  /catalog/health:
     get:
       operationId: getHealth
+      summary: Estado Módulo Catálogo
+      security: []
       responses:
         "200":
           description: The service is healthy and operating normally
@@ -29,15 +34,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/HealthResponse"
 
-  /api/v1/catalog/tramites:
+  /catalog/tramites:
     get:
       operationId: getTramites
-      summary: List all trámites
+      summary: Listar Trámites
       description: |
         Retrieves a paginated list of trámites.
         - **Guests** will only see `published` items.
         - **Creators** will see their own drafts/archived items alongside published ones.
         - **Admins** will see everything.
+      security:
+        - BearerAuth: []
+        - {}
       parameters:
         - name: status
           in: query
@@ -185,6 +193,7 @@ components:
       type: object
       required:
         - status
+        - timestamp
       properties:
         status:
           type: string

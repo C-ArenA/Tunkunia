@@ -43,5 +43,5 @@ func (s *Server) GetTramites(ctx context.Context, request oapi.GetTramitesReques
 
 func (s *Server) RegisterRoutes(mux *http.ServeMux) {
 	oapiServer := oapi.NewStrictHandler(s, nil)
-	oapi.HandlerFromMux(oapiServer, mux)
+	oapi.HandlerFromMuxWithBaseURL(oapiServer, mux, "/api/v1")
 }
