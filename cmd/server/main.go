@@ -5,8 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/C-ArenA/Tunkunia/internal/api"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 type App struct {
@@ -31,20 +32,17 @@ func main() {
 	log.Printf("Welcome to %s, made by %s\n", app.Name, app.Author)
 	log.Println("Starting Tunkunia API server on localhost", config.Port)
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("GET /health", getHealthHandler(app))
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Get("/health", getHealthHandler(app))
+
+	apiV1Router := chi.NewRouter()
 
 	catalogRepo := catalog.NewMemStore()
 	catalogService := catalog.NewService(catalogRepo)
-	catalog.NewServer(catalogService).RegisterRoutes(mux)
+	catalog.NewServer(catalogService).RegisterRoutes(apiV1Router)
 
-	server := &http.Server{
-		Addr: config.Port,
-		Handler: api.ApplyMiddlewares(mux, []api.Middleware{
-			api.LoggingMiddleware,
-			api.CorsMiddleware(config.Env),
-		}),
-	}
+	r.Mount("/api/v1", apiV1Router)
 
-	log.Fatal(server.ListenAndServe())
+	log.Fatal(http.ListenAndServe(config.Port, r))
 }

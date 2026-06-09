@@ -2,10 +2,10 @@ package catalog
 
 import (
 	"context"
-	"net/http"
 	"time"
 
 	"github.com/C-ArenA/Tunkunia/internal/catalog/oapi"
+	"github.com/go-chi/chi/v5"
 )
 
 type Server struct {
@@ -51,7 +51,7 @@ func (s *Server) GetTramites(ctx context.Context, request oapi.GetTramitesReques
 		Limit: len(response)}, nil
 }
 
-func (s *Server) RegisterRoutes(mux *http.ServeMux) {
+func (s *Server) RegisterRoutes(r *chi.Mux) {
 	oapiServer := oapi.NewStrictHandler(s, nil)
-	oapi.HandlerFromMuxWithBaseURL(oapiServer, mux, "/api/v1")
+	oapi.HandlerFromMux(oapiServer, r)
 }
