@@ -44,6 +44,11 @@ func main() {
 	r.Get("/health", getHealthHandler(app))
 	r.Mount("/api/v1", apiV1Router)
 
+	chi.Walk(r, func(method, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
+		log.Printf("[%s]:\t'%s'\thas %d middlewares\n", method, route, len(middlewares))
+		return nil
+	})
+
 	log.Fatal(http.ListenAndServe(config.Port, r))
 }
 
