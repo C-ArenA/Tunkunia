@@ -1,0 +1,60 @@
+paths:
+  /module/health:
+    get:
+      tags:
+        - health
+      summary: Salud Módulo
+      security: []
+      responses:
+        "200":
+          description: The service is healthy and operating normally
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+        "503":
+          description: The service is unhealthy or degraded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+        "404":
+          $ref: "./errors.openapi.yaml#/components/responses/NotFound"
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Enter your application JWT token
+  schemas:
+    Health:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum:
+            - UP
+            - DOWN
+            - DEGRADED
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-06-06T15:30:00Z"
+    CollectionBase:
+      type: object
+      required:
+        - next_page_url
+        - previous_page_url
+      properties:
+        next_page_url:
+          type: string
+          nullable: true
+          example: "https://api.example.com/users?page=3"
+        previous_page_url:
+          type: string
+          nullable: true
+          example: "https://api.example.com/users?page=1"

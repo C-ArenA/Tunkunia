@@ -14,30 +14,18 @@ info:
 servers:
   - url: http://localhost:8080/api/v1
     description: Development server
+  - url: https://{host}/api/v1
+    variables:
+      host:
+        default: tunkunia.com
+        description: Host o dominio de la API
 paths:
   /catalog/health:
-    get:
-      operationId: getHealth
-      summary: Estado Módulo Catálogo
-      security: []
-      responses:
-        "200":
-          description: The service is healthy and operating normally
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HealthResponse"
-        "503":
-          description: The service is unhealthy or degraded
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HealthResponse"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+    $ref: "../../../api/shared.openapi.yaml#/paths/~1module~1health"
   /catalog/tramites:
     get:
+      tags:
+        - Catalog
       operationId: ListTramites
       summary: Listar Trámites
       description: |
@@ -72,8 +60,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/TramiteCollection"
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
     post:
+      tags:
+        - Catalog
       operationId: createTramite
       summary: Crear Trámite
       description: Permite a usuarios con rol de administración la creación de nuevos trámites en el catálogo de trámites. Los mismos nacerán con estado draft y pueden contener un procedimiento vacío
@@ -89,13 +79,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "400":
-          $ref: "#/components/responses/BadRequest"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/BadRequest"
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
         "422":
-          $ref: "#/components/responses/ValidationError"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/ValidationError"
 
   /catalog/tramites/{id}:
     parameters:
@@ -106,6 +96,8 @@ paths:
         schema:
           type: integer
     get:
+      tags:
+        - Catalog
       operationId: getTramite
       summary: Obtener Trámite
       security:
@@ -119,12 +111,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
         "404":
-          $ref: "#/components/responses/NotFound"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/NotFound"
 
       deprecated: false
     patch:
+      tags:
+        - Catalog
       operationId: updateTramite
       summary: Modificar Trámite
       security:
@@ -139,17 +133,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "400":
-          $ref: "#/components/responses/BadRequest"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/BadRequest"
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
         "404":
-          $ref: "#/components/responses/NotFound"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/NotFound"
         "422":
-          $ref: "#/components/responses/ValidationError"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/ValidationError"
 
     delete:
+      tags:
+        - Catalog
       operationId: deleteTramite
       summary: Eliminar Trámite
       security:
@@ -158,11 +154,11 @@ paths:
         "204":
           description: Trámite eliminado, nada que retornar
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
         "404":
-          $ref: "#/components/responses/NotFound"
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/NotFound"
       deprecated: false
 
 components:
@@ -173,21 +169,6 @@ components:
       bearerFormat: JWT
       description: Enter your application JWT token
   schemas:
-    CollectionBase:
-      type: object
-      required:
-        - next_page_url
-        - previous_page_url
-      properties:
-        next_page_url:
-          type: string
-          nullable: true
-          example: "https://api.example.com/users?page=3"
-        previous_page_url:
-          type: string
-          nullable: true
-          example: "https://api.example.com/users?page=1"
-
     TramiteStatus:
       type: string
       enum: [draft, published, archived]
@@ -235,7 +216,7 @@ components:
 
     TramiteCollection:
       allOf:
-        - $ref: "#/components/schemas/CollectionBase"
+        - $ref: "../../../api/shared.openapi.yaml#/components/schemas/CollectionBase"
         - type: object
           required:
             - data
@@ -285,78 +266,6 @@ components:
           items:
             type: string
 
-    HealthResponse:
-      type: object
-      required:
-        - status
-        - timestamp
-      properties:
-        status:
-          type: string
-          enum:
-            - UP
-            - DOWN
-            - DEGRADED
-        timestamp:
-          type: string
-          format: date-time
-          example: "2026-06-06T15:30:00Z"
-
-    ProblemDetails:
-      type: object
-      description: >
-        Objeto de Detalles de Problema según RFC 9457.
-        Se serializa con el tipo de medio "application/problem+json".
-        Todos los miembros son OPCIONALES; los miembros ausentes no tienen
-        valor por defecto salvo donde se indique explícitamente.
-        Pueden estar presentes miembros adicionales (de extensión); los consumidores
-        DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
-      properties:
-        type:
-          type: string
-          format: uri-reference
-          default: "about:blank"
-          description: >
-            Referencia URI (RFC 3986) que identifica el tipo de problema.
-            Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer
-            documentación legible por humanos sobre el tipo de problema.
-            Si está ausente, se asume el valor "about:blank", que remite al
-            código de estado HTTP como único identificador del tipo de problema.
-            En el caso de Tunkunia se usan rutas relativas a modo de identificador
-            y eventual creación de sitio de documentación de problemas específicos
-          example: "/problems/invalid-citizen"
-        status:
-          type: integer
-          format: int32
-          minimum: 400
-          maximum: 599
-          description: >
-            Código de estado HTTP generado por el servidor de origen para esta
-            ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir
-            con el código de estado de la respuesta HTTP real.
-          example: 403
-        title:
-          type: string
-          description: >
-            Contiene un resumen corto y legible por humanos del tipo de problema.
-            Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-          example: "Usted no es participante de este caso de trámite."
-        detail:
-          type: string
-          description: >
-            Contiene una explicación legible para humanos, específica de esta ocurrencia del problema.
-            Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración.
-            Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-          example: "Su caso de trámite con código 500424 no se encuentra vigente"
-        instance:
-          type: string
-          format: uri-reference
-          description: >
-            Referencia URI que identifica la ocurrencia específica del problema.
-            Cuando es desreferenciable, el objeto de detalles de problema PUEDE
-            obtenerse desde ella. Puede ser relativa o absoluta.
-            No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
-          example: "/cuenta/12345/mensajes/abc"
   requestBodies:
     TramiteCreateBody:
       required: true
@@ -370,56 +279,3 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/TramiteUpdate"
-  responses:
-    BadRequest:
-      description: Solicitud no aceptada o entendida. Quizá falte algún parámetro requerido.
-      content:
-        application/problem+json:
-          schema:
-            $ref: "#/components/schemas/ProblemDetails"
-
-    Unauthorized:
-      description: No se ha provisto con una llave válida.
-      content:
-        application/problem+json:
-          schema:
-            $ref: "#/components/schemas/ProblemDetails"
-
-    Forbidden:
-      description: No tiene permisos para realizar esta solicitud
-      content:
-        application/problem+json:
-          schema:
-            $ref: "#/components/schemas/ProblemDetails"
-
-    NotFound:
-      description: El recurso solicitado no existe
-      content:
-        application/problem+json:
-          schema:
-            $ref: "#/components/schemas/ProblemDetails"
-
-    ValidationError:
-      description: Los datos provistos son incorrectos
-      content:
-        application/problem+json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ProblemDetails"
-              - type: object
-                properties:
-                  errors:
-                    description: >
-                      Lista de errores de validación identificados. El formato
-                      se adecúa al ejemplo brindado en la sección 3 del RFC 9457
-                    type: array
-                    items:
-                      type: object
-                      required:
-                        - detail
-                        - pointer
-                      properties:
-                        detail:
-                          type: string
-                        pointer:
-                          type: string
