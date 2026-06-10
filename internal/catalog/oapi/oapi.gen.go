@@ -10,198 +10,16 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/oapi-codegen/runtime"
 )
 
-const (
-	BearerAuthScopes bearerAuthContextKey = "BearerAuth.Scopes"
-)
-
-// Defines values for HealthResponseStatus.
-const (
-	DEGRADED HealthResponseStatus = "DEGRADED"
-	DOWN     HealthResponseStatus = "DOWN"
-	UP       HealthResponseStatus = "UP"
-)
-
-// Valid indicates whether the value is a known member of the HealthResponseStatus enum.
-func (e HealthResponseStatus) Valid() bool {
-	switch e {
-	case DEGRADED:
-		return true
-	case DOWN:
-		return true
-	case UP:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for TramiteStatus.
-const (
-	Archived  TramiteStatus = "archived"
-	Draft     TramiteStatus = "draft"
-	Published TramiteStatus = "published"
-)
-
-// Valid indicates whether the value is a known member of the TramiteStatus enum.
-func (e TramiteStatus) Valid() bool {
-	switch e {
-	case Archived:
-		return true
-	case Draft:
-		return true
-	case Published:
-		return true
-	default:
-		return false
-	}
-}
-
-// CollectionBase defines model for CollectionBase.
-type CollectionBase struct {
-	NextPageUrl     *string `json:"next_page_url"`
-	PreviousPageUrl *string `json:"previous_page_url"`
-}
-
-// HealthResponse defines model for HealthResponse.
-type HealthResponse struct {
-	Status    HealthResponseStatus `json:"status"`
-	Timestamp time.Time            `json:"timestamp"`
-}
-
-// HealthResponseStatus defines model for HealthResponse.Status.
-type HealthResponseStatus string
-
-// ProblemDetails Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
-type ProblemDetails struct {
-	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-	Detail *string `json:"detail,omitempty"`
-
-	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
-	Instance *string `json:"instance,omitempty"`
-
-	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-	Status *int32 `json:"status,omitempty"`
-
-	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-	Title *string `json:"title,omitempty"`
-
-	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
-	Type *string `json:"type,omitempty"`
-}
-
-// Tramite defines model for Tramite.
-type Tramite struct {
-	CreatedAt            *time.Time     `json:"createdAt,omitempty"`
-	CreatedBy            *int           `json:"createdBy,omitempty"`
-	Description          *string        `json:"description,omitempty"`
-	Id                   int            `json:"id"`
-	LegalFramework       *[]string      `json:"legalFramework,omitempty"`
-	Name                 string         `json:"name"`
-	ProcedureDescription *string        `json:"procedureDescription,omitempty"`
-	Status               *TramiteStatus `json:"status,omitempty"`
-	Type                 *string        `json:"type,omitempty"`
-	UpdatedAt            *time.Time     `json:"updatedAt,omitempty"`
-}
-
-// TramiteCollection defines model for TramiteCollection.
-type TramiteCollection struct {
-	Data            []Tramite `json:"data"`
-	NextPageUrl     *string   `json:"next_page_url"`
-	PreviousPageUrl *string   `json:"previous_page_url"`
-}
-
-// TramiteCreate defines model for TramiteCreate.
-type TramiteCreate struct {
-	Description          *string   `json:"description,omitempty"`
-	LegalFramework       *[]string `json:"legalFramework,omitempty"`
-	Name                 string    `json:"name"`
-	ProcedureDescription *string   `json:"procedureDescription,omitempty"`
-	Type                 string    `json:"type"`
-}
-
-// TramiteStatus defines model for TramiteStatus.
-type TramiteStatus string
-
-// TramiteUpdate defines model for TramiteUpdate.
-type TramiteUpdate struct {
-	Description          *string        `json:"description,omitempty"`
-	LegalFramework       *[]string      `json:"legalFramework,omitempty"`
-	Name                 *string        `json:"name,omitempty"`
-	ProcedureDescription *string        `json:"procedureDescription,omitempty"`
-	Status               *TramiteStatus `json:"status,omitempty"`
-	Type                 *string        `json:"type,omitempty"`
-}
-
-// BadRequest Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
-type BadRequest = ProblemDetails
-
-// Forbidden Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
-type Forbidden = ProblemDetails
-
-// NotFound Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
-type NotFound = ProblemDetails
-
-// Unauthorized Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
-type Unauthorized = ProblemDetails
-
-// ValidationError defines model for ValidationError.
-type ValidationError struct {
-	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-	Detail *string `json:"detail,omitempty"`
-
-	// Errors Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
-	Errors *[]struct {
-		Detail  string `json:"detail"`
-		Pointer string `json:"pointer"`
-	} `json:"errors,omitempty"`
-
-	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
-	Instance *string `json:"instance,omitempty"`
-
-	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-	Status *int32 `json:"status,omitempty"`
-
-	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-	Title *string `json:"title,omitempty"`
-
-	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
-	Type *string `json:"type,omitempty"`
-}
-
-// TramiteCreateBody defines model for TramiteCreateBody.
-type TramiteCreateBody = TramiteCreate
-
-// TramiteUpdateBody defines model for TramiteUpdateBody.
-type TramiteUpdateBody = TramiteUpdate
-
-// bearerAuthContextKey is the context key for BearerAuth security scheme
-type bearerAuthContextKey string
-
-// ListTramitesParams defines parameters for ListTramites.
-type ListTramitesParams struct {
-	// Status Filter trámites by status
-	Status *TramiteStatus `form:"status,omitempty" json:"status,omitempty"`
-	Page   *string        `form:"page,omitempty" json:"page,omitempty"`
-	Limit  *int           `form:"limit,omitempty" json:"limit,omitempty"`
-}
-
-// CreateTramiteJSONRequestBody defines body for CreateTramite for application/json ContentType.
-type CreateTramiteJSONRequestBody = TramiteCreate
-
-// UpdateTramiteJSONRequestBody defines body for UpdateTramite for application/json ContentType.
-type UpdateTramiteJSONRequestBody = TramiteUpdate
-
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-	// Estado Módulo Catálogo
+	// Salud Módulo
 	// (GET /catalog/health)
-	GetHealth(w http.ResponseWriter, r *http.Request)
+	GetCatalogHealth(w http.ResponseWriter, r *http.Request)
 	// Listar Trámites
 	// (GET /catalog/tramites)
 	ListTramites(w http.ResponseWriter, r *http.Request, params ListTramitesParams)
@@ -223,9 +41,9 @@ type ServerInterface interface {
 
 type Unimplemented struct{}
 
-// Estado Módulo Catálogo
+// Salud Módulo
 // (GET /catalog/health)
-func (_ Unimplemented) GetHealth(w http.ResponseWriter, r *http.Request) {
+func (_ Unimplemented) GetCatalogHealth(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -268,11 +86,11 @@ type ServerInterfaceWrapper struct {
 
 type MiddlewareFunc func(http.Handler) http.Handler
 
-// GetHealth operation middleware
-func (siw *ServerInterfaceWrapper) GetHealth(w http.ResponseWriter, r *http.Request) {
+// GetCatalogHealth operation middleware
+func (siw *ServerInterfaceWrapper) GetCatalogHealth(w http.ResponseWriter, r *http.Request) {
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.GetHealth(w, r)
+		siw.Handler.GetCatalogHealth(w, r)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -577,7 +395,7 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 	}
 
 	r.Group(func(r chi.Router) {
-		r.Get(options.BaseURL+"/catalog/health", wrapper.GetHealth)
+		r.Get(options.BaseURL+"/catalog/health", wrapper.GetCatalogHealth)
 	})
 	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/catalog/tramites", wrapper.ListTramites)
@@ -629,16 +447,16 @@ type ValidationErrorApplicationProblemPlusJSONResponse struct {
 	Type *string `json:"type,omitempty"`
 }
 
-type GetHealthRequestObject struct {
+type GetCatalogHealthRequestObject struct {
 }
 
-type GetHealthResponseObject interface {
-	VisitGetHealthResponse(w http.ResponseWriter) error
+type GetCatalogHealthResponseObject interface {
+	VisitGetCatalogHealthResponse(w http.ResponseWriter) error
 }
 
-type GetHealth200JSONResponse HealthResponse
+type GetCatalogHealth200JSONResponse Health
 
-func (response GetHealth200JSONResponse) VisitGetHealthResponse(w http.ResponseWriter) error {
+func (response GetCatalogHealth200JSONResponse) VisitGetCatalogHealthResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -650,11 +468,11 @@ func (response GetHealth200JSONResponse) VisitGetHealthResponse(w http.ResponseW
 	return err
 }
 
-type GetHealth404ApplicationProblemPlusJSONResponse struct {
+type GetCatalogHealth404ApplicationProblemPlusJSONResponse struct {
 	NotFoundApplicationProblemPlusJSONResponse
 }
 
-func (response GetHealth404ApplicationProblemPlusJSONResponse) VisitGetHealthResponse(w http.ResponseWriter) error {
+func (response GetCatalogHealth404ApplicationProblemPlusJSONResponse) VisitGetCatalogHealthResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -666,9 +484,9 @@ func (response GetHealth404ApplicationProblemPlusJSONResponse) VisitGetHealthRes
 	return err
 }
 
-type GetHealth503JSONResponse HealthResponse
+type GetCatalogHealth503JSONResponse Health
 
-func (response GetHealth503JSONResponse) VisitGetHealthResponse(w http.ResponseWriter) error {
+func (response GetCatalogHealth503JSONResponse) VisitGetCatalogHealthResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -1027,9 +845,9 @@ func (response UpdateTramite422ApplicationProblemPlusJSONResponse) VisitUpdateTr
 
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
-	// Estado Módulo Catálogo
+	// Salud Módulo
 	// (GET /catalog/health)
-	GetHealth(ctx context.Context, request GetHealthRequestObject) (GetHealthResponseObject, error)
+	GetCatalogHealth(ctx context.Context, request GetCatalogHealthRequestObject) (GetCatalogHealthResponseObject, error)
 	// Listar Trámites
 	// (GET /catalog/tramites)
 	ListTramites(ctx context.Context, request ListTramitesRequestObject) (ListTramitesResponseObject, error)
@@ -1076,23 +894,23 @@ type strictHandler struct {
 	options     StrictHTTPServerOptions
 }
 
-// GetHealth operation middleware
-func (sh *strictHandler) GetHealth(w http.ResponseWriter, r *http.Request) {
-	var request GetHealthRequestObject
+// GetCatalogHealth operation middleware
+func (sh *strictHandler) GetCatalogHealth(w http.ResponseWriter, r *http.Request) {
+	var request GetCatalogHealthRequestObject
 
 	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.GetHealth(ctx, request.(GetHealthRequestObject))
+		return sh.ssi.GetCatalogHealth(ctx, request.(GetCatalogHealthRequestObject))
 	}
 	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetHealth")
+		handler = middleware(handler, "GetCatalogHealth")
 	}
 
 	response, err := handler(r.Context(), w, r, request)
 
 	if err != nil {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(GetHealthResponseObject); ok {
-		if err := validResponse.VisitGetHealthResponse(w); err != nil {
+	} else if validResponse, ok := response.(GetCatalogHealthResponseObject); ok {
+		if err := validResponse.VisitGetCatalogHealthResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

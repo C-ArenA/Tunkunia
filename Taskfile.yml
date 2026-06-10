@@ -16,7 +16,16 @@ includes:
     dir: ./docs
 
 tasks:
-  server:dev:api:
+  gen:oapi:catalog:
+    dir: ./internal/catalog/oapi
+    desc: Genera código a partir de la especificación de API del módulo Catalog
+    preconditions:
+      - npx @redocly/cli@latest bundle ./openapi.yaml -o ./bundle.openapi.yaml
+    cmds:
+      - go tool oapi-codegen -config ./oapi.cfg.yaml ./bundle.openapi.yaml
+      - go tool oapi-codegen -config ./models.oapi.cfg.yaml ./bundle.openapi.yaml
+      - rm ./bundle.openapi.yaml
+
     desc: Serves API specs with Scalar
     cmds:
       - scalar document serve --watch --port 8491 ./internal/catalog/oapi/openapi.yml
