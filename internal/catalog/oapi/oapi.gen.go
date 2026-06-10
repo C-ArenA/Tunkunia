@@ -118,12 +118,11 @@ type TramiteCollection struct {
 
 // TramiteCreate defines model for TramiteCreate.
 type TramiteCreate struct {
-	Description          *string        `json:"description,omitempty"`
-	LegalFramework       *[]string      `json:"legalFramework,omitempty"`
-	Name                 string         `json:"name"`
-	ProcedureDescription *string        `json:"procedureDescription,omitempty"`
-	Status               *TramiteStatus `json:"status,omitempty"`
-	Type                 string         `json:"type"`
+	Description          *string   `json:"description,omitempty"`
+	LegalFramework       *[]string `json:"legalFramework,omitempty"`
+	Name                 string    `json:"name"`
+	ProcedureDescription *string   `json:"procedureDescription,omitempty"`
+	Type                 string    `json:"type"`
 }
 
 // TramiteStatus defines model for TramiteStatus.
@@ -188,7 +187,7 @@ type bearerAuthContextKey string
 type ListTramitesParams struct {
 	// Status Filter trámites by status
 	Status *TramiteStatus `form:"status,omitempty" json:"status,omitempty"`
-	Page   *int           `form:"page,omitempty" json:"page,omitempty"`
+	Page   *string        `form:"page,omitempty" json:"page,omitempty"`
 	Limit  *int           `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
@@ -313,7 +312,7 @@ func (siw *ServerInterfaceWrapper) ListTramites(w http.ResponseWriter, r *http.R
 
 	// ------------- Optional query parameter "page" -------------
 
-	err = runtime.BindQueryParameterWithOptions("form", true, false, "page", r.URL.Query(), &params.Page, runtime.BindQueryParameterOptions{Type: "integer", Format: ""})
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "page", r.URL.Query(), &params.Page, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
 	if err != nil {
 		var requiredError *runtime.RequiredParameterError
 		if errors.As(err, &requiredError) {

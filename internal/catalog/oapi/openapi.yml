@@ -58,8 +58,7 @@ paths:
         - name: page
           in: query
           schema:
-            type: integer
-            default: 1
+            type: string
         - name: limit
           in: query
           schema:
@@ -177,7 +176,6 @@ components:
     CollectionBase:
       type: object
       required:
-        - data
         - next_page_url
         - previous_page_url
       properties:
@@ -263,9 +261,6 @@ components:
         type:
           type: string
           example: "Administrativo"
-        status:
-          $ref: "#/components/schemas/TramiteStatus"
-          default: draft
         legalFramework:
           type: array
           items:
@@ -277,22 +272,18 @@ components:
       properties:
         name:
           type: string
-          example: "Inscripción de Personería Jurídica"
         description:
           type: string
         procedureDescription:
           type: string
         type:
           type: string
-          example: "Administrativo"
         status:
           $ref: "#/components/schemas/TramiteStatus"
-          default: draft
         legalFramework:
           type: array
           items:
             type: string
-          example: ["Ley N° 351, Artículo 5"]
 
     HealthResponse:
       type: object
