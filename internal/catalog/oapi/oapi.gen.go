@@ -62,6 +62,12 @@ func (e TramiteStatus) Valid() bool {
 	}
 }
 
+// CollectionBase defines model for CollectionBase.
+type CollectionBase struct {
+	NextPageUrl     *string `json:"next_page_url"`
+	PreviousPageUrl *string `json:"previous_page_url"`
+}
+
 // HealthResponse defines model for HealthResponse.
 type HealthResponse struct {
 	Status    HealthResponseStatus `json:"status"`
@@ -71,8 +77,26 @@ type HealthResponse struct {
 // HealthResponseStatus defines model for HealthResponse.Status.
 type HealthResponseStatus string
 
-// TramiteResponse defines model for TramiteResponse.
-type TramiteResponse struct {
+// ProblemDetails Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+type ProblemDetails struct {
+	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
+	Detail *string `json:"detail,omitempty"`
+
+	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
+	Instance *string `json:"instance,omitempty"`
+
+	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
+	Status *int32 `json:"status,omitempty"`
+
+	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
+	Title *string `json:"title,omitempty"`
+
+	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
+	Type *string `json:"type,omitempty"`
+}
+
+// Tramite defines model for Tramite.
+type Tramite struct {
 	CreatedAt            *time.Time     `json:"createdAt,omitempty"`
 	CreatedBy            *int           `json:"createdBy,omitempty"`
 	Description          *string        `json:"description,omitempty"`
@@ -85,22 +109,15 @@ type TramiteResponse struct {
 	UpdatedAt            *time.Time     `json:"updatedAt,omitempty"`
 }
 
-// TramiteStatus defines model for TramiteStatus.
-type TramiteStatus string
-
-// bearerAuthContextKey is the context key for BearerAuth security scheme
-type bearerAuthContextKey string
-
-// GetTramitesParams defines parameters for GetTramites.
-type GetTramitesParams struct {
-	// Status Filter trámites by status
-	Status *TramiteStatus `form:"status,omitempty" json:"status,omitempty"`
-	Page   *int           `form:"page,omitempty" json:"page,omitempty"`
-	Limit  *int           `form:"limit,omitempty" json:"limit,omitempty"`
+// TramiteCollection defines model for TramiteCollection.
+type TramiteCollection struct {
+	Data            []Tramite `json:"data"`
+	NextPageUrl     *string   `json:"next_page_url"`
+	PreviousPageUrl *string   `json:"previous_page_url"`
 }
 
-// PostTramiteJSONBody defines parameters for PostTramite.
-type PostTramiteJSONBody struct {
+// TramiteCreate defines model for TramiteCreate.
+type TramiteCreate struct {
 	Description          *string        `json:"description,omitempty"`
 	LegalFramework       *[]string      `json:"legalFramework,omitempty"`
 	Name                 string         `json:"name"`
@@ -109,8 +126,77 @@ type PostTramiteJSONBody struct {
 	Type                 string         `json:"type"`
 }
 
-// PostTramiteJSONRequestBody defines body for PostTramite for application/json ContentType.
-type PostTramiteJSONRequestBody PostTramiteJSONBody
+// TramiteStatus defines model for TramiteStatus.
+type TramiteStatus string
+
+// TramiteUpdate defines model for TramiteUpdate.
+type TramiteUpdate struct {
+	Description          *string        `json:"description,omitempty"`
+	LegalFramework       *[]string      `json:"legalFramework,omitempty"`
+	Name                 *string        `json:"name,omitempty"`
+	ProcedureDescription *string        `json:"procedureDescription,omitempty"`
+	Status               *TramiteStatus `json:"status,omitempty"`
+	Type                 *string        `json:"type,omitempty"`
+}
+
+// BadRequest Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+type BadRequest = ProblemDetails
+
+// Forbidden Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+type Forbidden = ProblemDetails
+
+// NotFound Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+type NotFound = ProblemDetails
+
+// Unauthorized Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+type Unauthorized = ProblemDetails
+
+// ValidationError defines model for ValidationError.
+type ValidationError struct {
+	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
+	Detail *string `json:"detail,omitempty"`
+
+	// Errors Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
+	Errors *[]struct {
+		Detail  string `json:"detail"`
+		Pointer string `json:"pointer"`
+	} `json:"errors,omitempty"`
+
+	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
+	Instance *string `json:"instance,omitempty"`
+
+	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
+	Status *int32 `json:"status,omitempty"`
+
+	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
+	Title *string `json:"title,omitempty"`
+
+	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
+	Type *string `json:"type,omitempty"`
+}
+
+// TramiteCreateBody defines model for TramiteCreateBody.
+type TramiteCreateBody = TramiteCreate
+
+// TramiteUpdateBody defines model for TramiteUpdateBody.
+type TramiteUpdateBody = TramiteUpdate
+
+// bearerAuthContextKey is the context key for BearerAuth security scheme
+type bearerAuthContextKey string
+
+// ListTramitesParams defines parameters for ListTramites.
+type ListTramitesParams struct {
+	// Status Filter trámites by status
+	Status *TramiteStatus `form:"status,omitempty" json:"status,omitempty"`
+	Page   *int           `form:"page,omitempty" json:"page,omitempty"`
+	Limit  *int           `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// CreateTramiteJSONRequestBody defines body for CreateTramite for application/json ContentType.
+type CreateTramiteJSONRequestBody = TramiteCreate
+
+// UpdateTramiteJSONRequestBody defines body for UpdateTramite for application/json ContentType.
+type UpdateTramiteJSONRequestBody = TramiteUpdate
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
@@ -119,10 +205,19 @@ type ServerInterface interface {
 	GetHealth(w http.ResponseWriter, r *http.Request)
 	// Listar Trámites
 	// (GET /catalog/tramites)
-	GetTramites(w http.ResponseWriter, r *http.Request, params GetTramitesParams)
-	// Crear trámite nuevo
+	ListTramites(w http.ResponseWriter, r *http.Request, params ListTramitesParams)
+	// Crear Trámite
 	// (POST /catalog/tramites)
-	PostTramite(w http.ResponseWriter, r *http.Request)
+	CreateTramite(w http.ResponseWriter, r *http.Request)
+	// Eliminar Trámite
+	// (DELETE /catalog/tramites/{id})
+	DeleteTramite(w http.ResponseWriter, r *http.Request, id int)
+	// Obtener Trámite
+	// (GET /catalog/tramites/{id})
+	GetTramite(w http.ResponseWriter, r *http.Request, id int)
+	// Modificar Trámite
+	// (PATCH /catalog/tramites/{id})
+	UpdateTramite(w http.ResponseWriter, r *http.Request, id int)
 }
 
 // Unimplemented server implementation that returns http.StatusNotImplemented for each endpoint.
@@ -137,13 +232,31 @@ func (_ Unimplemented) GetHealth(w http.ResponseWriter, r *http.Request) {
 
 // Listar Trámites
 // (GET /catalog/tramites)
-func (_ Unimplemented) GetTramites(w http.ResponseWriter, r *http.Request, params GetTramitesParams) {
+func (_ Unimplemented) ListTramites(w http.ResponseWriter, r *http.Request, params ListTramitesParams) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
-// Crear trámite nuevo
+// Crear Trámite
 // (POST /catalog/tramites)
-func (_ Unimplemented) PostTramite(w http.ResponseWriter, r *http.Request) {
+func (_ Unimplemented) CreateTramite(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Eliminar Trámite
+// (DELETE /catalog/tramites/{id})
+func (_ Unimplemented) DeleteTramite(w http.ResponseWriter, r *http.Request, id int) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Obtener Trámite
+// (GET /catalog/tramites/{id})
+func (_ Unimplemented) GetTramite(w http.ResponseWriter, r *http.Request, id int) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Modificar Trámite
+// (PATCH /catalog/tramites/{id})
+func (_ Unimplemented) UpdateTramite(w http.ResponseWriter, r *http.Request, id int) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -170,8 +283,8 @@ func (siw *ServerInterfaceWrapper) GetHealth(w http.ResponseWriter, r *http.Requ
 	handler.ServeHTTP(w, r)
 }
 
-// GetTramites operation middleware
-func (siw *ServerInterfaceWrapper) GetTramites(w http.ResponseWriter, r *http.Request) {
+// ListTramites operation middleware
+func (siw *ServerInterfaceWrapper) ListTramites(w http.ResponseWriter, r *http.Request) {
 
 	var err error
 	_ = err
@@ -183,7 +296,7 @@ func (siw *ServerInterfaceWrapper) GetTramites(w http.ResponseWriter, r *http.Re
 	r = r.WithContext(ctx)
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params GetTramitesParams
+	var params ListTramitesParams
 
 	// ------------- Optional query parameter "status" -------------
 
@@ -225,7 +338,7 @@ func (siw *ServerInterfaceWrapper) GetTramites(w http.ResponseWriter, r *http.Re
 	}
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.GetTramites(w, r, params)
+		siw.Handler.ListTramites(w, r, params)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -235,8 +348,8 @@ func (siw *ServerInterfaceWrapper) GetTramites(w http.ResponseWriter, r *http.Re
 	handler.ServeHTTP(w, r)
 }
 
-// PostTramite operation middleware
-func (siw *ServerInterfaceWrapper) PostTramite(w http.ResponseWriter, r *http.Request) {
+// CreateTramite operation middleware
+func (siw *ServerInterfaceWrapper) CreateTramite(w http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 
@@ -245,7 +358,103 @@ func (siw *ServerInterfaceWrapper) PostTramite(w http.ResponseWriter, r *http.Re
 	r = r.WithContext(ctx)
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.PostTramite(w, r)
+		siw.Handler.CreateTramite(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// DeleteTramite operation middleware
+func (siw *ServerInterfaceWrapper) DeleteTramite(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	ctx := r.Context()
+
+	ctx = context.WithValue(ctx, BearerAuthScopes, []string{})
+
+	r = r.WithContext(ctx)
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.DeleteTramite(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetTramite operation middleware
+func (siw *ServerInterfaceWrapper) GetTramite(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	ctx := r.Context()
+
+	ctx = context.WithValue(ctx, BearerAuthScopes, []string{})
+
+	r = r.WithContext(ctx)
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetTramite(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// UpdateTramite operation middleware
+func (siw *ServerInterfaceWrapper) UpdateTramite(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	ctx := r.Context()
+
+	ctx = context.WithValue(ctx, BearerAuthScopes, []string{})
+
+	r = r.WithContext(ctx)
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.UpdateTramite(w, r, id)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -372,19 +581,53 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 		r.Get(options.BaseURL+"/catalog/health", wrapper.GetHealth)
 	})
 	r.Group(func(r chi.Router) {
-		r.Get(options.BaseURL+"/catalog/tramites", wrapper.GetTramites)
+		r.Get(options.BaseURL+"/catalog/tramites", wrapper.ListTramites)
 	})
 	r.Group(func(r chi.Router) {
-		r.Post(options.BaseURL+"/catalog/tramites", wrapper.PostTramite)
+		r.Post(options.BaseURL+"/catalog/tramites", wrapper.CreateTramite)
+	})
+	r.Group(func(r chi.Router) {
+		r.Delete(options.BaseURL+"/catalog/tramites/{id}", wrapper.DeleteTramite)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/catalog/tramites/{id}", wrapper.GetTramite)
+	})
+	r.Group(func(r chi.Router) {
+		r.Patch(options.BaseURL+"/catalog/tramites/{id}", wrapper.UpdateTramite)
 	})
 
 	return r
 }
 
-type BadRequestResponse struct {
-}
+type BadRequestApplicationProblemPlusJSONResponse ProblemDetails
 
-type UnauthorizedResponse struct {
+type ForbiddenApplicationProblemPlusJSONResponse ProblemDetails
+
+type NotFoundApplicationProblemPlusJSONResponse ProblemDetails
+
+type UnauthorizedApplicationProblemPlusJSONResponse ProblemDetails
+
+type ValidationErrorApplicationProblemPlusJSONResponse struct {
+	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
+	Detail *string `json:"detail,omitempty"`
+
+	// Errors Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
+	Errors *[]struct {
+		Detail  string `json:"detail"`
+		Pointer string `json:"pointer"`
+	} `json:"errors,omitempty"`
+
+	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
+	Instance *string `json:"instance,omitempty"`
+
+	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
+	Status *int32 `json:"status,omitempty"`
+
+	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
+	Title *string `json:"title,omitempty"`
+
+	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
+	Type *string `json:"type,omitempty"`
 }
 
 type GetHealthRequestObject struct {
@@ -408,6 +651,22 @@ func (response GetHealth200JSONResponse) VisitGetHealthResponse(w http.ResponseW
 	return err
 }
 
+type GetHealth404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response GetHealth404ApplicationProblemPlusJSONResponse) VisitGetHealthResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
 type GetHealth503JSONResponse HealthResponse
 
 func (response GetHealth503JSONResponse) VisitGetHealthResponse(w http.ResponseWriter) error {
@@ -422,22 +681,17 @@ func (response GetHealth503JSONResponse) VisitGetHealthResponse(w http.ResponseW
 	return err
 }
 
-type GetTramitesRequestObject struct {
-	Params GetTramitesParams
+type ListTramitesRequestObject struct {
+	Params ListTramitesParams
 }
 
-type GetTramitesResponseObject interface {
-	VisitGetTramitesResponse(w http.ResponseWriter) error
+type ListTramitesResponseObject interface {
+	VisitListTramitesResponse(w http.ResponseWriter) error
 }
 
-type GetTramites200JSONResponse struct {
-	Data  []TramiteResponse `json:"data"`
-	Limit int               `json:"limit"`
-	Page  int               `json:"page"`
-	Total int               `json:"total"`
-}
+type ListTramites200JSONResponse TramiteCollection
 
-func (response GetTramites200JSONResponse) VisitGetTramitesResponse(w http.ResponseWriter) error {
+func (response ListTramites200JSONResponse) VisitListTramitesResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -449,24 +703,33 @@ func (response GetTramites200JSONResponse) VisitGetTramitesResponse(w http.Respo
 	return err
 }
 
-type GetTramites401Response = UnauthorizedResponse
+type ListTramites401ApplicationProblemPlusJSONResponse struct {
+	UnauthorizedApplicationProblemPlusJSONResponse
+}
 
-func (response GetTramites401Response) VisitGetTramitesResponse(w http.ResponseWriter) error {
+func (response ListTramites401ApplicationProblemPlusJSONResponse) VisitListTramitesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
 	w.WriteHeader(401)
-	return nil
+	_, err := buf.WriteTo(w)
+	return err
 }
 
-type PostTramiteRequestObject struct {
-	Body *PostTramiteJSONRequestBody
+type CreateTramiteRequestObject struct {
+	Body *CreateTramiteJSONRequestBody
 }
 
-type PostTramiteResponseObject interface {
-	VisitPostTramiteResponse(w http.ResponseWriter) error
+type CreateTramiteResponseObject interface {
+	VisitCreateTramiteResponse(w http.ResponseWriter) error
 }
 
-type PostTramite201JSONResponse TramiteResponse
+type CreateTramite201JSONResponse Tramite
 
-func (response PostTramite201JSONResponse) VisitPostTramiteResponse(w http.ResponseWriter) error {
+func (response CreateTramite201JSONResponse) VisitCreateTramiteResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -478,34 +741,289 @@ func (response PostTramite201JSONResponse) VisitPostTramiteResponse(w http.Respo
 	return err
 }
 
-type PostTramite400Response = BadRequestResponse
+type CreateTramite400ApplicationProblemPlusJSONResponse struct {
+	BadRequestApplicationProblemPlusJSONResponse
+}
 
-func (response PostTramite400Response) VisitPostTramiteResponse(w http.ResponseWriter) error {
+func (response CreateTramite400ApplicationProblemPlusJSONResponse) VisitCreateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
 	w.WriteHeader(400)
-	return nil
+	_, err := buf.WriteTo(w)
+	return err
 }
 
-type PostTramite401Response = UnauthorizedResponse
+type CreateTramite401ApplicationProblemPlusJSONResponse struct {
+	UnauthorizedApplicationProblemPlusJSONResponse
+}
 
-func (response PostTramite401Response) VisitPostTramiteResponse(w http.ResponseWriter) error {
+func (response CreateTramite401ApplicationProblemPlusJSONResponse) VisitCreateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
 	w.WriteHeader(401)
-	return nil
+	_, err := buf.WriteTo(w)
+	return err
 }
 
-type PostTramite403Response struct {
+type CreateTramite403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
 }
 
-func (response PostTramite403Response) VisitPostTramiteResponse(w http.ResponseWriter) error {
+func (response CreateTramite403ApplicationProblemPlusJSONResponse) VisitCreateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
 	w.WriteHeader(403)
-	return nil
+	_, err := buf.WriteTo(w)
+	return err
 }
 
-type PostTramite422Response struct {
+type CreateTramite422ApplicationProblemPlusJSONResponse struct {
+	ValidationErrorApplicationProblemPlusJSONResponse
 }
 
-func (response PostTramite422Response) VisitPostTramiteResponse(w http.ResponseWriter) error {
+func (response CreateTramite422ApplicationProblemPlusJSONResponse) VisitCreateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
 	w.WriteHeader(422)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type DeleteTramiteRequestObject struct {
+	Id int `json:"id"`
+}
+
+type DeleteTramiteResponseObject interface {
+	VisitDeleteTramiteResponse(w http.ResponseWriter) error
+}
+
+type DeleteTramite204Response struct {
+}
+
+func (response DeleteTramite204Response) VisitDeleteTramiteResponse(w http.ResponseWriter) error {
+	w.WriteHeader(204)
 	return nil
+}
+
+type DeleteTramite401ApplicationProblemPlusJSONResponse struct {
+	UnauthorizedApplicationProblemPlusJSONResponse
+}
+
+func (response DeleteTramite401ApplicationProblemPlusJSONResponse) VisitDeleteTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type DeleteTramite403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response DeleteTramite403ApplicationProblemPlusJSONResponse) VisitDeleteTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type DeleteTramite404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response DeleteTramite404ApplicationProblemPlusJSONResponse) VisitDeleteTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetTramiteRequestObject struct {
+	Id int `json:"id"`
+}
+
+type GetTramiteResponseObject interface {
+	VisitGetTramiteResponse(w http.ResponseWriter) error
+}
+
+type GetTramite200JSONResponse Tramite
+
+func (response GetTramite200JSONResponse) VisitGetTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetTramite403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response GetTramite403ApplicationProblemPlusJSONResponse) VisitGetTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetTramite404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response GetTramite404ApplicationProblemPlusJSONResponse) VisitGetTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateTramiteRequestObject struct {
+	Id   int `json:"id"`
+	Body *UpdateTramiteJSONRequestBody
+}
+
+type UpdateTramiteResponseObject interface {
+	VisitUpdateTramiteResponse(w http.ResponseWriter) error
+}
+
+type UpdateTramite200JSONResponse Tramite
+
+func (response UpdateTramite200JSONResponse) VisitUpdateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateTramite400ApplicationProblemPlusJSONResponse struct {
+	BadRequestApplicationProblemPlusJSONResponse
+}
+
+func (response UpdateTramite400ApplicationProblemPlusJSONResponse) VisitUpdateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(400)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateTramite401ApplicationProblemPlusJSONResponse struct {
+	UnauthorizedApplicationProblemPlusJSONResponse
+}
+
+func (response UpdateTramite401ApplicationProblemPlusJSONResponse) VisitUpdateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateTramite403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response UpdateTramite403ApplicationProblemPlusJSONResponse) VisitUpdateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateTramite404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response UpdateTramite404ApplicationProblemPlusJSONResponse) VisitUpdateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateTramite422ApplicationProblemPlusJSONResponse struct {
+	ValidationErrorApplicationProblemPlusJSONResponse
+}
+
+func (response UpdateTramite422ApplicationProblemPlusJSONResponse) VisitUpdateTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(422)
+	_, err := buf.WriteTo(w)
+	return err
 }
 
 // StrictServerInterface represents all server handlers.
@@ -515,10 +1033,19 @@ type StrictServerInterface interface {
 	GetHealth(ctx context.Context, request GetHealthRequestObject) (GetHealthResponseObject, error)
 	// Listar Trámites
 	// (GET /catalog/tramites)
-	GetTramites(ctx context.Context, request GetTramitesRequestObject) (GetTramitesResponseObject, error)
-	// Crear trámite nuevo
+	ListTramites(ctx context.Context, request ListTramitesRequestObject) (ListTramitesResponseObject, error)
+	// Crear Trámite
 	// (POST /catalog/tramites)
-	PostTramite(ctx context.Context, request PostTramiteRequestObject) (PostTramiteResponseObject, error)
+	CreateTramite(ctx context.Context, request CreateTramiteRequestObject) (CreateTramiteResponseObject, error)
+	// Eliminar Trámite
+	// (DELETE /catalog/tramites/{id})
+	DeleteTramite(ctx context.Context, request DeleteTramiteRequestObject) (DeleteTramiteResponseObject, error)
+	// Obtener Trámite
+	// (GET /catalog/tramites/{id})
+	GetTramite(ctx context.Context, request GetTramiteRequestObject) (GetTramiteResponseObject, error)
+	// Modificar Trámite
+	// (PATCH /catalog/tramites/{id})
+	UpdateTramite(ctx context.Context, request UpdateTramiteRequestObject) (UpdateTramiteResponseObject, error)
 }
 
 type StrictHandlerFunc func(ctx context.Context, w http.ResponseWriter, r *http.Request, request any) (any, error)
@@ -574,25 +1101,25 @@ func (sh *strictHandler) GetHealth(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetTramites operation middleware
-func (sh *strictHandler) GetTramites(w http.ResponseWriter, r *http.Request, params GetTramitesParams) {
-	var request GetTramitesRequestObject
+// ListTramites operation middleware
+func (sh *strictHandler) ListTramites(w http.ResponseWriter, r *http.Request, params ListTramitesParams) {
+	var request ListTramitesRequestObject
 
 	request.Params = params
 
 	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.GetTramites(ctx, request.(GetTramitesRequestObject))
+		return sh.ssi.ListTramites(ctx, request.(ListTramitesRequestObject))
 	}
 	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetTramites")
+		handler = middleware(handler, "ListTramites")
 	}
 
 	response, err := handler(r.Context(), w, r, request)
 
 	if err != nil {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(GetTramitesResponseObject); ok {
-		if err := validResponse.VisitGetTramitesResponse(w); err != nil {
+	} else if validResponse, ok := response.(ListTramitesResponseObject); ok {
+		if err := validResponse.VisitListTramitesResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {
@@ -600,11 +1127,11 @@ func (sh *strictHandler) GetTramites(w http.ResponseWriter, r *http.Request, par
 	}
 }
 
-// PostTramite operation middleware
-func (sh *strictHandler) PostTramite(w http.ResponseWriter, r *http.Request) {
-	var request PostTramiteRequestObject
+// CreateTramite operation middleware
+func (sh *strictHandler) CreateTramite(w http.ResponseWriter, r *http.Request) {
+	var request CreateTramiteRequestObject
 
-	var body PostTramiteJSONRequestBody
+	var body CreateTramiteJSONRequestBody
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
 		return
@@ -612,18 +1139,103 @@ func (sh *strictHandler) PostTramite(w http.ResponseWriter, r *http.Request) {
 	request.Body = &body
 
 	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.PostTramite(ctx, request.(PostTramiteRequestObject))
+		return sh.ssi.CreateTramite(ctx, request.(CreateTramiteRequestObject))
 	}
 	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "PostTramite")
+		handler = middleware(handler, "CreateTramite")
 	}
 
 	response, err := handler(r.Context(), w, r, request)
 
 	if err != nil {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(PostTramiteResponseObject); ok {
-		if err := validResponse.VisitPostTramiteResponse(w); err != nil {
+	} else if validResponse, ok := response.(CreateTramiteResponseObject); ok {
+		if err := validResponse.VisitCreateTramiteResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// DeleteTramite operation middleware
+func (sh *strictHandler) DeleteTramite(w http.ResponseWriter, r *http.Request, id int) {
+	var request DeleteTramiteRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.DeleteTramite(ctx, request.(DeleteTramiteRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "DeleteTramite")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(DeleteTramiteResponseObject); ok {
+		if err := validResponse.VisitDeleteTramiteResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetTramite operation middleware
+func (sh *strictHandler) GetTramite(w http.ResponseWriter, r *http.Request, id int) {
+	var request GetTramiteRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetTramite(ctx, request.(GetTramiteRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetTramite")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetTramiteResponseObject); ok {
+		if err := validResponse.VisitGetTramiteResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// UpdateTramite operation middleware
+func (sh *strictHandler) UpdateTramite(w http.ResponseWriter, r *http.Request, id int) {
+	var request UpdateTramiteRequestObject
+
+	request.Id = id
+
+	var body UpdateTramiteJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.UpdateTramite(ctx, request.(UpdateTramiteRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "UpdateTramite")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(UpdateTramiteResponseObject); ok {
+		if err := validResponse.VisitUpdateTramiteResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

@@ -7,6 +7,7 @@ tool github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen
 require (
 	github.com/go-chi/chi/v5 v5.3.0
 	github.com/oapi-codegen/runtime v1.4.1
+	github.com/rs/cors v1.11.1
 )
 
 require (
@@ -23,7 +24,6 @@ require (
 	github.com/oasdiff/yaml v0.0.9 // indirect
 	github.com/oasdiff/yaml3 v0.0.9 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
-	github.com/rs/cors v1.11.1 // indirect
 	github.com/speakeasy-api/jsonpath v0.6.3 // indirect
 	github.com/speakeasy-api/openapi v1.19.2 // indirect
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect

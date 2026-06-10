@@ -1,6 +1,6 @@
 {
   "folders": [
-  {
+    {
       "name": "root",
       "path": ".",
     },
@@ -19,6 +19,13 @@
   ],
   "settings": {
     "files.exclude": {},
-    "cSpell.words": ["Tunkunia"],
+    "cSpell.words": [
+      "desreferenciable",
+      "desreferenciada",
+      "openapi",
+      "parsear",
+      "serializa",
+      "Tunkunia",
+    ],
   },
 }
