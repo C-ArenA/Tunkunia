@@ -1,2 +1,3 @@
 package oapi
-//go:generate go tool oapi-codegen -config oapi.cfg.yaml openapi.yml
+
+//go:generate go tool oapi-codegen -config oapi.cfg.yaml openapi.yaml
