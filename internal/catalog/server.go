@@ -16,15 +16,15 @@ func NewServer(service *Service) *Server {
 	return &Server{service: service}
 }
 
-// GetHealth implements [oapi.StrictServerInterface].
-func (s *Server) GetHealth(ctx context.Context, request oapi.GetHealthRequestObject) (oapi.GetHealthResponseObject, error) {
+// GetCatalogHealth implements [oapi.StrictServerInterface].
+func (s *Server) GetCatalogHealth(ctx context.Context, request oapi.GetCatalogHealthRequestObject) (oapi.GetCatalogHealthResponseObject, error) {
 	if s.service == nil {
-		return oapi.GetHealth503JSONResponse{
+		return oapi.GetCatalogHealth503JSONResponse{
 			Status:    oapi.DOWN,
 			Timestamp: time.Now().UTC(),
 		}, nil
 	}
-	return oapi.GetHealth200JSONResponse{
+	return oapi.GetCatalogHealth200JSONResponse{
 		Status:    oapi.UP,
 		Timestamp: time.Now().UTC(),
 	}, nil
