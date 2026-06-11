@@ -26,16 +26,24 @@ tasks:
       - go tool oapi-codegen -config ./models.oapi.cfg.yaml ./bundle.openapi.yaml
       - rm ./bundle.openapi.yaml
 
-  dev:api-ref:
-    desc: Serves API specs with Scalar
-    dir: ./api
-    sources:
-      - ../internal/catalog/oapi/openapi.yaml
-    watch: true
-    preconditions:
-      - npx @redocly/cli@latest join ./openapi.yaml ../internal/catalog/oapi/openapi.yaml -o ./joined.openapi.yaml --without-x-tag-groups
+  oapi:join:
+    desc: Joins multiple openapi specs into one
     cmds:
-      - scalar document serve --port 8491 ./joined.openapi.yaml
+      - >
+        watchexec
+        -w ./internal/catalog/oapi
+        redocly join
+        ./api/openapi.yaml
+        ./internal/catalog/oapi/openapi.yaml
+        -o ./api/joined.openapi.yaml
+        --without-x-tag-groups
+
+  scalar:serve:
+    desc: Serves a scalar api reference
+    preconditions:
+      - test -f ./api/joined.openapi.yaml
+    cmds:
+      - scalar document serve --watch --port 8491 ./api/joined.openapi.yaml
 
   server:dev:
     desc: Run server with hot reload (air)
@@ -50,6 +58,8 @@ tasks:
   dev:all:
     desc: Run all dev servers in parallel
     deps:
+      - oapi:join
+      - scalar:serve
       - server:dev
       - site:dev
       - ui:dev
