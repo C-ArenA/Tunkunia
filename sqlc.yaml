@@ -1,0 +1,10 @@
+version: "2"
+# Se puede crear un elemento de sql por cada módulo o incluso varios. Todos usando el mismo schema
+sql:
+  - engine: "sqlite"
+    schema: "database/migrations"
+    queries: "internal/catalog/db/query.sql"
+    gen:
+      go:
+        package: "db"
+        out: "internal/catalog/db"

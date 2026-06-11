@@ -26,6 +26,11 @@ tasks:
       - go tool oapi-codegen -config ./models.oapi.cfg.yaml ./bundle.openapi.yaml
       - rm ./bundle.openapi.yaml
 
+  gen:all:
+    cmds:
+      - task: gen:oapi:catalog
+      - sqlc generate
+
   oapi:join:
     desc: Joins multiple openapi specs into one
     cmds:
