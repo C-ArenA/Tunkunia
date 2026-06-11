@@ -1,14 +1,17 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"log"
 	"net/http"
 
+	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/rs/cors"
+	_ "modernc.org/sqlite"
 )
 
 type App struct {
@@ -30,6 +33,13 @@ func getHealthHandler(app App) http.HandlerFunc {
 func main() {
 	app := App{Name: "Tunkunia", Author: "Carlos Arena"}
 	config := Config{Port: ":8080", Env: "development"}
+
+	db, err := sql.Open("sqlite", "./database/tunkunia.db")
+	if err != nil {
+		panic(err)
+	}
+	database.Migrate(db, "sqlite3")
+
 	log.Println("Starting Tunkunia API server on localhost", config.Port)
 
 	r := chi.NewRouter()
