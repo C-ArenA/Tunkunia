@@ -10,14 +10,16 @@ import (
 //go:embed migrations/*.sql
 var embedMigrations embed.FS
 
-func Migrate(db *sql.DB, dialect string) {
+func Migrate(db *sql.DB, dialect string) error {
 	goose.SetBaseFS(embedMigrations)
 
 	if err := goose.SetDialect(dialect); err != nil {
-		panic(err)
+		return err
 	}
 
 	if err := goose.Up(db, "migrations"); err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
