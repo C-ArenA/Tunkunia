@@ -20,14 +20,22 @@ tasks:
     dir: ./internal/catalog/oapi
     desc: Genera código a partir de la especificación de API del módulo Catalog
     preconditions:
-      - npx @redocly/cli@latest bundle ./openapi.yaml -o ./bundle.openapi.yaml
+      - redocly bundle ./openapi.yaml -o ./bundle.openapi.yaml
     cmds:
       - go tool oapi-codegen -config ./oapi.cfg.yaml ./bundle.openapi.yaml
       - go tool oapi-codegen -config ./models.oapi.cfg.yaml ./bundle.openapi.yaml
       - rm ./bundle.openapi.yaml
 
+  gen:oapi:main:
+    dir: ./cmd/server/oapi
+    preconditions:
+      - redocly bundle ../../../api/openapi.yaml -o ./bundle.openapi.yaml
+    cmds:
+      - go tool oapi-codegen -config ./oapi.cfg.yaml ./bundle.openapi.yaml
+      - rm ./bundle.openapi.yaml
   gen:all:
     cmds:
+      - task: gen:oapi:main
       - task: gen:oapi:catalog
       - sqlc generate
 
