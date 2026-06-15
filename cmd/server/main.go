@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 
+	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/go-chi/chi/v5"
@@ -10,17 +11,12 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-type Config struct {
-	Port string `json:"port"`
-	Env  string `json:"env"`
-}
-
 func main() {
 	// Configs
-	config := Config{Port: ":8080", Env: "development"}
+	cfg := loadConfig()
 
 	// Database
-	_ = initDB()
+	_ = initDB(cfg)
 
 	// Modules Wiring
 	catalogRepo := catalog.NewMemStore()
@@ -31,16 +27,20 @@ func main() {
 	r.Use(CorsMiddleware(), middleware.Logger)
 	registerApiV1Routes(r, NewApiV1Server(), catalog.NewServer(catalogService))
 
-	listenAndServe(r, config.Port)
+	listenAndServe(r, cfg.Port)
 }
 
-func initDB() *sql.DB {
-	db, err := sql.Open("sqlite", "./database/tunkunia.db")
+func initDB(cfg *config.Config) *sql.DB {
+	db, err := sql.Open("sqlite", cfg.GooseDbString)
 	if err != nil {
 		panic(err)
 	}
-	if err := database.Migrate(db, "sqlite3"); err != nil {
+	if err := database.Migrate(db, cfg.GooseDriver); err != nil {
 		panic(err)
 	}
 	return db
+}
+
+func loadConfig() *config.Config {
+	return config.LoadDefaultConfig()
 }

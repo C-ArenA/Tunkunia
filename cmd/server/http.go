@@ -26,7 +26,7 @@ func listenAndServe(r *chi.Mux, port string) {
 		log.Printf("[%s]:\t'%s'\thas %d middlewares\n", method, route, len(middlewares))
 		return nil
 	})
-	log.Println("Starting Tunkunia API server on localhost", port)
+	log.Println("Starting Tunkunia API server on port:", port)
 	log.Fatal(http.ListenAndServe(port, r))
 }
 
