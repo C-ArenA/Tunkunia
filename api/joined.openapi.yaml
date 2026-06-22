@@ -116,6 +116,8 @@ paths:
                 $ref: '#/components/schemas/TramiteCollection'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
     post:
       tags:
         - Catalog
@@ -335,13 +337,6 @@ components:
           example: Trámite de Registro
         status:
           $ref: '#/components/schemas/TramiteStatus'
-        legalFramework:
-          type: array
-          items:
-            type: string
-          example:
-            - Ley Nº 351
-            - Artículo 5
         createdBy:
           type: integer
           example: 4
@@ -368,7 +363,6 @@ components:
       type: object
       required:
         - name
-        - type
       properties:
         name:
           type: string
@@ -377,15 +371,10 @@ components:
           type: string
         procedureDescription:
           type: string
+          nullable: true
         type:
           type: string
           example: Administrativo
-        legalFramework:
-          type: array
-          items:
-            type: string
-          example:
-            - Ley N° 351, Artículo 5
     TramiteUpdate:
       type: object
       properties:
@@ -395,14 +384,11 @@ components:
           type: string
         procedureDescription:
           type: string
+          nullable: true
         type:
           type: string
         status:
           $ref: '#/components/schemas/TramiteStatus'
-        legalFramework:
-          type: array
-          items:
-            type: string
     CollectionBase:
       type: object
       required:
@@ -417,6 +403,17 @@ components:
           type: string
           nullable: true
           example: https://api.example.com/users?page=1
+    ErrorDetail:
+      type: object
+      description: El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
+      required:
+        - detail
+        - pointer
+      properties:
+        detail:
+          type: string
+        pointer:
+          type: string
   responses:
     NotFound:
       description: El recurso solicitado no existe
@@ -426,6 +423,12 @@ components:
             $ref: '#/components/schemas/ProblemDetails'
     Unauthorized:
       description: No se ha provisto con una llave válida.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    InternalError:
+      description: No se pudo ejecutar la solicitud
       content:
         application/problem+json:
           schema:
@@ -459,15 +462,7 @@ components:
                       se adecúa al ejemplo brindado en la sección 3 del RFC 9457
                     type: array
                     items:
-                      type: object
-                      required:
-                        - detail
-                        - pointer
-                      properties:
-                        detail:
-                          type: string
-                        pointer:
-                          type: string
+                      $ref: '#/components/schemas/ErrorDetail'
   requestBodies:
     TramiteCreateBody:
       required: true

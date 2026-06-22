@@ -20,21 +20,22 @@ func NewService(repo Repo) *Service {
 	}
 }
 
-func (s *Service) Create(t Tramite) (Tramite, error) {
-	// validation, enrichment, business rules go here
-	return s.repo.Create(t), nil
+func (s *Service) List(ctx context.Context) ([]Tramite, error) {
+	return s.repo.List(ctx)
 }
 
-func (s *Service) Update(id int, tu TramiteUpdatePayload) (Tramite, error) {
-	t, err := s.repo.Get(id)
+func (s *Service) Create(ctx context.Context, t Tramite) (*Tramite, error) {
+	return s.repo.Create(ctx, t)
+}
 
-	if err != nil {
-		return Tramite{}, err
-	}
+func (s *Service) Get(ctx context.Context, id TramiteID) (*Tramite, error) {
+	return s.repo.Get(ctx, id)
+}
 
-	if tu.Name != nil {
-		t.Name = *tu.Name
-	}
+func (s *Service) Update(ctx context.Context, id TramiteID, t Tramite, m TramiteUpdateMask) (*Tramite, error) {
+	return s.repo.Update(ctx, id, t, m)
+}
 
-	return s.repo.Update(t)
+func (s *Service) Delete(ctx context.Context, id TramiteID) error {
+	return s.repo.Delete(ctx, id)
 }
