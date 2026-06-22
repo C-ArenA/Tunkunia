@@ -2,7 +2,7 @@
 // versions:
 //   sqlc v1.31.1
 
-package db
+package store
 
 import (
 	"database/sql"
@@ -11,10 +11,10 @@ import (
 type Tramite struct {
 	ID                   int64
 	Name                 string
-	Description          sql.NullString
+	Description          string
 	ProcedureDescription sql.NullString
-	Type                 sql.NullString
-	Status               sql.NullString
-	CreatedAt            sql.NullTime
-	UpdatedAt            sql.NullTime
+	Type                 string
+	Status               string
+	CreatedAt            string
+	UpdatedAt            string
 }

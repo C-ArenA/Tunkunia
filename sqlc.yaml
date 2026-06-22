@@ -3,8 +3,8 @@ version: "2"
 sql:
   - engine: "sqlite"
     schema: "database/migrations"
-    queries: "internal/catalog/db/query.sql"
+    queries: "internal/catalog/store/query.sql"
     gen:
       go:
-        package: "db"
-        out: "internal/catalog/db"
+        package: "store"
+        out: "internal/catalog/store"
