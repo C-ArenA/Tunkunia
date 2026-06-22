@@ -2,4 +2,7 @@
 package: oapi
 generate:
   models: true
+  embedded-spec: true
+output-options:
+  nullable-type: true
 output: models.oapi.gen.go

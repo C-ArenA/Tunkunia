@@ -55,6 +55,17 @@ components:
             obtenerse desde ella. Puede ser relativa o absoluta.
             No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
           example: "/cuenta/12345/mensajes/abc"
+    ErrorDetail:
+      type: object
+      description: El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
+      required:
+        - detail
+        - pointer
+      properties:
+        detail:
+          type: string
+        pointer:
+          type: string
   responses:
     BadRequest:
       description: Solicitud no aceptada o entendida. Quizá falte algún parámetro requerido.
@@ -99,12 +110,11 @@ components:
                       se adecúa al ejemplo brindado en la sección 3 del RFC 9457
                     type: array
                     items:
-                      type: object
-                      required:
-                        - detail
-                        - pointer
-                      properties:
-                        detail:
-                          type: string
-                        pointer:
-                          type: string
+                      $ref: "#/components/schemas/ErrorDetail"
+
+    InternalError:
+      description: No se pudo ejecutar la solicitud
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetails"

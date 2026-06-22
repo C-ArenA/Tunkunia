@@ -420,6 +420,8 @@ type BadRequestApplicationProblemPlusJSONResponse ProblemDetails
 
 type ForbiddenApplicationProblemPlusJSONResponse ProblemDetails
 
+type InternalErrorApplicationProblemPlusJSONResponse ProblemDetails
+
 type NotFoundApplicationProblemPlusJSONResponse ProblemDetails
 
 type UnauthorizedApplicationProblemPlusJSONResponse ProblemDetails
@@ -429,10 +431,7 @@ type ValidationErrorApplicationProblemPlusJSONResponse struct {
 	Detail *string `json:"detail,omitempty"`
 
 	// Errors Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
-	Errors *[]struct {
-		Detail  string `json:"detail"`
-		Pointer string `json:"pointer"`
-	} `json:"errors,omitempty"`
+	Errors *[]ErrorDetail `json:"errors,omitempty"`
 
 	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
 	Instance *string `json:"instance,omitempty"`
@@ -532,6 +531,22 @@ func (response ListTramites401ApplicationProblemPlusJSONResponse) VisitListTrami
 	}
 	w.Header().Set("Content-Type", "application/problem+json")
 	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListTramites500ApplicationProblemPlusJSONResponse struct {
+	InternalErrorApplicationProblemPlusJSONResponse
+}
+
+func (response ListTramites500ApplicationProblemPlusJSONResponse) VisitListTramitesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(500)
 	_, err := buf.WriteTo(w)
 	return err
 }

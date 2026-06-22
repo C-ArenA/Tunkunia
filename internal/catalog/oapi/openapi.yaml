@@ -61,6 +61,8 @@ paths:
                 $ref: "#/components/schemas/TramiteCollection"
         "401":
           $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
+        "500":
+          $ref: "../../../api/errors.openapi.yaml#/components/responses/InternalError"
     post:
       tags:
         - Catalog
@@ -197,11 +199,6 @@ components:
           example: "Trámite de Registro"
         status:
           $ref: "#/components/schemas/TramiteStatus"
-        legalFramework:
-          type: array
-          items:
-            type: string
-          example: ["Ley Nº 351", "Artículo 5"]
         createdBy:
           type: integer
           example: 4
@@ -230,7 +227,6 @@ components:
       type: object
       required:
         - name
-        - type
       properties:
         name:
           type: string
@@ -239,14 +235,10 @@ components:
           type: string
         procedureDescription:
           type: string
+          nullable: true
         type:
           type: string
           example: "Administrativo"
-        legalFramework:
-          type: array
-          items:
-            type: string
-          example: ["Ley N° 351, Artículo 5"]
 
     TramiteUpdate:
       type: object
@@ -257,14 +249,11 @@ components:
           type: string
         procedureDescription:
           type: string
+          nullable: true
         type:
           type: string
         status:
           $ref: "#/components/schemas/TramiteStatus"
-        legalFramework:
-          type: array
-          items:
-            type: string
 
   requestBodies:
     TramiteCreateBody:
