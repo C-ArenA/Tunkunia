@@ -6,6 +6,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
+	"github.com/C-ArenA/Tunkunia/internal/catalog/store"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "modernc.org/sqlite"
@@ -16,10 +17,10 @@ func main() {
 	cfg := loadConfig()
 
 	// Database
-	_ = initDB(cfg)
+	db := initDB(cfg)
 
 	// Modules Wiring
-	catalogRepo := catalog.NewMemStore()
+	catalogRepo := store.NewRepo(db)
 	catalogService := catalog.NewService(catalogRepo)
 
 	// HTTP

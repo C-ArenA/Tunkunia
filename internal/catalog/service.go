@@ -1,11 +1,13 @@
 package catalog
 
+import "context"
+
 type Repo interface {
-	List() []Tramite
-	Create(t Tramite) Tramite
-	Get(id int) (Tramite, error)
-	Update(t Tramite) (Tramite, error)
-	Delete(id int) error
+	List(ctx context.Context) ([]Tramite, error)
+	Create(ctx context.Context, t Tramite) (*Tramite, error)
+	Get(ctx context.Context, id TramiteID) (*Tramite, error)
+	Update(ctx context.Context, id TramiteID, t Tramite, m TramiteUpdateMask) (*Tramite, error)
+	Delete(ctx context.Context, id TramiteID) error
 }
 
 type Service struct {
