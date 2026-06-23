@@ -13,4 +13,4 @@ tasks:
   build:
     desc: Build UI for production
     cmds:
-      - pnpm build
+      - pnpm gen
