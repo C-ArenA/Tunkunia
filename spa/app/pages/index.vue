@@ -1,23 +1,56 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: 'empty'
+})
+interface Tramite {
+  id: number
+  name: string
+  description: string
+}
+interface CollectionResponse<T> {
+  data: T[]
+  next_page_url: string
+  previous_page_url: string
+}
+
+const { data } = await useFetch<CollectionResponse<Tramite>>('/api/v1/catalog/tramites', {
+  method: 'GET',
+  baseURL: 'http://localhost:8080',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+const institutionName = 'Institución de Prueba'
+</script>
+
 <template>
   <div>
-    <UPageHero
-      title="Tunkunia"
-      description="Sistema de gestión de flujos de trámites"
-      :links="[{
-        label: 'Get started',
+    <UPageHero title="Tunkunia" :headline="institutionName" reverse
+      :description="`Plataforma de trámites en línea de la ${institutionName}, facilitando la interacción entre ciudadanos y entidades gubernamentales.`"
+      orientation="horizontal" :links="[{
+        label: 'Ingresar',
         to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-        target: '_blank',
         trailingIcon: 'i-lucide-arrow-right',
         size: 'xl'
       }, {
-        label: 'Use this template',
-        to: 'https://github.com/nuxt-ui-templates/starter',
-        target: '_blank',
-        icon: 'i-simple-icons-github',
+        label: 'Ver trámites disponibles',
+        to: '/tramites',
+        icon: 'i-simple-icons-amazonredshift',
         size: 'xl',
         color: 'neutral',
         variant: 'subtle'
-      }]"
-    />
+      }]">
+      <UMarquee pause-on-hover orientation="vertical" :repeat="4" class="w-full h-96">
+        <UCard v-for="tramite in data?.data" variant="subtle" :key="tramite.id" :title="tramite.name"
+          :description="tramite.description || 'Sin descripción disponible'" class="w-full">
+          <p>Paso 1: Requisitos</p>
+          <template #footer>
+            <UButton to="#" color="primary" variant="solid" size="sm">
+              Iniciar trámite
+            </UButton>
+          </template>
+        </UCard>
+      </UMarquee>
+    </UPageHero>
   </div>
 </template>
