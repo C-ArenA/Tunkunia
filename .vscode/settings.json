@@ -2,7 +2,7 @@
   "files.exclude": {
     "docs": true,
     "site": true,
-    "ui": true,
-    ".zed": true,
-  },
+    "spa": true,
+    ".zed": true
+  }
 }

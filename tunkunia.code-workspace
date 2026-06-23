@@ -5,8 +5,8 @@
       "path": ".",
     },
     {
-      "name": "ui",
-      "path": "./ui",
+      "name": "spa",
+      "path": "./spa",
     },
     {
       "name": "docs",

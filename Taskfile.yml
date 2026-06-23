@@ -8,9 +8,9 @@ includes:
   site:
     taskfile: ./site/Taskfile.yml
     dir: ./site
-  ui:
-    taskfile: ./ui/Taskfile.yml
-    dir: ./ui
+  spa:
+    taskfile: ./spa/Taskfile.yml
+    dir: ./spa
   docs:
     taskfile: ./docs/Taskfile.yml
     dir: ./docs
@@ -76,7 +76,7 @@ tasks:
       - scalar:serve
       - server:dev
       - site:dev
-      - ui:dev
+      - spa:dev
     cmds:
       - echo ""
 
@@ -85,7 +85,7 @@ tasks:
     cmds:
       - task: server:build
       - task: site:build
-      - task: ui:build
+      - task: spa:build
 
   docs:all:
     desc: Generate all documentation
