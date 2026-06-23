@@ -8,7 +8,7 @@ import (
 
 	"github.com/C-ArenA/Tunkunia/database/jet/model"
 	"github.com/C-ArenA/Tunkunia/database/jet/table"
-	"github.com/C-ArenA/Tunkunia/internal/catalog"
+	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
 	"github.com/go-jet/jet/v2/qrm"
 	. "github.com/go-jet/jet/v2/sqlite"
 )
@@ -26,7 +26,7 @@ func NewRepo(db *sql.DB) *CatalogRepo {
 }
 
 // List implements [Repo].
-func (r *CatalogRepo) List(ctx context.Context) ([]catalog.Tramite, error) {
+func (r *CatalogRepo) List(ctx context.Context) ([]domain.Tramite, error) {
 	q := SELECT(table.Tramites.ID, table.Tramites.Name).
 		FROM(table.Tramites)
 
@@ -36,10 +36,10 @@ func (r *CatalogRepo) List(ctx context.Context) ([]catalog.Tramite, error) {
 	if err != nil {
 		return nil, err
 	}
-	tramites := make([]catalog.Tramite, len(dest))
+	tramites := make([]domain.Tramite, len(dest))
 	for i, t := range dest {
-		tramites[i] = catalog.Tramite{
-			ID:   catalog.TramiteID(t.ID),
+		tramites[i] = domain.Tramite{
+			ID:   domain.TramiteID(t.ID),
 			Name: t.Name,
 		}
 	}
@@ -48,21 +48,21 @@ func (r *CatalogRepo) List(ctx context.Context) ([]catalog.Tramite, error) {
 }
 
 // Create implements [Repo].
-func (r *CatalogRepo) Create(ctx context.Context, t catalog.Tramite) (*catalog.Tramite, error) {
+func (r *CatalogRepo) Create(ctx context.Context, t domain.Tramite) (*domain.Tramite, error) {
 	newT, err := r.queries.CreateTramite(ctx, t.Name)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &catalog.Tramite{
-		ID:   catalog.TramiteID(newT.ID),
+	return &domain.Tramite{
+		ID:   domain.TramiteID(newT.ID),
 		Name: newT.Name,
 	}, nil
 }
 
 // Delete implements [Repo].
-func (r *CatalogRepo) Delete(ctx context.Context, id catalog.TramiteID) error {
+func (r *CatalogRepo) Delete(ctx context.Context, id domain.TramiteID) error {
 	err := r.queries.DeleteTramite(ctx, int64(id))
 	if err != nil {
 		return err
@@ -71,19 +71,19 @@ func (r *CatalogRepo) Delete(ctx context.Context, id catalog.TramiteID) error {
 }
 
 // Get implements [Repo].
-func (r *CatalogRepo) Get(ctx context.Context, id catalog.TramiteID) (*catalog.Tramite, error) {
+func (r *CatalogRepo) Get(ctx context.Context, id domain.TramiteID) (*domain.Tramite, error) {
 	t, err := r.queries.GetTramite(ctx, int64(id))
 	if err != nil {
 		return nil, err
 	}
-	return &catalog.Tramite{
-		ID:   catalog.TramiteID(t.ID),
+	return &domain.Tramite{
+		ID:   domain.TramiteID(t.ID),
 		Name: t.Name,
 	}, nil
 }
 
 // Update implements [Repo].
-func (r *CatalogRepo) Update(ctx context.Context, id catalog.TramiteID, t catalog.Tramite, m catalog.TramiteUpdateMask) (*catalog.Tramite, error) {
+func (r *CatalogRepo) Update(ctx context.Context, id domain.TramiteID, t domain.Tramite, m domain.TramiteUpdateMask) (*domain.Tramite, error) {
 	cols := ColumnList{}
 	updateModel := model.Tramites{}
 
@@ -110,15 +110,15 @@ func (r *CatalogRepo) Update(ctx context.Context, id catalog.TramiteID, t catalo
 	err := stmt.QueryContext(ctx, r.db, &dest)
 
 	if errors.Is(err, qrm.ErrNoRows) {
-		return nil, catalog.ErrNotFound
+		return nil, domain.ErrNotFound
 	}
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &catalog.Tramite{
-		ID:          catalog.TramiteID(dest.ID),
+	return &domain.Tramite{
+		ID:          domain.TramiteID(dest.ID),
 		Name:        dest.Name,
 		Description: dest.Description,
 	}, nil

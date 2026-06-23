@@ -6,7 +6,6 @@ import (
 	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
-	"github.com/C-ArenA/Tunkunia/internal/catalog/store"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "modernc.org/sqlite"
@@ -19,14 +18,13 @@ func main() {
 	// Database
 	db := initDB(cfg)
 
-	// Modules Wiring
-	catalogRepo := store.NewRepo(db)
-	catalogService := catalog.NewService(catalogRepo)
-
 	// HTTP
 	r := chi.NewRouter()
 	r.Use(CorsMiddleware(), middleware.Logger)
-	registerApiV1Routes(r, NewApiV1Server(), catalog.NewServer(catalogService))
+	registerApiV1Routes(r, NewApiV1Server())
+
+	// Modules Wiring
+	catalog.ModuleInit(db, r)
 
 	listenAndServe(r, cfg.Port)
 }

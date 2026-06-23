@@ -16,16 +16,6 @@ includes:
     dir: ./docs
 
 tasks:
-  gen:oapi:catalog:
-    dir: ./internal/catalog/oapi
-    desc: Genera código a partir de la especificación de API del módulo Catalog
-    preconditions:
-      - redocly bundle ./openapi.yaml -o ./bundle.openapi.yaml
-    cmds:
-      - go tool oapi-codegen -config ./oapi.cfg.yaml ./bundle.openapi.yaml
-      - go tool oapi-codegen -config ./models.oapi.cfg.yaml ./bundle.openapi.yaml
-      - rm ./bundle.openapi.yaml
-
   gen:oapi:main:
     dir: ./cmd/server/oapi
     preconditions:
@@ -37,7 +27,6 @@ tasks:
   gen:oapi:
     cmds:
       - task: gen:oapi:main
-      - task: gen:oapi:catalog
 
   gen:db:
     cmds:
@@ -56,10 +45,10 @@ tasks:
     cmds:
       - >
         watchexec
-        -w ./internal/catalog/oapi
+        -w ./internal/catalog/api
         redocly join
         ./api/openapi.yaml
-        ./internal/catalog/oapi/openapi.yaml
+        ./internal/catalog/api/openapi.yaml
         -o ./api/joined.openapi.yaml
         --without-x-tag-groups
 

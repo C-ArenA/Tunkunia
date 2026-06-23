@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+tasks:
+  default:
+    desc: Genera código a partir de la especificación de API del módulo Catalog
+    preconditions:
+      - redocly bundle ./openapi.yaml -o ./bundle.openapi.yaml
+    cmds:
+      - go tool oapi-codegen -config ./oapi.cfg.yaml ./bundle.openapi.yaml
+      - rm ./bundle.openapi.yaml
