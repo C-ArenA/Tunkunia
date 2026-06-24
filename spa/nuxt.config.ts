@@ -3,7 +3,9 @@ export default defineNuxtConfig({
   ssr: false,
   modules: [
     '@nuxt/eslint',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    '@pinia/nuxt',
+    '@pinia/colada-nuxt'
   ],
 
   devtools: {
