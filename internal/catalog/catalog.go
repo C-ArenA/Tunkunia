@@ -12,8 +12,8 @@ import (
 func ModuleInit(db *sql.DB, m *chi.Mux) *domain.Service {
 	repo := store.NewRepo(db)
 	service := domain.NewService(repo)
-	controller := api.NewController(service)
-	router := api.NewRouter(controller)
+	strictApiHandler := api.NewStrictApiHandler(service)
+	router := api.NewRouter(strictApiHandler)
 	router.RegisterRoutes(m)
 	return service
 }

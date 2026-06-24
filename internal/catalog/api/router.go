@@ -3,16 +3,16 @@ package api
 import "github.com/go-chi/chi/v5"
 
 type Router struct {
-	controller *Controller
+	strictApiHandler *StrictApiHandler
 }
 
-func NewRouter(c *Controller) *Router {
+func NewRouter(h *StrictApiHandler) *Router {
 	return &Router{
-		controller: c,
+		strictApiHandler: h,
 	}
 }
 
 func (r *Router) RegisterRoutes(m *chi.Mux) {
-	server := NewStrictHandler(r.controller, nil)
-	HandlerFromMuxWithBaseURL(server, m, "/api/v1")
+	oApiServer := NewStrictHandler(r.strictApiHandler, nil)
+	HandlerFromMuxWithBaseURL(oApiServer, m, "/api/v1")
 }

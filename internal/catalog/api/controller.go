@@ -9,17 +9,17 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
 )
 
-type Controller struct {
+type StrictApiHandler struct {
 	service *domain.Service
 }
 
-func NewController(service *domain.Service) *Controller {
-	return &Controller{service: service}
+func NewStrictApiHandler(service *domain.Service) *StrictApiHandler {
+	return &StrictApiHandler{service: service}
 }
 
 // GetCatalogHealth implements [StrictServerInterface].
-func (c *Controller) GetCatalogHealth(ctx context.Context, request GetCatalogHealthRequestObject) (GetCatalogHealthResponseObject, error) {
-	if c.service == nil {
+func (h *StrictApiHandler) GetCatalogHealth(ctx context.Context, request GetCatalogHealthRequestObject) (GetCatalogHealthResponseObject, error) {
+	if h.service == nil {
 		return GetCatalogHealth503JSONResponse{
 			Status:    DOWN,
 			Timestamp: time.Now().UTC(),
@@ -32,8 +32,8 @@ func (c *Controller) GetCatalogHealth(ctx context.Context, request GetCatalogHea
 }
 
 // ListTramites implements [StrictServerInterface].
-func (c *Controller) ListTramites(ctx context.Context, request ListTramitesRequestObject) (ListTramitesResponseObject, error) {
-	tramites, err := c.service.List(ctx)
+func (h *StrictApiHandler) ListTramites(ctx context.Context, request ListTramitesRequestObject) (ListTramitesResponseObject, error) {
+	tramites, err := h.service.List(ctx)
 	if err != nil {
 		errResponse := ListTramites500ApplicationProblemPlusJSONResponse{}
 		errResponse.Title = new("La consulta a la base de datos falló")
@@ -52,8 +52,8 @@ func (c *Controller) ListTramites(ctx context.Context, request ListTramitesReque
 }
 
 // CreateTramite implements [StrictServerInterface].
-func (c *Controller) CreateTramite(ctx context.Context, request CreateTramiteRequestObject) (CreateTramiteResponseObject, error) {
-	t, err := c.service.Create(ctx, domain.Tramite{
+func (h *StrictApiHandler) CreateTramite(ctx context.Context, request CreateTramiteRequestObject) (CreateTramiteResponseObject, error) {
+	t, err := h.service.Create(ctx, domain.Tramite{
 		Name: request.Body.Name,
 	})
 
@@ -70,8 +70,8 @@ func (c *Controller) CreateTramite(ctx context.Context, request CreateTramiteReq
 }
 
 // GetTramite implements [StrictServerInterface].
-func (c *Controller) GetTramite(ctx context.Context, request GetTramiteRequestObject) (GetTramiteResponseObject, error) {
-	t, err := c.service.Get(ctx, domain.TramiteID(request.Id))
+func (h *StrictApiHandler) GetTramite(ctx context.Context, request GetTramiteRequestObject) (GetTramiteResponseObject, error) {
+	t, err := h.service.Get(ctx, domain.TramiteID(request.Id))
 
 	if err != nil {
 		errResponse := GetTramite404ApplicationProblemPlusJSONResponse{}
@@ -88,7 +88,7 @@ func (c *Controller) GetTramite(ctx context.Context, request GetTramiteRequestOb
 }
 
 // UpdateTramite implements [StrictServerInterface].
-func (c *Controller) UpdateTramite(ctx context.Context, request UpdateTramiteRequestObject) (UpdateTramiteResponseObject, error) {
+func (h *StrictApiHandler) UpdateTramite(ctx context.Context, request UpdateTramiteRequestObject) (UpdateTramiteResponseObject, error) {
 	var t domain.Tramite
 	var m domain.TramiteUpdateMask
 	validationErrors := []ErrorDetail{}
@@ -131,7 +131,7 @@ func (c *Controller) UpdateTramite(ctx context.Context, request UpdateTramiteReq
 		return valErrResponse, nil
 	}
 
-	updated, err := c.service.Update(ctx, domain.TramiteID(request.Id), t, m)
+	updated, err := h.service.Update(ctx, domain.TramiteID(request.Id), t, m)
 	if err != nil {
 		return UpdateTramite400ApplicationProblemPlusJSONResponse{
 			BadRequestApplicationProblemPlusJSONResponse: BadRequestApplicationProblemPlusJSONResponse{
@@ -151,8 +151,8 @@ func (c *Controller) UpdateTramite(ctx context.Context, request UpdateTramiteReq
 }
 
 // DeleteTramite implements [StrictServerInterface].
-func (c *Controller) DeleteTramite(ctx context.Context, request DeleteTramiteRequestObject) (DeleteTramiteResponseObject, error) {
-	err := c.service.Delete(ctx, domain.TramiteID(request.Id))
+func (h *StrictApiHandler) DeleteTramite(ctx context.Context, request DeleteTramiteRequestObject) (DeleteTramiteResponseObject, error) {
+	err := h.service.Delete(ctx, domain.TramiteID(request.Id))
 	if err != nil {
 		return DeleteTramite404ApplicationProblemPlusJSONResponse{
 			NotFoundApplicationProblemPlusJSONResponse: NotFoundApplicationProblemPlusJSONResponse{
