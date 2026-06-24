@@ -3,34 +3,40 @@
 </script>
 
 <template>
-    <UApp>
-        <UHeader>
-            <template #left>
-                <NuxtLink to="/">
-                    <AppLogo class="w-auto h-6 shrink-0" />
-                </NuxtLink>
-            </template>
+  <UApp>
+    <UHeader>
+      <template #left>
+        <NuxtLink to="/">
+          <AppLogo class="w-auto h-6 shrink-0" />
+        </NuxtLink>
+      </template>
 
-            <template #right>
-                <UColorModeButton />
-            </template>
-        </UHeader>
+      <template #right>
+        <UColorModeButton />
+      </template>
+    </UHeader>
 
-        <UMain>
-            <slot />
-        </UMain>
+    <UMain>
+      <slot />
+    </UMain>
 
-        <UFooter>
-            <template #left>
-                <p class="text-sm text-muted">
-                    Desarrollado por Carlos Arena
-                </p>
-            </template>
+    <UFooter>
+      <template #left>
+        <p class="text-sm text-muted">
+          Desarrollado por Carlos Arena
+        </p>
+      </template>
 
-            <template #right>
-                <UButton to="https://github.com/C-ArenA/Tunkunia" target="_blank" icon="i-simple-icons-github"
-                    aria-label="GitHub" color="neutral" variant="ghost" />
-            </template>
-        </UFooter>
-    </UApp>
+      <template #right>
+        <UButton
+          to="https://github.com/C-ArenA/Tunkunia"
+          target="_blank"
+          icon="i-simple-icons-github"
+          aria-label="GitHub"
+          color="neutral"
+          variant="ghost"
+        />
+      </template>
+    </UFooter>
+  </UApp>
 </template>

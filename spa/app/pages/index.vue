@@ -25,9 +25,13 @@ const institutionName = 'Institución de Prueba'
 
 <template>
   <div>
-    <UPageHero title="Tunkunia" :headline="institutionName" reverse
+    <UPageHero
+      title="Tunkunia"
+      :headline="institutionName"
+      reverse
       :description="`Plataforma de trámites en línea de la ${institutionName}, facilitando la interacción entre ciudadanos y entidades gubernamentales.`"
-      orientation="horizontal" :links="[{
+      orientation="horizontal"
+      :links="[{
         label: 'Ingresar',
         to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
         trailingIcon: 'i-lucide-arrow-right',
@@ -39,13 +43,30 @@ const institutionName = 'Institución de Prueba'
         size: 'xl',
         color: 'neutral',
         variant: 'subtle'
-      }]">
-      <UMarquee pause-on-hover orientation="vertical" :repeat="4" class="w-full h-96">
-        <UCard v-for="tramite in data?.data" variant="subtle" :key="tramite.id" :title="tramite.name"
-          :description="tramite.description || 'Sin descripción disponible'" class="w-full">
+      }]"
+    >
+      <UMarquee
+        pause-on-hover
+        orientation="vertical"
+        :repeat="4"
+        class="w-full h-96"
+      >
+        <UCard
+          v-for="tramite in data?.data"
+          :key="tramite.id"
+          variant="subtle"
+          :title="tramite.name"
+          :description="tramite.description || 'Sin descripción disponible'"
+          class="w-full"
+        >
           <p>Paso 1: Requisitos</p>
           <template #footer>
-            <UButton to="#" color="primary" variant="solid" size="sm">
+            <UButton
+              to="#"
+              color="primary"
+              variant="solid"
+              size="sm"
+            >
               Iniciar trámite
             </UButton>
           </template>
