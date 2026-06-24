@@ -13,7 +13,6 @@
     "openapi-ts": "openapi-ts"
   },
   "dependencies": {
-    "@hey-api/nuxt": "^0.2.1",
     "@iconify-json/lucide": "^1.2.114",
     "@iconify-json/simple-icons": "^1.2.86",
     "@nuxt/ui": "^4.9.0",
