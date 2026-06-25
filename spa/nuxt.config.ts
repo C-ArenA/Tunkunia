@@ -12,6 +12,17 @@ export default defineNuxtConfig({
     enabled: true
   },
 
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.ico' }
+      ],
+      htmlAttrs: {
+        lang: 'es'
+      }
+    }
+  },
+
   css: ['~/assets/css/main.css'],
 
   compatibilityDate: '2025-01-15',
