@@ -54,12 +54,14 @@ tasks:
 
   scalar:serve:
     desc: Serves a scalar api reference
+    prefix: scalar
     preconditions:
       - test -f ./api/joined.openapi.yaml
     cmds:
       - scalar document serve --watch --port 8491 ./api/joined.openapi.yaml
 
   server:dev:
+    prefix: GO
     desc: Run server with hot reload (air)
     cmds:
       - air

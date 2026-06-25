@@ -6,6 +6,7 @@ output: prefixed
 
 tasks:
   dev:
+    prefix: site
     desc: Run site dev server
     cmds:
       - pnpm dev

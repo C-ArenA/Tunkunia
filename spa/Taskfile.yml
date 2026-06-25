@@ -6,6 +6,7 @@ output: prefixed
 
 tasks:
   dev:
+    prefix: NUXT
     desc: Run UI dev server
     cmds:
       - pnpm dev
