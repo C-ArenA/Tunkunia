@@ -1,8 +1,11 @@
 package database
 
 import (
+	"context"
 	"database/sql"
 	"embed"
+	"io/fs"
+	"os"
 
 	"github.com/pressly/goose/v3"
 )
@@ -10,16 +13,56 @@ import (
 //go:embed migrations/*.sql
 var embedMigrations embed.FS
 
-func Migrate(db *sql.DB, dialect string) error {
-	goose.SetBaseFS(embedMigrations)
+const defaultDialect = goose.DialectSQLite3
 
-	if err := goose.SetDialect(dialect); err != nil {
+func getDialect() goose.Dialect {
+	dialect := os.Getenv("GOOSE_DRIVER")
+	if dialect == "" {
+		return defaultDialect
+	}
+	return goose.Dialect(dialect)
+}
+
+func Migrate(ctx context.Context, db *sql.DB) error {
+	migrationsFS, err := fs.Sub(embedMigrations, "migrations")
+	if err != nil {
 		return err
 	}
 
-	if err := goose.Up(db, "migrations"); err != nil {
+	provider, err := goose.NewProvider(
+		getDialect(),
+		db,
+		migrationsFS,
+	)
+	if err != nil {
 		return err
 	}
 
-	return nil
+	_, err = provider.Up(ctx)
+	return err
+}
+
+//go:embed seeds/*.sql
+var embedSeeds embed.FS
+
+// Not meant to be used in production
+func Seed(ctx context.Context, db *sql.DB) error {
+	os.Getenv("GOOSE_DRIVER")
+	seedsFS, err := fs.Sub(embedSeeds, "seeds")
+	if err != nil {
+		return err
+	}
+
+	provider, err := goose.NewProvider(
+		getDialect(),
+		db,
+		seedsFS,
+		goose.WithDisableVersioning(true),
+	)
+	if err != nil {
+		return err
+	}
+
+	_, err = provider.Up(ctx)
+	return err
 }

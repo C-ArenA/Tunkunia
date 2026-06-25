@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 
 	"github.com/C-ArenA/Tunkunia/config"
@@ -14,9 +15,10 @@ import (
 func main() {
 	// Configs
 	cfg := loadConfig()
+	ctx := context.Background()
 
 	// Database
-	db := initDB(cfg)
+	db := initDB(ctx, cfg.GooseDbString)
 
 	// HTTP
 	r := chi.NewRouter()
@@ -29,12 +31,12 @@ func main() {
 	listenAndServe(r, cfg.Port)
 }
 
-func initDB(cfg *config.Config) *sql.DB {
-	db, err := sql.Open("sqlite", cfg.GooseDbString)
+func initDB(ctx context.Context, dbString string) *sql.DB {
+	db, err := sql.Open("sqlite", dbString)
 	if err != nil {
 		panic(err)
 	}
-	if err := database.Migrate(db, cfg.GooseDriver); err != nil {
+	if err := database.Migrate(ctx, db); err != nil {
 		panic(err)
 	}
 	return db
