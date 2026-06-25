@@ -1,26 +1,13 @@
 <script setup lang="ts">
+import { listTramitesQuery } from '#shared/client/@pinia/colada.gen'
+import { useQuery } from '@pinia/colada'
+
 definePageMeta({
   layout: 'empty'
 })
-interface Tramite {
-  id: number
-  name: string
-  description: string
-}
-interface CollectionResponse<T> {
-  data: T[]
-  next_page_url: string
-  previous_page_url: string
-}
 
-const { data } = await useFetch<CollectionResponse<Tramite>>('/api/v1/catalog/tramites', {
-  method: 'GET',
-  baseURL: 'http://localhost:8080',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
 const institutionName = 'Institución de Prueba'
+const { data } = useQuery(listTramitesQuery)
 </script>
 
 <template>

@@ -1,22 +1,8 @@
 <script setup lang="ts">
-interface Tramite {
-  id: number
-  name: string
-  description: string
-}
-interface CollectionResponse<T> {
-  data: T[]
-  next_page_url: string
-  previous_page_url: string
-}
+import { listTramitesQuery } from '#shared/client/@pinia/colada.gen'
+import { useQuery } from '@pinia/colada'
 
-const { data } = await useFetch<CollectionResponse<Tramite>>('/api/v1/catalog/tramites', {
-  method: 'GET',
-  baseURL: 'http://localhost:8080',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
+const { data } = useQuery(listTramitesQuery)
 const title = 'Trámites Disponibles'
 </script>
 
