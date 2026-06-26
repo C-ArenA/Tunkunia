@@ -7,16 +7,29 @@ package store
 
 import (
 	"context"
+	"database/sql"
 )
 
 const createTramite = `-- name: CreateTramite :one
-INSERT INTO tramites (name)
-VALUES (?)
+INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
+VALUES (?, ?, ?, ?)
 RETURNING id, name, description, procedure_description, type, status, created_at, updated_at
 `
 
-func (q *Queries) CreateTramite(ctx context.Context, name string) (Tramite, error) {
-	row := q.db.QueryRowContext(ctx, createTramite, name)
+type CreateTramiteParams struct {
+	Name                 string
+	Description          string
+	ProcedureDescription sql.NullString
+	Type                 string
+}
+
+func (q *Queries) CreateTramite(ctx context.Context, arg CreateTramiteParams) (Tramite, error) {
+	row := q.db.QueryRowContext(ctx, createTramite,
+		arg.Name,
+		arg.Description,
+		arg.ProcedureDescription,
+		arg.Type,
+	)
 	var i Tramite
 	err := row.Scan(
 		&i.ID,
@@ -31,14 +44,17 @@ func (q *Queries) CreateTramite(ctx context.Context, name string) (Tramite, erro
 	return i, err
 }
 
-const deleteTramite = `-- name: DeleteTramite :exec
+const deleteTramite = `-- name: DeleteTramite :execrows
 DELETE FROM tramites
 WHERE id = ?
 `
 
-func (q *Queries) DeleteTramite(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteTramite, id)
-	return err
+func (q *Queries) DeleteTramite(ctx context.Context, id int64) (int64, error) {
+	result, err := q.db.ExecContext(ctx, deleteTramite, id)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected()
 }
 
 const getTramite = `-- name: GetTramite :one
