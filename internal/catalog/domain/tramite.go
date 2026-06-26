@@ -1,6 +1,9 @@
 package domain
 
-import "errors"
+import (
+	"errors"
+	"time"
+)
 
 type TramiteID int64
 
@@ -12,8 +15,8 @@ type Tramite struct {
 	Type                 string
 	Status               string
 	LegalFramework       []string
-	CreatedAt            string
-	UpdatedAt            string
+	CreatedAt            time.Time
+	UpdatedAt            time.Time
 }
 
 type TramiteMask struct {

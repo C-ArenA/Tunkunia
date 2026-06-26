@@ -36,7 +36,11 @@ func (r *CatalogRepo) List(ctx context.Context) ([]domain.Tramite, error) {
 	}
 	tramites := make([]domain.Tramite, len(dest))
 	for i, t := range dest {
-		tramites[i] = t.toDomain()
+		dT, err := t.toDomain()
+		if err != nil {
+			return nil, err
+		}
+		tramites[i] = dT
 	}
 
 	return tramites, nil
@@ -57,7 +61,11 @@ func (r *CatalogRepo) Create(ctx context.Context, t domain.Tramite) (*domain.Tra
 		return nil, err
 	}
 
-	return new(newT.toDomain()), nil
+	dT, err := newT.toDomain()
+	if err != nil {
+		return nil, err
+	}
+	return &dT, nil
 }
 
 // Delete implements [Repo].
@@ -82,13 +90,17 @@ func (r *CatalogRepo) Get(ctx context.Context, id domain.TramiteID) (*domain.Tra
 		return nil, err
 	}
 
-	return new(t.toDomain()), nil
+	dT, err := t.toDomain()
+	if err != nil {
+		return nil, err
+	}
+	return &dT, nil
 }
 
 // Update implements [Repo].
 func (r *CatalogRepo) Update(ctx context.Context, id domain.TramiteID, t domain.Tramite, m domain.TramiteMask) (*domain.Tramite, error) {
 	m.UpdatedAt = true
-	t.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
+	t.UpdatedAt = time.Now().UTC()
 
 	stmt := table.Tramites.
 		UPDATE(JetColumnListFromTramiteMask(m)).
@@ -105,5 +117,9 @@ func (r *CatalogRepo) Update(ctx context.Context, id domain.TramiteID, t domain.
 		return nil, err
 	}
 
-	return new(dest.toDomain()), nil
+	dT, err := dest.toDomain()
+	if err != nil {
+		return nil, err
+	}
+	return &dT, nil
 }

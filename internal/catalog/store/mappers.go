@@ -2,6 +2,7 @@ package store
 
 import (
 	"database/sql"
+	"time"
 
 	"github.com/C-ArenA/Tunkunia/database/jet/model"
 	"github.com/C-ArenA/Tunkunia/database/jet/table"
@@ -29,18 +30,26 @@ func NewTramiteFromDomain(t domain.Tramite) Tramite {
 		ProcedureDescription: procedureDesc,
 		Type:                 t.Type,
 		Status:               t.Status,
-		CreatedAt:            t.CreatedAt,
-		UpdatedAt:            t.UpdatedAt,
+		CreatedAt:            t.CreatedAt.Format(time.RFC3339),
+		UpdatedAt:            t.UpdatedAt.Format(time.RFC3339),
 	}
 }
 
 // toDomain maps the sqlc generated database model to the core domain entity.
-func (t Tramite) toDomain() domain.Tramite {
+func (t Tramite) toDomain() (domain.Tramite, error) {
 	var procedureDesc *string
 	if t.ProcedureDescription.Valid {
 		procedureDesc = &t.ProcedureDescription.String
 	}
 
+	createdAt, err := time.Parse(time.RFC3339, t.CreatedAt)
+	if err != nil {
+		return domain.Tramite{}, err
+	}
+	updatedAt, err := time.Parse(time.RFC3339, t.UpdatedAt)
+	if err != nil {
+		return domain.Tramite{}, err
+	}
 	return domain.Tramite{
 		ID:                   domain.TramiteID(t.ID),
 		Name:                 t.Name,
@@ -48,9 +57,9 @@ func (t Tramite) toDomain() domain.Tramite {
 		ProcedureDescription: procedureDesc,
 		Type:                 t.Type,
 		Status:               t.Status,
-		CreatedAt:            t.CreatedAt,
-		UpdatedAt:            t.UpdatedAt,
-	}
+		CreatedAt:            createdAt,
+		UpdatedAt:            updatedAt,
+	}, nil
 }
 
 // go-jet generated Tramite wrapper to add mapping functionality
@@ -67,14 +76,22 @@ func NewTramiteJetFromDomain(t domain.Tramite) TramiteJet {
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 t.Type,
 		Status:               t.Status,
-		CreatedAt:            t.CreatedAt,
-		UpdatedAt:            t.UpdatedAt,
+		CreatedAt:            t.CreatedAt.Format(time.RFC3339),
+		UpdatedAt:            t.UpdatedAt.Format(time.RFC3339),
 	}
 	return TramiteJet{tramiteJet}
 }
 
 // toDomain maps the go-jet generated database model to the core domain entity.
-func (t TramiteJet) toDomain() domain.Tramite {
+func (t TramiteJet) toDomain() (domain.Tramite, error) {
+	createdAt, err := time.Parse(time.RFC3339, t.CreatedAt)
+	if err != nil {
+		return domain.Tramite{}, err
+	}
+	updatedAt, err := time.Parse(time.RFC3339, t.UpdatedAt)
+	if err != nil {
+		return domain.Tramite{}, err
+	}
 	return domain.Tramite{
 		ID:                   domain.TramiteID(t.ID),
 		Name:                 t.Name,
@@ -82,9 +99,9 @@ func (t TramiteJet) toDomain() domain.Tramite {
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 t.Type,
 		Status:               t.Status,
-		CreatedAt:            t.CreatedAt,
-		UpdatedAt:            t.UpdatedAt,
-	}
+		CreatedAt:            createdAt,
+		UpdatedAt:            updatedAt,
+	}, nil
 }
 
 // generates a jet compliant column list based on a mask for the Tramite model
