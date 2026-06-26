@@ -45,10 +45,10 @@ tasks:
     cmds:
       - >
         watchexec
-        -w ./internal/catalog/api
+        -w ./internal/catalog/specs
         redocly join
         ./api/openapi.yaml
-        ./internal/catalog/api/openapi.yaml
+        ./internal/catalog/specs/openapi.yaml
         -o ./api/joined.openapi.yaml
         --without-x-tag-groups
 

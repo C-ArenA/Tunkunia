@@ -1,5 +1,7 @@
 package catalog
 
+//go:generate go tool task gen:api
+
 import (
 	"database/sql"
 

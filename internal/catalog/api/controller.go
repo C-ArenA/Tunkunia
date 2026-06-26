@@ -1,7 +1,5 @@
 package api
 
-//go:generate go tool task default
-
 import (
 	"context"
 	"time"

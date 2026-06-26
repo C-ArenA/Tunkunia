@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+tasks:
+  gen:api:
+    desc: Genera código a partir de la especificación de API del módulo Catalog
+    preconditions:
+      - redocly bundle ./specs/openapi.yaml -o ./bundle.openapi.yaml
+    cmds:
+      # - go tool oapi-codegen -config ./oapi.cfg.yaml ./bundle.openapi.yaml
+      - go tool oapi-codegen -config ./specs/oapi.cfg.yaml -generate "chi-server,strict-server" -o ./api/oapi.gen.go ./bundle.openapi.yaml
+      - go tool oapi-codegen -config ./specs/oapi.cfg.yaml -generate "models,embedded-spec" -o ./api/models.gen.go ./bundle.openapi.yaml
+      # - go tool oapi-codegen -config ./oapi.models.cfg.yaml ./bundle.openapi.yaml
+      - rm ./bundle.openapi.yaml
