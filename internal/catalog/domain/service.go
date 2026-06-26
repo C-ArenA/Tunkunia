@@ -6,7 +6,7 @@ type Repo interface {
 	List(ctx context.Context) ([]Tramite, error)
 	Create(ctx context.Context, t Tramite) (*Tramite, error)
 	Get(ctx context.Context, id TramiteID) (*Tramite, error)
-	Update(ctx context.Context, id TramiteID, t Tramite, m TramiteUpdateMask) (*Tramite, error)
+	Update(ctx context.Context, id TramiteID, t Tramite, m TramiteMask) (*Tramite, error)
 	Delete(ctx context.Context, id TramiteID) error
 }
 
@@ -32,7 +32,7 @@ func (s *Service) Get(ctx context.Context, id TramiteID) (*Tramite, error) {
 	return s.repo.Get(ctx, id)
 }
 
-func (s *Service) Update(ctx context.Context, id TramiteID, t Tramite, m TramiteUpdateMask) (*Tramite, error) {
+func (s *Service) Update(ctx context.Context, id TramiteID, t Tramite, m TramiteMask) (*Tramite, error) {
 	return s.repo.Update(ctx, id, t, m)
 }
 

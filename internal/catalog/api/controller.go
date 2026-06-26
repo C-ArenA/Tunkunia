@@ -90,7 +90,7 @@ func (h *StrictApiHandler) GetTramite(ctx context.Context, request GetTramiteReq
 // UpdateTramite implements [StrictServerInterface].
 func (h *StrictApiHandler) UpdateTramite(ctx context.Context, request UpdateTramiteRequestObject) (UpdateTramiteResponseObject, error) {
 	var t domain.Tramite
-	var m domain.TramiteUpdateMask
+	var m domain.TramiteMask
 	validationErrors := []ErrorDetail{}
 
 	if request.Body.Name != nil {
