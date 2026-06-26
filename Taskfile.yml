@@ -77,7 +77,6 @@ tasks:
       - oapi:join
       - scalar:serve
       - server:dev
-      - site:dev
       - spa:dev
     cmds:
       - echo ""

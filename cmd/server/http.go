@@ -21,12 +21,15 @@ func CorsMiddleware() func(http.Handler) http.Handler {
 	}).Handler
 }
 
-func listenAndServe(r *chi.Mux, port string) {
+func listRoutes(r *chi.Mux) {
 	chi.Walk(r, func(method, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
 		log.Printf("[%s]:\t'%s'\thas %d middlewares\n", method, route, len(middlewares))
 		return nil
 	})
-	log.Println("Starting Tunkunia API server on port:", port)
+}
+
+func listenAndServe(r *chi.Mux, port string) {
+	log.Println("🌄 Starting TUNKUNIA Server on port:", port)
 	log.Fatal(http.ListenAndServe(port, r))
 }
 
