@@ -18,7 +18,7 @@ func main() {
 	ctx := context.Background()
 
 	// Database
-	db := initDB(ctx, cfg.GooseDbString)
+	db := initDB(ctx, cfg)
 
 	// HTTP
 	r := chi.NewRouter()
@@ -31,13 +31,16 @@ func main() {
 	listenAndServe(r, cfg.Port)
 }
 
-func initDB(ctx context.Context, dbString string) *sql.DB {
-	db, err := sql.Open("sqlite", dbString)
+func initDB(ctx context.Context, cfg *config.Config) *sql.DB {
+	db, err := sql.Open("sqlite", cfg.GooseDbString)
 	if err != nil {
 		panic(err)
 	}
 	if err := database.Migrate(ctx, db); err != nil {
 		panic(err)
+	}
+	if cfg.Env == "dev" {
+		database.Seed(ctx, db)
 	}
 	return db
 }
