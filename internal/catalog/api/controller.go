@@ -33,16 +33,11 @@ func (h *StrictApiHandler) GetCatalogHealth(ctx context.Context, request GetCata
 func (h *StrictApiHandler) ListTramites(ctx context.Context, request ListTramitesRequestObject) (ListTramitesResponseObject, error) {
 	tramites, err := h.service.List(ctx)
 	if err != nil {
-		errResponse := ListTramites500ApplicationProblemPlusJSONResponse{}
-		errResponse.Title = new("La consulta a la base de datos falló")
-		return errResponse, nil
+		return ListTramites500ApplicationProblemPlusJSONResponse{NewInternalErrorResponse(err.Error())}, nil
 	}
-	response := make([]Tramite, len(tramites))
+	response := make([]TramiteBase, len(tramites))
 	for i, t := range tramites {
-		response[i] = Tramite{
-			Id:   int(t.ID),
-			Name: t.Name,
-		}
+		response[i] = NewTramiteBaseFromDomain(t)
 	}
 	return ListTramites200JSONResponse{
 		Data: response,
@@ -51,20 +46,13 @@ func (h *StrictApiHandler) ListTramites(ctx context.Context, request ListTramite
 
 // CreateTramite implements [StrictServerInterface].
 func (h *StrictApiHandler) CreateTramite(ctx context.Context, request CreateTramiteRequestObject) (CreateTramiteResponseObject, error) {
-	t, err := h.service.Create(ctx, domain.Tramite{
-		Name: request.Body.Name,
-	})
+	t, err := h.service.Create(ctx, request.Body.toDomain())
 
 	if err != nil {
-		errResponse := CreateTramite400ApplicationProblemPlusJSONResponse{}
-		errResponse.Title = new("No se puede crear un trámite con los datos proporcionados")
-		return errResponse, nil
+		return CreateTramite400ApplicationProblemPlusJSONResponse{NewBadRequestResponse(err.Error())}, nil
 	}
 
-	return CreateTramite201JSONResponse{
-		Id:   int(t.ID),
-		Name: t.Name,
-	}, nil
+	return CreateTramite201JSONResponse(NewTramiteFromDomain(*t)), nil
 }
 
 // GetTramite implements [StrictServerInterface].
@@ -72,40 +60,15 @@ func (h *StrictApiHandler) GetTramite(ctx context.Context, request GetTramiteReq
 	t, err := h.service.Get(ctx, domain.TramiteID(request.Id))
 
 	if err != nil {
-		errResponse := GetTramite404ApplicationProblemPlusJSONResponse{}
-		errResponse.Title = new("Trámite inexistente")
-		errResponse.Status = new(int32(404))
-		errResponse.Detail = new(err.Error())
-		return errResponse, nil
+		return GetTramite404ApplicationProblemPlusJSONResponse{NewNotFoundResponse(err.Error())}, nil
 	}
 
-	return GetTramite200JSONResponse{
-		Id:   int(t.ID),
-		Name: t.Name,
-	}, nil
+	return GetTramite200JSONResponse(NewTramiteFromDomain(*t)), nil
 }
 
 // UpdateTramite implements [StrictServerInterface].
 func (h *StrictApiHandler) UpdateTramite(ctx context.Context, request UpdateTramiteRequestObject) (UpdateTramiteResponseObject, error) {
-	var t domain.Tramite
-	var m domain.TramiteMask
 	validationErrors := []ErrorDetail{}
-
-	if request.Body.Name != nil {
-		m.Name = true
-		t.Name = *request.Body.Name
-	}
-	if request.Body.Description != nil {
-		m.Description = true
-		t.Description = *request.Body.Description
-	}
-	if request.Body.ProcedureDescription != nil {
-		m.ProcedureDescription = true
-		pdValue, err := request.Body.ProcedureDescription.Get()
-		if err == nil {
-			t.ProcedureDescription = &pdValue
-		}
-	}
 	if request.Body.Status != nil {
 		if !request.Body.Status.Valid() {
 			validationErrors = append(validationErrors, ErrorDetail{
@@ -113,52 +76,26 @@ func (h *StrictApiHandler) UpdateTramite(ctx context.Context, request UpdateTram
 				Pointer: "#/status",
 			})
 		}
-		m.Status = true
-		t.Status = string(*request.Body.Status)
-	}
-	if request.Body.Type != nil {
-		m.Type = true
-		t.Type = *request.Body.Type
 	}
 
 	if len(validationErrors) > 0 {
-		valErrResponse := UpdateTramite422ApplicationProblemPlusJSONResponse{}
-		valErrResponse.Title = new("Error de validación")
-		valErrResponse.Errors = &validationErrors
-		valErrResponse.Status = new(int32(422))
-		return valErrResponse, nil
+		return UpdateTramite422ApplicationProblemPlusJSONResponse{NewValidationErrorResponse("", validationErrors)}, nil
 	}
 
+	t, m := request.Body.toDomain()
 	updated, err := h.service.Update(ctx, domain.TramiteID(request.Id), t, m)
 	if err != nil {
-		return UpdateTramite400ApplicationProblemPlusJSONResponse{
-			BadRequestApplicationProblemPlusJSONResponse: BadRequestApplicationProblemPlusJSONResponse{
-				Title: new("Solicitud errónea"),
-			}}, nil
-
+		return UpdateTramite400ApplicationProblemPlusJSONResponse{NewBadRequestResponse(err.Error())}, nil
 	}
 
-	return UpdateTramite200JSONResponse{
-		Id:                   int(updated.ID),
-		Name:                 updated.Name,
-		Description:          &updated.Description,
-		ProcedureDescription: updated.ProcedureDescription,
-		Status:               new(TramiteStatus(updated.Status)),
-		Type:                 &updated.Type,
-	}, nil
+	return UpdateTramite200JSONResponse(NewTramiteFromDomain(*updated)), nil
 }
 
 // DeleteTramite implements [StrictServerInterface].
 func (h *StrictApiHandler) DeleteTramite(ctx context.Context, request DeleteTramiteRequestObject) (DeleteTramiteResponseObject, error) {
 	err := h.service.Delete(ctx, domain.TramiteID(request.Id))
 	if err != nil {
-		return DeleteTramite404ApplicationProblemPlusJSONResponse{
-			NotFoundApplicationProblemPlusJSONResponse: NotFoundApplicationProblemPlusJSONResponse{
-				Title:  new("No se puede eliminar trámite inexistente"),
-				Status: new(int32(404)),
-				Detail: new(err.Error()),
-			},
-		}, nil
+		return DeleteTramite404ApplicationProblemPlusJSONResponse{NewNotFoundResponse(err.Error())}, nil
 	}
 
 	return DeleteTramite204Response{}, nil
