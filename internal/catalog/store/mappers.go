@@ -30,8 +30,8 @@ func NewTramiteFromDomain(t domain.Tramite) Tramite {
 		ProcedureDescription: procedureDesc,
 		Type:                 t.Type,
 		Status:               t.Status,
-		CreatedAt:            t.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:            t.UpdatedAt.Format(time.RFC3339),
+		CreatedAt:            t.CreatedAt.Format(time.DateTime),
+		UpdatedAt:            t.UpdatedAt.Format(time.DateTime),
 	}
 }
 
@@ -42,11 +42,11 @@ func (t Tramite) toDomain() (domain.Tramite, error) {
 		procedureDesc = &t.ProcedureDescription.String
 	}
 
-	createdAt, err := time.Parse(time.RFC3339, t.CreatedAt)
+	createdAt, err := time.Parse(time.DateTime, t.CreatedAt)
 	if err != nil {
 		return domain.Tramite{}, err
 	}
-	updatedAt, err := time.Parse(time.RFC3339, t.UpdatedAt)
+	updatedAt, err := time.Parse(time.DateTime, t.UpdatedAt)
 	if err != nil {
 		return domain.Tramite{}, err
 	}
@@ -76,19 +76,19 @@ func NewTramiteJetFromDomain(t domain.Tramite) TramiteJet {
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 t.Type,
 		Status:               t.Status,
-		CreatedAt:            t.CreatedAt.Format(time.RFC3339),
-		UpdatedAt:            t.UpdatedAt.Format(time.RFC3339),
+		CreatedAt:            t.CreatedAt.Format(time.DateTime),
+		UpdatedAt:            t.UpdatedAt.Format(time.DateTime),
 	}
 	return TramiteJet{tramiteJet}
 }
 
 // toDomain maps the go-jet generated database model to the core domain entity.
 func (t TramiteJet) toDomain() (domain.Tramite, error) {
-	createdAt, err := time.Parse(time.RFC3339, t.CreatedAt)
+	createdAt, err := time.Parse(time.DateTime, t.CreatedAt)
 	if err != nil {
 		return domain.Tramite{}, err
 	}
-	updatedAt, err := time.Parse(time.RFC3339, t.UpdatedAt)
+	updatedAt, err := time.Parse(time.DateTime, t.UpdatedAt)
 	if err != nil {
 		return domain.Tramite{}, err
 	}
