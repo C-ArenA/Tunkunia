@@ -62,7 +62,7 @@ func (tu *TramiteUpdate) toDomain() (domain.Tramite, domain.TramiteMask) {
 	}
 	if tu.Status != nil {
 		m.Status = true
-		t.Status = string(*tu.Status)
+		t.Status = domain.TramiteStatus(*tu.Status)
 	}
 	if tu.Type != nil {
 		m.Type = true

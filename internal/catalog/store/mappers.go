@@ -29,7 +29,7 @@ func NewTramiteFromDomain(t domain.Tramite) Tramite {
 		Description:          t.Description,
 		ProcedureDescription: procedureDesc,
 		Type:                 t.Type,
-		Status:               t.Status,
+		Status:               string(t.Status),
 		CreatedAt:            t.CreatedAt.Format(time.DateTime),
 		UpdatedAt:            t.UpdatedAt.Format(time.DateTime),
 	}
@@ -56,7 +56,7 @@ func (t Tramite) toDomain() (domain.Tramite, error) {
 		Description:          t.Description,
 		ProcedureDescription: procedureDesc,
 		Type:                 t.Type,
-		Status:               t.Status,
+		Status:               domain.TramiteStatus(t.Status),
 		CreatedAt:            createdAt,
 		UpdatedAt:            updatedAt,
 	}, nil
@@ -75,7 +75,7 @@ func NewTramiteJetFromDomain(t domain.Tramite) TramiteJet {
 		Description:          t.Description,
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 t.Type,
-		Status:               t.Status,
+		Status:               string(t.Status),
 		CreatedAt:            t.CreatedAt.Format(time.DateTime),
 		UpdatedAt:            t.UpdatedAt.Format(time.DateTime),
 	}
@@ -98,7 +98,7 @@ func (t TramiteJet) toDomain() (domain.Tramite, error) {
 		Description:          t.Description,
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 t.Type,
-		Status:               t.Status,
+		Status:               domain.TramiteStatus(t.Status),
 		CreatedAt:            createdAt,
 		UpdatedAt:            updatedAt,
 	}, nil
