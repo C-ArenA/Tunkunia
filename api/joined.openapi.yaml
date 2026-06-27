@@ -130,7 +130,11 @@ paths:
       security:
         - BearerAuth: []
       requestBody:
-        $ref: '#/components/requestBodies/TramiteCreateBody'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TramiteCreate'
       responses:
         '201':
           description: Creación de Trámite exitosa
@@ -182,7 +186,11 @@ paths:
       security:
         - BearerAuth: []
       requestBody:
-        $ref: '#/components/requestBodies/TramiteUpdateBody'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TramiteUpdate'
       responses:
         '200':
           description: Trámite actualizado exitosamente
@@ -310,44 +318,57 @@ components:
         - published
         - archived
       example: draft
-    Tramite:
+    TramiteBase:
       type: object
       required:
         - id
         - name
+        - description
       properties:
         id:
           type: integer
-          example: 1
+          format: int64
+          x-order: 1
         name:
           type: string
           example: Inscripción de Personería Jurídica
+          x-order: 2
         description:
           type: string
           example: >-
             Trámite legal para la obtención y registro de personería jurídica de
             asociaciones civiles.
-        procedureDescription:
-          type: string
-          example: >-
-            El usuario debe cargar los requisitos formales, esperar validación
-            de actas y proceder a la firma digital.
-        type:
-          type: string
-          example: Trámite de Registro
-        status:
-          $ref: '#/components/schemas/TramiteStatus'
-        createdBy:
-          type: integer
-          example: 4
-        createdAt:
-          type: string
-          format: date-time
-          example: '2026-03-15T14:30:00Z'
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2026-04-02T11:15:22Z'
+          x-order: 3
+    Tramite:
+      allOf:
+        - $ref: '#/components/schemas/TramiteBase'
+        - type: object
+          required:
+            - type
+            - status
+            - createdAt
+            - updatedAt
+          properties:
+            procedureDescription:
+              type: string
+              example: >-
+                El usuario debe cargar los requisitos formales, esperar
+                validación de actas y proceder a la firma digital.
+            type:
+              type: string
+              example: Trámite de Registro
+            status:
+              $ref: '#/components/schemas/TramiteStatus'
+            createdAt:
+              type: string
+              format: date-time
+              example: '2026-03-15T14:30:00Z'
+              x-order: 100
+            updatedAt:
+              type: string
+              format: date-time
+              example: '2026-04-02T11:15:22Z'
+              x-order: 101
     TramiteCollection:
       allOf:
         - $ref: '#/components/schemas/CollectionBase'
@@ -358,7 +379,7 @@ components:
             data:
               type: array
               items:
-                $ref: '#/components/schemas/Tramite'
+                $ref: '#/components/schemas/TramiteBase'
     TramiteCreate:
       type: object
       required:
@@ -366,15 +387,12 @@ components:
       properties:
         name:
           type: string
-          example: Inscripción de Personería Jurídica
         description:
           type: string
         procedureDescription:
           type: string
-          nullable: true
         type:
           type: string
-          example: Administrativo
     TramiteUpdate:
       type: object
       properties:
@@ -463,16 +481,3 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/ErrorDetail'
-  requestBodies:
-    TramiteCreateBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TramiteCreate'
-    TramiteUpdateBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TramiteUpdate'

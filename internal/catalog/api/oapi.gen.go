@@ -428,19 +428,19 @@ type UnauthorizedApplicationProblemPlusJSONResponse ProblemDetails
 
 type ValidationErrorApplicationProblemPlusJSONResponse struct {
 	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-	Detail *string `json:"detail,omitempty"`
+	Detail string `json:"detail"`
 
 	// Errors Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
-	Errors *[]ErrorDetail `json:"errors,omitempty"`
+	Errors []ErrorDetail `json:"errors"`
 
 	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
 	Instance *string `json:"instance,omitempty"`
 
 	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-	Status *int32 `json:"status,omitempty"`
+	Status int32 `json:"status"`
 
 	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-	Title *string `json:"title,omitempty"`
+	Title string `json:"title"`
 
 	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
 	Type *string `json:"type,omitempty"`

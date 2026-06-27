@@ -87,16 +87,16 @@ type HealthStatus string
 // ProblemDetails Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
 type ProblemDetails struct {
 	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-	Detail *string `json:"detail,omitempty"`
+	Detail string `json:"detail"`
 
 	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
 	Instance *string `json:"instance,omitempty"`
 
 	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-	Status *int32 `json:"status,omitempty"`
+	Status int32 `json:"status"`
 
 	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-	Title *string `json:"title,omitempty"`
+	Title string `json:"title"`
 
 	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
 	Type *string `json:"type,omitempty"`
@@ -104,30 +104,36 @@ type ProblemDetails struct {
 
 // Tramite defines model for Tramite.
 type Tramite struct {
-	CreatedAt            *time.Time     `json:"createdAt,omitempty"`
-	CreatedBy            *int           `json:"createdBy,omitempty"`
-	Description          *string        `json:"description,omitempty"`
-	Id                   int            `json:"id"`
-	Name                 string         `json:"name"`
-	ProcedureDescription *string        `json:"procedureDescription,omitempty"`
-	Status               *TramiteStatus `json:"status,omitempty"`
-	Type                 *string        `json:"type,omitempty"`
-	UpdatedAt            *time.Time     `json:"updatedAt,omitempty"`
+	Id                   int64         `json:"id"`
+	Name                 string        `json:"name"`
+	Description          string        `json:"description"`
+	ProcedureDescription *string       `json:"procedureDescription,omitempty"`
+	Status               TramiteStatus `json:"status"`
+	Type                 string        `json:"type"`
+	CreatedAt            time.Time     `json:"createdAt"`
+	UpdatedAt            time.Time     `json:"updatedAt"`
+}
+
+// TramiteBase defines model for TramiteBase.
+type TramiteBase struct {
+	Id          int64  `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 
 // TramiteCollection defines model for TramiteCollection.
 type TramiteCollection struct {
-	Data            []Tramite                 `json:"data"`
+	Data            []TramiteBase             `json:"data"`
 	NextPageUrl     nullable.Nullable[string] `json:"next_page_url"`
 	PreviousPageUrl nullable.Nullable[string] `json:"previous_page_url"`
 }
 
 // TramiteCreate defines model for TramiteCreate.
 type TramiteCreate struct {
-	Description          *string                   `json:"description,omitempty"`
-	Name                 string                    `json:"name"`
-	ProcedureDescription nullable.Nullable[string] `json:"procedureDescription,omitempty"`
-	Type                 *string                   `json:"type,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	Name                 string  `json:"name"`
+	ProcedureDescription *string `json:"procedureDescription,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 }
 
 // TramiteStatus defines model for TramiteStatus.
@@ -160,29 +166,23 @@ type Unauthorized = ProblemDetails
 // ValidationError defines model for ValidationError.
 type ValidationError struct {
 	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-	Detail *string `json:"detail,omitempty"`
+	Detail string `json:"detail"`
 
 	// Errors Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
-	Errors *[]ErrorDetail `json:"errors,omitempty"`
+	Errors []ErrorDetail `json:"errors"`
 
 	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
 	Instance *string `json:"instance,omitempty"`
 
 	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-	Status *int32 `json:"status,omitempty"`
+	Status int32 `json:"status"`
 
 	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-	Title *string `json:"title,omitempty"`
+	Title string `json:"title"`
 
 	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
 	Type *string `json:"type,omitempty"`
 }
-
-// TramiteCreateBody defines model for TramiteCreateBody.
-type TramiteCreateBody = TramiteCreate
-
-// TramiteUpdateBody defines model for TramiteUpdateBody.
-type TramiteUpdateBody = TramiteUpdate
 
 // bearerAuthContextKey is the context key for BearerAuth security scheme
 type bearerAuthContextKey string
@@ -206,61 +206,61 @@ type UpdateTramiteJSONRequestBody = TramiteUpdate
 // const string: with thousands of chunks the chained `+` fold is several
 // times slower for the Go compiler than parsing a slice literal.
 var swaggerSpec = []string{
-	"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",
-	"pOrqjure2Wx2Mfv/AAAA//8=",
+	"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",
 }
 
 // decodeSpec returns the embedded OpenAPI spec as raw JSON bytes,
