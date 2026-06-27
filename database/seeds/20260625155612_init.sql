@@ -9,6 +9,6 @@ VALUES (
         'Trámite de Prueba',
         'Este es otro trámite de prueba para fines de demostración.',
         '1. Revisar requisitos\n2. Llenar formulario\n3. Enviar solicitud'
-    );
+    ) ON CONFLICT (name) DO NOTHING;
 -- +goose Down
 SELECT 'down SQL query';
