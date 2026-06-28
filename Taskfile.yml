@@ -30,9 +30,8 @@ tasks:
 
   gen:db:
     cmds:
-      - sqlc generate
-      - goose up
-      - jet -source=sqlite -dsn=./database/tunkunia.db -path=./database/jet
+      - go tool goose up
+      - go tool jet -source=sqlite -dsn=./database/tunkunia.db -path=./database/jet
 
   gen:all:
     cmds:
@@ -64,7 +63,7 @@ tasks:
     prefix: GO
     desc: Run server with hot reload (air)
     cmds:
-      - air
+      - go tool air
 
   server:build:
     desc: Build server binary
