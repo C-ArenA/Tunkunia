@@ -2,3 +2,6 @@ extends:
   - recommended
 rules:
   no-server-example.com: off
+  spec-strict-refs: error
+  info-license: off
+  no-empty-servers: off
