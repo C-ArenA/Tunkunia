@@ -33,27 +33,7 @@ tags:
 paths:
   /health:
     get:
-      tags:
-        - health
-      summary: Salud Módulo
-      security: []
-      responses:
-        '200':
-          description: The service is healthy and operating normally
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Health'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '503':
-          description: The service is unhealthy or degraded
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Health'
-  /catalog/health:
-    get:
+      operationId: GetHealth
       tags:
         - health
       summary: Salud Módulo
@@ -249,6 +229,20 @@ components:
           type: string
           format: date-time
           example: '2026-06-06T15:30:00Z'
+    CollectionBase:
+      type: object
+      required:
+        - next_page_url
+        - previous_page_url
+      properties:
+        next_page_url:
+          type: string
+          nullable: true
+          example: https://api.example.com/users?page=3
+        previous_page_url:
+          type: string
+          nullable: true
+          example: https://api.example.com/users?page=1
     ProblemDetails:
       type: object
       description: >
@@ -315,6 +309,33 @@ components:
             incluirse en la API de Tunkunia y se conserva en el esquema para
             obedecer el RFC 9457
           example: /cuenta/12345/mensajes/abc
+    ErrorDetail:
+      type: object
+      description: El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
+      required:
+        - detail
+        - pointer
+      properties:
+        detail:
+          type: string
+        pointer:
+          type: string
+    AuditMetadata:
+      type: object
+      required:
+        - createdAt
+        - updatedAt
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-03-15T14:30:00Z'
+          x-order: 100
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-04-02T11:15:22Z'
+          x-order: 101
     TramiteStatus:
       type: string
       enum:
@@ -420,54 +441,7 @@ components:
           $ref: '#/components/schemas/TramiteType'
         status:
           $ref: '#/components/schemas/TramiteStatus'
-    CollectionBase:
-      type: object
-      required:
-        - next_page_url
-        - previous_page_url
-      properties:
-        next_page_url:
-          type: string
-          nullable: true
-          example: https://api.example.com/users?page=3
-        previous_page_url:
-          type: string
-          nullable: true
-          example: https://api.example.com/users?page=1
-    AuditMetadata:
-      type: object
-      required:
-        - createdAt
-        - updatedAt
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          example: '2026-03-15T14:30:00Z'
-          x-order: 100
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2026-04-02T11:15:22Z'
-          x-order: 101
-    ErrorDetail:
-      type: object
-      description: El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
-      required:
-        - detail
-        - pointer
-      properties:
-        detail:
-          type: string
-        pointer:
-          type: string
   responses:
-    NotFound:
-      description: El recurso solicitado no existe
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/ProblemDetails'
     BadRequest:
       description: >-
         Solicitud no aceptada o entendida. Quizá falte algún parámetro
@@ -484,6 +458,12 @@ components:
             $ref: '#/components/schemas/ProblemDetails'
     Forbidden:
       description: No tiene permisos para realizar esta solicitud
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    NotFound:
+      description: El recurso solicitado no existe
       content:
         application/problem+json:
           schema:

@@ -20,8 +20,6 @@ servers:
         default: tunkunia.com
         description: Host o dominio de la API
 paths:
-  /catalog/health:
-    $ref: "../../../api/shared.openapi.yaml#/paths/~1module~1health"
   /catalog/tramites:
     get:
       tags:
@@ -60,9 +58,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TramiteCollection"
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "../../api/openapi.yaml#/components/responses/Unauthorized"
         "500":
-          $ref: "#/components/responses/InternalError"
+          $ref: "../../api/openapi.yaml#/components/responses/InternalError"
     post:
       tags:
         - Catalog
@@ -85,13 +83,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "400":
-          $ref: "#/components/responses/BadRequest"
+          $ref: "../../api/openapi.yaml#/components/responses/BadRequest"
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "../../api/openapi.yaml#/components/responses/Unauthorized"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          $ref: "../../api/openapi.yaml#/components/responses/Forbidden"
         "422":
-          $ref: "#/components/responses/ValidationError"
+          $ref: "../../api/openapi.yaml#/components/responses/ValidationError"
 
   /catalog/tramites/{id}:
     parameters:
@@ -117,9 +115,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          $ref: "../../api/openapi.yaml#/components/responses/Forbidden"
         "404":
-          $ref: "#/components/responses/NotFound"
+          $ref: "../../api/openapi.yaml#/components/responses/NotFound"
 
       deprecated: false
     patch:
@@ -143,15 +141,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "400":
-          $ref: "#/components/responses/BadRequest"
+          $ref: "../../api/openapi.yaml#/components/responses/BadRequest"
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "../../api/openapi.yaml#/components/responses/Unauthorized"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          $ref: "../../api/openapi.yaml#/components/responses/Forbidden"
         "404":
-          $ref: "#/components/responses/NotFound"
+          $ref: "../../api/openapi.yaml#/components/responses/NotFound"
         "422":
-          $ref: "#/components/responses/ValidationError"
+          $ref: "../../api/openapi.yaml#/components/responses/ValidationError"
 
     delete:
       tags:
@@ -164,11 +162,11 @@ paths:
         "204":
           description: Trámite eliminado, nada que retornar
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          $ref: "../../api/openapi.yaml#/components/responses/Unauthorized"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          $ref: "../../api/openapi.yaml#/components/responses/Forbidden"
         "404":
-          $ref: "#/components/responses/NotFound"
+          $ref: "../../api/openapi.yaml#/components/responses/NotFound"
       deprecated: false
 
 components:
@@ -238,7 +236,7 @@ components:
 
     TramiteCollection:
       allOf:
-        - $ref: "../../../api/shared.openapi.yaml#/components/schemas/CollectionBase"
+        - $ref: "../../api/openapi.yaml#/components/schemas/CollectionBase"
         - type: object
           required: [data]
           properties:
@@ -274,22 +272,3 @@ components:
           $ref: "#/components/schemas/TramiteType"
         status:
           $ref: "#/components/schemas/TramiteStatus"
-
-  responses:
-    BadRequest:
-      $ref: "../../../api/errors.openapi.yaml#/components/responses/BadRequest"
-
-    Unauthorized:
-      $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
-
-    Forbidden:
-      $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
-
-    NotFound:
-      $ref: "../../../api/errors.openapi.yaml#/components/responses/NotFound"
-
-    ValidationError:
-      $ref: "../../../api/errors.openapi.yaml#/components/responses/ValidationError"
-
-    InternalError:
-      $ref: "../../../api/errors.openapi.yaml#/components/responses/InternalError"

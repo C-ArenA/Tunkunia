@@ -45,19 +45,23 @@ tasks:
       - >
         watchexec
         -w ./internal/catalog/specs
+        -w ./internal/api
+        -w ./internal/audit
         redocly join
-        ./api/openapi.yaml
+        ./internal/api/openapi.yaml
+        ./internal/audit/openapi.yaml
         ./internal/catalog/specs/openapi.yaml
-        -o ./api/joined.openapi.yaml
+        -o ./tunkunia.openapi.yaml
         --without-x-tag-groups
+      - cp ./tunkunia.openapi.yaml ./site/public/tunkunia.openapi.yaml
 
   scalar:serve:
     desc: Serves a scalar api reference
     prefix: scalar
     preconditions:
-      - test -f ./api/joined.openapi.yaml
+      - test -f ./tunkunia.openapi.yaml
     cmds:
-      - scalar document serve --watch --port 8491 ./api/joined.openapi.yaml
+      - scalar document serve --watch --port 8491 ./tunkunia.openapi.yaml
 
   server:dev:
     prefix: GO
