@@ -60,9 +60,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TramiteCollection"
         "401":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
+          $ref: "#/components/responses/Unauthorized"
         "500":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/InternalError"
+          $ref: "#/components/responses/InternalError"
     post:
       tags:
         - Catalog
@@ -85,13 +85,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "400":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/BadRequest"
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
+          $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
+          $ref: "#/components/responses/Forbidden"
         "422":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/ValidationError"
+          $ref: "#/components/responses/ValidationError"
 
   /catalog/tramites/{id}:
     parameters:
@@ -117,9 +117,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "403":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
+          $ref: "#/components/responses/Forbidden"
         "404":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/NotFound"
+          $ref: "#/components/responses/NotFound"
 
       deprecated: false
     patch:
@@ -143,15 +143,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/Tramite"
         "400":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/BadRequest"
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
+          $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
+          $ref: "#/components/responses/Forbidden"
         "404":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/NotFound"
+          $ref: "#/components/responses/NotFound"
         "422":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/ValidationError"
+          $ref: "#/components/responses/ValidationError"
 
     delete:
       tags:
@@ -164,11 +164,11 @@ paths:
         "204":
           description: Trámite eliminado, nada que retornar
         "401":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
+          $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
+          $ref: "#/components/responses/Forbidden"
         "404":
-          $ref: "../../../api/errors.openapi.yaml#/components/responses/NotFound"
+          $ref: "#/components/responses/NotFound"
       deprecated: false
 
 components:
@@ -274,3 +274,22 @@ components:
           $ref: "#/components/schemas/TramiteType"
         status:
           $ref: "#/components/schemas/TramiteStatus"
+
+  responses:
+    BadRequest:
+      $ref: "../../../api/errors.openapi.yaml#/components/responses/BadRequest"
+
+    Unauthorized:
+      $ref: "../../../api/errors.openapi.yaml#/components/responses/Unauthorized"
+
+    Forbidden:
+      $ref: "../../../api/errors.openapi.yaml#/components/responses/Forbidden"
+
+    NotFound:
+      $ref: "../../../api/errors.openapi.yaml#/components/responses/NotFound"
+
+    ValidationError:
+      $ref: "../../../api/errors.openapi.yaml#/components/responses/ValidationError"
+
+    InternalError:
+      $ref: "../../../api/errors.openapi.yaml#/components/responses/InternalError"

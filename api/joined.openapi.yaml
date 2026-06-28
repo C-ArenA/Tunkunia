@@ -468,22 +468,16 @@ components:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/ProblemDetails'
-    Unauthorized:
-      description: No se ha provisto con una llave válida.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/ProblemDetails'
-    InternalError:
-      description: No se pudo ejecutar la solicitud
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/ProblemDetails'
     BadRequest:
       description: >-
         Solicitud no aceptada o entendida. Quizá falte algún parámetro
         requerido.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: No se ha provisto con una llave válida.
       content:
         application/problem+json:
           schema:
@@ -512,3 +506,9 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/ErrorDetail'
+    InternalError:
+      description: No se pudo ejecutar la solicitud
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
