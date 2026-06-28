@@ -15,12 +15,24 @@ const (
 	Published TramiteStatus = "published"
 )
 
+type TramiteType string
+
+const (
+	Otro          TramiteType = "Otro"
+	Registro      TramiteType = "Trámite de registro"
+	Certificación TramiteType = "Trámite de certificación"
+	Constancia    TramiteType = "Trámite de constancia"
+	Obligation    TramiteType = "Trámite para cumplir con obligaciones"
+	Servicio      TramiteType = "Trámite para acceder a servicios"
+	Permiso       TramiteType = "Trámite para obtener permisos"
+)
+
 type Tramite struct {
 	ID                   TramiteID
 	Name                 string
 	Description          string
 	ProcedureDescription *string
-	Type                 string
+	Type                 TramiteType
 	Status               TramiteStatus
 	LegalFramework       []string
 	CreatedAt            time.Time

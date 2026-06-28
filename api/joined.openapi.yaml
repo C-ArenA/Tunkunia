@@ -258,6 +258,10 @@ components:
         explícitamente. Pueden estar presentes miembros adicionales (de
         extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de
         valor no coincida con el tipo especificado.
+      required:
+        - title
+        - status
+        - detail
       properties:
         type:
           type: string
@@ -318,6 +322,25 @@ components:
         - published
         - archived
       example: draft
+    TramiteType:
+      type: string
+      enum:
+        - Otro
+        - Trámite de registro
+        - Trámite de certificación
+        - Trámite de constancia
+        - Trámite para cumplir con obligaciones
+        - Trámite para acceder a servicios
+        - Trámite para obtener permisos
+      x-enumNames:
+        - Otro
+        - Registro
+        - Certification
+        - Constancia
+        - Obligation
+        - Servicio
+        - Permiso
+      example: Otro
     TramiteBase:
       type: object
       required:
@@ -355,8 +378,7 @@ components:
                 El usuario debe cargar los requisitos formales, esperar
                 validación de actas y proceder a la firma digital.
             type:
-              type: string
-              example: Trámite de Registro
+              $ref: '#/components/schemas/TramiteType'
             status:
               $ref: '#/components/schemas/TramiteStatus'
             createdAt:
@@ -392,7 +414,7 @@ components:
         procedureDescription:
           type: string
         type:
-          type: string
+          $ref: '#/components/schemas/TramiteType'
     TramiteUpdate:
       type: object
       properties:
@@ -404,7 +426,7 @@ components:
           type: string
           nullable: true
         type:
-          type: string
+          $ref: '#/components/schemas/TramiteType'
         status:
           $ref: '#/components/schemas/TramiteStatus'
     CollectionBase:
@@ -473,6 +495,8 @@ components:
             allOf:
               - $ref: '#/components/schemas/ProblemDetails'
               - type: object
+                required:
+                  - errors
                 properties:
                   errors:
                     description: >

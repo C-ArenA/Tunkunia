@@ -12,7 +12,7 @@ func NewTramiteFromDomain(t domain.Tramite) Tramite {
 		Description:          t.Description,
 		ProcedureDescription: t.ProcedureDescription,
 		Status:               TramiteStatus(t.Status),
-		Type:                 t.Type,
+		Type:                 TramiteType(t.Type),
 		CreatedAt:            t.CreatedAt,
 		UpdatedAt:            t.UpdatedAt,
 	}
@@ -36,7 +36,7 @@ func (tc *TramiteCreate) toDomain() domain.Tramite {
 		t.Description = *tc.Description
 	}
 	if tc.Type != nil {
-		t.Type = *tc.Type
+		t.Type = domain.TramiteType(*tc.Type)
 	}
 	return t
 }
@@ -66,7 +66,7 @@ func (tu *TramiteUpdate) toDomain() (domain.Tramite, domain.TramiteMask) {
 	}
 	if tu.Type != nil {
 		m.Type = true
-		t.Type = *tu.Type
+		t.Type = domain.TramiteType(*tu.Type)
 	}
 
 	return t, m
