@@ -2,8 +2,8 @@ package api
 
 import (
 	"context"
-	"time"
 
+	"github.com/C-ArenA/Tunkunia/internal/api"
 	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
 )
 
@@ -15,25 +15,11 @@ func NewStrictApiHandler(service *domain.Service) *StrictApiHandler {
 	return &StrictApiHandler{service: service}
 }
 
-// GetCatalogHealth implements [StrictServerInterface].
-func (h *StrictApiHandler) GetCatalogHealth(ctx context.Context, request GetCatalogHealthRequestObject) (GetCatalogHealthResponseObject, error) {
-	if h.service == nil {
-		return GetCatalogHealth503JSONResponse{
-			Status:    DOWN,
-			Timestamp: time.Now().UTC(),
-		}, nil
-	}
-	return GetCatalogHealth200JSONResponse{
-		Status:    UP,
-		Timestamp: time.Now().UTC(),
-	}, nil
-}
-
 // ListTramites implements [StrictServerInterface].
 func (h *StrictApiHandler) ListTramites(ctx context.Context, request ListTramitesRequestObject) (ListTramitesResponseObject, error) {
 	tramites, err := h.service.List(ctx)
 	if err != nil {
-		return ListTramites500ApplicationProblemPlusJSONResponse{NewInternalErrorResponse(err.Error())}, nil
+		return ListTramites500ApplicationProblemPlusJSONResponse{api.NewInternalErrorResponse(err.Error())}, nil
 	}
 	response := make([]TramiteBase, len(tramites))
 	for i, t := range tramites {
@@ -49,7 +35,7 @@ func (h *StrictApiHandler) CreateTramite(ctx context.Context, request CreateTram
 	t, err := h.service.Create(ctx, request.Body.toDomain())
 
 	if err != nil {
-		return CreateTramite400ApplicationProblemPlusJSONResponse{NewBadRequestResponse(err.Error())}, nil
+		return CreateTramite400ApplicationProblemPlusJSONResponse{api.NewBadRequestResponse(err.Error())}, nil
 	}
 
 	return CreateTramite201JSONResponse(NewTramiteFromDomain(*t)), nil
@@ -60,7 +46,7 @@ func (h *StrictApiHandler) GetTramite(ctx context.Context, request GetTramiteReq
 	t, err := h.service.Get(ctx, domain.TramiteID(request.Id))
 
 	if err != nil {
-		return GetTramite404ApplicationProblemPlusJSONResponse{NewNotFoundResponse(err.Error())}, nil
+		return GetTramite404ApplicationProblemPlusJSONResponse{api.NewNotFoundResponse(err.Error())}, nil
 	}
 
 	return GetTramite200JSONResponse(NewTramiteFromDomain(*t)), nil
@@ -68,10 +54,10 @@ func (h *StrictApiHandler) GetTramite(ctx context.Context, request GetTramiteReq
 
 // UpdateTramite implements [StrictServerInterface].
 func (h *StrictApiHandler) UpdateTramite(ctx context.Context, request UpdateTramiteRequestObject) (UpdateTramiteResponseObject, error) {
-	validationErrors := []ErrorDetail{}
+	validationErrors := []api.ErrorDetail{}
 	if request.Body.Status != nil {
 		if !request.Body.Status.Valid() {
-			validationErrors = append(validationErrors, ErrorDetail{
+			validationErrors = append(validationErrors, api.ErrorDetail{
 				Detail:  "Estado de trámite inválido",
 				Pointer: "#/status",
 			})
@@ -79,13 +65,13 @@ func (h *StrictApiHandler) UpdateTramite(ctx context.Context, request UpdateTram
 	}
 
 	if len(validationErrors) > 0 {
-		return UpdateTramite422ApplicationProblemPlusJSONResponse{NewValidationErrorResponse("", validationErrors)}, nil
+		return UpdateTramite422ApplicationProblemPlusJSONResponse{api.NewValidationErrorResponse("", validationErrors)}, nil
 	}
 
 	t, m := request.Body.toDomain()
 	updated, err := h.service.Update(ctx, domain.TramiteID(request.Id), t, m)
 	if err != nil {
-		return UpdateTramite400ApplicationProblemPlusJSONResponse{NewBadRequestResponse(err.Error())}, nil
+		return UpdateTramite400ApplicationProblemPlusJSONResponse{api.NewBadRequestResponse(err.Error())}, nil
 	}
 
 	return UpdateTramite200JSONResponse(NewTramiteFromDomain(*updated)), nil
@@ -95,7 +81,7 @@ func (h *StrictApiHandler) UpdateTramite(ctx context.Context, request UpdateTram
 func (h *StrictApiHandler) DeleteTramite(ctx context.Context, request DeleteTramiteRequestObject) (DeleteTramiteResponseObject, error) {
 	err := h.service.Delete(ctx, domain.TramiteID(request.Id))
 	if err != nil {
-		return DeleteTramite404ApplicationProblemPlusJSONResponse{NewNotFoundResponse(err.Error())}, nil
+		return DeleteTramite404ApplicationProblemPlusJSONResponse{api.NewNotFoundResponse(err.Error())}, nil
 	}
 
 	return DeleteTramite204Response{}, nil

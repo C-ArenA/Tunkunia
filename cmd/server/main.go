@@ -6,6 +6,7 @@ import (
 
 	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
+	"github.com/C-ArenA/Tunkunia/internal/api"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -23,10 +24,10 @@ func main() {
 	// HTTP
 	r := chi.NewRouter()
 	r.Use(CorsMiddleware(), middleware.Logger)
-	registerApiV1Routes(r, NewApiV1Server())
 
 	// Modules Wiring
 	catalog.ModuleInit(db, r)
+	api.ModuleInit(r)
 
 	listenAndServe(r, cfg.Port)
 }
