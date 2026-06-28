@@ -1,6 +1,6 @@
 package catalog
 
-//go:generate go tool task gen:api
+//go:generate go tool oapi-codegen -config ./oapi.cfg.yaml ./specs/openapi.yaml
 
 import (
 	"database/sql"
