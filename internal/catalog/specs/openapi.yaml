@@ -224,6 +224,7 @@ components:
     Tramite:
       allOf:
         - $ref: "#/components/schemas/TramiteBase"
+        - $ref: ../../audit/openapi.yaml#/components/schemas/AuditMetadata
         - type: object
           required: [procedureDescription, type, status, createdAt, updatedAt]
           properties:
@@ -234,16 +235,6 @@ components:
               $ref: "#/components/schemas/TramiteType"
             status:
               $ref: "#/components/schemas/TramiteStatus"
-            createdAt:
-              type: string
-              format: date-time
-              example: "2026-03-15T14:30:00Z"
-              x-order: 100
-            updatedAt:
-              type: string
-              format: date-time
-              example: "2026-04-02T11:15:22Z"
-              x-order: 101
 
     TramiteCollection:
       allOf:

@@ -2,7 +2,8 @@ package domain
 
 import (
 	"errors"
-	"time"
+
+	"github.com/C-ArenA/Tunkunia/internal/audit"
 )
 
 type TramiteID int64
@@ -35,8 +36,7 @@ type Tramite struct {
 	Type                 TramiteType
 	Status               TramiteStatus
 	LegalFramework       []string
-	CreatedAt            time.Time
-	UpdatedAt            time.Time
+	audit.Metadata
 }
 
 type TramiteMask struct {
@@ -47,8 +47,7 @@ type TramiteMask struct {
 	Type                 bool
 	Status               bool
 	LegalFramework       bool
-	CreatedAt            bool
-	UpdatedAt            bool
+	audit.MetadataMask
 }
 
 var ErrNotFound = errors.New("Elemento no encontrado")

@@ -5,6 +5,7 @@ import (
 
 	"github.com/C-ArenA/Tunkunia/database/jet/model"
 	"github.com/C-ArenA/Tunkunia/database/jet/table"
+	"github.com/C-ArenA/Tunkunia/internal/audit"
 	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
 	"github.com/go-jet/jet/v2/sqlite"
 )
@@ -44,8 +45,10 @@ func (t Tramite) toDomain() (domain.Tramite, error) {
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 domain.TramiteType(t.Type),
 		Status:               domain.TramiteStatus(t.Status),
-		CreatedAt:            createdAt,
-		UpdatedAt:            updatedAt,
+		Metadata: audit.Metadata{
+			CreatedAt: createdAt,
+			UpdatedAt: updatedAt,
+		},
 	}, nil
 }
 
@@ -86,8 +89,10 @@ func (t TramiteJet) toDomain() (domain.Tramite, error) {
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 domain.TramiteType(t.Type),
 		Status:               domain.TramiteStatus(t.Status),
-		CreatedAt:            createdAt,
-		UpdatedAt:            updatedAt,
+		Metadata: audit.Metadata{
+			CreatedAt: createdAt,
+			UpdatedAt: updatedAt,
+		},
 	}, nil
 }
 

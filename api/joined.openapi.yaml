@@ -365,6 +365,7 @@ components:
     Tramite:
       allOf:
         - $ref: '#/components/schemas/TramiteBase'
+        - $ref: '#/components/schemas/AuditMetadata'
         - type: object
           required:
             - procedureDescription
@@ -382,16 +383,6 @@ components:
               $ref: '#/components/schemas/TramiteType'
             status:
               $ref: '#/components/schemas/TramiteStatus'
-            createdAt:
-              type: string
-              format: date-time
-              example: '2026-03-15T14:30:00Z'
-              x-order: 100
-            updatedAt:
-              type: string
-              format: date-time
-              example: '2026-04-02T11:15:22Z'
-              x-order: 101
     TramiteCollection:
       allOf:
         - $ref: '#/components/schemas/CollectionBase'
@@ -443,6 +434,22 @@ components:
           type: string
           nullable: true
           example: https://api.example.com/users?page=1
+    AuditMetadata:
+      type: object
+      required:
+        - createdAt
+        - updatedAt
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-03-15T14:30:00Z'
+          x-order: 100
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-04-02T11:15:22Z'
+          x-order: 101
     ErrorDetail:
       type: object
       description: El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
