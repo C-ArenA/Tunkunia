@@ -14,7 +14,6 @@ import (
 	"time"
 
 	"github.com/getkin/kin-openapi/openapi3"
-	"github.com/oapi-codegen/nullable"
 )
 
 const (
@@ -98,8 +97,8 @@ func (e TramiteType) Valid() bool {
 
 // CollectionBase defines model for CollectionBase.
 type CollectionBase struct {
-	NextPageUrl     nullable.Nullable[string] `json:"next_page_url"`
-	PreviousPageUrl nullable.Nullable[string] `json:"previous_page_url"`
+	NextPageUrl     *string `json:"next_page_url"`
+	PreviousPageUrl *string `json:"previous_page_url"`
 }
 
 // ErrorDetail El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
@@ -140,7 +139,7 @@ type Tramite struct {
 	Id                   int64         `json:"id"`
 	Name                 string        `json:"name"`
 	Description          string        `json:"description"`
-	ProcedureDescription *string       `json:"procedureDescription,omitempty"`
+	ProcedureDescription string        `json:"procedureDescription"`
 	Status               TramiteStatus `json:"status"`
 	Type                 TramiteType   `json:"type"`
 	CreatedAt            time.Time     `json:"createdAt"`
@@ -156,9 +155,9 @@ type TramiteBase struct {
 
 // TramiteCollection defines model for TramiteCollection.
 type TramiteCollection struct {
-	Data            []TramiteBase             `json:"data"`
-	NextPageUrl     nullable.Nullable[string] `json:"next_page_url"`
-	PreviousPageUrl nullable.Nullable[string] `json:"previous_page_url"`
+	Data            []TramiteBase `json:"data"`
+	NextPageUrl     *string       `json:"next_page_url"`
+	PreviousPageUrl *string       `json:"previous_page_url"`
 }
 
 // TramiteCreate defines model for TramiteCreate.
@@ -177,11 +176,11 @@ type TramiteType string
 
 // TramiteUpdate defines model for TramiteUpdate.
 type TramiteUpdate struct {
-	Description          *string                   `json:"description,omitempty"`
-	Name                 *string                   `json:"name,omitempty"`
-	ProcedureDescription nullable.Nullable[string] `json:"procedureDescription,omitempty"`
-	Status               *TramiteStatus            `json:"status,omitempty"`
-	Type                 *TramiteType              `json:"type,omitempty"`
+	Description          *string        `json:"description,omitempty"`
+	Name                 *string        `json:"name,omitempty"`
+	ProcedureDescription *string        `json:"procedureDescription,omitempty"`
+	Status               *TramiteStatus `json:"status,omitempty"`
+	Type                 *TramiteType   `json:"type,omitempty"`
 }
 
 // BadRequest Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
@@ -274,31 +273,31 @@ var swaggerSpec = []string{
 	"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",
-	"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",
-	"QRiqwuqnY+qt5/P52/n/BwAA//8=",
+	"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",
+	"oSqsfkGm3no+n7+d/38AAAD//w==",
 }
 
 // decodeSpec returns the embedded OpenAPI spec as raw JSON bytes,

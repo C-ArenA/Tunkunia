@@ -4,15 +4,11 @@
 
 package store
 
-import (
-	"database/sql"
-)
-
 type Tramite struct {
 	ID                   int64
 	Name                 string
 	Description          string
-	ProcedureDescription sql.NullString
+	ProcedureDescription string
 	Type                 string
 	Status               string
 	CreatedAt            string

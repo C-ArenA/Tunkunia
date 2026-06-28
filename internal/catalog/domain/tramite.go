@@ -31,7 +31,7 @@ type Tramite struct {
 	ID                   TramiteID
 	Name                 string
 	Description          string
-	ProcedureDescription *string
+	ProcedureDescription string
 	Type                 TramiteType
 	Status               TramiteStatus
 	LegalFramework       []string

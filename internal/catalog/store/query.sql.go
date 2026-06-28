@@ -7,7 +7,6 @@ package store
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createTramite = `-- name: CreateTramite :one
@@ -19,7 +18,7 @@ RETURNING id, name, description, procedure_description, type, status, created_at
 type CreateTramiteParams struct {
 	Name                 string
 	Description          string
-	ProcedureDescription sql.NullString
+	ProcedureDescription string
 	Type                 string
 }
 

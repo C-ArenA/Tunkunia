@@ -76,7 +76,7 @@ func newTramitesTableImpl(schemaName, tableName, alias string) tramitesTable {
 		UpdatedAtColumn            = sqlite.StringColumn("updated_at")
 		allColumns                 = sqlite.ColumnList{IDColumn, NameColumn, DescriptionColumn, ProcedureDescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn}
 		mutableColumns             = sqlite.ColumnList{NameColumn, DescriptionColumn, ProcedureDescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn}
-		defaultColumns             = sqlite.ColumnList{DescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn}
+		defaultColumns             = sqlite.ColumnList{DescriptionColumn, ProcedureDescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn}
 	)
 
 	return tramitesTable{

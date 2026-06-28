@@ -29,11 +29,13 @@ func NewTramiteBaseFromDomain(t domain.Tramite) TramiteBase {
 
 func (tc *TramiteCreate) toDomain() domain.Tramite {
 	t := domain.Tramite{
-		Name:                 tc.Name,
-		ProcedureDescription: tc.ProcedureDescription,
+		Name: tc.Name,
 	}
 	if tc.Description != nil {
 		t.Description = *tc.Description
+	}
+	if tc.ProcedureDescription != nil {
+		t.ProcedureDescription = *tc.ProcedureDescription
 	}
 	if tc.Type != nil {
 		t.Type = domain.TramiteType(*tc.Type)
@@ -55,10 +57,7 @@ func (tu *TramiteUpdate) toDomain() (domain.Tramite, domain.TramiteMask) {
 	}
 	if tu.ProcedureDescription != nil {
 		m.ProcedureDescription = true
-		pdValue, err := tu.ProcedureDescription.Get()
-		if err == nil {
-			t.ProcedureDescription = &pdValue
-		}
+		t.ProcedureDescription = *tu.ProcedureDescription
 	}
 	if tu.Status != nil {
 		m.Status = true

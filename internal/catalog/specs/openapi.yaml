@@ -225,7 +225,7 @@ components:
       allOf:
         - $ref: "#/components/schemas/TramiteBase"
         - type: object
-          required: [type, status, createdAt, updatedAt]
+          required: [procedureDescription, type, status, createdAt, updatedAt]
           properties:
             procedureDescription:
               type: string
@@ -279,7 +279,6 @@ components:
           type: string
         procedureDescription:
           type: string
-          nullable: true
         type:
           $ref: "#/components/schemas/TramiteType"
         status:

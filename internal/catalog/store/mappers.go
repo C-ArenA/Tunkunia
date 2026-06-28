@@ -1,7 +1,6 @@
 package store
 
 import (
-	"database/sql"
 	"time"
 
 	"github.com/C-ArenA/Tunkunia/database/jet/model"
@@ -16,18 +15,11 @@ import (
 
 // fromDomain maps the core domain entity to the sqlc generated database model
 func NewTramiteFromDomain(t domain.Tramite) Tramite {
-	var procedureDesc sql.NullString
-	if t.ProcedureDescription != nil {
-		procedureDesc = sql.NullString{
-			String: *t.ProcedureDescription,
-			Valid:  true,
-		}
-	}
 	return Tramite{
 		ID:                   int64(t.ID),
 		Name:                 t.Name,
 		Description:          t.Description,
-		ProcedureDescription: procedureDesc,
+		ProcedureDescription: t.ProcedureDescription,
 		Type:                 string(t.Type),
 		Status:               string(t.Status),
 		CreatedAt:            t.CreatedAt.Format(time.DateTime),
@@ -37,11 +29,6 @@ func NewTramiteFromDomain(t domain.Tramite) Tramite {
 
 // toDomain maps the sqlc generated database model to the core domain entity.
 func (t Tramite) toDomain() (domain.Tramite, error) {
-	var procedureDesc *string
-	if t.ProcedureDescription.Valid {
-		procedureDesc = &t.ProcedureDescription.String
-	}
-
 	createdAt, err := time.Parse(time.DateTime, t.CreatedAt)
 	if err != nil {
 		return domain.Tramite{}, err
@@ -54,7 +41,7 @@ func (t Tramite) toDomain() (domain.Tramite, error) {
 		ID:                   domain.TramiteID(t.ID),
 		Name:                 t.Name,
 		Description:          t.Description,
-		ProcedureDescription: procedureDesc,
+		ProcedureDescription: t.ProcedureDescription,
 		Type:                 domain.TramiteType(t.Type),
 		Status:               domain.TramiteStatus(t.Status),
 		CreatedAt:            createdAt,

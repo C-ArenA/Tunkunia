@@ -11,7 +11,7 @@ type Tramites struct {
 	ID                   int64 `sql:"primary_key"`
 	Name                 string
 	Description          string
-	ProcedureDescription *string
+	ProcedureDescription string
 	Type                 string
 	Status               string
 	CreatedAt            string

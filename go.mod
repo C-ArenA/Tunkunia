@@ -11,7 +11,6 @@ require (
 	github.com/getkin/kin-openapi v0.135.0
 	github.com/go-chi/chi/v5 v5.3.0
 	github.com/go-jet/jet/v2 v2.15.0
-	github.com/oapi-codegen/nullable v1.1.0
 	github.com/oapi-codegen/runtime v1.4.1
 	github.com/pressly/goose/v3 v3.27.1
 	github.com/rs/cors v1.11.1

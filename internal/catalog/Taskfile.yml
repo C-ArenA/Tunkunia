@@ -9,7 +9,7 @@ tasks:
       - redocly bundle ./specs/openapi.yaml -o ./bundle.openapi.yaml
     cmds:
       # - go tool oapi-codegen -config ./oapi.cfg.yaml ./bundle.openapi.yaml
-      - go tool oapi-codegen -config ./specs/oapi.cfg.yaml -generate "chi-server,strict-server" -o ./api/oapi.gen.go ./bundle.openapi.yaml
-      - go tool oapi-codegen -config ./specs/oapi.cfg.yaml -generate "models,embedded-spec" -o ./api/models.gen.go ./bundle.openapi.yaml
+      - go tool oapi-codegen -package api -generate "chi-server,strict-server" -o ./api/oapi.gen.go ./bundle.openapi.yaml
+      - go tool oapi-codegen -package api -generate "models,embedded-spec" -o ./api/models.gen.go ./bundle.openapi.yaml
       # - go tool oapi-codegen -config ./oapi.models.cfg.yaml ./bundle.openapi.yaml
       - rm ./bundle.openapi.yaml
