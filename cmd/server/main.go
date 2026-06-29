@@ -47,5 +47,9 @@ func initDB(ctx context.Context, cfg *config.Config) *sql.DB {
 }
 
 func loadConfig() *config.Config {
-	return config.LoadDefaultConfig()
+	cfg, err := config.Load()
+	if err != nil {
+		panic(err)
+	}
+	return cfg
 }
