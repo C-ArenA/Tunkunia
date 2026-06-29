@@ -3,8 +3,9 @@ version: "2"
 sql:
   - engine: "sqlite"
     schema: "database/migrations"
-    queries: "internal/catalog/specs/query.sql"
+    queries: "internal/catalog/query.sql"
     gen:
       go:
         package: "store"
         out: "internal/catalog/store"
+        omit_unused_structs: true

@@ -1,6 +1,6 @@
 package catalog
 
-//go:generate go tool oapi-codegen -config ./oapi.cfg.yaml ./specs/openapi.yaml
+//go:generate go tool oapi-codegen -config ./oapi.cfg.yaml ./openapi.yaml
 
 import (
 	"database/sql"
@@ -15,7 +15,7 @@ func ModuleInit(db *sql.DB, m *chi.Mux) *domain.Service {
 	repo := store.NewRepo(db)
 	service := domain.NewService(repo)
 	strictApiHandler := api.NewStrictApiHandler(service)
-	router := api.NewRouter(strictApiHandler)
-	router.RegisterRoutes(m)
+	oapiServer := api.NewStrictHandler(strictApiHandler, nil)
+	api.HandlerFromMuxWithBaseURL(oapiServer, m, "/api/v1")
 	return service
 }

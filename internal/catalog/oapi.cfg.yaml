@@ -8,5 +8,5 @@ generate:
 output-options:
   skip-prune: true
 import-mapping:
-  ../../api/openapi.yaml: github.com/C-ArenA/Tunkunia/internal/api
-  ../../audit/openapi.yaml: github.com/C-ArenA/Tunkunia/internal/audit
+  ../api/openapi.yaml: github.com/C-ArenA/Tunkunia/internal/api
+  ../audit/openapi.yaml: github.com/C-ArenA/Tunkunia/internal/audit

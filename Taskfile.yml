@@ -18,6 +18,7 @@ includes:
 tasks:
   gen:db:
     cmds:
+      - go tool sqlc generate
       - go tool goose up
       - go tool jet -source=sqlite -dsn=./database/tunkunia.db -path=./database/jet
 
