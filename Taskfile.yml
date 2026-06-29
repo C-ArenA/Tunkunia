@@ -16,28 +16,10 @@ includes:
     dir: ./docs
 
 tasks:
-  gen:oapi:main:
-    dir: ./cmd/server/oapi
-    preconditions:
-      - redocly bundle ../../../api/openapi.yaml -o ./bundle.openapi.yaml
-    cmds:
-      - go tool oapi-codegen -config ./oapi.cfg.yaml ./bundle.openapi.yaml
-      - rm ./bundle.openapi.yaml
-
-  gen:oapi:
-    cmds:
-      - task: gen:oapi:main
-
   gen:db:
     cmds:
       - go tool goose up
       - go tool jet -source=sqlite -dsn=./database/tunkunia.db -path=./database/jet
-
-  gen:all:
-    cmds:
-      - task: gen:oapi:main
-      - task: gen:oapi:catalog
-      - task: gen:db
 
   oapi:join:
     desc: Joins multiple openapi specs into one
