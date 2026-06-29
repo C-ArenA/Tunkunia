@@ -7,5 +7,6 @@ func LoadDefaultConfig() *Config {
 		Env:           "dev",
 		GooseDriver:   "sqlite3",
 		GooseDbString: "./database/tunkunia.db",
+		JWTKey:        "super-secret-jwt-key-change-in-production",
 	}
 }

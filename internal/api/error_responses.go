@@ -32,3 +32,19 @@ func NewValidationErrorResponse(detail string, errDetails []ErrorDetail) Validat
 		Errors: errDetails,
 	}
 }
+
+func NewUnauthorizedResponse(detail string) UnauthorizedApplicationProblemPlusJSONResponse {
+	return UnauthorizedApplicationProblemPlusJSONResponse{
+		Title:  "No autorizado",
+		Status: int32(401),
+		Detail: detail,
+	}
+}
+
+func NewForbiddenResponse(detail string) ForbiddenApplicationProblemPlusJSONResponse {
+	return ForbiddenApplicationProblemPlusJSONResponse{
+		Title:  "Prohibido",
+		Status: int32(403),
+		Detail: detail,
+	}
+}

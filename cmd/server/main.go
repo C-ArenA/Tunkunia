@@ -7,7 +7,9 @@ import (
 	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/internal/api"
+	"github.com/C-ArenA/Tunkunia/internal/auth"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
+	"github.com/C-ArenA/Tunkunia/internal/rbac"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "modernc.org/sqlite"
@@ -26,8 +28,13 @@ func main() {
 	r.Use(CorsMiddleware(), middleware.Logger)
 
 	// Modules Wiring
+	authSvc := auth.ModuleInit(db, r, []byte(cfg.JWTKey))
+	rbac.ModuleInit(db, r)
 	catalog.ModuleInit(db, r)
 	api.ModuleInit(r)
+
+	// Apply auth middleware to all routes
+	r.Use(auth.JWTMiddleware(authSvc))
 
 	listenAndServe(r, cfg.Port)
 }

@@ -1,0 +1,222 @@
+openapi: "3.0.3"
+info:
+  title: AuthModuleAPI
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: "1.0"
+  description: |
+    Manages user authentication, registration, and profile management.
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Development server
+  - url: https://{host}/api/v1
+    variables:
+      host:
+        default: tunkunia.com
+        description: Host o dominio de la API
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      operationId: registerUser
+      summary: Registrar Usuario
+      description: Crea una nueva cuenta de usuario
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: Usuario registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          $ref: "../../api/openapi.yaml#/components/responses/BadRequest"
+        "409":
+          description: El email ya está registrado
+          content:
+            application/problem+json:
+              schema:
+                $ref: "../../api/openapi.yaml#/components/schemas/ProblemDetails"
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      operationId: loginUser
+      summary: Iniciar Sesión
+      description: Autentica un usuario y devuelve un token JWT
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Inicio de sesión exitoso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          $ref: "../../api/openapi.yaml#/components/responses/Unauthorized"
+  /auth/me:
+    get:
+      tags:
+        - Auth
+      operationId: getCurrentUser
+      summary: Obtener Usuario Actual
+      description: Devuelve el perfil del usuario autenticado
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Perfil del usuario actual
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          $ref: "../../api/openapi.yaml#/components/responses/Unauthorized"
+  /auth/users:
+    get:
+      tags:
+        - Auth
+      operationId: listUsers
+      summary: Listar Usuarios
+      description: Obtiene una lista de todos los usuarios (solo administradores)
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "401":
+          $ref: "../../api/openapi.yaml#/components/responses/Unauthorized"
+        "403":
+          $ref: "../../api/openapi.yaml#/components/responses/Forbidden"
+  /auth/users/{id}:
+    get:
+      tags:
+        - Auth
+      operationId: getUser
+      summary: Obtener Usuario
+      description: Devuelve un usuario por su ID (solo administradores)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          $ref: "../../api/openapi.yaml#/components/responses/Unauthorized"
+        "403":
+          $ref: "../../api/openapi.yaml#/components/responses/Forbidden"
+        "404":
+          $ref: "../../api/openapi.yaml#/components/responses/NotFound"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Enter your application JWT token
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - email
+        - password
+        - name
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        password:
+          type: string
+          format: password
+          minLength: 6
+          example: securepassword
+        name:
+          type: string
+          example: Juan Pérez
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        password:
+          type: string
+          format: password
+          example: securepassword
+    AuthResponse:
+      type: object
+      required:
+        - token
+        - user
+      properties:
+        token:
+          type: string
+          description: JWT token de acceso
+          example: eyJhbGciOiJIUzI1NiIs...
+        user:
+          $ref: "#/components/schemas/User"
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - name
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-order: 1
+        email:
+          type: string
+          format: email
+          example: user@example.com
+          x-order: 2
+        name:
+          type: string
+          example: Juan Pérez
+          x-order: 3
+        createdAt:
+          type: string
+          format: date-time
+          x-order: 4
+        updatedAt:
+          type: string
+          format: date-time
+          x-order: 5
