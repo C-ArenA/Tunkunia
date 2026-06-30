@@ -27,13 +27,13 @@ tasks:
     cmds:
       - >
         watchexec
-        -w ./internal/catalog/specs
+        -w ./internal/catalog
         -w ./internal/api
         -w ./internal/audit
         redocly join
         ./internal/api/openapi.yaml
         ./internal/audit/openapi.yaml
-        ./internal/catalog/specs/openapi.yaml
+        ./internal/catalog/openapi.yaml
         -o ./tunkunia.openapi.yaml
         --without-x-tag-groups
       - cp ./tunkunia.openapi.yaml ./site/public/tunkunia.openapi.yaml

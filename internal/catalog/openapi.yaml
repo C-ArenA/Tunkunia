@@ -2,6 +2,14 @@ openapi: "3.0.3"
 info:
   title: CatalogModuleAPI
   version: "1.0"
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Development server
+  - url: https://{host}/api/v1
+    variables:
+      host:
+        default: tunkunia.com
+        description: Host o dominio de la API
 paths:
   /catalog/tramites:
     get:

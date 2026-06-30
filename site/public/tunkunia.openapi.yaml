@@ -17,14 +17,6 @@ info:
       - [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457)
       - [Documentación](https://docs.stripe.com/api-v2-overview) y [Referencia](https://docs.stripe.com/api/v2/core/accounts) de la API de Stripe v2
       - Guías de diseño de APIs de [Google](https://docs.cloud.google.com/apis/design) y de [Microsoft](https://github.com/microsoft/api-guidelines) (Azure y Legacy)
-servers:
-  - url: http://localhost:8080/api/v1
-    description: Development server
-  - url: https://{host}/api/v1
-    variables:
-      host:
-        default: tunkunia.com
-        description: Host o dominio de la API
 tags:
   - name: health
     x-displayName: health
@@ -32,6 +24,14 @@ tags:
     x-displayName: Catalog
 paths:
   /health:
+    servers:
+      - url: http://localhost:8080/api/v1
+        description: Development server
+      - url: https://{host}/api/v1
+        variables:
+          host:
+            default: tunkunia.com
+            description: Host o dominio de la API
     get:
       operationId: GetHealth
       tags:
@@ -54,6 +54,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Health'
   /catalog/tramites:
+    servers: []
     get:
       tags:
         - Catalog
@@ -131,6 +132,7 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
   /catalog/tramites/{id}:
+    servers: []
     parameters:
       - name: id
         in: path
