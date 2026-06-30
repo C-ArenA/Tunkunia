@@ -3,7 +3,7 @@ package domain
 import "context"
 
 type Repo interface {
-	List(ctx context.Context) ([]Tramite, error)
+	List(ctx context.Context, filter TramiteFilter, sort TramiteSort) ([]Tramite, error)
 	Create(ctx context.Context, t Tramite) (*Tramite, error)
 	Get(ctx context.Context, id TramiteID) (*Tramite, error)
 	Update(ctx context.Context, id TramiteID, t Tramite, m TramiteMask) (*Tramite, error)
@@ -21,7 +21,7 @@ func NewService(repo Repo) *Service {
 }
 
 func (s *Service) List(ctx context.Context) ([]Tramite, error) {
-	return s.repo.List(ctx)
+	return s.repo.List(ctx, TramiteFilter{}, TramiteSort{})
 }
 
 func (s *Service) Create(ctx context.Context, t Tramite) (*Tramite, error) {
