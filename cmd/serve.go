@@ -1,8 +1,13 @@
-package main
+/*
+Copyright © 2026 NAME HERE <EMAIL ADDRESS>
+*/
+package cmd
 
 import (
 	"context"
 	"database/sql"
+	"log"
+	"net/http"
 
 	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
@@ -10,26 +15,38 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/spf13/cobra"
 	_ "modernc.org/sqlite"
 )
 
-func main() {
+func NewServeCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "serve",
+		Short: "Inicia el servidor de Tunkunia",
+		Run: func(cmd *cobra.Command, args []string) {
+			ctx := context.Background()
+			_, r, cfg := initServer(ctx)
+			log.Println("🌄 Starting TUNKUNIA Server on port:", cfg.Port)
+			log.Fatal(http.ListenAndServe(cfg.Port, r))
+		},
+	}
+}
+
+func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	// Configs
 	cfg := loadConfig()
-	ctx := context.Background()
 
 	// Database
 	db := initDB(ctx, cfg)
 
 	// HTTP
 	r := chi.NewRouter()
-	r.Use(CorsMiddleware(), middleware.Logger)
+	r.Use(api.CorsMiddleware(), middleware.Logger)
 
 	// Modules Wiring
 	catalog.ModuleInit(db, r)
 	api.ModuleInit(r)
-
-	listenAndServe(r, cfg.Port)
+	return db, r, cfg
 }
 
 func initDB(ctx context.Context, cfg *config.Config) *sql.DB {

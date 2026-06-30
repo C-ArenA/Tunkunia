@@ -50,7 +50,7 @@ tasks:
     prefix: GO
     desc: Run server with hot reload (air)
     cmds:
-      - go tool air
+      - go tool air serve
 
   server:build:
     desc: Build server binary
