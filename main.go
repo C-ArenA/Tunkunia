@@ -1,8 +1,7 @@
-/*
-Copyright © 2026 NAME HERE <EMAIL ADDRESS>
-*/
 package main
 
+//go:generate go tool sqlc generate
+//go:generate go tool jet -source=sqlite -dsn=./database/tunkunia.db -path=./database/jet
 import (
 	"os"
 
