@@ -25,9 +25,8 @@ func NewRepo(db *sql.DB) *CatalogRepo {
 }
 
 // List implements [Repo].
-func (r *CatalogRepo) List(ctx context.Context) ([]domain.Tramite, error) {
-	q := SELECT(table.Tramites.AllColumns).FROM(table.Tramites)
-
+func (r *CatalogRepo) List(ctx context.Context, f domain.TramiteFilter, s domain.TramiteSort) ([]domain.Tramite, error) {
+	q := ListTramitesQuery(f, s)
 	var dest []TramiteJet
 
 	err := q.QueryContext(ctx, r.db, &dest)

@@ -1,12 +1,29 @@
 package domain
 
 import (
-	"errors"
-
 	"github.com/C-ArenA/Tunkunia/internal/audit"
 )
 
 type TramiteID int64
+
+type TramiteField string
+
+const (
+	TramiteFieldName      TramiteField = "name"
+	TramiteFieldCreatedAt TramiteField = "created_at"
+	TramiteFieldUpdatedAt TramiteField = "updated_at"
+	TramiteFieldStatus    TramiteField = "status"
+	TramiteFieldType      TramiteField = "type"
+)
+
+func (f TramiteField) IsValid() bool {
+	switch f {
+	case TramiteFieldName, TramiteFieldCreatedAt, TramiteFieldUpdatedAt, TramiteFieldStatus, TramiteFieldType:
+		return true
+	default:
+		return false
+	}
+}
 
 type TramiteStatus string
 
@@ -50,4 +67,18 @@ type TramiteMask struct {
 	audit.MetadataMask
 }
 
-var ErrNotFound = errors.New("Elemento no encontrado")
+type TramiteFilter struct {
+	Status *TramiteStatus
+	Type   *TramiteType
+}
+
+type TramiteSort struct {
+	Field  TramiteField
+	IsDesc bool
+}
+
+type TramitePaginator struct {
+	Limit         int
+	StartingAfter *TramiteID
+	EndingBefore  *TramiteID
+}

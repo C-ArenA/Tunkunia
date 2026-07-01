@@ -18,6 +18,7 @@ includes:
 tasks:
   gen:db:
     cmds:
+      - go tool sqlc generate
       - go tool goose up
       - go tool jet -source=sqlite -dsn=./database/tunkunia.db -path=./database/jet
 
@@ -26,13 +27,13 @@ tasks:
     cmds:
       - >
         watchexec
-        -w ./internal/catalog/specs
+        -w ./internal/catalog
         -w ./internal/api
         -w ./internal/audit
         redocly join
         ./internal/api/openapi.yaml
         ./internal/audit/openapi.yaml
-        ./internal/catalog/specs/openapi.yaml
+        ./internal/catalog/openapi.yaml
         -o ./tunkunia.openapi.yaml
         --without-x-tag-groups
       - cp ./tunkunia.openapi.yaml ./site/public/tunkunia.openapi.yaml
@@ -49,7 +50,7 @@ tasks:
     prefix: GO
     desc: Run server with hot reload (air)
     cmds:
-      - go tool air
+      - go tool air serve
 
   server:build:
     desc: Build server binary
