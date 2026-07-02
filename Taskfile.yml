@@ -2,6 +2,9 @@
 
 version: "3"
 
+dotenv:
+  - ".env"
+
 output: prefixed
 
 includes:
@@ -16,11 +19,11 @@ includes:
     dir: ./docs
 
 tasks:
-  gen:db:
+  migrate:fresh:
     cmds:
-      - go tool sqlc generate
+      - echo "Using $GOOSE_DBSTRING"
+      - rm $GOOSE_DBSTRING
       - go tool goose up
-      - go tool jet -source=sqlite -dsn=./database/tunkunia.db -path=./database/jet
 
   oapi:join:
     desc: Joins multiple openapi specs into one
