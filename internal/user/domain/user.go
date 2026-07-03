@@ -1,13 +1,45 @@
 package domain
 
-import "time"
+import (
+	"net/mail"
+	"strings"
+	"time"
+)
 
+type RoleName string
+
+const (
+	ADMIN   RoleName = "admin"
+	EDITOR  RoleName = "editor"
+	PLAYER  RoleName = "player"
+	SERVANT RoleName = "servant"
+	CITIZEN RoleName = "citizen"
+)
+
+type Email string
+
+func NewEmail(e string) (Email, error) {
+	addr, err := mail.ParseAddress(e)
+	if err != nil {
+		return "", ErrInvalidEmail
+	}
+	addrParts := strings.Split(addr.Address, "@") // will always have two components after parsed
+	addrDomain := addrParts[1]
+	domainParts := strings.Split(addrDomain, ".")
+	if len(domainParts) < 2 {
+		return "", ErrInvalidEmail
+	}
+
+	return Email(addr.Address), nil
+}
+
+type UserId int
 type User struct {
-	ID            int
+	ID            UserId
 	Name          string
 	Sub           string
-	Email         string
+	Email         Email
 	EmailVerified bool
-	Roles         []*Role
+	Roles         []RoleName
 	CreatedAt     time.Time
 }
