@@ -9,3 +9,11 @@ sql:
         package: "store"
         out: "internal/catalog/store"
         omit_unused_structs: true
+  - engine: "sqlite"
+    schema: "database/migrations"
+    queries: "internal/user/query.sql"
+    gen:
+      go:
+        package: "store"
+        out: "internal/user/store"
+        omit_unused_structs: true
