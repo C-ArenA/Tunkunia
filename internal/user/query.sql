@@ -7,26 +7,16 @@ SET sub = excluded.sub,
     email_verified = excluded.email_verified
 RETURNING *;
 -- name: AssignRoleToUser :exec
-INSERT INTO user_roles (user_id, role_id)
-SELECT ?,
-    id
-FROM roles
-WHERE name = ? ON CONFLICT DO NOTHING;
+INSERT INTO user_roles (user_id, role)
+VALUES(?, ?) ON CONFLICT DO NOTHING;
 -- name: GetUserRoles :many
-SELECT id,
-    name
-FROM roles
-    LEFT JOIN user_roles ON roles.id = user_roles.role_id
-WHERE user_roles.user_id = ?;
--- name: GetRoleByName :one
-SELECT id,
-    name
-FROM roles
-WHERE name = ?;
+SELECT user_roles.role
+FROM users
+    LEFT JOIN user_roles ON users.id = user_roles.user_id
+WHERE users.id = ?;
 -- name: UserWithRoleExists :one
 SELECT EXISTS(
         SELECT 1
         FROM user_roles
-            LEFT JOIN roles
-        WHERE roles.name = ?
+        WHERE role = ?
     );

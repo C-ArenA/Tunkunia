@@ -4,11 +4,6 @@
 
 package store
 
-type Role struct {
-	ID   int64
-	Name string
-}
-
 type User struct {
 	ID            int64
 	Name          string

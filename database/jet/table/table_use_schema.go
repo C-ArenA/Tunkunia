@@ -11,7 +11,6 @@ package table
 // this method only once at the beginning of the program.
 func UseSchema(schema string) {
 	GooseDbVersion = GooseDbVersion.FromSchema(schema)
-	Roles = Roles.FromSchema(schema)
 	Tramites = Tramites.FromSchema(schema)
 	UserRoles = UserRoles.FromSchema(schema)
 	Users = Users.FromSchema(schema)

@@ -7,61 +7,44 @@ package store
 
 import (
 	"context"
+	"database/sql"
 )
 
 const assignRoleToUser = `-- name: AssignRoleToUser :exec
-INSERT INTO user_roles (user_id, role_id)
-SELECT ?,
-    id
-FROM roles
-WHERE name = ? ON CONFLICT DO NOTHING
+INSERT INTO user_roles (user_id, role)
+VALUES(?, ?) ON CONFLICT DO NOTHING
 `
 
 type AssignRoleToUserParams struct {
 	UserID int64
-	Name   string
+	Role   string
 }
 
 func (q *Queries) AssignRoleToUser(ctx context.Context, arg AssignRoleToUserParams) error {
-	_, err := q.db.ExecContext(ctx, assignRoleToUser, arg.UserID, arg.Name)
+	_, err := q.db.ExecContext(ctx, assignRoleToUser, arg.UserID, arg.Role)
 	return err
 }
 
-const getRoleByName = `-- name: GetRoleByName :one
-SELECT id,
-    name
-FROM roles
-WHERE name = ?
-`
-
-func (q *Queries) GetRoleByName(ctx context.Context, name string) (Role, error) {
-	row := q.db.QueryRowContext(ctx, getRoleByName, name)
-	var i Role
-	err := row.Scan(&i.ID, &i.Name)
-	return i, err
-}
-
 const getUserRoles = `-- name: GetUserRoles :many
-SELECT id,
-    name
-FROM roles
-    LEFT JOIN user_roles ON roles.id = user_roles.role_id
-WHERE user_roles.user_id = ?
+SELECT user_roles.role
+FROM users
+    LEFT JOIN user_roles ON users.id = user_roles.user_id
+WHERE users.id = ?
 `
 
-func (q *Queries) GetUserRoles(ctx context.Context, userID int64) ([]Role, error) {
-	rows, err := q.db.QueryContext(ctx, getUserRoles, userID)
+func (q *Queries) GetUserRoles(ctx context.Context, id int64) ([]sql.NullString, error) {
+	rows, err := q.db.QueryContext(ctx, getUserRoles, id)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Role
+	var items []sql.NullString
 	for rows.Next() {
-		var i Role
-		if err := rows.Scan(&i.ID, &i.Name); err != nil {
+		var role sql.NullString
+		if err := rows.Scan(&role); err != nil {
 			return nil, err
 		}
-		items = append(items, i)
+		items = append(items, role)
 	}
 	if err := rows.Close(); err != nil {
 		return nil, err
@@ -112,13 +95,12 @@ const userWithRoleExists = `-- name: UserWithRoleExists :one
 SELECT EXISTS(
         SELECT 1
         FROM user_roles
-            LEFT JOIN roles
-        WHERE roles.name = ?
+        WHERE role = ?
     )
 `
 
-func (q *Queries) UserWithRoleExists(ctx context.Context, name string) (bool, error) {
-	row := q.db.QueryRowContext(ctx, userWithRoleExists, name)
+func (q *Queries) UserWithRoleExists(ctx context.Context, role string) (bool, error) {
+	row := q.db.QueryRowContext(ctx, userWithRoleExists, role)
 	var exists bool
 	err := row.Scan(&exists)
 	return exists, err
