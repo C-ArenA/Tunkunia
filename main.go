@@ -17,6 +17,7 @@ var rootCmd = &cobra.Command{
 func main() {
 	rootCmd.AddCommand(cmd.NewServeCmd())
 	rootCmd.AddCommand(cmd.NewRouteListCmd())
+	rootCmd.AddCommand(cmd.NewUserCmd())
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
