@@ -27,6 +27,20 @@ func (q *Queries) AssignRoleToUser(ctx context.Context, arg AssignRoleToUserPara
 	return err
 }
 
+const getRoleByName = `-- name: GetRoleByName :one
+SELECT id,
+    name
+FROM roles
+WHERE name = ?
+`
+
+func (q *Queries) GetRoleByName(ctx context.Context, name string) (Role, error) {
+	row := q.db.QueryRowContext(ctx, getRoleByName, name)
+	var i Role
+	err := row.Scan(&i.ID, &i.Name)
+	return i, err
+}
+
 const getUserRoles = `-- name: GetUserRoles :many
 SELECT id,
     name

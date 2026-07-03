@@ -18,6 +18,11 @@ SELECT id,
 FROM roles
     LEFT JOIN user_roles ON roles.id = user_roles.role_id
 WHERE user_roles.user_id = ?;
+-- name: GetRoleByName :one
+SELECT id,
+    name
+FROM roles
+WHERE name = ?;
 -- name: UserWithRoleExists :one
 SELECT EXISTS(
         SELECT 1
