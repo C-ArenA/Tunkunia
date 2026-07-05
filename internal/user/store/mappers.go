@@ -10,17 +10,17 @@ func NewUserFromDomain(dU domain.User) User {
 		ID:            int64(dU.ID),
 		Name:          dU.Name,
 		Sub:           dU.Sub,
-		Email:         dU.Email,
+		Email:         string(dU.Email),
 		EmailVerified: cast.BoolToSqlite(dU.EmailVerified),
 		CreatedAt:     cast.TimeToSqlite(dU.CreatedAt),
 	}
 }
 func (u *User) ToDomain() domain.User {
 	return domain.User{
-		ID:            int(u.ID),
+		ID:            domain.UserId(u.ID),
 		Name:          u.Name,
 		Sub:           u.Sub,
-		Email:         u.Email,
+		Email:         domain.Email(u.Email),
 		EmailVerified: cast.SqliteToBool(u.EmailVerified),
 		CreatedAt:     cast.SqliteToTimeForced(u.CreatedAt),
 	}
@@ -29,7 +29,7 @@ func NewUserUpsertParamsFromDomain(dU domain.User) UpsertUserParams {
 	return UpsertUserParams{
 		Name:          dU.Name,
 		Sub:           dU.Sub,
-		Email:         dU.Email,
+		Email:         string(dU.Email),
 		EmailVerified: cast.BoolToSqlite(dU.EmailVerified),
 	}
 }

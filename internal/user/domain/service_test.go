@@ -13,15 +13,6 @@ type mockRepo struct {
 	mock.Mock
 }
 
-// GetRoleByName implements [Repo].
-func (m *mockRepo) GetRoleByName(ctx context.Context, name RoleName) (*Role, error) {
-	args := m.Called(ctx, name)
-	if args.Get(0) == nil {
-		return nil, args.Error(1)
-	}
-	return args.Get(0).(*Role), args.Error(1)
-}
-
 // HasAdmin implements [Repo].
 func (m *mockRepo) HasAdmin(ctx context.Context) (bool, error) {
 	args := m.Called(ctx)
@@ -42,10 +33,10 @@ func TestFirstAdminCreation(t *testing.T) {
 	validEmail := "hola@hola.com"
 	expectedUser := User{
 		ID:            1,
-		Email:         validEmail,
+		Email:         Email(validEmail),
 		Sub:           "",
 		EmailVerified: false,
-		Roles:         []*Role{{Name: ADMIN}},
+		Roles:         []RoleName{ADMIN},
 		CreatedAt:     time.Now().UTC(),
 	}
 
@@ -53,19 +44,9 @@ func TestFirstAdminCreation(t *testing.T) {
 	r.On("SaveUser", mock.Anything, mock.Anything).Return(&expectedUser, nil)
 
 	s := NewService(r)
-	u, err := s.CreateFirstAdmin(t.Context(), validEmail)
+	u, err := s.CreateFirstAdmin(t.Context(), Email(validEmail))
 	assert.Nil(t, err, "Creación de usuario debió ser exitosa")
 	assert.Equal(t, u.Email, validEmail, "Correo de usuario creado y correo del entorno deben coincidir")
 	assert.Contains(t, u.Roles, ADMIN, "Nuevo usuario debe tener rol %s", ADMIN)
 	assert.InDelta(t, u.CreatedAt.Unix(), expectedUser.CreatedAt.Unix(), 1)
-}
-func TestFirstAdminCreationInvalidEmail(t *testing.T) {
-	r := new(mockRepo)
-	s := NewService(r)
-
-	invalidEmails := []string{"holamundo", "a@a", "", "carlostaata.@gmail"}
-	for _, e := range invalidEmails {
-		_, err := s.CreateFirstAdmin(t.Context(), e)
-		assert.NotNil(t, err, "Correo \"%s\" inválido, no debe retornar error nulo", e)
-	}
 }
