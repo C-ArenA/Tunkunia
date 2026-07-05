@@ -10,10 +10,9 @@ RETURNING *;
 INSERT INTO user_roles (user_id, role)
 VALUES(?, ?) ON CONFLICT DO NOTHING;
 -- name: GetUserRoles :many
-SELECT user_roles.role
-FROM users
-    LEFT JOIN user_roles ON users.id = user_roles.user_id
-WHERE users.id = ?;
+SELECT role
+FROM user_roles
+WHERE user_id = ?;
 -- name: UserWithRoleExists :one
 SELECT EXISTS(
         SELECT 1

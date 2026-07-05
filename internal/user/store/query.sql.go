@@ -7,7 +7,6 @@ package store
 
 import (
 	"context"
-	"database/sql"
 )
 
 const assignRoleToUser = `-- name: AssignRoleToUser :exec
@@ -26,21 +25,20 @@ func (q *Queries) AssignRoleToUser(ctx context.Context, arg AssignRoleToUserPara
 }
 
 const getUserRoles = `-- name: GetUserRoles :many
-SELECT user_roles.role
-FROM users
-    LEFT JOIN user_roles ON users.id = user_roles.user_id
-WHERE users.id = ?
+SELECT role
+FROM user_roles
+WHERE user_id = ?
 `
 
-func (q *Queries) GetUserRoles(ctx context.Context, id int64) ([]sql.NullString, error) {
-	rows, err := q.db.QueryContext(ctx, getUserRoles, id)
+func (q *Queries) GetUserRoles(ctx context.Context, userID int64) ([]string, error) {
+	rows, err := q.db.QueryContext(ctx, getUserRoles, userID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []sql.NullString
+	var items []string
 	for rows.Next() {
-		var role sql.NullString
+		var role string
 		if err := rows.Scan(&role); err != nil {
 			return nil, err
 		}
