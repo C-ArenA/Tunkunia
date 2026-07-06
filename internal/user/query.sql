@@ -9,6 +9,9 @@ RETURNING *;
 -- name: AssignRoleToUser :exec
 INSERT INTO user_roles (user_id, role)
 VALUES(?, ?) ON CONFLICT DO NOTHING;
+-- name: RemoveUserRoles :exec
+DELETE FROM user_roles
+WHERE user_id = ?;
 -- name: GetUserRoles :many
 SELECT role
 FROM user_roles

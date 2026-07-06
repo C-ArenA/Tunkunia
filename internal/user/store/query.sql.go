@@ -53,6 +53,16 @@ func (q *Queries) GetUserRoles(ctx context.Context, userID int64) ([]string, err
 	return items, nil
 }
 
+const removeUserRoles = `-- name: RemoveUserRoles :exec
+DELETE FROM user_roles
+WHERE user_id = ?
+`
+
+func (q *Queries) RemoveUserRoles(ctx context.Context, userID int64) error {
+	_, err := q.db.ExecContext(ctx, removeUserRoles, userID)
+	return err
+}
+
 const upsertUser = `-- name: UpsertUser :one
 INSERT INTO users (name, sub, email, email_verified)
 VALUES (?, ?, ?, ?) ON CONFLICT(email) DO
