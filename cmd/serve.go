@@ -12,9 +12,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/internal/api"
-	"github.com/C-ArenA/Tunkunia/internal/auth"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
-	"github.com/C-ArenA/Tunkunia/internal/rbac"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/spf13/cobra"
@@ -46,12 +44,9 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	r.Use(api.CorsMiddleware(), middleware.Logger)
 
 	// Modules Wiring
-	authSvc := auth.ModuleInit(db, r, []byte(cfg.JWTKey))
-	rbac.ModuleInit(db, r)
 	catalog.ModuleInit(db, r)
 	api.ModuleInit(r)
 
-	r.Use(auth.JWTMiddleware(authSvc))
 	return db, r, cfg
 }
 
