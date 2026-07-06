@@ -15,7 +15,12 @@ func NewUserFromDomain(dU domain.User) User {
 		CreatedAt:     cast.TimeToSqlite(dU.CreatedAt),
 	}
 }
-func (u *User) ToDomain() domain.User {
+
+func ToDomainUser(u User, r []string) domain.User {
+	dRoles := make([]domain.RoleName, len(r))
+	for i, role := range r {
+		dRoles[i] = domain.RoleName(role)
+	}
 	return domain.User{
 		ID:            domain.UserId(u.ID),
 		Name:          u.Name,
@@ -23,8 +28,10 @@ func (u *User) ToDomain() domain.User {
 		Email:         domain.Email(u.Email),
 		EmailVerified: cast.SqliteToBool(u.EmailVerified),
 		CreatedAt:     cast.SqliteToTimeForced(u.CreatedAt),
+		Roles:         dRoles,
 	}
 }
+
 func NewUserUpsertParamsFromDomain(dU domain.User) UpsertUserParams {
 	return UpsertUserParams{
 		Name:          dU.Name,
