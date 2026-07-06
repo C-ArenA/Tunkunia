@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"database/sql"
+	"fmt"
 
 	"github.com/C-ArenA/Tunkunia/internal/user/domain"
 )
@@ -10,6 +11,7 @@ import (
 func NewRepo(db *sql.DB) *Repo {
 	return &Repo{
 		db: db,
+		q:  New(db),
 	}
 }
 
@@ -17,56 +19,45 @@ var _ domain.Repo = (*Repo)(nil)
 
 type Repo struct {
 	db *sql.DB
-}
-
-// GetRoleByName implements [domain.Repo].
-func (r *Repo) GetRoleByName(ctx context.Context, name domain.RoleName) (*domain.Role, error) {
-	q := New(r.db)
-	role, err := q.GetRoleByName(ctx, string(name))
-	if err != nil {
-		return nil, err
-	}
-	return &domain.Role{
-		ID:   int(role.ID),
-		Name: domain.RoleName(role.Name),
-	}, nil
+	q  *Queries
 }
 
 // HasAdmin implements [domain.Repo].
-func (r *Repo) HasAdmin(ctx context.Context) (bool, error) {
-	q := New(r.db)
-	return q.UserWithRoleExists(ctx, string(domain.ADMIN))
+func (r *Repo) UserWithRoleExists(ctx context.Context, role domain.RoleName) (bool, error) {
+	return r.q.UserWithRoleExists(ctx, string(role))
 }
 
 // SaveUser implements [domain.Repo].
 func (r *Repo) SaveUser(ctx context.Context, u domain.User) (*domain.User, error) {
-	q := New(r.db)
-
-	cU, err := q.UpsertUser(ctx, NewUserUpsertParamsFromDomain(u))
+	tx, err := r.db.BeginTx(ctx, nil)
 	if err != nil {
 		return nil, err
 	}
+	defer tx.Rollback()
 
-	for _, r := range u.Roles {
-		q.AssignRoleToUser(ctx, AssignRoleToUserParams{
-			UserID: cU.ID,
-			Name:   string(r.Name),
-		})
+	q := r.q.WithTx(tx)
+
+	savedUser, err := q.UpsertUser(ctx, NewUserUpsertParamsFromDomain(u))
+	if err != nil {
+		return nil, fmt.Errorf("No se pudo guardar el usuario con correo '%s': %w", u.Email, err)
 	}
 
-	userRoles, err := q.GetUserRoles(ctx, cU.ID)
+	roleAssignments := make([]AssignRoleToUserParams, len(u.Roles))
+	for i, role := range u.Roles {
+		roleAssignments[i] = AssignRoleToUserParams{savedUser.ID, string(role)}
+	}
+
+	if err = q.RemoveUserRoles(ctx, int64(savedUser.ID)); err != nil {
+		return nil, fmt.Errorf("No pudo quitarse roles antiguos para repoblar roles actuales: %w", err)
+	}
+	savedRoles, err := q.AssignManyRolesToUser(ctx, roleAssignments)
 	if err != nil {
+		return nil, fmt.Errorf("No pudo asignarse roles al usuario con correo '%s': %w", savedUser.Email, err)
+	}
+
+	if err := tx.Commit(); err != nil {
 		return nil, err
 	}
 
-	dU := cU.ToDomain()
-	dU.Roles = make([]*domain.Role, len(userRoles))
-	for i, cR := range userRoles {
-		dU.Roles[i] = &domain.Role{
-			ID:   int(cR.ID),
-			Name: domain.RoleName(cR.Name),
-		}
-	}
-
-	return &dU, nil
+	return new(ToDomainUser(savedUser, savedRoles)), nil
 }

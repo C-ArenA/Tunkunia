@@ -13,9 +13,9 @@ type mockRepo struct {
 	mock.Mock
 }
 
-// HasAdmin implements [Repo].
-func (m *mockRepo) HasAdmin(ctx context.Context) (bool, error) {
-	args := m.Called(ctx)
+// UserWithRoleExists implements [Repo].
+func (m *mockRepo) UserWithRoleExists(ctx context.Context, role RoleName) (bool, error) {
+	args := m.Called(ctx, role)
 	return args.Bool(0), args.Error(1)
 }
 
@@ -40,7 +40,7 @@ func TestFirstAdminCreation(t *testing.T) {
 		CreatedAt:     time.Now().UTC(),
 	}
 
-	r.On("HasAdmin", mock.Anything).Return(false, nil)
+	r.On("UserWithRoleExists", mock.Anything, mock.Anything).Return(false, nil)
 	r.On("SaveUser", mock.Anything, mock.Anything).Return(&expectedUser, nil)
 
 	s := NewService(r)
