@@ -8,3 +8,9 @@ Preinstall:
 - Watchexec
 - Redocly
 - Scalar
+
+It requires to enable:
+
+```env
+GOEXPERIMENT='jsonv2'
+```
