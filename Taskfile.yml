@@ -22,7 +22,7 @@ tasks:
   migrate:fresh:
     cmds:
       - echo "Using $GOOSE_DBSTRING"
-      - rm $GOOSE_DBSTRING
+      - rm -f $GOOSE_DBSTRING
       - go tool goose up
 
   oapi:join:
