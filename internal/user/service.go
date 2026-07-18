@@ -1,8 +1,11 @@
-package domain
+package user
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
+
+	"github.com/C-ArenA/Tunkunia/database/sqlc"
 )
 
 type Repo interface {
@@ -14,9 +17,9 @@ type Service struct {
 	r Repo
 }
 
-func NewService(r Repo) *Service {
+func NewService(db *sql.DB, q *sqlc.Queries) *Service {
 	return &Service{
-		r: r,
+		r: NewSqliteStore(db, q),
 	}
 }
 

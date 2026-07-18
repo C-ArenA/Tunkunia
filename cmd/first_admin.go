@@ -1,6 +1,3 @@
-/*
-Copyright © 2026 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -10,7 +7,6 @@ import (
 
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/user"
-	"github.com/C-ArenA/Tunkunia/internal/user/domain"
 	"github.com/spf13/cobra"
 )
 
@@ -22,20 +18,20 @@ func NewFirstAdminCmd() *cobra.Command {
 			ctx := context.Background()
 			cfg := loadConfig()
 			db := initDB(ctx, cfg)
-			userService := user.InitModule(db, sqlc.New())
+			userService := user.NewService(db, sqlc.New())
 			createFirstAdmin(ctx, userService)
 		},
 	}
 }
 
-func createFirstAdmin(ctx context.Context, userService *domain.Service) {
+func createFirstAdmin(ctx context.Context, userService *user.Service) {
 	const skipMessage = "Saltando creación de primer usuario administrador"
 	email, ok := os.LookupEnv("FIRST_ADMIN_EMAIL")
 	if !ok || email == "" {
 		fmt.Printf("%s: Variable de Entorno 'FIRST_ADMIN_EMAIL' indefinida\n", skipMessage)
 		return
 	}
-	dEmail, err := domain.NewEmail(email)
+	dEmail, err := user.NewEmail(email)
 	if err != nil {
 		fmt.Printf("%s: Variable de Entorno 'FIRST_ADMIN_EMAIL' con formato no válido\n", skipMessage)
 		return

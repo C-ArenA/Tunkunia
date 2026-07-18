@@ -1,12 +1,11 @@
-package store
+package user
 
 import (
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/cast"
-	"github.com/C-ArenA/Tunkunia/internal/user/domain"
 )
 
-func NewUserFromDomain(dU domain.User) sqlc.User {
+func NewUserFromDomain(dU User) sqlc.User {
 	return sqlc.User{
 		ID:            int64(dU.ID),
 		Name:          dU.Name,
@@ -17,23 +16,23 @@ func NewUserFromDomain(dU domain.User) sqlc.User {
 	}
 }
 
-func ToDomainUser(u sqlc.User, r []string) domain.User {
-	dRoles := make([]domain.RoleName, len(r))
+func ToDomainUser(u sqlc.User, r []string) User {
+	dRoles := make([]RoleName, len(r))
 	for i, role := range r {
-		dRoles[i] = domain.RoleName(role)
+		dRoles[i] = RoleName(role)
 	}
-	return domain.User{
-		ID:            domain.UserId(u.ID),
+	return User{
+		ID:            UserId(u.ID),
 		Name:          u.Name,
 		Sub:           u.Sub,
-		Email:         domain.Email(u.Email),
+		Email:         Email(u.Email),
 		EmailVerified: cast.SqliteToBool(u.EmailVerified),
 		CreatedAt:     cast.SqliteToTimeForced(u.CreatedAt),
 		Roles:         dRoles,
 	}
 }
 
-func NewUserUpsertParamsFromDomain(dU domain.User) sqlc.UpsertUserParams {
+func NewUserUpsertParamsFromDomain(dU User) sqlc.UpsertUserParams {
 	return sqlc.UpsertUserParams{
 		Name:          dU.Name,
 		Sub:           dU.Sub,
