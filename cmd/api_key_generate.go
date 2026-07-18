@@ -28,7 +28,7 @@ func apiKeyGenerate(cmd *cobra.Command, args []string) {
 		log.Fatalf("Error al leer archivo existente %s: %v", envFile, err)
 	}
 
-	env[keyName] = authn.CreateSecretKey()
+	env[keyName] = authn.NewSecretKey()
 
 	if err := godotenv.Write(env, envFile); err != nil {
 		log.Fatalf("Error al guardar archivo %s: %v", envFile, err)

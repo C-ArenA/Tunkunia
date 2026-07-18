@@ -40,10 +40,10 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	// Database
 	db := initDB(ctx, cfg)
 
-	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
+	jwtAuthn := authn.NewJWTService(cfg.JWTSecret)
 	// HTTP
 	r := chi.NewRouter()
-	r.Use(api.CorsMiddleware(), middleware.Logger, jwtAuthn.ParseMiddleware())
+	r.Use(api.CorsMiddleware(), middleware.Logger, authn.Verifier(jwtAuthn))
 
 	// Modules Wiring
 	catalog.ModuleInit(db, r)
