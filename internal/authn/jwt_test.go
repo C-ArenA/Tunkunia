@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/C-ArenA/Tunkunia/config"
+	"github.com/C-ArenA/Tunkunia/internal/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

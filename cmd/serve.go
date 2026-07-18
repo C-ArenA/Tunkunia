@@ -9,11 +9,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/internal/api"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
+	"github.com/C-ArenA/Tunkunia/internal/config"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/spf13/cobra"
