@@ -3,11 +3,12 @@ package store
 import (
 	"testing"
 
+	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestBatchRolesAssignmentQueryGenerator(t *testing.T) {
-	s, a := assignManyRolesToUserStmtBuilder([]AssignRoleToUserParams{
+	s, a := assignManyRolesToUserStmtBuilder([]sqlc.AssignRoleToUserParams{
 		{UserID: 1, Role: "admin"},
 		{UserID: 1, Role: "citizen"},
 	})
@@ -16,7 +17,7 @@ func TestBatchRolesAssignmentQueryGenerator(t *testing.T) {
 	assert.Len(t, a, 4)
 	assert.Equal(t, a[1], "admin")
 
-	s, a = assignManyRolesToUserStmtBuilder([]AssignRoleToUserParams{})
+	s, a = assignManyRolesToUserStmtBuilder([]sqlc.AssignRoleToUserParams{})
 	assert.Equal(t, "", s)
 	assert.Nil(t, a)
 

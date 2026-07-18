@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/C-ArenA/Tunkunia/internal/user/domain"
 	"github.com/spf13/cobra"
@@ -21,7 +22,7 @@ func NewFirstAdminCmd() *cobra.Command {
 			ctx := context.Background()
 			cfg := loadConfig()
 			db := initDB(ctx, cfg)
-			userService := user.InitModule(db)
+			userService := user.InitModule(db, sqlc.New())
 			createFirstAdmin(ctx, userService)
 		},
 	}

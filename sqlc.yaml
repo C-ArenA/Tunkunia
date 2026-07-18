@@ -9,11 +9,16 @@ sql:
         package: "store"
         out: "internal/catalog/store"
         omit_unused_structs: true
+
   - engine: "sqlite"
     schema: "database/migrations"
-    queries: "internal/user/query.sql"
+    queries:
+      - "internal/catalog/query.sql"
+      - "internal/user/query.sql"
     gen:
       go:
-        package: "store"
-        out: "internal/user/store"
-        omit_unused_structs: true
+        package: "sqlc"
+        out: "database/sqlc"
+        emit_interface: true
+        emit_methods_with_db_argument: true
+        emit_sql_as_comment: true

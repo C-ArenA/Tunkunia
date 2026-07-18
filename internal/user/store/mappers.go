@@ -1,12 +1,13 @@
 package store
 
 import (
+	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/cast"
 	"github.com/C-ArenA/Tunkunia/internal/user/domain"
 )
 
-func NewUserFromDomain(dU domain.User) User {
-	return User{
+func NewUserFromDomain(dU domain.User) sqlc.User {
+	return sqlc.User{
 		ID:            int64(dU.ID),
 		Name:          dU.Name,
 		Sub:           dU.Sub,
@@ -16,7 +17,7 @@ func NewUserFromDomain(dU domain.User) User {
 	}
 }
 
-func ToDomainUser(u User, r []string) domain.User {
+func ToDomainUser(u sqlc.User, r []string) domain.User {
 	dRoles := make([]domain.RoleName, len(r))
 	for i, role := range r {
 		dRoles[i] = domain.RoleName(role)
@@ -32,8 +33,8 @@ func ToDomainUser(u User, r []string) domain.User {
 	}
 }
 
-func NewUserUpsertParamsFromDomain(dU domain.User) UpsertUserParams {
-	return UpsertUserParams{
+func NewUserUpsertParamsFromDomain(dU domain.User) sqlc.UpsertUserParams {
+	return sqlc.UpsertUserParams{
 		Name:          dU.Name,
 		Sub:           dU.Sub,
 		Email:         string(dU.Email),
