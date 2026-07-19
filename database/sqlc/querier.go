@@ -38,6 +38,14 @@ type Querier interface {
 	//  FROM user_roles
 	//  WHERE user_id = ?
 	GetUserRoles(ctx context.Context, db DBTX, userID int64) ([]string, error)
+	//IsRoleInUse
+	//
+	//  SELECT EXISTS(
+	//          SELECT 1
+	//          FROM user_roles
+	//          WHERE role = ?
+	//      )
+	IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, error)
 	//ListTramites
 	//
 	//  SELECT id, name, description, procedure_description, type, status, created_at, updated_at
@@ -58,14 +66,6 @@ type Querier interface {
 	//      email_verified = excluded.email_verified
 	//  RETURNING id, name, sub, email, email_verified, created_at
 	UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams) (User, error)
-	//UserWithRoleExists
-	//
-	//  SELECT EXISTS(
-	//          SELECT 1
-	//          FROM user_roles
-	//          WHERE role = ?
-	//      )
-	UserWithRoleExists(ctx context.Context, db DBTX, role string) (bool, error)
 }
 
 var _ Querier = (*Queries)(nil)

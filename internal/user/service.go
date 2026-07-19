@@ -10,7 +10,7 @@ import (
 
 type Repo interface {
 	SaveUser(ctx context.Context, u User) (*User, error)
-	UserWithRoleExists(ctx context.Context, role RoleName) (bool, error)
+	IsRoleInUse(ctx context.Context, role RoleName) (bool, error)
 }
 
 type Service struct {
@@ -24,7 +24,7 @@ func NewService(db *sql.DB, q *sqlc.Queries) *Service {
 }
 
 func (s *Service) CreateFirstAdmin(ctx context.Context, email Email) (*User, error) {
-	adminExists, err := s.r.UserWithRoleExists(ctx, ADMIN)
+	adminExists, err := s.r.IsRoleInUse(ctx, ADMIN)
 	if err != nil {
 		return nil, fmt.Errorf("No se pudo verificar si ya existe un administrador: %w", err)
 	}

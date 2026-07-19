@@ -16,7 +16,7 @@ WHERE user_id = ?;
 SELECT role
 FROM user_roles
 WHERE user_id = ?;
--- name: UserWithRoleExists :one
+-- name: IsRoleInUse :one
 SELECT EXISTS(
         SELECT 1
         FROM user_roles

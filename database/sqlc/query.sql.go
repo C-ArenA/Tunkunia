@@ -147,6 +147,28 @@ func (q *Queries) GetUserRoles(ctx context.Context, db DBTX, userID int64) ([]st
 	return items, nil
 }
 
+const isRoleInUse = `-- name: IsRoleInUse :one
+SELECT EXISTS(
+        SELECT 1
+        FROM user_roles
+        WHERE role = ?
+    )
+`
+
+// IsRoleInUse
+//
+//	SELECT EXISTS(
+//	        SELECT 1
+//	        FROM user_roles
+//	        WHERE role = ?
+//	    )
+func (q *Queries) IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, error) {
+	row := db.QueryRowContext(ctx, isRoleInUse, role)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
+}
+
 const listTramites = `-- name: ListTramites :many
 SELECT id, name, description, procedure_description, type, status, created_at, updated_at
 FROM tramites
@@ -245,26 +267,4 @@ func (q *Queries) UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams)
 		&i.CreatedAt,
 	)
 	return i, err
-}
-
-const userWithRoleExists = `-- name: UserWithRoleExists :one
-SELECT EXISTS(
-        SELECT 1
-        FROM user_roles
-        WHERE role = ?
-    )
-`
-
-// UserWithRoleExists
-//
-//	SELECT EXISTS(
-//	        SELECT 1
-//	        FROM user_roles
-//	        WHERE role = ?
-//	    )
-func (q *Queries) UserWithRoleExists(ctx context.Context, db DBTX, role string) (bool, error) {
-	row := db.QueryRowContext(ctx, userWithRoleExists, role)
-	var exists bool
-	err := row.Scan(&exists)
-	return exists, err
 }

@@ -23,8 +23,8 @@ type sqliteStore struct {
 }
 
 // HasAdmin implements [domain.Repo].
-func (s *sqliteStore) UserWithRoleExists(ctx context.Context, role RoleName) (bool, error) {
-	return s.q.UserWithRoleExists(ctx, s.db, string(role))
+func (s *sqliteStore) IsRoleInUse(ctx context.Context, role RoleName) (bool, error) {
+	return s.q.IsRoleInUse(ctx, s.db, string(role))
 }
 
 // SaveUser implements [domain.Repo].
