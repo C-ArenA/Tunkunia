@@ -1,33 +1,34 @@
-package api
+package catalog
 
 import (
+	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
 )
 
 // NewTramiteFromDomain maps the domain entity to the API response model.
-func NewTramiteFromDomain(t domain.Tramite) Tramite {
-	return Tramite{
+func NewTramiteFromDomain(t domain.Tramite) oapi.Tramite {
+	return oapi.Tramite{
 		Id:                   int64(t.ID),
 		Name:                 t.Name,
 		Description:          t.Description,
 		ProcedureDescription: t.ProcedureDescription,
-		Status:               TramiteStatus(t.Status),
-		Type:                 TramiteType(t.Type),
+		Status:               oapi.TramiteStatus(t.Status),
+		Type:                 oapi.TramiteType(t.Type),
 		CreatedAt:            t.CreatedAt,
 		UpdatedAt:            t.UpdatedAt,
 	}
 }
 
 // NewTramiteBaseFromDomain maps the domain entity to the base API response model of Tramite.
-func NewTramiteBaseFromDomain(t domain.Tramite) TramiteBase {
-	return TramiteBase{
+func NewTramiteBaseFromDomain(t domain.Tramite) oapi.TramiteBase {
+	return oapi.TramiteBase{
 		Id:          int64(t.ID),
 		Name:        t.Name,
 		Description: t.Description,
 	}
 }
 
-func (tc *TramiteCreate) toDomain() domain.Tramite {
+func CreateTramiteJSONRequestBodyToDomain(tc *oapi.CreateTramiteJSONRequestBody) domain.Tramite {
 	t := domain.Tramite{
 		Name: tc.Name,
 	}
@@ -43,7 +44,7 @@ func (tc *TramiteCreate) toDomain() domain.Tramite {
 	return t
 }
 
-func (tu *TramiteUpdate) toDomain() (domain.Tramite, domain.TramiteMask) {
+func UpdateTramiteJSONRequestBodyToDomain(tu *oapi.UpdateTramiteJSONRequestBody) (domain.Tramite, domain.TramiteMask) {
 	var t domain.Tramite
 	var m domain.TramiteMask
 
