@@ -25,20 +25,15 @@ tasks:
       - rm -f $GOOSE_DBSTRING
       - go tool goose up
 
-  oapi:join:
+  openapi:bundle:
     desc: Joins multiple openapi specs into one
     cmds:
       - >
         watchexec
-        -w ./internal/catalog
-        -w ./internal/api
-        -w ./internal/audit
-        redocly join
-        ./internal/api/openapi.yaml
-        ./internal/audit/openapi.yaml
-        ./internal/catalog/openapi.yaml
+        -w ./internal/api/v1
+        redocly bundle
+        ./internal/api/v1/openapi.yaml
         -o ./tunkunia.openapi.yaml
-        --without-x-tag-groups
       - cp ./tunkunia.openapi.yaml ./site/public/tunkunia.openapi.yaml
 
   scalar:serve:
@@ -63,7 +58,7 @@ tasks:
   dev:all:
     desc: Run all dev servers in parallel
     deps:
-      - oapi:join
+      - openapi:bundle
       - scalar:serve
       - server:dev
       - spa:dev
