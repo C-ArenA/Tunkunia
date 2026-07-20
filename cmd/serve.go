@@ -11,8 +11,8 @@ import (
 
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/internal/api"
+	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
-	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -45,9 +45,11 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	r := chi.NewRouter()
 	r.Use(api.CorsMiddleware(), middleware.Logger, authn.Verifier(jwtAuthn))
 
-	// Modules Wiring
-	catalog.ModuleInit(db, r)
-	api.ModuleInit(r)
+	r.Route("/api/v1", func(r chi.Router) {
+		strictHandlerV1 := api.NewStrictHandlerV1()
+		oapiServerV1 := oapi.NewStrictHandler(strictHandlerV1, nil)
+		oapi.HandlerFromMux(oapiServerV1, r)
+	})
 
 	return db, r, cfg
 }

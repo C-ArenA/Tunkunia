@@ -1,8 +1,10 @@
-package api
+package health
 
 import (
 	"context"
 	"time"
+
+	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 )
 
 type StrictApiHandler struct {
@@ -17,15 +19,15 @@ func NewStrictApiHandler() *StrictApiHandler {
 	}
 }
 
-func (a *StrictApiHandler) GetHealth(ctx context.Context, request GetHealthRequestObject) (GetHealthResponseObject, error) {
+func (a *StrictApiHandler) GetHealth(ctx context.Context, request oapi.GetHealthRequestObject) (oapi.GetHealthResponseObject, error) {
 	if a.Name != "Tunkunia" {
-		return GetHealth503JSONResponse{
-			Status:    DEGRADED,
+		return oapi.GetHealth503JSONResponse{
+			Status:    oapi.DEGRADED,
 			Timestamp: time.Now(),
 		}, nil
 	}
-	return GetHealth200JSONResponse{
-		Status:    UP,
+	return oapi.GetHealth200JSONResponse{
+		Status:    oapi.UP,
 		Timestamp: time.Now(),
 	}, nil
 }

@@ -23,27 +23,11 @@ servers:
         description: Host o dominio de la API
 paths:
   /health:
-    get:
-      operationId: GetHealth
-      tags:
-        - health
-      summary: Salud Módulo
-      security: []
-      responses:
-        "200":
-          description: The service is healthy and operating normally
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Health"
-        "503":
-          description: The service is unhealthy or degraded
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Health"
-        "404":
-          $ref: "#/components/responses/NotFound"
+    $ref: health.openapi.yaml#/paths/~1health
+  /tramites:
+    $ref: tramites.openapi.yaml#/paths/~1tramites
+  /tramites/{id}:
+    $ref: tramites.openapi.yaml#/paths/~1tramites~1{id}
 
 components:
   securitySchemes:
@@ -53,22 +37,6 @@ components:
       bearerFormat: JWT
       description: Enter your application JWT token
   schemas:
-    Health:
-      type: object
-      required:
-        - status
-        - timestamp
-      properties:
-        status:
-          type: string
-          enum:
-            - UP
-            - DOWN
-            - DEGRADED
-        timestamp:
-          type: string
-          format: date-time
-          example: "2026-06-06T15:30:00Z"
     CollectionBase:
       type: object
       required:
