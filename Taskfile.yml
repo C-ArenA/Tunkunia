@@ -42,7 +42,7 @@ tasks:
     preconditions:
       - test -f ./tunkunia.openapi.yaml
     cmds:
-      - scalar document serve --watch --port 8491 ./tunkunia.openapi.yaml
+      - pnpm dlx @scalar/cli document serve --watch --port 8491 ./tunkunia.openapi.yaml
 
   server:dev:
     prefix: GO
