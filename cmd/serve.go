@@ -49,7 +49,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 
 	// HTTP
 	r := chi.NewRouter()
-	r.Use(api.CorsMiddleware(), middleware.Logger, authn.Verifier(jwtAuthn))
+	r.Use(api.CorsMiddleware(), middleware.Logger, authn.Authenticate(jwtAuthn))
 
 	r.Route("/api/v1", func(r chi.Router) {
 		strictHandlerV1 := api.NewStrictHandlerV1(catalogService)

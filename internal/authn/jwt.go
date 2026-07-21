@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -12,6 +13,16 @@ import (
 	"github.com/lestrrat-go/jwx/v4/jwa"
 	"github.com/lestrrat-go/jwx/v4/jwk"
 	"github.com/lestrrat-go/jwx/v4/jwt"
+)
+
+const (
+	authHeader = "Authorization"
+	authCookie = "jwt"
+)
+
+var (
+	ErrMalformedJWT   = errors.New("malformed JWT token")
+	ErrInvalidSubject = errors.New("invalid token subject")
 )
 
 func NewSecretKey() string {
@@ -56,11 +67,11 @@ func NewJWTService(base64urlKey string) *JWTService {
 	}
 }
 
-func (ja *JWTService) Issue(sub string) (string, error) {
+func (ja *JWTService) IssueUserToken(userID int) (string, error) {
 	token, err := jwt.NewBuilder().
 		Issuer("Tunkunia").
 		Expiration(time.Now().Add(24 * time.Hour)).
-		Subject(sub).
+		Subject(strconv.Itoa(userID)).
 		Build()
 	if err != nil {
 		return "", fmt.Errorf("No se pudo crear token: %w", err)
@@ -74,44 +85,93 @@ func (ja *JWTService) Issue(sub string) (string, error) {
 	return string(signed), nil
 }
 
-func Verifier(j *JWTService) func(http.Handler) http.Handler {
+func Authenticate(j *JWTService) func(http.Handler) http.Handler {
+	if j == nil {
+		panic("authn: Authenticate called with nil *JWTService")
+	}
 	keyOption := j.keyOption
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			token, err := jwt.ParseHeader(r.Header, "Authorization", keyOption)
+			token, err := jwt.ParseHeader(r.Header, authHeader, keyOption)
 			if err != nil {
-				token, err = jwt.ParseCookie(r, "jwt", keyOption)
+				token, err = jwt.ParseCookie(r, authCookie, keyOption)
 			}
 			if err != nil {
 				next.ServeHTTP(w, r)
 				return
 			}
-			ctx := NewAuthContext(r.Context(), token)
+			p, err := PrincipalFromUserToken(token)
+			if err != nil {
+				next.ServeHTTP(w, r)
+				return
+			}
+			ctx := NewAuthContext(r.Context(), p)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
 }
 
+func RequireAuthenticated(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		p, ok := FromAuthContext(r.Context())
+		if !ok || !p.IsValid() {
+			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
+type PrincipalType string
+
+const (
+	UserPrincipal    PrincipalType = "user"
+	MachinePrincipal PrincipalType = "machine"
+)
+
+type Principal struct {
+	ID   int // Can be a user_id or a client_id in case of machines
+	Type PrincipalType
+}
+
+func (p Principal) IsValid() bool {
+	if p.ID <= 0 {
+		return false
+	}
+	switch p.Type {
+	case UserPrincipal, MachinePrincipal:
+		return true
+	default:
+		return false
+	}
+}
+
+func PrincipalFromUserToken(token jwt.Token) (*Principal, error) {
+	idOnSub, ok := token.Subject()
+	if !ok {
+		return nil, ErrMalformedJWT
+	}
+	userID, err := strconv.Atoi(idOnSub)
+	if err != nil {
+		return nil, errors.Join(ErrInvalidSubject, err)
+	}
+	return &Principal{ID: userID, Type: UserPrincipal}, nil
+}
+
 type contextKey string
 
 var (
-	userIdCtxKey contextKey = "userId"
-	errorCtxKey  contextKey = "error"
+	principalCtxKey contextKey = "principal"
 )
 
-func NewAuthContext(ctx context.Context, token jwt.Token) context.Context {
-	if idOnSub, ok := token.Subject(); ok {
-		if userId, err := strconv.Atoi(idOnSub); err == nil {
-			ctx = context.WithValue(ctx, userIdCtxKey, userId)
-		} else {
-			ctx = context.WithValue(ctx, errorCtxKey, err)
-		}
-	}
-	return ctx
+func NewAuthContext(ctx context.Context, p *Principal) context.Context {
+	return context.WithValue(ctx, principalCtxKey, p)
 }
 
-func FromAuthContext(ctx context.Context) (userId int, err error) {
-	userId, _ = ctx.Value(userIdCtxKey).(int)
-	err, _ = ctx.Value(errorCtxKey).(error)
-	return
+func FromAuthContext(ctx context.Context) (*Principal, bool) {
+	p, ok := ctx.Value(principalCtxKey).(*Principal)
+	if !ok {
+		return nil, false
+	}
+	return p, p.IsValid()
 }

@@ -3,7 +3,6 @@ package authn
 import (
 	"net/http"
 	"net/http/httptest"
-	"strconv"
 	"strings"
 	"testing"
 
@@ -17,9 +16,9 @@ func TestJwtGeneration(t *testing.T) {
 	ja := NewJWTService(cfg.JWTSecret)
 	require.NotNil(t, ja)
 
-	issuedToken, err := ja.Issue("2")
+	issuedToken, err := ja.IssueUserToken(2)
 	t.Log(issuedToken)
-	require.Nil(t, err)
+	require.NoError(t, err)
 	assert.NotEmpty(t, issuedToken)
 	assert.Len(t, strings.Split(issuedToken, "."), 3)
 }
@@ -28,17 +27,18 @@ func TestJwtVerification(t *testing.T) {
 	cfg := LoadTestingConfig(t)
 	s := NewJWTService(cfg.JWTSecret)
 	require.NotNil(t, s)
-	sub := "2"
 	dumbNext := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		userId, err := FromAuthContext(r.Context())
-		assert.Nil(t, err)
-		assert.Equal(t, sub, strconv.FormatInt(int64(userId), 10))
+		p, ok := FromAuthContext(r.Context())
+		require.True(t, ok)
+		assert.Equal(t, 2, p.ID)
+		assert.Equal(t, UserPrincipal, p.Type)
 	})
-	h := Verifier(s)(dumbNext)
-	token, _ := s.Issue(sub)
+	h := Authenticate(s)(dumbNext)
+	token, err := s.IssueUserToken(2)
+	require.NoError(t, err)
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	req.Header.Set("Authorization", "Bearer "+token)
-	h.ServeHTTP(http.ResponseWriter(nil), req)
+	h.ServeHTTP(httptest.NewRecorder(), req)
 }
 
 func LoadTestingConfig(t *testing.T) *config.Config {
