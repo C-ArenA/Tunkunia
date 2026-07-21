@@ -1,6 +1,5 @@
 package audit
 
-//go:generate go tool oapi-codegen -config ./oapi.cfg.yaml ./openapi.yaml
 import "time"
 
 type Metadata struct {

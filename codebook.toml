@@ -1,4 +1,9 @@
+dictionaries = [
+    "en_us",
+    "es",
+]
 words = [
     "Alarcon",
+    "Sqlc",
     "Tunkunia",
 ]

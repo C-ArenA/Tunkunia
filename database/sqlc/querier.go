@@ -46,11 +46,6 @@ type Querier interface {
 	//          WHERE role = ?
 	//      )
 	IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, error)
-	//ListTramites
-	//
-	//  SELECT id, name, description, procedure_description, type, status, created_at, updated_at
-	//  FROM tramites
-	ListTramites(ctx context.Context, db DBTX) ([]Tramite, error)
 	//RemoveUserRoles
 	//
 	//  DELETE FROM user_roles

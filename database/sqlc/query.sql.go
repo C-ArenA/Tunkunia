@@ -169,47 +169,6 @@ func (q *Queries) IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, 
 	return exists, err
 }
 
-const listTramites = `-- name: ListTramites :many
-SELECT id, name, description, procedure_description, type, status, created_at, updated_at
-FROM tramites
-`
-
-// ListTramites
-//
-//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at
-//	FROM tramites
-func (q *Queries) ListTramites(ctx context.Context, db DBTX) ([]Tramite, error) {
-	rows, err := db.QueryContext(ctx, listTramites)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []Tramite
-	for rows.Next() {
-		var i Tramite
-		if err := rows.Scan(
-			&i.ID,
-			&i.Name,
-			&i.Description,
-			&i.ProcedureDescription,
-			&i.Type,
-			&i.Status,
-			&i.CreatedAt,
-			&i.UpdatedAt,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
 const removeUserRoles = `-- name: RemoveUserRoles :exec
 DELETE FROM user_roles
 WHERE user_id = ?
