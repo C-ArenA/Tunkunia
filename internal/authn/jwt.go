@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/lestrrat-go/jwx/v4/jwa"
 	"github.com/lestrrat-go/jwx/v4/jwk"
 	"github.com/lestrrat-go/jwx/v4/jwt"
@@ -115,7 +116,7 @@ func RequireAuthenticated(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		p, ok := FromAuthContext(r.Context())
 		if !ok || !p.IsValid() {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+			oapi.Error(w, oapi.NewForbiddenResponse("Requires authenticated user"), http.StatusUnauthorized)
 			return
 		}
 		next.ServeHTTP(w, r)
