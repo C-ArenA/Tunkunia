@@ -76,9 +76,3 @@ type TramiteSort struct {
 	Field  TramiteField
 	IsDesc bool
 }
-
-type TramitePaginator struct {
-	Limit         int
-	StartingAfter *TramiteID
-	EndingBefore  *TramiteID
-}

@@ -2,10 +2,7 @@ package catalog
 
 import (
 	"context"
-	"database/sql"
 	"errors"
-
-	"github.com/C-ArenA/Tunkunia/database/sqlc"
 )
 
 var ErrNotFound = errors.New("Elemento no encontrado")
@@ -22,10 +19,8 @@ type Service struct {
 	repo Repo
 }
 
-func NewService(db *sql.DB, q sqlc.Querier) *Service {
-	return &Service{
-		repo: NewRepo(db, q),
-	}
+func NewService(repo Repo) *Service {
+	return &Service{repo: repo}
 }
 
 func (s *Service) List(ctx context.Context) ([]Tramite, error) {

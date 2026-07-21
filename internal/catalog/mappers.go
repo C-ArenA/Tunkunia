@@ -11,8 +11,7 @@ import (
 	"github.com/go-jet/jet/v2/sqlite"
 )
 
-// NewTramiteFromDomain maps the domain entity to the API response model.
-func NewTramiteFromDomain(t Tramite) oapi.Tramite {
+func TramiteToResponse(t Tramite) oapi.Tramite {
 	return oapi.Tramite{
 		Id:                   int64(t.ID),
 		Name:                 t.Name,
@@ -25,8 +24,7 @@ func NewTramiteFromDomain(t Tramite) oapi.Tramite {
 	}
 }
 
-// NewTramiteBaseFromDomain maps the domain entity to the base API response model of Tramite.
-func NewTramiteBaseFromDomain(t Tramite) oapi.TramiteBase {
+func TramiteBaseToResponse(t Tramite) oapi.TramiteBase {
 	return oapi.TramiteBase{
 		Id:          int64(t.ID),
 		Name:        t.Name,
@@ -34,47 +32,43 @@ func NewTramiteBaseFromDomain(t Tramite) oapi.TramiteBase {
 	}
 }
 
-func CreateTramiteJSONRequestBodyToDomain(tc *oapi.CreateTramiteJSONRequestBody) Tramite {
-	t := Tramite{
-		Name: tc.Name,
+func TramiteFromCreateRequest(r *oapi.CreateTramiteJSONRequestBody) Tramite {
+	t := Tramite{Name: r.Name}
+	if r.Description != nil {
+		t.Description = *r.Description
 	}
-	if tc.Description != nil {
-		t.Description = *tc.Description
+	if r.ProcedureDescription != nil {
+		t.ProcedureDescription = *r.ProcedureDescription
 	}
-	if tc.ProcedureDescription != nil {
-		t.ProcedureDescription = *tc.ProcedureDescription
-	}
-	if tc.Type != nil {
-		t.Type = TramiteType(*tc.Type)
+	if r.Type != nil {
+		t.Type = TramiteType(*r.Type)
 	}
 	return t
 }
 
-func UpdateTramiteJSONRequestBodyToDomain(tu *oapi.UpdateTramiteJSONRequestBody) (Tramite, TramiteMask) {
+func TramiteFromUpdateRequest(r *oapi.UpdateTramiteJSONRequestBody) (Tramite, TramiteMask) {
 	var t Tramite
 	var m TramiteMask
-
-	if tu.Name != nil {
+	if r.Name != nil {
 		m.Name = true
-		t.Name = *tu.Name
+		t.Name = *r.Name
 	}
-	if tu.Description != nil {
+	if r.Description != nil {
 		m.Description = true
-		t.Description = *tu.Description
+		t.Description = *r.Description
 	}
-	if tu.ProcedureDescription != nil {
+	if r.ProcedureDescription != nil {
 		m.ProcedureDescription = true
-		t.ProcedureDescription = *tu.ProcedureDescription
+		t.ProcedureDescription = *r.ProcedureDescription
 	}
-	if tu.Status != nil {
+	if r.Status != nil {
 		m.Status = true
-		t.Status = TramiteStatus(*tu.Status)
+		t.Status = TramiteStatus(*r.Status)
 	}
-	if tu.Type != nil {
+	if r.Type != nil {
 		m.Type = true
-		t.Type = TramiteType(*tu.Type)
+		t.Type = TramiteType(*r.Type)
 	}
-
 	return t, m
 }
 
@@ -82,8 +76,7 @@ func UpdateTramiteJSONRequestBodyToDomain(tu *oapi.UpdateTramiteJSONRequestBody)
 	# Mappers for the Tramite Entity
 --------------------------------- */
 
-// fromDomain maps the core domain entity to the sqlc generated database model
-func SqlcTramiteFromDomain(t Tramite) sqlc.Tramite {
+func TramiteToSqlc(t Tramite) sqlc.Tramite {
 	return sqlc.Tramite{
 		ID:                   int64(t.ID),
 		Name:                 t.Name,
@@ -96,8 +89,7 @@ func SqlcTramiteFromDomain(t Tramite) sqlc.Tramite {
 	}
 }
 
-// toDomain maps the sqlc generated database model to the core domain entity.
-func fromSqlcTramite(t sqlc.Tramite) (Tramite, error) {
+func TramiteFromSqlc(t sqlc.Tramite) (Tramite, error) {
 	createdAt, err := time.Parse(time.DateTime, t.CreatedAt)
 	if err != nil {
 		return Tramite{}, err
@@ -120,8 +112,7 @@ func fromSqlcTramite(t sqlc.Tramite) (Tramite, error) {
 	}, nil
 }
 
-// fromDomain maps the core domain entity to the sqlc generated database model
-func JetTramiteFromDomain(t Tramite) model.Tramites {
+func TramiteToJet(t Tramite) model.Tramites {
 	return model.Tramites{
 		ID:                   int64(t.ID),
 		Name:                 t.Name,
@@ -134,8 +125,7 @@ func JetTramiteFromDomain(t Tramite) model.Tramites {
 	}
 }
 
-// toDomain maps the go-jet generated database model to the core domain entity.
-func FromJetTramite(t model.Tramites) (Tramite, error) {
+func TramiteFromJet(t model.Tramites) (Tramite, error) {
 	createdAt, err := time.Parse(time.DateTime, t.CreatedAt)
 	if err != nil {
 		return Tramite{}, err
@@ -158,11 +148,10 @@ func FromJetTramite(t model.Tramites) (Tramite, error) {
 	}, nil
 }
 
-// generates a jet compliant column list based on a mask for the Tramite model
-func JetColumnListFromTramiteMask(m TramiteMask) sqlite.ColumnList {
-	mappers := []struct {
-		mask bool
-		name sqlite.Column
+func TramiteMaskToColumns(m TramiteMask) sqlite.ColumnList {
+	mappings := []struct {
+		set bool
+		col sqlite.Column
 	}{
 		{m.ID, table.Tramites.ID},
 		{m.Name, table.Tramites.Name},
@@ -174,12 +163,11 @@ func JetColumnListFromTramiteMask(m TramiteMask) sqlite.ColumnList {
 		{m.UpdatedAt, table.Tramites.UpdatedAt},
 	}
 
-	cols := make(sqlite.ColumnList, 0, len(mappers))
-	for _, mapper := range mappers {
-		if mapper.mask {
-			cols = append(cols, mapper.name)
+	cols := make(sqlite.ColumnList, 0, len(mappings))
+	for _, mp := range mappings {
+		if mp.set {
+			cols = append(cols, mp.col)
 		}
 	}
-
 	return cols
 }

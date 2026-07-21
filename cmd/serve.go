@@ -45,7 +45,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 
 	// modules wiring
 	jwtAuthn := authn.NewJWTService(cfg.JWTSecret)
-	catalogService := catalog.NewService(db, q)
+	catalogService := catalog.NewService(catalog.NewRepo(db, q))
 
 	// HTTP
 	r := chi.NewRouter()

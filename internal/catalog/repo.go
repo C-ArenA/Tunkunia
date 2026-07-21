@@ -36,7 +36,7 @@ func (r *CatalogRepo) List(ctx context.Context, f TramiteFilter, s TramiteSort) 
 	}
 	tramites := make([]Tramite, len(dest))
 	for i, t := range dest {
-		dT, err := FromJetTramite(t)
+		dT, err := TramiteFromJet(t)
 		if err != nil {
 			return nil, err
 		}
@@ -48,7 +48,7 @@ func (r *CatalogRepo) List(ctx context.Context, f TramiteFilter, s TramiteSort) 
 
 // Create implements [Repo].
 func (r *CatalogRepo) Create(ctx context.Context, t Tramite) (*Tramite, error) {
-	sqlcT := SqlcTramiteFromDomain(t)
+	sqlcT := TramiteToSqlc(t)
 
 	newT, err := r.queries.CreateTramite(ctx, r.db, sqlc.CreateTramiteParams{
 		Name:                 sqlcT.Name,
@@ -61,7 +61,7 @@ func (r *CatalogRepo) Create(ctx context.Context, t Tramite) (*Tramite, error) {
 		return nil, err
 	}
 
-	dT, err := fromSqlcTramite(newT)
+	dT, err := TramiteFromSqlc(newT)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (r *CatalogRepo) Get(ctx context.Context, id TramiteID) (*Tramite, error) {
 		return nil, err
 	}
 
-	dT, err := fromSqlcTramite(t)
+	dT, err := TramiteFromSqlc(t)
 	if err != nil {
 		return nil, err
 	}
@@ -103,11 +103,10 @@ func (r *CatalogRepo) Update(ctx context.Context, id TramiteID, t Tramite, m Tra
 	t.UpdatedAt = time.Now().UTC()
 
 	stmt := table.Tramites.
-		UPDATE(JetColumnListFromTramiteMask(m)).
-		MODEL(JetTramiteFromDomain(t)).
+		UPDATE(TramiteMaskToColumns(m)).
+		MODEL(TramiteToJet(t)).
 		WHERE(table.Tramites.ID.EQ(Int(int64(id)))).
 		RETURNING(table.Tramites.AllColumns)
-
 	var dest model.Tramites
 	err := stmt.QueryContext(ctx, r.db, &dest)
 	if errors.Is(err, qrm.ErrNoRows) {
@@ -116,8 +115,7 @@ func (r *CatalogRepo) Update(ctx context.Context, id TramiteID, t Tramite, m Tra
 	if err != nil {
 		return nil, err
 	}
-
-	dT, err := FromJetTramite(dest)
+	dT, err := TramiteFromJet(dest)
 	if err != nil {
 		return nil, err
 	}
