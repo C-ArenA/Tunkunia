@@ -15,15 +15,15 @@ func TestListTramitesQuery(t *testing.T) {
 	})
 	a, _ := q.Sql()
 	if !strings.Contains(a, "FROM tramites") {
-		t.Fatal("La query no invoca a la tabla tramites")
+		t.Fatal("query does not reference tramites table")
 	}
 	if !strings.Contains(a, "SELECT") {
-		t.Fatal("La query no usa un SELECT")
+		t.Fatal("query does not use SELECT")
 	}
 	if !strings.Contains(a, "WHERE") {
-		t.Fatal("La query no aplica filtros")
+		t.Fatal("query does not apply filters")
 	}
 	if !strings.Contains(a, "ORDER BY") {
-		t.Fatal("La query no aplica sorting")
+		t.Fatal("query does not apply sorting")
 	}
 }

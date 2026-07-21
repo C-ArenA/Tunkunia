@@ -5,7 +5,7 @@ import (
 	"errors"
 )
 
-var ErrNotFound = errors.New("Elemento no encontrado")
+var ErrNotFound = errors.New("element not found")
 
 type Repo interface {
 	List(ctx context.Context, filter TramiteFilter, sort TramiteSort) ([]Tramite, error)
