@@ -1,4 +1,4 @@
-package store
+package catalog
 
 import (
 	"context"
@@ -6,36 +6,37 @@ import (
 	"errors"
 	"time"
 
+	"github.com/C-ArenA/Tunkunia/database/jet/model"
 	"github.com/C-ArenA/Tunkunia/database/jet/table"
-	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
+	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/go-jet/jet/v2/qrm"
 	. "github.com/go-jet/jet/v2/sqlite"
 )
 
 type CatalogRepo struct {
 	db      *sql.DB
-	queries *Queries
+	queries sqlc.Querier
 }
 
-func NewRepo(db *sql.DB) *CatalogRepo {
+func NewRepo(db *sql.DB, q sqlc.Querier) *CatalogRepo {
 	return &CatalogRepo{
 		db:      db,
-		queries: New(db),
+		queries: q,
 	}
 }
 
 // List implements [Repo].
-func (r *CatalogRepo) List(ctx context.Context, f domain.TramiteFilter, s domain.TramiteSort) ([]domain.Tramite, error) {
+func (r *CatalogRepo) List(ctx context.Context, f TramiteFilter, s TramiteSort) ([]Tramite, error) {
 	q := ListTramitesQuery(f, s)
-	var dest []TramiteJet
+	var dest []model.Tramites
 
 	err := q.QueryContext(ctx, r.db, &dest)
 	if err != nil {
 		return nil, err
 	}
-	tramites := make([]domain.Tramite, len(dest))
+	tramites := make([]Tramite, len(dest))
 	for i, t := range dest {
-		dT, err := t.toDomain()
+		dT, err := FromJetTramite(t)
 		if err != nil {
 			return nil, err
 		}
@@ -46,10 +47,10 @@ func (r *CatalogRepo) List(ctx context.Context, f domain.TramiteFilter, s domain
 }
 
 // Create implements [Repo].
-func (r *CatalogRepo) Create(ctx context.Context, t domain.Tramite) (*domain.Tramite, error) {
-	sqlcT := NewTramiteFromDomain(t)
+func (r *CatalogRepo) Create(ctx context.Context, t Tramite) (*Tramite, error) {
+	sqlcT := SqlcTramiteFromDomain(t)
 
-	newT, err := r.queries.CreateTramite(ctx, CreateTramiteParams{
+	newT, err := r.queries.CreateTramite(ctx, r.db, sqlc.CreateTramiteParams{
 		Name:                 sqlcT.Name,
 		Description:          sqlcT.Description,
 		ProcedureDescription: sqlcT.ProcedureDescription,
@@ -60,7 +61,7 @@ func (r *CatalogRepo) Create(ctx context.Context, t domain.Tramite) (*domain.Tra
 		return nil, err
 	}
 
-	dT, err := newT.toDomain()
+	dT, err := fromSqlcTramite(newT)
 	if err != nil {
 		return nil, err
 	}
@@ -68,28 +69,28 @@ func (r *CatalogRepo) Create(ctx context.Context, t domain.Tramite) (*domain.Tra
 }
 
 // Delete implements [Repo].
-func (r *CatalogRepo) Delete(ctx context.Context, id domain.TramiteID) error {
-	rows, err := r.queries.DeleteTramite(ctx, int64(id))
+func (r *CatalogRepo) Delete(ctx context.Context, id TramiteID) error {
+	rows, err := r.queries.DeleteTramite(ctx, r.db, int64(id))
 	if err != nil {
 		return err
 	}
 	if rows == 0 {
-		return domain.ErrNotFound
+		return ErrNotFound
 	}
 	return nil
 }
 
 // Get implements [Repo].
-func (r *CatalogRepo) Get(ctx context.Context, id domain.TramiteID) (*domain.Tramite, error) {
-	t, err := r.queries.GetTramite(ctx, int64(id))
+func (r *CatalogRepo) Get(ctx context.Context, id TramiteID) (*Tramite, error) {
+	t, err := r.queries.GetTramite(ctx, r.db, int64(id))
 	if errors.Is(err, sql.ErrNoRows) {
-		return nil, domain.ErrNotFound
+		return nil, ErrNotFound
 	}
 	if err != nil {
 		return nil, err
 	}
 
-	dT, err := t.toDomain()
+	dT, err := fromSqlcTramite(t)
 	if err != nil {
 		return nil, err
 	}
@@ -97,26 +98,26 @@ func (r *CatalogRepo) Get(ctx context.Context, id domain.TramiteID) (*domain.Tra
 }
 
 // Update implements [Repo].
-func (r *CatalogRepo) Update(ctx context.Context, id domain.TramiteID, t domain.Tramite, m domain.TramiteMask) (*domain.Tramite, error) {
+func (r *CatalogRepo) Update(ctx context.Context, id TramiteID, t Tramite, m TramiteMask) (*Tramite, error) {
 	m.UpdatedAt = true
 	t.UpdatedAt = time.Now().UTC()
 
 	stmt := table.Tramites.
 		UPDATE(JetColumnListFromTramiteMask(m)).
-		MODEL(NewTramiteJetFromDomain(t)).
+		MODEL(JetTramiteFromDomain(t)).
 		WHERE(table.Tramites.ID.EQ(Int(int64(id)))).
 		RETURNING(table.Tramites.AllColumns)
 
-	var dest TramiteJet
+	var dest model.Tramites
 	err := stmt.QueryContext(ctx, r.db, &dest)
 	if errors.Is(err, qrm.ErrNoRows) {
-		return nil, domain.ErrNotFound
+		return nil, ErrNotFound
 	}
 	if err != nil {
 		return nil, err
 	}
 
-	dT, err := dest.toDomain()
+	dT, err := FromJetTramite(dest)
 	if err != nil {
 		return nil, err
 	}

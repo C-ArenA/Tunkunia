@@ -1,4 +1,4 @@
-package domain
+package catalog
 
 import (
 	"github.com/C-ArenA/Tunkunia/internal/audit"

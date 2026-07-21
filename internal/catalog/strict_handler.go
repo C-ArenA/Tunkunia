@@ -4,14 +4,13 @@ import (
 	"context"
 
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
-	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
 )
 
 type StrictCatalogHandlerV1 struct {
-	service *domain.Service
+	service *Service
 }
 
-func NewStrictApiHandler(service *domain.Service) *StrictCatalogHandlerV1 {
+func NewStrictApiHandler(service *Service) *StrictCatalogHandlerV1 {
 	return &StrictCatalogHandlerV1{service: service}
 }
 
@@ -43,7 +42,7 @@ func (h *StrictCatalogHandlerV1) CreateTramite(ctx context.Context, request oapi
 
 // GetTramite implements [StrictServerInterface].
 func (h *StrictCatalogHandlerV1) GetTramite(ctx context.Context, request oapi.GetTramiteRequestObject) (oapi.GetTramiteResponseObject, error) {
-	t, err := h.service.Get(ctx, domain.TramiteID(request.Id))
+	t, err := h.service.Get(ctx, TramiteID(request.Id))
 
 	if err != nil {
 		return oapi.GetTramite404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
@@ -69,7 +68,7 @@ func (h *StrictCatalogHandlerV1) UpdateTramite(ctx context.Context, request oapi
 	}
 
 	t, m := UpdateTramiteJSONRequestBodyToDomain(request.Body)
-	updated, err := h.service.Update(ctx, domain.TramiteID(request.Id), t, m)
+	updated, err := h.service.Update(ctx, TramiteID(request.Id), t, m)
 	if err != nil {
 		return oapi.UpdateTramite400ApplicationProblemPlusJSONResponse{BadRequestApplicationProblemPlusJSONResponse: oapi.NewBadRequestResponse(err.Error())}, nil
 	}
@@ -79,7 +78,7 @@ func (h *StrictCatalogHandlerV1) UpdateTramite(ctx context.Context, request oapi
 
 // DeleteTramite implements [StrictServerInterface].
 func (h *StrictCatalogHandlerV1) DeleteTramite(ctx context.Context, request oapi.DeleteTramiteRequestObject) (oapi.DeleteTramiteResponseObject, error) {
-	err := h.service.Delete(ctx, domain.TramiteID(request.Id))
+	err := h.service.Delete(ctx, TramiteID(request.Id))
 	if err != nil {
 		return oapi.DeleteTramite404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
 	}

@@ -1,6 +1,14 @@
-package domain
+package catalog
 
-import "context"
+import (
+	"context"
+	"database/sql"
+	"errors"
+
+	"github.com/C-ArenA/Tunkunia/database/sqlc"
+)
+
+var ErrNotFound = errors.New("Elemento no encontrado")
 
 type Repo interface {
 	List(ctx context.Context, filter TramiteFilter, sort TramiteSort) ([]Tramite, error)
@@ -14,9 +22,9 @@ type Service struct {
 	repo Repo
 }
 
-func NewService(repo Repo) *Service {
+func NewService(db *sql.DB, q sqlc.Querier) *Service {
 	return &Service{
-		repo: repo,
+		repo: NewRepo(db, q),
 	}
 }
 

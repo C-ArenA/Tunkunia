@@ -1,12 +1,11 @@
-package store
+package catalog
 
 import (
 	"github.com/C-ArenA/Tunkunia/database/jet/table"
-	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
 	. "github.com/go-jet/jet/v2/sqlite"
 )
 
-func ListTramitesQuery(f domain.TramiteFilter, s domain.TramiteSort) SelectStatement {
+func ListTramitesQuery(f TramiteFilter, s TramiteSort) SelectStatement {
 	t := table.Tramites
 	filter := Bool(true)
 	if f.Status != nil {
@@ -21,11 +20,11 @@ func ListTramitesQuery(f domain.TramiteFilter, s domain.TramiteSort) SelectState
 	if s.Field.IsValid() {
 		var sortCol Column
 		switch s.Field {
-		case domain.TramiteFieldName:
+		case TramiteFieldName:
 			sortCol = t.Name
-		case domain.TramiteFieldCreatedAt:
+		case TramiteFieldCreatedAt:
 			sortCol = t.CreatedAt
-		case domain.TramiteFieldType:
+		case TramiteFieldType:
 			sortCol = t.Type
 		}
 

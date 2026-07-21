@@ -1,18 +1,16 @@
-package store
+package catalog
 
 import (
 	"strings"
 	"testing"
-
-	"github.com/C-ArenA/Tunkunia/internal/catalog/domain"
 )
 
 func TestListTramitesQuery(t *testing.T) {
-	q := ListTramitesQuery(domain.TramiteFilter{
-		Status: new(domain.Published),
-		Type:   new(domain.Registro),
-	}, domain.TramiteSort{
-		Field:  domain.TramiteFieldCreatedAt,
+	q := ListTramitesQuery(TramiteFilter{
+		Status: new(Published),
+		Type:   new(Registro),
+	}, TramiteSort{
+		Field:  TramiteFieldCreatedAt,
 		IsDesc: true,
 	})
 	a, _ := q.Sql()

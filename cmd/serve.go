@@ -10,6 +10,7 @@ import (
 	"net/http"
 
 	"github.com/C-ArenA/Tunkunia/database"
+	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/api"
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
@@ -40,9 +41,12 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 
 	// Database
 	db := initDB(ctx, cfg)
+	q := sqlc.New()
 
+	// modules wiring
 	jwtAuthn := authn.NewJWTService(cfg.JWTSecret)
-	catalogService := catalog.ModuleInit(db)
+	catalogService := catalog.NewService(db, q)
+
 	// HTTP
 	r := chi.NewRouter()
 	r.Use(api.CorsMiddleware(), middleware.Logger, authn.Verifier(jwtAuthn))
