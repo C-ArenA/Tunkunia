@@ -4,9 +4,9 @@ export type ClientOptions = {
     baseUrl: 'http://localhost:8080/api/v1' | 'https://{host}/api/v1' | (string & {});
 };
 
-export type Health = {
-    status: 'UP' | 'DOWN' | 'DEGRADED';
-    timestamp: string;
+export type CollectionBase = {
+    next_page_url: string | null;
+    previous_page_url: string | null;
 };
 
 /**
@@ -23,60 +23,22 @@ export type ProblemDetails = {
      * Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
      *
      */
-    status?: number;
+    status: number;
     /**
      * Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
      *
      */
-    title?: string;
+    title: string;
     /**
      * Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
      *
      */
-    detail?: string;
+    detail: string;
     /**
      * Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
      *
      */
     instance?: string;
-};
-
-export type TramiteStatus = 'draft' | 'published' | 'archived';
-
-export type Tramite = {
-    id: number;
-    name: string;
-    description?: string;
-    procedureDescription?: string;
-    type?: string;
-    status?: TramiteStatus;
-    createdBy?: number;
-    createdAt?: string;
-    updatedAt?: string;
-};
-
-export type TramiteCollection = CollectionBase & {
-    data: Array<Tramite>;
-};
-
-export type TramiteCreate = {
-    name: string;
-    description?: string;
-    procedureDescription?: string | null;
-    type?: string;
-};
-
-export type TramiteUpdate = {
-    name?: string;
-    description?: string;
-    procedureDescription?: string | null;
-    type?: string;
-    status?: TramiteStatus;
-};
-
-export type CollectionBase = {
-    next_page_url: string | null;
-    previous_page_url: string | null;
 };
 
 /**
@@ -87,9 +49,50 @@ export type ErrorDetail = {
     pointer: string;
 };
 
-export type TramiteCreateBody = TramiteCreate;
+export type Health = {
+    status: 'UP' | 'DOWN' | 'DEGRADED';
+    timestamp: string;
+};
 
-export type TramiteUpdateBody = TramiteUpdate;
+export type TramiteStatus = 'draft' | 'published' | 'archived';
+
+export type TramiteBase = {
+    id: number;
+    name: string;
+    description: string;
+};
+
+export type TramiteCollection = CollectionBase & {
+    data: Array<TramiteBase>;
+};
+
+export type TramiteType = 'Otro' | 'Trámite de registro' | 'Trámite de certificación' | 'Trámite de constancia' | 'Trámite para cumplir con obligaciones' | 'Trámite para acceder a servicios' | 'Trámite para obtener permisos';
+
+export type TramiteCreate = {
+    name: string;
+    description?: string;
+    procedureDescription?: string;
+    type?: TramiteType;
+};
+
+export type AuditMetadata = {
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type Tramite = TramiteBase & AuditMetadata & {
+    procedureDescription: string;
+    type: TramiteType;
+    status: TramiteStatus;
+};
+
+export type TramiteUpdate = {
+    name?: string;
+    description?: string;
+    procedureDescription?: string;
+    type?: TramiteType;
+    status?: TramiteStatus;
+};
 
 export type GetHealthData = {
     body?: never;
@@ -120,35 +123,6 @@ export type GetHealthResponses = {
 
 export type GetHealthResponse = GetHealthResponses[keyof GetHealthResponses];
 
-export type GetCatalogHealthData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/catalog/health';
-};
-
-export type GetCatalogHealthErrors = {
-    /**
-     * El recurso solicitado no existe
-     */
-    404: ProblemDetails;
-    /**
-     * The service is unhealthy or degraded
-     */
-    503: Health;
-};
-
-export type GetCatalogHealthError = GetCatalogHealthErrors[keyof GetCatalogHealthErrors];
-
-export type GetCatalogHealthResponses = {
-    /**
-     * The service is healthy and operating normally
-     */
-    200: Health;
-};
-
-export type GetCatalogHealthResponse = GetCatalogHealthResponses[keyof GetCatalogHealthResponses];
-
 export type ListTramitesData = {
     body?: never;
     path?: never;
@@ -160,7 +134,7 @@ export type ListTramitesData = {
         page?: string;
         limit?: number;
     };
-    url: '/catalog/tramites';
+    url: '/tramites';
 };
 
 export type ListTramitesErrors = {
@@ -186,10 +160,10 @@ export type ListTramitesResponses = {
 export type ListTramitesResponse = ListTramitesResponses[keyof ListTramitesResponses];
 
 export type CreateTramiteData = {
-    body: TramiteCreateBody;
+    body: TramiteCreate;
     path?: never;
     query?: never;
-    url: '/catalog/tramites';
+    url: '/tramites';
 };
 
 export type CreateTramiteErrors = {
@@ -213,7 +187,7 @@ export type CreateTramiteErrors = {
          * Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
          *
          */
-        errors?: Array<ErrorDetail>;
+        errors: Array<ErrorDetail>;
     };
 };
 
@@ -237,7 +211,7 @@ export type DeleteTramiteData = {
         id: number;
     };
     query?: never;
-    url: '/catalog/tramites/{id}';
+    url: '/tramites/{id}';
 };
 
 export type DeleteTramiteErrors = {
@@ -275,7 +249,7 @@ export type GetTramiteData = {
         id: number;
     };
     query?: never;
-    url: '/catalog/tramites/{id}';
+    url: '/tramites/{id}';
 };
 
 export type GetTramiteErrors = {
@@ -301,7 +275,7 @@ export type GetTramiteResponses = {
 export type GetTramiteResponse = GetTramiteResponses[keyof GetTramiteResponses];
 
 export type UpdateTramiteData = {
-    body: TramiteUpdateBody;
+    body: TramiteUpdate;
     path: {
         /**
          * ID del Trámite
@@ -309,7 +283,7 @@ export type UpdateTramiteData = {
         id: number;
     };
     query?: never;
-    url: '/catalog/tramites/{id}';
+    url: '/tramites/{id}';
 };
 
 export type UpdateTramiteErrors = {
@@ -337,7 +311,7 @@ export type UpdateTramiteErrors = {
          * Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
          *
          */
-        errors?: Array<ErrorDetail>;
+        errors: Array<ErrorDetail>;
     };
 };
 

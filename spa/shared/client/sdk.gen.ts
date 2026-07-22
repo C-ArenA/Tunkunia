@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateTramiteData, CreateTramiteErrors, CreateTramiteResponses, DeleteTramiteData, DeleteTramiteErrors, DeleteTramiteResponses, GetCatalogHealthData, GetCatalogHealthErrors, GetCatalogHealthResponses, GetHealthData, GetHealthErrors, GetHealthResponses, GetTramiteData, GetTramiteErrors, GetTramiteResponses, ListTramitesData, ListTramitesErrors, ListTramitesResponses, UpdateTramiteData, UpdateTramiteErrors, UpdateTramiteResponses } from './types.gen';
+import type { CreateTramiteData, CreateTramiteErrors, CreateTramiteResponses, DeleteTramiteData, DeleteTramiteErrors, DeleteTramiteResponses, GetHealthData, GetHealthErrors, GetHealthResponses, GetTramiteData, GetTramiteErrors, GetTramiteResponses, ListTramitesData, ListTramitesErrors, ListTramitesResponses, UpdateTramiteData, UpdateTramiteErrors, UpdateTramiteResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -24,11 +24,6 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 export const getHealth = <ThrowOnError extends boolean = false>(options?: Options<GetHealthData, ThrowOnError>): RequestResult<GetHealthResponses, GetHealthErrors, ThrowOnError> => (options?.client ?? client).get<GetHealthResponses, GetHealthErrors, ThrowOnError>({ url: '/health', ...options });
 
 /**
- * Salud Módulo
- */
-export const getCatalogHealth = <ThrowOnError extends boolean = false>(options?: Options<GetCatalogHealthData, ThrowOnError>): RequestResult<GetCatalogHealthResponses, GetCatalogHealthErrors, ThrowOnError> => (options?.client ?? client).get<GetCatalogHealthResponses, GetCatalogHealthErrors, ThrowOnError>({ url: '/catalog/health', ...options });
-
-/**
  * Listar Trámites
  *
  * Obtiene una lista de trámites paginados
@@ -37,11 +32,7 @@ export const getCatalogHealth = <ThrowOnError extends boolean = false>(options?:
  * - **Admins** will see everything.
  *
  */
-export const listTramites = <ThrowOnError extends boolean = false>(options?: Options<ListTramitesData, ThrowOnError>): RequestResult<ListTramitesResponses, ListTramitesErrors, ThrowOnError> => (options?.client ?? client).get<ListTramitesResponses, ListTramitesErrors, ThrowOnError>({
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/catalog/tramites',
-    ...options
-});
+export const listTramites = <ThrowOnError extends boolean = false>(options?: Options<ListTramitesData, ThrowOnError>): RequestResult<ListTramitesResponses, ListTramitesErrors, ThrowOnError> => (options?.client ?? client).get<ListTramitesResponses, ListTramitesErrors, ThrowOnError>({ url: '/tramites', ...options });
 
 /**
  * Crear Trámite
@@ -50,7 +41,7 @@ export const listTramites = <ThrowOnError extends boolean = false>(options?: Opt
  */
 export const createTramite = <ThrowOnError extends boolean = false>(options: Options<CreateTramiteData, ThrowOnError>): RequestResult<CreateTramiteResponses, CreateTramiteErrors, ThrowOnError> => (options.client ?? client).post<CreateTramiteResponses, CreateTramiteErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/catalog/tramites',
+    url: '/tramites',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -63,7 +54,7 @@ export const createTramite = <ThrowOnError extends boolean = false>(options: Opt
  */
 export const deleteTramite = <ThrowOnError extends boolean = false>(options: Options<DeleteTramiteData, ThrowOnError>): RequestResult<DeleteTramiteResponses, DeleteTramiteErrors, ThrowOnError> => (options.client ?? client).delete<DeleteTramiteResponses, DeleteTramiteErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/catalog/tramites/{id}',
+    url: '/tramites/{id}',
     ...options
 });
 
@@ -72,7 +63,7 @@ export const deleteTramite = <ThrowOnError extends boolean = false>(options: Opt
  */
 export const getTramite = <ThrowOnError extends boolean = false>(options: Options<GetTramiteData, ThrowOnError>): RequestResult<GetTramiteResponses, GetTramiteErrors, ThrowOnError> => (options.client ?? client).get<GetTramiteResponses, GetTramiteErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/catalog/tramites/{id}',
+    url: '/tramites/{id}',
     ...options
 });
 
@@ -81,7 +72,7 @@ export const getTramite = <ThrowOnError extends boolean = false>(options: Option
  */
 export const updateTramite = <ThrowOnError extends boolean = false>(options: Options<UpdateTramiteData, ThrowOnError>): RequestResult<UpdateTramiteResponses, UpdateTramiteErrors, ThrowOnError> => (options.client ?? client).patch<UpdateTramiteResponses, UpdateTramiteErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/catalog/tramites/{id}',
+    url: '/tramites/{id}',
     ...options,
     headers: {
         'Content-Type': 'application/json',

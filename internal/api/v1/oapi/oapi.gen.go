@@ -106,12 +106,6 @@ func (siw *ServerInterfaceWrapper) ListTramites(w http.ResponseWriter, r *http.R
 	var err error
 	_ = err
 
-	ctx := r.Context()
-
-	ctx = context.WithValue(ctx, BearerAuthScopes, []string{})
-
-	r = r.WithContext(ctx)
-
 	// Parameter object where we will unmarshal all parameters from the context
 	var params ListTramitesParams
 
@@ -170,7 +164,7 @@ func (siw *ServerInterfaceWrapper) CreateTramite(w http.ResponseWriter, r *http.
 
 	ctx := r.Context()
 
-	ctx = context.WithValue(ctx, BearerAuthScopes, []string{})
+	ctx = context.WithValue(ctx, BearerAuthScopes, []string{"read:all"})
 
 	r = r.WithContext(ctx)
 

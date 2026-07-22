@@ -15,7 +15,6 @@ paths:
         - **Creators** will see their own drafts/archived items alongside published ones.
         - **Admins** will see everything.
       security:
-        - BearerAuth: []
         - {}
       parameters:
         - name: status
@@ -51,7 +50,7 @@ paths:
       summary: Crear Trámite
       description: Permite a usuarios con rol de administración la creación de nuevos trámites en el catálogo de trámites. Los mismos nacerán con estado draft y pueden contener un procedimiento vacío
       security:
-        - BearerAuth: []
+        - BearerAuth: ["read:all"]
       requestBody:
         required: true
         content:

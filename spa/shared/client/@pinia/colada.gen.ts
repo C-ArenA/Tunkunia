@@ -4,8 +4,8 @@ import { type _JSONValue, defineQueryOptions, type UseMutationOptions } from '@p
 
 import { serializeQueryKeyValue } from '../client';
 import { client } from '../client.gen';
-import { createTramite, deleteTramite, getCatalogHealth, getHealth, getTramite, listTramites, type Options, updateTramite } from '../sdk.gen';
-import type { CreateTramiteData, CreateTramiteError, CreateTramiteResponse, DeleteTramiteData, DeleteTramiteError, DeleteTramiteResponse, GetCatalogHealthData, GetCatalogHealthError, GetCatalogHealthResponse, GetHealthData, GetHealthError, GetHealthResponse, GetTramiteData, GetTramiteError, GetTramiteResponse, ListTramitesData, ListTramitesError, ListTramitesResponse, UpdateTramiteData, UpdateTramiteError, UpdateTramiteResponse } from '../types.gen';
+import { createTramite, deleteTramite, getHealth, getTramite, listTramites, type Options, updateTramite } from '../sdk.gen';
+import type { CreateTramiteData, CreateTramiteError, CreateTramiteResponse, DeleteTramiteData, DeleteTramiteError, DeleteTramiteResponse, GetHealthData, GetHealthError, GetHealthResponse, GetTramiteData, GetTramiteError, GetTramiteResponse, ListTramitesData, ListTramitesError, ListTramitesResponse, UpdateTramiteData, UpdateTramiteError, UpdateTramiteResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'path'> & {
@@ -51,23 +51,6 @@ export const getHealthQuery = defineQueryOptions<Options<GetHealthData>, GetHeal
     key: getHealthQueryKey(options),
     query: async (context) => {
         const { data } = await getHealth({
-            ...options,
-            ...context,
-            throwOnError: true
-        });
-        return data;
-    }
-}));
-
-export const getCatalogHealthQueryKey = (options?: Options<GetCatalogHealthData>) => createQueryKey('getCatalogHealth', options);
-
-/**
- * Salud Módulo
- */
-export const getCatalogHealthQuery = defineQueryOptions<Options<GetCatalogHealthData>, GetCatalogHealthResponse, GetCatalogHealthError>((options?: Options<GetCatalogHealthData>) => ({
-    key: getCatalogHealthQueryKey(options),
-    query: async (context) => {
-        const { data } = await getCatalogHealth({
             ...options,
             ...context,
             throwOnError: true
