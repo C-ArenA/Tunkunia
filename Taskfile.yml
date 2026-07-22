@@ -36,6 +36,13 @@ tasks:
         -o ./tunkunia.openapi.yaml
       - cp ./tunkunia.openapi.yaml ./site/public/tunkunia.openapi.yaml
 
+  dex:serve:
+    desc: Start local Dex OIDC sandbox server
+    preconditions:
+      - test -f ./bin/dex
+    cmds:
+      - ./bin/dex serve ./dex/config.tunkunia.yaml
+
   scalar:serve:
     desc: Serves a scalar api reference
     prefix: scalar
