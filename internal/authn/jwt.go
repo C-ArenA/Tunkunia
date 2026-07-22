@@ -114,8 +114,9 @@ func Authenticate(j *JWTService) func(http.Handler) http.Handler {
 
 func RequireAuthenticated(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		p, ok := FromAuthContext(r.Context())
-		if !ok || !p.IsValid() {
+		_, requiresAuthentication := oapi.BearerAuthScopesFromContext(r.Context())
+		_, isAuthenticated := FromAuthContext(r.Context())
+		if requiresAuthentication && !isAuthenticated {
 			oapi.Error(w, oapi.NewForbiddenResponse("Requires authenticated user"), http.StatusUnauthorized)
 			return
 		}

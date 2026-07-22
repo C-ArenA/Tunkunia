@@ -1,6 +1,7 @@
 package oapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 )
@@ -67,4 +68,9 @@ func Error(w http.ResponseWriter, errorResponse any, code int) {
 	if err := json.NewEncoder(w).Encode(errorResponse); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func BearerAuthScopesFromContext(ctx context.Context) ([]string, bool) {
+	bas, ok := ctx.Value(BearerAuthScopes).([]string)
+	return bas, ok
 }

@@ -54,7 +54,10 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	r.Route("/api/v1", func(r chi.Router) {
 		strictHandlerV1 := api.NewStrictHandlerV1(catalogService)
 		oapiServerV1 := oapi.NewStrictHandler(strictHandlerV1, nil)
-		oapi.HandlerFromMux(oapiServerV1, r)
+		oapi.HandlerWithOptions(oapiServerV1, oapi.ChiServerOptions{
+			BaseRouter:  r,
+			Middlewares: []oapi.MiddlewareFunc{authn.RequireAuthenticated},
+		})
 	})
 
 	return db, r, cfg
