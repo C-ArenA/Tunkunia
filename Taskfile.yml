@@ -45,11 +45,18 @@ tasks:
 
   scalar:serve:
     desc: Serves a scalar api reference
-    prefix: scalar
     preconditions:
       - test -f ./tunkunia.openapi.yaml
     cmds:
       - pnpm dlx @scalar/cli document serve --watch --port 8491 ./tunkunia.openapi.yaml
+    failfast: true
+
+  scalar:dev:
+    prefix: scalar
+    deps:
+      - openapi:bundle
+      - scalar:serve
+    failfast: true
 
   server:dev:
     prefix: GO
@@ -62,10 +69,22 @@ tasks:
     cmds:
       - go build -o bin/server ./cmd/api
 
+  dev:tools:
+    desc: Run dev tooling servers
+    deps:
+      - dex:serve
+      - scalar:dev
+
+  dev:main:
+    desc: Run project dev servers
+    deps:
+      - server:dev
+      - spa:dev
+
   dev:all:
     desc: Run all dev servers in parallel
     deps:
-      - openapi:bundle
+      - dex:serve
       - scalar:serve
       - server:dev
       - spa:dev
