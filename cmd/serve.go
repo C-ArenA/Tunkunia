@@ -76,6 +76,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 
 	oidcHandler := authn.NewOIDCHandler(oauth2Config, idTokenVerifier)
 	r.Get("/login", oidcHandler.LoginRedirect)
+	r.Get("/callback", oidcHandler.Callback)
 
 	return db, r, cfg
 }
