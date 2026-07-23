@@ -46,7 +46,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	q := sqlc.New()
 
 	// modules wiring
-	jwtAuthn := authn.NewJWTService(cfg.JWTSecret)
+	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
 	catalogService := catalog.NewService(catalog.NewRepo(db, q))
 	oidcProvider, err := oidc.NewProvider(ctx, "http://127.0.0.1:5556/dex")
 	if err != nil {

@@ -13,7 +13,7 @@ import (
 
 func TestJwtGeneration(t *testing.T) {
 	cfg := LoadTestingConfig(t)
-	ja := NewJWTService(cfg.JWTSecret)
+	ja := NewJWTAuth(cfg.JWTSecret)
 	require.NotNil(t, ja)
 
 	issuedToken, err := ja.IssueUserToken(2)
@@ -25,7 +25,7 @@ func TestJwtGeneration(t *testing.T) {
 
 func TestJwtVerification(t *testing.T) {
 	cfg := LoadTestingConfig(t)
-	s := NewJWTService(cfg.JWTSecret)
+	s := NewJWTAuth(cfg.JWTSecret)
 	require.NotNil(t, s)
 	dumbNext := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		p, ok := FromAuthContext(r.Context())
