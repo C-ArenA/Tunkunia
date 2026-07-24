@@ -21,8 +21,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-01-15',
 
   nitro: {
+    // About proxies in Nuxt: https://youtu.be/J4E5uYz5AY8?si=RbFLdZ2HrJJowPiB
     routeRules: {
       '/api/**': { proxy: 'http://localhost:8080/api/**' },
+      // Solving redirect on proxies issue: https://github.com/nuxt/nuxt/discussions/27701#discussioncomment-9818736
       '/login': { proxy: { to: 'http://localhost:8080/login', fetchOptions: { redirect: 'manual' } } },
       '/callback': { proxy: 'http://localhost:8080/callback' }
     }
