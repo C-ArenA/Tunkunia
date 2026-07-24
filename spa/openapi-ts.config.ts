@@ -1,7 +1,7 @@
 import { defineConfig } from '@hey-api/openapi-ts'
 
 export default defineConfig({
-  input: './../tunkunia.openapi.yaml', // sign up at app.heyapi.dev
+  input: './shared/v1.openapi.yaml', // sign up at app.heyapi.dev
   output: './shared/client',
   plugins: [
     {

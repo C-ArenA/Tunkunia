@@ -6,11 +6,6 @@ import (
 	"net/http"
 )
 
-//go:generate redocly bundle ./../openapi.yaml --output ./bundled.openapi.yaml
-//go:generate go tool oapi-codegen -config ./oapi.cfg.yaml ./bundled.openapi.yaml
-//go:generate go tool oapi-codegen -config ./models.oapi.cfg.yaml ./bundled.openapi.yaml
-//go:generate rm -f ./bundled.openapi.yaml
-
 func NewNotFoundResponse(detail string) NotFoundApplicationProblemPlusJSONResponse {
 	return NotFoundApplicationProblemPlusJSONResponse{
 		Title:  "Recurso no encontrado",

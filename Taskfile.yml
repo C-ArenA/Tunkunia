@@ -33,8 +33,13 @@ tasks:
         -w ./internal/api/v1
         redocly bundle
         ./internal/api/v1/openapi.yaml
-        -o ./tunkunia.openapi.yaml
-      - cp ./tunkunia.openapi.yaml ./site/public/tunkunia.openapi.yaml
+        -o ./v1.openapi.yaml
+
+  gen:heyapi:
+    desc: Genera cliente de api
+    dir: ./spa
+    cmds:
+      - pnpm openapi-ts
 
   dex:serve:
     desc: Start local Dex OIDC sandbox server
@@ -46,9 +51,9 @@ tasks:
   scalar:serve:
     desc: Serves a scalar api reference
     preconditions:
-      - test -f ./tunkunia.openapi.yaml
+      - test -f ./v1.openapi.yaml
     cmds:
-      - pnpm dlx @scalar/cli document serve --watch --port 8491 ./tunkunia.openapi.yaml
+      - pnpm dlx @scalar/cli document serve --watch --port 8491 ./v1.openapi.yaml
     failfast: true
 
   scalar:dev:
