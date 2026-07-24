@@ -113,6 +113,31 @@ func (q *Queries) GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, e
 	return i, err
 }
 
+const getUserByEmail = `-- name: GetUserByEmail :one
+SELECT id, name, sub, email, email_verified, created_at
+FROM users
+WHERE email = ?
+`
+
+// GetUserByEmail
+//
+//	SELECT id, name, sub, email, email_verified, created_at
+//	FROM users
+//	WHERE email = ?
+func (q *Queries) GetUserByEmail(ctx context.Context, db DBTX, email string) (User, error) {
+	row := db.QueryRowContext(ctx, getUserByEmail, email)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Sub,
+		&i.Email,
+		&i.EmailVerified,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getUserRoles = `-- name: GetUserRoles :many
 SELECT role
 FROM user_roles

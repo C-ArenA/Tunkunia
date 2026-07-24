@@ -10,6 +10,7 @@ import (
 
 type Repo interface {
 	SaveUser(ctx context.Context, u User) (*User, error)
+	GetUserByEmail(ctx context.Context, email Email) (*User, error)
 	IsRoleInUse(ctx context.Context, role RoleName) (bool, error)
 }
 
@@ -21,6 +22,14 @@ func NewService(db *sql.DB, q *sqlc.Queries) *Service {
 	return &Service{
 		r: NewSqliteStore(db, q),
 	}
+}
+
+func (s *Service) SaveUser(ctx context.Context, u User) (*User, error) {
+	return s.r.SaveUser(ctx, u)
+}
+
+func (s *Service) GetUserByEmail(ctx context.Context, email Email) (*User, error) {
+	return s.r.GetUserByEmail(ctx, email)
 }
 
 func (s *Service) CreateFirstAdmin(ctx context.Context, email Email) (*User, error) {

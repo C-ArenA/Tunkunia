@@ -22,7 +22,22 @@ type sqliteStore struct {
 	q  *Queries
 }
 
-// HasAdmin implements [domain.Repo].
+// GetUserByEmail implements [Repo].
+func (s *sqliteStore) GetUserByEmail(ctx context.Context, email Email) (*User, error) {
+	user, err := s.q.GetUserByEmail(ctx, s.db, string(email))
+	if err != nil {
+		return nil, fmt.Errorf("No se pudo obtener usuario con correo '%s': %w", email, err)
+	}
+
+	roles, err := s.q.GetUserRoles(ctx, s.db, user.ID)
+	if err != nil {
+		return nil, fmt.Errorf("No se pudieron obtener roles para el usuario '%s': %w", email, err)
+	}
+
+	return new(ToDomainUser(user, roles)), nil
+}
+
+// IsRoleInUse implements [Repo].
 func (s *sqliteStore) IsRoleInUse(ctx context.Context, role RoleName) (bool, error) {
 	return s.q.IsRoleInUse(ctx, s.db, string(role))
 }

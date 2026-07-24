@@ -32,6 +32,12 @@ type Querier interface {
 	//  WHERE id = ?
 	//  LIMIT 1
 	GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, error)
+	//GetUserByEmail
+	//
+	//  SELECT id, name, sub, email, email_verified, created_at
+	//  FROM users
+	//  WHERE email = ?
+	GetUserByEmail(ctx context.Context, db DBTX, email string) (User, error)
 	//GetUserRoles
 	//
 	//  SELECT role

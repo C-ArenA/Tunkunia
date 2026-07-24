@@ -1,3 +1,8 @@
+-- name: GetUserByEmail :one
+SELECT id, name, sub, email, email_verified, created_at
+FROM users
+WHERE email = ?;
+
 -- name: UpsertUser :one
 INSERT INTO users (name, sub, email, email_verified)
 VALUES (?, ?, ?, ?) ON CONFLICT(email) DO
