@@ -2,29 +2,32 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/caarlos0/env/v11"
 	"github.com/joho/godotenv"
 )
 
-type Config struct {
-	Host          string `env:"HOST"`
-	Port          string `env:"PORT"`
-	Env           string `env:"ENV"`
-	GooseDriver   string `env:"GOOSE_DRIVER"`
-	GooseDbString string `env:"GOOSE_DBSTRING"`
-	JWTSecret     string `env:"JWT_SECRET"`
-	AppName       string
+type RoutesConfig struct {
+	OidcRedirect string `env:"OIDC_REDIRECT" envDefault:"/login"`
+	OidcCallback string `env:"OIDC_CALLBACK" envDefault:"/callback"`
+	ApiV1        string `env:"API_V1" envDefault:"/api/v1"`
 }
 
-func NewConfig() *Config {
-	return &Config{
-		Host:    "http://localhost",
-		Port:    ":8080",
-		Env:     "dev",
-		AppName: "Tunkunia",
-	}
+type Config struct {
+	AppName       string       `env:"APP_NAME" envDefault:"Tunkunia"`
+	Host          string       `env:"HOST" envDefault:"http:127.0.0.1"`
+	Port          string       `env:"PORT" envDefault:"8080"`
+	DevNuxtPort   string       `env:"DEV_NUXT_PORT" envDefault:"3000"`
+	Env           string       `env:"ENV"`
+	GooseDriver   string       `env:"GOOSE_DRIVER"`
+	GooseDbString string       `env:"GOOSE_DBSTRING"`
+	JWTSecret     string       `env:"JWT_SECRET,notEmpty"`
+	OidcURL       string       `env:"OIDC_URL" envDefault:"http://127.0.0.1:5556/dex"`
+	OidcClientID  string       `env:"OIDC_CLIENT_ID" envDefault:"tunkunia"`
+	OidcSecret    string       `env:"OIDC_SECRET" envDefault:"ZXhhbXBsZS1hcHAtc2VjcmV0"`
+	Route         RoutesConfig `envPrefix:"ROUTE_"`
 }
 
 func Load() (*Config, error) {
@@ -35,10 +38,10 @@ func Load() (*Config, error) {
 	_ = godotenv.Load()
 	_ = godotenv.Load(".env." + environment)
 
-	c := NewConfig()
-	c.Env = environment
+	c := &Config{}
 	if err := env.Parse(c); err != nil {
 		return nil, fmt.Errorf("No se pudo cargar la configuración del entorno: %w", err)
 	}
+	log.Printf("Configuración cargada:\n%+v\n", *c)
 	return c, nil
 }
