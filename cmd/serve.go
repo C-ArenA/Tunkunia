@@ -15,11 +15,10 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
-	"github.com/coreos/go-oidc/v3/oidc"
+	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/spf13/cobra"
-	"golang.org/x/oauth2"
 	_ "modernc.org/sqlite"
 )
 
@@ -45,32 +44,25 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	q := sqlc.New()
 
 	// modules wiring
-	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
+	userService := user.NewService(db, q)
 	catalogService := catalog.NewService(catalog.NewRepo(db, q))
-	oidcProvider, err := oidc.NewProvider(ctx, "http://127.0.0.1:5556/dex")
+	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
 
 	// Handlers
 	strictHandlerV1 := api.NewStrictHandlerV1(catalogService)
+
+	oidcHandler, err := authn.NewOIDCHandler(ctx, cfg, userService, jwtAuthn)
 	if err != nil {
-		panic("Couldn't create OIDC Provider")
+		panic(err)
 	}
-	oauth2Config := oauth2.Config{
-		ClientID:     "tunkunia",
-		ClientSecret: "ZXhhbXBsZS1hcHAtc2VjcmV0",
-		Endpoint:     oidcProvider.Endpoint(),
-		RedirectURL:  "http://127.0.0.1:8080/callback",
-		Scopes:       []string{oidc.ScopeOpenID, "email"},
-	}
-	idTokenVerifier := oidcProvider.Verifier(&oidc.Config{ClientID: "tunkunia"})
 
 	// HTTP
 	r := chi.NewRouter()
 	r.Use(api.CorsMiddleware(), middleware.Logger, authn.Authenticate(jwtAuthn))
 
-	oidcHandler := authn.NewOIDCHandler(oauth2Config, idTokenVerifier)
-	r.Get("/login", oidcHandler.LoginRedirect)
-	r.Get("/callback", oidcHandler.Callback)
 	r.Mount(cfg.Route.ApiV1, strictHandlerV1.Handler())
+	r.Get(cfg.Route.OidcRedirect, oidcHandler.LoginRedirect)
+	r.Get(cfg.Route.OidcCallback, oidcHandler.Callback)
 
 	return db, r, cfg
 }

@@ -26,7 +26,7 @@ export default defineNuxtConfig({
       '/api/**': { proxy: 'http://localhost:8080/api/**' },
       // Solving redirect on proxies issue: https://github.com/nuxt/nuxt/discussions/27701#discussioncomment-9818736
       '/login': { proxy: { to: 'http://localhost:8080/login', fetchOptions: { redirect: 'manual' } } },
-      '/callback': { proxy: 'http://localhost:8080/callback' }
+      '/callback': { proxy: { to: 'http://localhost:8080/callback', fetchOptions: { redirect: 'manual' } } }
     }
   },
 
