@@ -49,12 +49,17 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us UserService, ja 
 		port = cfg.DevNuxtPort
 	}
 
+	redirectURL, err := url.JoinPath(cfg.Host+port, cfg.Route.OidcCallback)
+	if err != nil {
+		return nil, fmt.Errorf("invalid redirect URL: %w", err)
+	}
+
 	return &OIDCHandler{
 		oauth2Config: oauth2.Config{
 			ClientID:     cfg.OidcClientID,
 			ClientSecret: cfg.OidcSecret,
 			Endpoint:     oidcProvider.Endpoint(),
-			RedirectURL:  cfg.Host + port + cfg.Route.OidcCallback,
+			RedirectURL:  redirectURL,
 			Scopes:       []string{oidc.ScopeOpenID, "email", "profile"},
 		},
 		oidcVerifier: oidcProvider.Verifier(&oidc.Config{ClientID: cfg.OidcClientID}),
