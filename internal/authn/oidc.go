@@ -6,8 +6,11 @@ package authn
 
 import (
 	"context"
+	"crypto/rand"
+	"encoding/hex"
 	"fmt"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/C-ArenA/Tunkunia/internal/config"
@@ -71,14 +74,18 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us UserService, ja 
 func (h *OIDCHandler) LoginRedirect(w http.ResponseWriter, r *http.Request) {
 	_, ok := FromAuthContext(r.Context())
 	if ok {
-		// User's already logged in
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
 	}
-	http.Redirect(w, r, h.oauth2Config.AuthCodeURL("estado de prueba"), http.StatusFound)
+	http.Redirect(w, r, h.oauth2Config.AuthCodeURL(newState(w)), http.StatusFound)
 }
 
 func (h *OIDCHandler) Callback(w http.ResponseWriter, r *http.Request) {
+	if !hasValidState(r, w) {
+		fmt.Fprintf(w, "El estado no es válido")
+		return
+	}
+
 	code := r.URL.Query().Get("code")
 	t, err := h.oauth2Config.Exchange(r.Context(), code)
 	if err != nil {
@@ -135,4 +142,34 @@ func (h *OIDCHandler) Callback(w http.ResponseWriter, r *http.Request) {
 		SameSite: http.SameSiteLaxMode,
 	})
 	http.Redirect(w, r, "/", http.StatusFound)
+}
+
+func newState(w http.ResponseWriter) string {
+	b := make([]byte, 16)
+	rand.Read(b)
+	state := hex.EncodeToString(b)
+	http.SetCookie(w, &http.Cookie{
+		Name:     "oidc_state",
+		Value:    state,
+		Path:     "/",
+		Expires:  time.Now().Add(10 * time.Minute),
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
+	})
+	return state
+}
+
+func hasValidState(r *http.Request, w http.ResponseWriter) bool {
+	c, err := r.Cookie("oidc_state")
+	if err != nil || c.Value == "" || c.Value != r.URL.Query().Get("state") {
+		return false
+	}
+	http.SetCookie(w, &http.Cookie{
+		Name:    "oidc_state",
+		Path:    "/",
+		Value:   "",
+		Expires: time.Unix(0, 0),
+	})
+	return true
 }
