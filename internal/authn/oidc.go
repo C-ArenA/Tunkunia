@@ -104,7 +104,6 @@ func (h *OIDCHandler) Callback(w http.ResponseWriter, r *http.Request) {
 
 	actualUser, err := h.userService.GetUserByEmail(r.Context(), email)
 	if err != nil {
-		fmt.Fprintln(w, "El usuario es nuevo en Tunkunia, se creará uno")
 		actualUser, err = h.userService.SaveUser(r.Context(), user.User{
 			Sub:           oidcToken.Subject,
 			Email:         email,
