@@ -12,7 +12,6 @@ import (
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/api"
-	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
@@ -49,6 +48,9 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
 	catalogService := catalog.NewService(catalog.NewRepo(db, q))
 	oidcProvider, err := oidc.NewProvider(ctx, "http://127.0.0.1:5556/dex")
+
+	// Handlers
+	strictHandlerV1 := api.NewStrictHandlerV1(catalogService)
 	if err != nil {
 		panic("Couldn't create OIDC Provider")
 	}
@@ -65,18 +67,10 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	r := chi.NewRouter()
 	r.Use(api.CorsMiddleware(), middleware.Logger, authn.Authenticate(jwtAuthn))
 
-	r.Route("/api/v1", func(r chi.Router) {
-		strictHandlerV1 := api.NewStrictHandlerV1(catalogService)
-		oapiServerV1 := oapi.NewStrictHandler(strictHandlerV1, nil)
-		oapi.HandlerWithOptions(oapiServerV1, oapi.ChiServerOptions{
-			BaseRouter:  r,
-			Middlewares: []oapi.MiddlewareFunc{authn.RequireAuthenticated},
-		})
-	})
-
 	oidcHandler := authn.NewOIDCHandler(oauth2Config, idTokenVerifier)
 	r.Get("/login", oidcHandler.LoginRedirect)
 	r.Get("/callback", oidcHandler.Callback)
+	r.Mount(cfg.Route.ApiV1, strictHandlerV1.Handler())
 
 	return db, r, cfg
 }
