@@ -17,7 +17,7 @@ func NewFirstAdminCmd() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := context.Background()
 			cfg := loadConfig()
-			db := initDB(ctx, cfg)
+			db := initDB(ctx, cfg.GooseDbString, cfg.Env == "dev")
 			userService := user.NewService(db, sqlc.New())
 			createFirstAdmin(ctx, userService)
 		},

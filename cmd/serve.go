@@ -40,7 +40,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	cfg := loadConfig()
 
 	// Database
-	db := initDB(ctx, cfg)
+	db := initDB(ctx, cfg.GooseDbString, cfg.Env == "dev")
 	q := sqlc.New()
 
 	// modules wiring
@@ -67,15 +67,15 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	return db, r, cfg
 }
 
-func initDB(ctx context.Context, cfg *config.Config) *sql.DB {
-	db, err := sql.Open("sqlite", cfg.GooseDbString)
+func initDB(ctx context.Context, dataSourceName string, withSeeding bool) *sql.DB {
+	db, err := sql.Open("sqlite", dataSourceName)
 	if err != nil {
 		panic(err)
 	}
 	if err := database.Migrate(ctx, db); err != nil {
 		panic(err)
 	}
-	if cfg.Env == "dev" {
+	if withSeeding {
 		database.Seed(ctx, db)
 	}
 	return db
