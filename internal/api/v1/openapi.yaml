@@ -14,7 +14,7 @@ info:
       - Guías de diseño de APIs de [Google](https://docs.cloud.google.com/apis/design) y de [Microsoft](https://github.com/microsoft/api-guidelines) (Azure y Legacy)
 
 servers:
-  - url: http://localhost:8080/api/v1
+  - url: https://tunkunia.localhost/api/v1
     description: Development server
   - url: https://{host}/api/v1
     variables:

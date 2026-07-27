@@ -74,11 +74,15 @@ tasks:
     cmds:
       - go build -o bin/server ./cmd/api
 
+  dev:caddy:
+    cmd: sudo caddy run
+
   dev:tools:
     desc: Run dev tooling servers
     deps:
       - dex:serve
-      - scalar:dev
+      - dev:caddy
+    failfast: true
 
   dev:main:
     desc: Run project dev servers
