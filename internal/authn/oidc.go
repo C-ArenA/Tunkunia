@@ -133,14 +133,8 @@ func (h *OIDCHandler) Callback(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "No se pudo crear token de ingreso: %s\n", err.Error())
 		return
 	}
-	http.SetCookie(w, &http.Cookie{
-		Name:     "jwt",
-		Value:    loginToken,
-		Expires:  time.Now().Add(1 * time.Hour),
-		Secure:   true,
-		HttpOnly: false,
-		SameSite: http.SameSiteLaxMode,
-	})
+	cookie := NewCookie("jwt", loginToken, WithDuration(1*time.Hour))
+	http.SetCookie(w, cookie)
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
@@ -148,15 +142,8 @@ func newState(w http.ResponseWriter) string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	state := hex.EncodeToString(b)
-	http.SetCookie(w, &http.Cookie{
-		Name:     "oidc_state",
-		Value:    state,
-		Path:     "/",
-		Expires:  time.Now().Add(10 * time.Minute),
-		Secure:   true,
-		HttpOnly: true,
-		SameSite: http.SameSiteLaxMode,
-	})
+	cookie := NewCookie("oidc_state", state, WithDuration(10*time.Minute))
+	http.SetCookie(w, cookie)
 	return state
 }
 
@@ -165,11 +152,31 @@ func hasValidState(r *http.Request, w http.ResponseWriter) bool {
 	if err != nil || c.Value == "" || c.Value != r.URL.Query().Get("state") {
 		return false
 	}
-	http.SetCookie(w, &http.Cookie{
-		Name:    "oidc_state",
-		Path:    "/",
-		Value:   "",
-		Expires: time.Unix(0, 0),
-	})
+	cookie := NewCookie("oidc_state", "", WithDuration(-24*time.Hour))
+	http.SetCookie(w, cookie)
 	return true
+}
+
+type CookieOption func(*http.Cookie)
+
+func NewCookie(name, value string, opts ...CookieOption) *http.Cookie {
+	c := &http.Cookie{
+		Name:     name,
+		Value:    value,
+		Path:     "/",
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
+		Secure:   true,
+	}
+	for _, opt := range opts {
+		opt(c)
+	}
+	return c
+}
+
+func WithDuration(d time.Duration) CookieOption {
+	return func(c *http.Cookie) {
+		c.Expires = time.Now().Add(d)
+		c.MaxAge = int(d.Seconds())
+	}
 }
