@@ -47,14 +47,14 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us UserService, ja 
 	if err != nil {
 		return nil, err
 	}
-	port := cfg.Port
-	if cfg.Env == "dev" {
-		port = cfg.DevNuxtPort
-	}
 
-	redirectURL, err := url.JoinPath(cfg.Host+port, cfg.Route.OidcCallback)
+	redirectURL, err := url.JoinPath(cfg.AppURL, cfg.Route.OidcCallback)
 	if err != nil {
-		return nil, fmt.Errorf("invalid redirect URL: %w", err)
+		return nil, fmt.Errorf("failed to construct redirect URL: %w", err)
+	}
+	parsedURL, err := url.Parse(redirectURL)
+	if err != nil || !parsedURL.IsAbs() {
+		return nil, fmt.Errorf("invalid redirect URL. It needs to be an absolute URL: %w", err)
 	}
 
 	return &OIDCHandler{
@@ -62,7 +62,7 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us UserService, ja 
 			ClientID:     cfg.OidcClientID,
 			ClientSecret: cfg.OidcSecret,
 			Endpoint:     oidcProvider.Endpoint(),
-			RedirectURL:  redirectURL,
+			RedirectURL:  parsedURL.String(),
 			Scopes:       []string{oidc.ScopeOpenID, "email", "profile"},
 		},
 		oidcVerifier: oidcProvider.Verifier(&oidc.Config{ClientID: cfg.OidcClientID}),
