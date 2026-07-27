@@ -26,6 +26,7 @@ staticClients:
       - "http://127.0.0.1:3000/callback"
       - "http://localhost:8080/callback"
       - "http://localhost:3000/callback"
+      - "https://tunkunia.localhost/callback"
     name: "Tunkunia"
     secret: ZXhhbXBsZS1hcHAtc2VjcmV0
 
