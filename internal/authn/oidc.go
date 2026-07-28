@@ -172,12 +172,9 @@ func newState(w http.ResponseWriter) string {
 
 func hasValidState(r *http.Request, w http.ResponseWriter) bool {
 	c, err := r.Cookie("oidc_state")
-	if err != nil || c.Value == "" || c.Value != r.URL.Query().Get("state") {
-		return false
-	}
-	cookie := NewCookie("oidc_state", "", WithDuration(-24*time.Hour))
-	http.SetCookie(w, cookie)
-	return true
+	isValid := err == nil && c.Value != "" && c.Value == r.URL.Query().Get("state")
+	http.SetCookie(w, NewCookie("oidc_state", "", WithDuration(-1*time.Second)))
+	return isValid
 }
 
 type CookieOption func(*http.Cookie)
