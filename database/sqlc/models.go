@@ -22,6 +22,7 @@ type User struct {
 	Email         string
 	EmailVerified int64
 	CreatedAt     string
+	UpdatedAt     string
 }
 
 type UserRole struct {

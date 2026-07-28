@@ -11,8 +11,7 @@ import (
 type Querier interface {
 	//AssignRoleToUser
 	//
-	//  INSERT INTO user_roles (user_id, role)
-	//  VALUES(?, ?) ON CONFLICT DO NOTHING
+	//  INSERT INTO user_roles(user_id, role) VALUES (?, ?) ON CONFLICT DO NOTHING
 	AssignRoleToUser(ctx context.Context, db DBTX, arg AssignRoleToUserParams) error
 	//CreateTramite
 	//
@@ -34,39 +33,46 @@ type Querier interface {
 	GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, error)
 	//GetUserByEmail
 	//
-	//  SELECT id, name, sub, email, email_verified, created_at
+	//  SELECT id, name, sub, email, email_verified, created_at, updated_at
 	//  FROM users
-	//  WHERE email = ?
+	//  WHERE
+	//    email = ?
 	GetUserByEmail(ctx context.Context, db DBTX, email string) (User, error)
 	//GetUserRoles
 	//
-	//  SELECT role
-	//  FROM user_roles
-	//  WHERE user_id = ?
+	//  SELECT role FROM user_roles WHERE user_id = ?
 	GetUserRoles(ctx context.Context, db DBTX, userID int64) ([]string, error)
 	//IsRoleInUse
 	//
-	//  SELECT EXISTS(
-	//          SELECT 1
-	//          FROM user_roles
-	//          WHERE role = ?
-	//      )
+	//  SELECT EXISTS (SELECT 1 FROM user_roles WHERE role = ?)
 	IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, error)
 	//RemoveUserRoles
 	//
-	//  DELETE FROM user_roles
-	//  WHERE user_id = ?
+	//  DELETE FROM user_roles WHERE user_id = ?
 	RemoveUserRoles(ctx context.Context, db DBTX, userID int64) error
 	//UpsertUser
 	//
-	//  INSERT INTO users (name, sub, email, email_verified)
-	//  VALUES (?, ?, ?, ?) ON CONFLICT(email) DO
-	//  UPDATE
-	//  SET sub = excluded.sub,
-	//      name = excluded.name,
-	//      email_verified = excluded.email_verified
-	//  RETURNING id, name, sub, email, email_verified, created_at
+	//  INSERT INTO users(name, sub, email, email_verified)
+	//  VALUES (?, ?, ?, ?)
+	//  ON CONFLICT (email) DO UPDATE
+	//  SET
+	//    sub = excluded.sub,
+	//    name = excluded.name,
+	//    email_verified = excluded.email_verified
+	//  RETURNING id, name, sub, email, email_verified, created_at, updated_at
 	UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams) (User, error)
+	//UpsertUserBySub
+	//
+	//  INSERT INTO users(name, sub, email, email_verified)
+	//  VALUES (?, ?, ?, ?)
+	//  ON CONFLICT (sub) DO UPDATE
+	//  SET
+	//    email = excluded.email,
+	//    name = excluded.name,
+	//    email_verified = excluded.email_verified,
+	//    updated_at = CURRENT_TIMESTAMP
+	//  RETURNING id, name, sub, email, email_verified, created_at, updated_at
+	UpsertUserBySub(ctx context.Context, db DBTX, arg UpsertUserBySubParams) (User, error)
 }
 
 var _ Querier = (*Queries)(nil)

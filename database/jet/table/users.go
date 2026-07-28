@@ -23,6 +23,7 @@ type usersTable struct {
 	Email         sqlite.ColumnString
 	EmailVerified sqlite.ColumnInteger
 	CreatedAt     sqlite.ColumnString
+	UpdatedAt     sqlite.ColumnString
 
 	AllColumns     sqlite.ColumnList
 	MutableColumns sqlite.ColumnList
@@ -70,9 +71,10 @@ func newUsersTableImpl(schemaName, tableName, alias string) usersTable {
 		EmailColumn         = sqlite.StringColumn("email")
 		EmailVerifiedColumn = sqlite.IntegerColumn("email_verified")
 		CreatedAtColumn     = sqlite.StringColumn("created_at")
-		allColumns          = sqlite.ColumnList{IDColumn, NameColumn, SubColumn, EmailColumn, EmailVerifiedColumn, CreatedAtColumn}
-		mutableColumns      = sqlite.ColumnList{NameColumn, SubColumn, EmailColumn, EmailVerifiedColumn, CreatedAtColumn}
-		defaultColumns      = sqlite.ColumnList{NameColumn, EmailVerifiedColumn, CreatedAtColumn}
+		UpdatedAtColumn     = sqlite.StringColumn("updated_at")
+		allColumns          = sqlite.ColumnList{IDColumn, NameColumn, SubColumn, EmailColumn, EmailVerifiedColumn, CreatedAtColumn, UpdatedAtColumn}
+		mutableColumns      = sqlite.ColumnList{NameColumn, SubColumn, EmailColumn, EmailVerifiedColumn, CreatedAtColumn, UpdatedAtColumn}
+		defaultColumns      = sqlite.ColumnList{NameColumn, EmailVerifiedColumn, CreatedAtColumn, UpdatedAtColumn}
 	)
 
 	return usersTable{
@@ -85,6 +87,7 @@ func newUsersTableImpl(schemaName, tableName, alias string) usersTable {
 		Email:         EmailColumn,
 		EmailVerified: EmailVerifiedColumn,
 		CreatedAt:     CreatedAtColumn,
+		UpdatedAt:     UpdatedAtColumn,
 
 		AllColumns:     allColumns,
 		MutableColumns: mutableColumns,

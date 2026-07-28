@@ -14,4 +14,5 @@ type Users struct {
 	Email         string
 	EmailVerified int64
 	CreatedAt     string
+	UpdatedAt     string
 }

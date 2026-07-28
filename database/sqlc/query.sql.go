@@ -10,8 +10,7 @@ import (
 )
 
 const assignRoleToUser = `-- name: AssignRoleToUser :exec
-INSERT INTO user_roles (user_id, role)
-VALUES(?, ?) ON CONFLICT DO NOTHING
+INSERT INTO user_roles(user_id, role) VALUES (?, ?) ON CONFLICT DO NOTHING
 `
 
 type AssignRoleToUserParams struct {
@@ -21,8 +20,7 @@ type AssignRoleToUserParams struct {
 
 // AssignRoleToUser
 //
-//	INSERT INTO user_roles (user_id, role)
-//	VALUES(?, ?) ON CONFLICT DO NOTHING
+//	INSERT INTO user_roles(user_id, role) VALUES (?, ?) ON CONFLICT DO NOTHING
 func (q *Queries) AssignRoleToUser(ctx context.Context, db DBTX, arg AssignRoleToUserParams) error {
 	_, err := db.ExecContext(ctx, assignRoleToUser, arg.UserID, arg.Role)
 	return err
@@ -114,16 +112,18 @@ func (q *Queries) GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, e
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, name, sub, email, email_verified, created_at
+SELECT id, name, sub, email, email_verified, created_at, updated_at
 FROM users
-WHERE email = ?
+WHERE
+  email = ?
 `
 
 // GetUserByEmail
 //
-//	SELECT id, name, sub, email, email_verified, created_at
+//	SELECT id, name, sub, email, email_verified, created_at, updated_at
 //	FROM users
-//	WHERE email = ?
+//	WHERE
+//	  email = ?
 func (q *Queries) GetUserByEmail(ctx context.Context, db DBTX, email string) (User, error) {
 	row := db.QueryRowContext(ctx, getUserByEmail, email)
 	var i User
@@ -134,21 +134,18 @@ func (q *Queries) GetUserByEmail(ctx context.Context, db DBTX, email string) (Us
 		&i.Email,
 		&i.EmailVerified,
 		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return i, err
 }
 
 const getUserRoles = `-- name: GetUserRoles :many
-SELECT role
-FROM user_roles
-WHERE user_id = ?
+SELECT role FROM user_roles WHERE user_id = ?
 `
 
 // GetUserRoles
 //
-//	SELECT role
-//	FROM user_roles
-//	WHERE user_id = ?
+//	SELECT role FROM user_roles WHERE user_id = ?
 func (q *Queries) GetUserRoles(ctx context.Context, db DBTX, userID int64) ([]string, error) {
 	rows, err := db.QueryContext(ctx, getUserRoles, userID)
 	if err != nil {
@@ -173,20 +170,12 @@ func (q *Queries) GetUserRoles(ctx context.Context, db DBTX, userID int64) ([]st
 }
 
 const isRoleInUse = `-- name: IsRoleInUse :one
-SELECT EXISTS(
-        SELECT 1
-        FROM user_roles
-        WHERE role = ?
-    )
+SELECT EXISTS (SELECT 1 FROM user_roles WHERE role = ?)
 `
 
 // IsRoleInUse
 //
-//	SELECT EXISTS(
-//	        SELECT 1
-//	        FROM user_roles
-//	        WHERE role = ?
-//	    )
+//	SELECT EXISTS (SELECT 1 FROM user_roles WHERE role = ?)
 func (q *Queries) IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, error) {
 	row := db.QueryRowContext(ctx, isRoleInUse, role)
 	var exists bool
@@ -195,27 +184,26 @@ func (q *Queries) IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, 
 }
 
 const removeUserRoles = `-- name: RemoveUserRoles :exec
-DELETE FROM user_roles
-WHERE user_id = ?
+DELETE FROM user_roles WHERE user_id = ?
 `
 
 // RemoveUserRoles
 //
-//	DELETE FROM user_roles
-//	WHERE user_id = ?
+//	DELETE FROM user_roles WHERE user_id = ?
 func (q *Queries) RemoveUserRoles(ctx context.Context, db DBTX, userID int64) error {
 	_, err := db.ExecContext(ctx, removeUserRoles, userID)
 	return err
 }
 
 const upsertUser = `-- name: UpsertUser :one
-INSERT INTO users (name, sub, email, email_verified)
-VALUES (?, ?, ?, ?) ON CONFLICT(email) DO
-UPDATE
-SET sub = excluded.sub,
-    name = excluded.name,
-    email_verified = excluded.email_verified
-RETURNING id, name, sub, email, email_verified, created_at
+INSERT INTO users(name, sub, email, email_verified)
+VALUES (?, ?, ?, ?)
+ON CONFLICT (email) DO UPDATE
+SET
+  sub = excluded.sub,
+  name = excluded.name,
+  email_verified = excluded.email_verified
+RETURNING id, name, sub, email, email_verified, created_at, updated_at
 `
 
 type UpsertUserParams struct {
@@ -227,13 +215,14 @@ type UpsertUserParams struct {
 
 // UpsertUser
 //
-//	INSERT INTO users (name, sub, email, email_verified)
-//	VALUES (?, ?, ?, ?) ON CONFLICT(email) DO
-//	UPDATE
-//	SET sub = excluded.sub,
-//	    name = excluded.name,
-//	    email_verified = excluded.email_verified
-//	RETURNING id, name, sub, email, email_verified, created_at
+//	INSERT INTO users(name, sub, email, email_verified)
+//	VALUES (?, ?, ?, ?)
+//	ON CONFLICT (email) DO UPDATE
+//	SET
+//	  sub = excluded.sub,
+//	  name = excluded.name,
+//	  email_verified = excluded.email_verified
+//	RETURNING id, name, sub, email, email_verified, created_at, updated_at
 func (q *Queries) UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams) (User, error) {
 	row := db.QueryRowContext(ctx, upsertUser,
 		arg.Name,
@@ -249,6 +238,57 @@ func (q *Queries) UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams)
 		&i.Email,
 		&i.EmailVerified,
 		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const upsertUserBySub = `-- name: UpsertUserBySub :one
+INSERT INTO users(name, sub, email, email_verified)
+VALUES (?, ?, ?, ?)
+ON CONFLICT (sub) DO UPDATE
+SET
+  email = excluded.email,
+  name = excluded.name,
+  email_verified = excluded.email_verified,
+  updated_at = CURRENT_TIMESTAMP
+RETURNING id, name, sub, email, email_verified, created_at, updated_at
+`
+
+type UpsertUserBySubParams struct {
+	Name          string
+	Sub           string
+	Email         string
+	EmailVerified int64
+}
+
+// UpsertUserBySub
+//
+//	INSERT INTO users(name, sub, email, email_verified)
+//	VALUES (?, ?, ?, ?)
+//	ON CONFLICT (sub) DO UPDATE
+//	SET
+//	  email = excluded.email,
+//	  name = excluded.name,
+//	  email_verified = excluded.email_verified,
+//	  updated_at = CURRENT_TIMESTAMP
+//	RETURNING id, name, sub, email, email_verified, created_at, updated_at
+func (q *Queries) UpsertUserBySub(ctx context.Context, db DBTX, arg UpsertUserBySubParams) (User, error) {
+	row := db.QueryRowContext(ctx, upsertUserBySub,
+		arg.Name,
+		arg.Sub,
+		arg.Email,
+		arg.EmailVerified,
+	)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Sub,
+		&i.Email,
+		&i.EmailVerified,
+		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return i, err
 }
