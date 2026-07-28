@@ -7,7 +7,9 @@ package authn
 import (
 	"context"
 	"crypto/rand"
+	"database/sql"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -77,61 +79,80 @@ func (h *OIDCHandler) loginRedirect(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
+	const loginRoute = "/login"
+	const successRoute = "/"
+
 	if !hasValidState(r, w) {
-		fmt.Fprintf(w, "El estado no es válido")
+		http.Redirect(w, r, loginRoute+"?error=invalid_state", http.StatusSeeOther)
 		return
 	}
 
-	code := r.URL.Query().Get("code")
-	t, err := h.oauth2Config.Exchange(r.Context(), code)
+	claims, err := h.exchange(r.Context(), r.URL.Query().Get("code"))
 	if err != nil {
-		fmt.Fprintf(w, "No se pudo obtener el token asociado al código %s: %s\n", code, err.Error())
+		http.Redirect(w, r, loginRoute+"?error=no_claims", http.StatusSeeOther)
 		return
 	}
-	idToken, ok := t.Extra("id_token").(string)
+
+	u, err := h.getUserWithClaims(claims, r)
+	if err != nil {
+		http.Redirect(w, r, loginRoute+"?error=no_user", http.StatusSeeOther)
+		return
+	}
+
+	loginToken, err := h.jwtAuth.IssueUserToken(int(u.ID))
+	if err != nil {
+		http.Redirect(w, r, loginRoute+"?error=no_token", http.StatusSeeOther)
+		return
+	}
+	cookie := NewCookie("jwt", loginToken, WithDuration(1*time.Hour))
+	http.SetCookie(w, cookie)
+	http.Redirect(w, r, successRoute, http.StatusSeeOther)
+}
+
+func (h *OIDCHandler) exchange(ctx context.Context, code string) (*OIDCClaims, error) {
+	t, err := h.oauth2Config.Exchange(ctx, code)
+	if err != nil {
+		return nil, err
+	}
+	rawIdToken, ok := t.Extra("id_token").(string)
 	if !ok {
-		fmt.Println(w, "El proveedor no devolvió token de identidad")
-		return
+		return nil, fmt.Errorf("no se pudo obtener token de identidad")
 	}
-
-	oidcToken, err := h.oidcVerifier.Verify(r.Context(), idToken)
+	oidcToken, err := h.oidcVerifier.Verify(ctx, rawIdToken)
 	if err != nil {
-		fmt.Fprintf(w, "No se pudo verificar id_token: %s\n", err.Error())
-		return
+		return nil, err
 	}
-	var claims OIDCClaims
-	if err := oidcToken.Claims(&claims); err != nil {
-		fmt.Fprintf(w, "No se pudo recuperar claims: %s\n", err.Error())
-		return
+	var claims = new(OIDCClaims)
+	if err := oidcToken.Claims(claims); err != nil {
+		return nil, fmt.Errorf("no se pudo recuperar claims: %s", err.Error())
 	}
+	claims.Sub = oidcToken.Subject
+	return claims, nil
+}
+
+func (h *OIDCHandler) getUserWithClaims(claims *OIDCClaims, r *http.Request) (*user.User, error) {
 	email, err := user.NewEmail(claims.Email)
 	if err != nil {
-		fmt.Fprintf(w, "El email es inválido: 400: %s\n", err.Error())
-		return
+		return nil, fmt.Errorf("Claim has invalid email: %w", err)
 	}
 
-	actualUser, err := h.userService.GetUserByEmail(r.Context(), email)
+	u, err := h.userService.GetUserByEmail(r.Context(), email)
 	if err != nil {
-		actualUser, err = h.userService.SaveUser(r.Context(), user.User{
-			Sub:           oidcToken.Subject,
+		if !errors.Is(err, sql.ErrNoRows) {
+			return nil, fmt.Errorf("Cannot get user: %w", err)
+		}
+		u, err = h.userService.SaveUser(r.Context(), user.User{
+			Sub:           claims.Sub,
 			Email:         email,
 			EmailVerified: claims.EmailVerified,
 			Name:          claims.Name,
 		})
 		if err != nil {
-			fmt.Fprintln(w, "No se pudo crear usuario nuevo", err.Error())
-			return
+			return nil, fmt.Errorf("Cannot save user: %w", err)
 		}
 	}
-
-	loginToken, err := h.jwtAuth.IssueUserToken(int(actualUser.ID))
-	if err != nil {
-		fmt.Fprintf(w, "No se pudo crear token de ingreso: %s\n", err.Error())
-		return
-	}
-	cookie := NewCookie("jwt", loginToken, WithDuration(1*time.Hour))
-	http.SetCookie(w, cookie)
-	http.Redirect(w, r, "/", http.StatusFound)
+	return u, nil
+}
 
 func (h *OIDCHandler) Handler(loginRoute, callbackRoute string) http.Handler {
 	r := chi.NewRouter()
