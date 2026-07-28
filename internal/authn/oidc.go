@@ -7,9 +7,7 @@ package authn
 import (
 	"context"
 	"crypto/rand"
-	"database/sql"
-	"encoding/hex"
-	"errors"
+	"encoding/base64"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -22,11 +20,9 @@ import (
 	"golang.org/x/oauth2"
 )
 
-type UserService interface {
-	// SaveUser creates a new user if it doesn't exist or updates it if it already exists
-	SaveUser(ctx context.Context, u user.User) (*user.User, error)
-	GetUserByEmail(ctx context.Context, email user.Email) (*user.User, error)
-}
+const (
+	oidcStateCookieName = "oidc_state"
+)
 
 type oidcClaims struct {
 	Sub           string `json:"sub"`
@@ -38,14 +34,16 @@ type oidcClaims struct {
 // Highly inspired on the dex guides. DEX is being used as an oidc provider local sandbox
 // https://dexidp.io/docs/guides/using-dex/
 
+// TODO: https://opncd.ai/share/qhynJNOf
 type OIDCHandler struct {
-	oauth2Config oauth2.Config
-	oidcVerifier *oidc.IDTokenVerifier
-	userService  UserService
-	jwtAuth      *JWTAuth
+	oauth2Config    oauth2.Config
+	oidcVerifier    *oidc.IDTokenVerifier
+	userService     *user.Service
+	jwtAuth         *JWTAuth
+	firstAdminEmail user.Email
 }
 
-func NewOIDCHandler(ctx context.Context, cfg *config.Config, us UserService, ja *JWTAuth) (*OIDCHandler, error) {
+func NewOIDCHandler(ctx context.Context, cfg *config.Config, us *user.Service, ja *JWTAuth) (*OIDCHandler, error) {
 	oidcProvider, err := oidc.NewProvider(ctx, cfg.OidcURL)
 	if err != nil {
 		return nil, err
@@ -60,29 +58,39 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us UserService, ja 
 		return nil, fmt.Errorf("invalid redirect URL. It needs to be an absolute URL: %w", err)
 	}
 
+	firstAdminEmail, err := user.NewEmail(cfg.FirstAdminEmail)
+	if err != nil {
+		return nil, fmt.Errorf("invalid first admin email: %w", err)
+	}
+
 	return &OIDCHandler{
 		oauth2Config: oauth2.Config{
 			ClientID:     cfg.OidcClientID,
 			ClientSecret: cfg.OidcSecret,
 			Endpoint:     oidcProvider.Endpoint(),
 			RedirectURL:  parsedURL.String(),
-			Scopes:       []string{oidc.ScopeOpenID, "email", "profile"},
+			Scopes:       []string{oidc.ScopeOpenID, oidc.ScopeEmail, oidc.ScopeProfile},
 		},
-		oidcVerifier: oidcProvider.Verifier(&oidc.Config{ClientID: cfg.OidcClientID}),
-		userService:  us,
-		jwtAuth:      ja,
+		oidcVerifier:    oidcProvider.Verifier(&oidc.Config{ClientID: cfg.OidcClientID}),
+		userService:     us,
+		jwtAuth:         ja,
+		firstAdminEmail: firstAdminEmail,
 	}, nil
 }
 
 func (h *OIDCHandler) loginRedirect(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, h.oauth2Config.AuthCodeURL(newState(w)), http.StatusFound)
+	state := b64EncodedBytes(16)
+	http.SetCookie(w, NewCookie(oidcStateCookieName, state, WithDuration(10*time.Minute)))
+	http.Redirect(w, r, h.oauth2Config.AuthCodeURL(state), http.StatusFound)
 }
 
 func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 	const loginRoute = "/login"
 	const successRoute = "/"
 
-	if !hasValidState(r, w) {
+	state, err := r.Cookie(oidcStateCookieName)
+	http.SetCookie(w, NewCookie(oidcStateCookieName, "", WithDuration(-1*time.Second)))
+	if err != nil || state.Value == "" || state.Value != r.URL.Query().Get("state") {
 		http.Redirect(w, r, loginRoute+"?error=invalid_state", http.StatusSeeOther)
 		return
 	}
@@ -135,22 +143,12 @@ func (h *OIDCHandler) getUserWithClaims(ctx context.Context, claims *oidcClaims)
 		return nil, fmt.Errorf("Claim has invalid email: %w", err)
 	}
 
-	u, err := h.userService.GetUserByEmail(ctx, email)
-	if err != nil {
-		if !errors.Is(err, sql.ErrNoRows) {
-			return nil, fmt.Errorf("Cannot get user: %w", err)
-		}
-		u, err = h.userService.SaveUser(ctx, user.User{
-			Sub:           claims.Sub,
-			Email:         email,
-			EmailVerified: claims.EmailVerified,
-			Name:          claims.Name,
-		})
-		if err != nil {
-			return nil, fmt.Errorf("Cannot save user: %w", err)
-		}
-	}
-	return u, nil
+	return h.userService.Login(ctx, user.User{
+		Sub:           claims.Sub,
+		Email:         email,
+		EmailVerified: claims.EmailVerified,
+		Name:          claims.Name,
+	}, email == h.firstAdminEmail)
 }
 
 func (h *OIDCHandler) Handler(loginRoute, callbackRoute string) http.Handler {
@@ -161,20 +159,10 @@ func (h *OIDCHandler) Handler(loginRoute, callbackRoute string) http.Handler {
 	return r
 }
 
-func newState(w http.ResponseWriter) string {
-	b := make([]byte, 16)
+func b64EncodedBytes(n int) string {
+	b := make([]byte, n)
 	rand.Read(b)
-	state := hex.EncodeToString(b)
-	cookie := NewCookie("oidc_state", state, WithDuration(10*time.Minute))
-	http.SetCookie(w, cookie)
-	return state
-}
-
-func hasValidState(r *http.Request, w http.ResponseWriter) bool {
-	c, err := r.Cookie("oidc_state")
-	isValid := err == nil && c.Value != "" && c.Value == r.URL.Query().Get("state")
-	http.SetCookie(w, NewCookie("oidc_state", "", WithDuration(-1*time.Second)))
-	return isValid
+	return base64.RawURLEncoding.EncodeToString(b)
 }
 
 type CookieOption func(*http.Cookie)

@@ -42,4 +42,5 @@ type User struct {
 	EmailVerified bool
 	Roles         []RoleName
 	CreatedAt     time.Time
+	UpdatedAt     time.Time
 }

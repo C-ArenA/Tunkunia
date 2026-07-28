@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
+	"github.com/C-ArenA/Tunkunia/internal/cast"
 )
 
 func NewSqliteStore(db *sql.DB, q *sqlc.Queries) *sqliteStore {
@@ -73,4 +74,42 @@ func (s *sqliteStore) SaveUser(ctx context.Context, u User) (*User, error) {
 	}
 
 	return new(ToDomainUser(savedUser, savedRoles)), nil
+}
+
+func (s *sqliteStore) UpsertUserBySub(ctx context.Context, u User) (*User, error) {
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
+	defer tx.Rollback()
+
+	savedUser, err := s.q.UpsertUserBySub(ctx, tx, sqlc.UpsertUserBySubParams{
+		Name:          u.Name,
+		Sub:           u.Sub,
+		Email:         string(u.Email),
+		EmailVerified: cast.BoolToSqlite(u.EmailVerified),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("No se pudo guardar el usuario con sub '%s': %w", u.Sub, err)
+	}
+
+	var roles []string
+	if savedUser.CreatedAt != savedUser.UpdatedAt {
+		roles, err = s.q.GetUserRoles(ctx, s.db, savedUser.ID)
+		if err != nil {
+			return nil, fmt.Errorf("No se pudieron obtener roles para el usuario '%s': %w", savedUser.Email, err)
+		}
+	}
+	if err := tx.Commit(); err != nil {
+		return nil, err
+	}
+
+	return new(ToDomainUser(savedUser, roles)), nil
+}
+
+func (s *sqliteStore) AssignRoleToUser(ctx context.Context, userId UserId, role RoleName) error {
+	return s.q.AssignRoleToUser(ctx, s.db, sqlc.AssignRoleToUserParams{
+		UserID: int64(userId),
+		Role:   string(role),
+	})
 }
