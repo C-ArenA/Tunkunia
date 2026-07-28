@@ -28,11 +28,11 @@ type UserService interface {
 	GetUserByEmail(ctx context.Context, email user.Email) (*user.User, error)
 }
 
-type OIDCClaims struct {
-	Sub           string
-	Email         string
-	EmailVerified bool
-	Name          string
+type oidcClaims struct {
+	Sub           string `json:"sub"`
+	Email         string `json:"email"`
+	EmailVerified bool   `json:"email_verified"`
+	Name          string `json:"name"`
 }
 
 // Highly inspired on the dex guides. DEX is being used as an oidc provider local sandbox
@@ -109,7 +109,7 @@ func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, successRoute, http.StatusSeeOther)
 }
 
-func (h *OIDCHandler) exchange(ctx context.Context, code string) (*OIDCClaims, error) {
+func (h *OIDCHandler) exchange(ctx context.Context, code string) (*oidcClaims, error) {
 	t, err := h.oauth2Config.Exchange(ctx, code)
 	if err != nil {
 		return nil, err
@@ -122,11 +122,10 @@ func (h *OIDCHandler) exchange(ctx context.Context, code string) (*OIDCClaims, e
 	if err != nil {
 		return nil, err
 	}
-	var claims = new(OIDCClaims)
+	var claims = new(oidcClaims)
 	if err := oidcToken.Claims(claims); err != nil {
 		return nil, fmt.Errorf("no se pudo recuperar claims: %s", err.Error())
 	}
-	claims.Sub = oidcToken.Subject
 	return claims, nil
 }
 
