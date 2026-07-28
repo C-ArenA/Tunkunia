@@ -16,6 +16,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/config"
 	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/coreos/go-oidc/v3/oidc"
+	"github.com/go-chi/chi/v5"
 	"golang.org/x/oauth2"
 )
 
@@ -71,16 +72,11 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us UserService, ja 
 	}, nil
 }
 
-func (h *OIDCHandler) LoginRedirect(w http.ResponseWriter, r *http.Request) {
-	_, ok := FromAuthContext(r.Context())
-	if ok {
-		http.Redirect(w, r, "/", http.StatusFound)
-		return
-	}
+func (h *OIDCHandler) loginRedirect(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, h.oauth2Config.AuthCodeURL(newState(w)), http.StatusFound)
 }
 
-func (h *OIDCHandler) Callback(w http.ResponseWriter, r *http.Request) {
+func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 	if !hasValidState(r, w) {
 		fmt.Fprintf(w, "El estado no es válido")
 		return
@@ -136,6 +132,13 @@ func (h *OIDCHandler) Callback(w http.ResponseWriter, r *http.Request) {
 	cookie := NewCookie("jwt", loginToken, WithDuration(1*time.Hour))
 	http.SetCookie(w, cookie)
 	http.Redirect(w, r, "/", http.StatusFound)
+
+func (h *OIDCHandler) Handler(loginRoute, callbackRoute string) http.Handler {
+	r := chi.NewRouter()
+	r.Use(RequireNonAuthenticatedOrRedirect)
+	r.Get(loginRoute, h.loginRedirect)
+	r.Get(callbackRoute, h.callback)
+	return r
 }
 
 func newState(w http.ResponseWriter) string {

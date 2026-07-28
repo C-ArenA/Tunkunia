@@ -122,3 +122,14 @@ func RequireAuthenticated(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
+func RequireNonAuthenticatedOrRedirect(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, isAuthenticated := FromAuthContext(r.Context())
+		if isAuthenticated {
+			http.Redirect(w, r, "/", http.StatusSeeOther)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
