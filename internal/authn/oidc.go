@@ -93,7 +93,7 @@ func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	u, err := h.getUserWithClaims(claims, r)
+	u, err := h.getUserWithClaims(r.Context(), claims)
 	if err != nil {
 		http.Redirect(w, r, loginRoute+"?error=no_user", http.StatusSeeOther)
 		return
@@ -116,7 +116,7 @@ func (h *OIDCHandler) exchange(ctx context.Context, code string) (*oidcClaims, e
 	}
 	rawIdToken, ok := t.Extra("id_token").(string)
 	if !ok {
-		return nil, fmt.Errorf("no se pudo obtener token de identidad")
+		return nil, fmt.Errorf("missing id_token in token response")
 	}
 	oidcToken, err := h.oidcVerifier.Verify(ctx, rawIdToken)
 	if err != nil {
@@ -124,23 +124,23 @@ func (h *OIDCHandler) exchange(ctx context.Context, code string) (*oidcClaims, e
 	}
 	var claims = new(oidcClaims)
 	if err := oidcToken.Claims(claims); err != nil {
-		return nil, fmt.Errorf("no se pudo recuperar claims: %s", err.Error())
+		return nil, fmt.Errorf("failed to extract claims: %w", err)
 	}
 	return claims, nil
 }
 
-func (h *OIDCHandler) getUserWithClaims(claims *OIDCClaims, r *http.Request) (*user.User, error) {
+func (h *OIDCHandler) getUserWithClaims(ctx context.Context, claims *oidcClaims) (*user.User, error) {
 	email, err := user.NewEmail(claims.Email)
 	if err != nil {
 		return nil, fmt.Errorf("Claim has invalid email: %w", err)
 	}
 
-	u, err := h.userService.GetUserByEmail(r.Context(), email)
+	u, err := h.userService.GetUserByEmail(ctx, email)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
 			return nil, fmt.Errorf("Cannot get user: %w", err)
 		}
-		u, err = h.userService.SaveUser(r.Context(), user.User{
+		u, err = h.userService.SaveUser(ctx, user.User{
 			Sub:           claims.Sub,
 			Email:         email,
 			EmailVerified: claims.EmailVerified,
