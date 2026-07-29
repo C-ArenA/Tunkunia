@@ -18,6 +18,15 @@ const (
 
 type Email string
 
+func (e *Email) UnmarshalText(text []byte) error {
+	v, err := NewEmail(string(text))
+	if err != nil {
+		return err
+	}
+	*e = v
+	return nil
+}
+
 func NewEmail(e string) (Email, error) {
 	addr, err := mail.ParseAddress(e)
 	if err != nil {

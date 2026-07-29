@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/caarlos0/env/v11"
 	"github.com/joho/godotenv"
 )
@@ -28,7 +29,7 @@ type Config struct {
 	OidcURL         string       `env:"OIDC_URL" envDefault:"http://127.0.0.1:5556/dex"`
 	OidcClientID    string       `env:"OIDC_CLIENT_ID" envDefault:"tunkunia"`
 	OidcSecret      string       `env:"OIDC_SECRET" envDefault:"ZXhhbXBsZS1hcHAtc2VjcmV0"`
-	FirstAdminEmail string       `env:"FIRST_ADMIN_EMAIL" envDefault:"admin@example.com"`
+	FirstAdminEmail user.Email   `env:"FIRST_ADMIN_EMAIL" envDefault:"admin@example.com"`
 	Route           RoutesConfig `envPrefix:"ROUTE_"`
 }
 

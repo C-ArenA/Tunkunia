@@ -58,11 +58,6 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us *user.Service, j
 		return nil, fmt.Errorf("invalid redirect URL. It needs to be an absolute URL: %w", err)
 	}
 
-	firstAdminEmail, err := user.NewEmail(cfg.FirstAdminEmail)
-	if err != nil {
-		return nil, fmt.Errorf("invalid first admin email: %w", err)
-	}
-
 	return &OIDCHandler{
 		oauth2Config: oauth2.Config{
 			ClientID:     cfg.OidcClientID,
@@ -74,7 +69,7 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us *user.Service, j
 		oidcVerifier:    oidcProvider.Verifier(&oidc.Config{ClientID: cfg.OidcClientID}),
 		userService:     us,
 		jwtAuth:         ja,
-		firstAdminEmail: firstAdminEmail,
+		firstAdminEmail: cfg.FirstAdminEmail,
 	}, nil
 }
 
