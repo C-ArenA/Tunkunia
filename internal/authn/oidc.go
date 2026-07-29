@@ -9,8 +9,10 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
+	"sync"
 	"time"
 
 	"github.com/C-ArenA/Tunkunia/internal/config"
@@ -34,21 +36,20 @@ type oidcClaims struct {
 // Highly inspired on the dex guides. DEX is being used as an oidc provider local sandbox
 // https://dexidp.io/docs/guides/using-dex/
 
-// TODO: https://opncd.ai/share/qhynJNOf
 type OIDCHandler struct {
-	oauth2Config    oauth2.Config
-	oidcVerifier    *oidc.IDTokenVerifier
 	userService     *user.Service
 	jwtAuth         *JWTAuth
 	firstAdminEmail user.Email
+	provider        *oidc.Provider
+	providerURL     string
+	clientID        string
+	clientSecret    string
+	redirectURL     string
+	scopes          []string
+	mu              sync.RWMutex
 }
 
 func NewOIDCHandler(ctx context.Context, cfg *config.Config, us *user.Service, ja *JWTAuth) (*OIDCHandler, error) {
-	oidcProvider, err := oidc.NewProvider(ctx, cfg.OidcURL)
-	if err != nil {
-		return nil, err
-	}
-
 	redirectURL, err := url.JoinPath(cfg.AppURL, cfg.Route.OidcCallback)
 	if err != nil {
 		return nil, fmt.Errorf("failed to construct redirect URL: %w", err)
@@ -59,24 +60,28 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us *user.Service, j
 	}
 
 	return &OIDCHandler{
-		oauth2Config: oauth2.Config{
-			ClientID:     cfg.OidcClientID,
-			ClientSecret: cfg.OidcSecret,
-			Endpoint:     oidcProvider.Endpoint(),
-			RedirectURL:  parsedURL.String(),
-			Scopes:       []string{oidc.ScopeOpenID, oidc.ScopeEmail, oidc.ScopeProfile},
-		},
-		oidcVerifier:    oidcProvider.Verifier(&oidc.Config{ClientID: cfg.OidcClientID}),
 		userService:     us,
 		jwtAuth:         ja,
 		firstAdminEmail: cfg.FirstAdminEmail,
+		providerURL:     cfg.OidcURL,
+		clientID:        cfg.OidcClientID,
+		clientSecret:    cfg.OidcSecret,
+		redirectURL:     parsedURL.String(),
+		scopes:          []string{oidc.ScopeOpenID, oidc.ScopeEmail, oidc.ScopeProfile},
 	}, nil
 }
 
 func (h *OIDCHandler) loginRedirect(w http.ResponseWriter, r *http.Request) {
+	oauth2Config, err := h.oauth2Config(r.Context())
+	if err != nil {
+		slog.Error("failed to get oauth2 config", "error", err)
+		http.Redirect(w, r, "/?error=provider_load_failed", http.StatusSeeOther)
+		return
+	}
+
 	state := b64EncodedBytes(16)
 	http.SetCookie(w, NewCookie(oidcStateCookieName, state, WithDuration(10*time.Minute)))
-	http.Redirect(w, r, h.oauth2Config.AuthCodeURL(state), http.StatusFound)
+	http.Redirect(w, r, oauth2Config.AuthCodeURL(state), http.StatusFound)
 }
 
 func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
@@ -113,7 +118,11 @@ func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *OIDCHandler) exchange(ctx context.Context, code string) (*oidcClaims, error) {
-	t, err := h.oauth2Config.Exchange(ctx, code)
+	oauth2Config, err := h.oauth2Config(ctx)
+	if err != nil {
+		return nil, err
+	}
+	t, err := oauth2Config.Exchange(ctx, code)
 	if err != nil {
 		return nil, err
 	}
@@ -121,10 +130,16 @@ func (h *OIDCHandler) exchange(ctx context.Context, code string) (*oidcClaims, e
 	if !ok {
 		return nil, fmt.Errorf("missing id_token in token response")
 	}
-	oidcToken, err := h.oidcVerifier.Verify(ctx, rawIdToken)
+
+	tokenVerifier, err := h.tokenVerifier(ctx)
 	if err != nil {
 		return nil, err
 	}
+	oidcToken, err := tokenVerifier.Verify(ctx, rawIdToken)
+	if err != nil {
+		return nil, err
+	}
+
 	var claims = new(oidcClaims)
 	if err := oidcToken.Claims(claims); err != nil {
 		return nil, fmt.Errorf("failed to extract claims: %w", err)
@@ -144,6 +159,49 @@ func (h *OIDCHandler) getUserWithClaims(ctx context.Context, claims *oidcClaims)
 		EmailVerified: claims.EmailVerified,
 		Name:          claims.Name,
 	}, email == h.firstAdminEmail)
+}
+
+func (h *OIDCHandler) loadProvider(ctx context.Context) error {
+	h.mu.RLock()
+	if h.provider != nil {
+		h.mu.RUnlock()
+		return nil
+	}
+	h.mu.RUnlock()
+
+	h.mu.Lock()
+	defer h.mu.Unlock()
+
+	if h.provider != nil {
+		return nil
+	}
+
+	provider, err := oidc.NewProvider(ctx, h.providerURL)
+	if err != nil {
+		return fmt.Errorf("failed to connect to OIDC provider: %w", err)
+	}
+	h.provider = provider
+	return nil
+}
+
+func (h *OIDCHandler) oauth2Config(ctx context.Context) (oauth2.Config, error) {
+	if err := h.loadProvider(ctx); err != nil {
+		return oauth2.Config{}, err
+	}
+	return oauth2.Config{
+		ClientID:     h.clientID,
+		ClientSecret: h.clientSecret,
+		Endpoint:     h.provider.Endpoint(),
+		RedirectURL:  h.redirectURL,
+		Scopes:       h.scopes,
+	}, nil
+}
+
+func (h *OIDCHandler) tokenVerifier(ctx context.Context) (*oidc.IDTokenVerifier, error) {
+	if err := h.loadProvider(ctx); err != nil {
+		return nil, err
+	}
+	return h.provider.Verifier(&oidc.Config{ClientID: h.clientID}), nil
 }
 
 func (h *OIDCHandler) Handler(loginRoute, callbackRoute string) http.Handler {
