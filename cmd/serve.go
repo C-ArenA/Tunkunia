@@ -7,7 +7,9 @@ import (
 	"context"
 	"database/sql"
 	"log"
+	"log/slog"
 	"net/http"
+	"os"
 
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
@@ -16,6 +18,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
 	"github.com/C-ArenA/Tunkunia/internal/user"
+	"github.com/Marlliton/slogpretty"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/spf13/cobra"
@@ -37,6 +40,7 @@ func NewServeCmd() *cobra.Command {
 
 func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	// Configs
+	initLogger()
 	cfg := loadConfig()
 
 	// Database
@@ -53,7 +57,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 
 	oidcHandler, err := authn.NewOIDCHandler(ctx, cfg, userService, jwtAuthn)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	// HTTP
@@ -70,10 +74,10 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 func initDB(ctx context.Context, dataSourceName string, withSeeding bool) *sql.DB {
 	db, err := sql.Open("sqlite", dataSourceName)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	if err := database.Migrate(ctx, db); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	if withSeeding {
 		database.Seed(ctx, db)
@@ -84,7 +88,19 @@ func initDB(ctx context.Context, dataSourceName string, withSeeding bool) *sql.D
 func loadConfig() *config.Config {
 	cfg, err := config.Load()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	return cfg
+}
+
+func initLogger() {
+	handler := slogpretty.New(os.Stdout, &slogpretty.Options{
+		Level:     slog.LevelDebug,
+		Colorful:  true,
+		AddSource: true,
+		Multiline: true,
+	})
+
+	logger := slog.New(handler)
+	slog.SetDefault(logger)
 }

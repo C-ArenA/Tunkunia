@@ -12,6 +12,7 @@ tool (
 )
 
 require (
+	github.com/Marlliton/slogpretty v0.1.3
 	github.com/caarlos0/env/v11 v11.4.1
 	github.com/coreos/go-oidc/v3 v3.20.0
 	github.com/getkin/kin-openapi v0.135.0

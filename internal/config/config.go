@@ -2,7 +2,7 @@ package config
 
 import (
 	"fmt"
-	"log"
+	"log/slog"
 	"os"
 
 	"github.com/caarlos0/env/v11"
@@ -44,6 +44,6 @@ func Load() (*Config, error) {
 	if err := env.Parse(c); err != nil {
 		return nil, fmt.Errorf("No se pudo cargar la configuración del entorno: %w", err)
 	}
-	log.Printf("Configuración cargada:\n%+v\n", *c)
+	slog.Info("Configuración cargada", "Config", *c)
 	return c, nil
 }
