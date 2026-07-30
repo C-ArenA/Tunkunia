@@ -53,7 +53,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
 
 	// Handlers
-	strictHandlerV1 := api.NewStrictHandlerV1(catalogService)
+	strictHandlerV1 := api.NewStrictHandlerV1(catalogService, userService)
 
 	oidcHandler, err := authn.NewOIDCHandler(ctx, cfg, userService, jwtAuthn)
 	if err != nil {

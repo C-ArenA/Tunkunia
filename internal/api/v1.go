@@ -7,20 +7,23 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/health"
+	"github.com/C-ArenA/Tunkunia/internal/user"
 )
 
 var _ oapi.StrictServerInterface = (*StrictHandlerV1)(nil)
 
-func NewStrictHandlerV1(catalogService *catalog.Service) *StrictHandlerV1 {
+func NewStrictHandlerV1(catalogService *catalog.Service, userService *user.Service) *StrictHandlerV1 {
 	return &StrictHandlerV1{
 		health.NewStrictApiHandler(),
 		catalog.NewStrictApiHandler(catalogService),
+		authn.NewStrictHandler(userService),
 	}
 }
 
 type StrictHandlerV1 struct {
 	*health.StrictApiHandler
 	*catalog.StrictCatalogHandlerV1
+	*authn.StrictHandler
 }
 
 func (h *StrictHandlerV1) Handler() http.Handler {
