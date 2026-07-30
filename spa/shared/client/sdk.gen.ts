@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateTramiteData, CreateTramiteErrors, CreateTramiteResponses, DeleteTramiteData, DeleteTramiteErrors, DeleteTramiteResponses, GetHealthData, GetHealthErrors, GetHealthResponses, GetTramiteData, GetTramiteErrors, GetTramiteResponses, ListTramitesData, ListTramitesErrors, ListTramitesResponses, UpdateTramiteData, UpdateTramiteErrors, UpdateTramiteResponses } from './types.gen';
+import type { CreateTramiteData, CreateTramiteErrors, CreateTramiteResponses, DeleteTramiteData, DeleteTramiteErrors, DeleteTramiteResponses, GetHealthData, GetHealthErrors, GetHealthResponses, GetMeData, GetMeErrors, GetMeResponses, GetTramiteData, GetTramiteErrors, GetTramiteResponses, ListTramitesData, ListTramitesErrors, ListTramitesResponses, UpdateTramiteData, UpdateTramiteErrors, UpdateTramiteResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -78,4 +78,13 @@ export const updateTramite = <ThrowOnError extends boolean = false>(options: Opt
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * Obtener información del usuario
+ */
+export const getMe = <ThrowOnError extends boolean = false>(options?: Options<GetMeData, ThrowOnError>): RequestResult<GetMeResponses, GetMeErrors, ThrowOnError> => (options?.client ?? client).get<GetMeResponses, GetMeErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/me',
+    ...options
 });

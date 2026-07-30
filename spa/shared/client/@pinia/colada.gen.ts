@@ -4,8 +4,8 @@ import { type _JSONValue, defineQueryOptions, type UseMutationOptions } from '@p
 
 import { serializeQueryKeyValue } from '../client';
 import { client } from '../client.gen';
-import { createTramite, deleteTramite, getHealth, getTramite, listTramites, type Options, updateTramite } from '../sdk.gen';
-import type { CreateTramiteData, CreateTramiteError, CreateTramiteResponse, DeleteTramiteData, DeleteTramiteError, DeleteTramiteResponse, GetHealthData, GetHealthError, GetHealthResponse, GetTramiteData, GetTramiteError, GetTramiteResponse, ListTramitesData, ListTramitesError, ListTramitesResponse, UpdateTramiteData, UpdateTramiteError, UpdateTramiteResponse } from '../types.gen';
+import { createTramite, deleteTramite, getHealth, getMe, getTramite, listTramites, type Options, updateTramite } from '../sdk.gen';
+import type { CreateTramiteData, CreateTramiteError, CreateTramiteResponse, DeleteTramiteData, DeleteTramiteError, DeleteTramiteResponse, GetHealthData, GetHealthError, GetHealthResponse, GetMeData, GetMeError, GetMeResponse, GetTramiteData, GetTramiteError, GetTramiteResponse, ListTramitesData, ListTramitesError, ListTramitesResponse, UpdateTramiteData, UpdateTramiteError, UpdateTramiteResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'path'> & {
@@ -142,3 +142,20 @@ export const updateTramiteMutation = (options?: Partial<Options<UpdateTramiteDat
         return data;
     }
 });
+
+export const getMeQueryKey = (options?: Options<GetMeData>) => createQueryKey('getMe', options);
+
+/**
+ * Obtener información del usuario
+ */
+export const getMeQuery = defineQueryOptions<Options<GetMeData>, GetMeResponse, GetMeError>((options?: Options<GetMeData>) => ({
+    key: getMeQueryKey(options),
+    query: async (context) => {
+        const { data } = await getMe({
+            ...options,
+            ...context,
+            throwOnError: true
+        });
+        return data;
+    }
+}));

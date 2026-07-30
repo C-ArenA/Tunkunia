@@ -94,6 +94,15 @@ export type TramiteUpdate = {
     status?: TramiteStatus;
 };
 
+export type User = {
+    id: number;
+    name: string;
+    sub: string;
+    email: string;
+    emailVerified: boolean;
+    roles: Array<string>;
+};
+
 export type GetHealthData = {
     body?: never;
     path?: never;
@@ -325,3 +334,36 @@ export type UpdateTramiteResponses = {
 };
 
 export type UpdateTramiteResponse = UpdateTramiteResponses[keyof UpdateTramiteResponses];
+
+export type GetMeData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/me';
+};
+
+export type GetMeErrors = {
+    /**
+     * No se ha provisto con una llave válida.
+     */
+    401: ProblemDetails;
+    /**
+     * El recurso solicitado no existe
+     */
+    404: ProblemDetails;
+    /**
+     * No se pudo ejecutar la solicitud
+     */
+    500: ProblemDetails;
+};
+
+export type GetMeError = GetMeErrors[keyof GetMeErrors];
+
+export type GetMeResponses = {
+    /**
+     * Información del usuario autenticado.
+     */
+    200: User;
+};
+
+export type GetMeResponse = GetMeResponses[keyof GetMeResponses];
