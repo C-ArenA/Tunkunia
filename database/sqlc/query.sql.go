@@ -139,6 +139,34 @@ func (q *Queries) GetUserByEmail(ctx context.Context, db DBTX, email string) (Us
 	return i, err
 }
 
+const getUserById = `-- name: GetUserById :one
+SELECT id, name, sub, email, email_verified, created_at, updated_at
+FROM users
+WHERE
+  id = ?
+`
+
+// GetUserById
+//
+//	SELECT id, name, sub, email, email_verified, created_at, updated_at
+//	FROM users
+//	WHERE
+//	  id = ?
+func (q *Queries) GetUserById(ctx context.Context, db DBTX, id int64) (User, error) {
+	row := db.QueryRowContext(ctx, getUserById, id)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Sub,
+		&i.Email,
+		&i.EmailVerified,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const getUserRoles = `-- name: GetUserRoles :many
 SELECT role FROM user_roles WHERE user_id = ?
 `

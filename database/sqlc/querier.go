@@ -38,6 +38,13 @@ type Querier interface {
 	//  WHERE
 	//    email = ?
 	GetUserByEmail(ctx context.Context, db DBTX, email string) (User, error)
+	//GetUserById
+	//
+	//  SELECT id, name, sub, email, email_verified, created_at, updated_at
+	//  FROM users
+	//  WHERE
+	//    id = ?
+	GetUserById(ctx context.Context, db DBTX, id int64) (User, error)
 	//GetUserRoles
 	//
 	//  SELECT role FROM user_roles WHERE user_id = ?

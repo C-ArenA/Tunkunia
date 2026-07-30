@@ -23,6 +23,20 @@ type sqliteStore struct {
 	q  *Queries
 }
 
+func (s *sqliteStore) GetUserById(ctx context.Context, id UserId) (*User, error) {
+	user, err := s.q.GetUserById(ctx, s.db, int64(id))
+	if err != nil {
+		return nil, fmt.Errorf("No se pudo obtener usuario con id '%d': %w", int(id), err)
+	}
+
+	roles, err := s.q.GetUserRoles(ctx, s.db, user.ID)
+	if err != nil {
+		return nil, fmt.Errorf("No se pudieron obtener roles para el usuario '%d': %w", int(id), err)
+	}
+
+	return new(ToDomainUser(user, roles)), nil
+}
+
 // GetUserByEmail implements [Repo].
 func (s *sqliteStore) GetUserByEmail(ctx context.Context, email Email) (*User, error) {
 	user, err := s.q.GetUserByEmail(ctx, s.db, string(email))
