@@ -188,6 +188,27 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
       deprecated: false
+  /me:
+    get:
+      tags:
+        - Authn
+      operationId: GetMe
+      summary: Obtener información del usuario
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Información del usuario autenticado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
 components:
   securitySchemes:
     BearerAuth:
@@ -394,6 +415,40 @@ components:
           $ref: '#/components/schemas/TramiteType'
         status:
           $ref: '#/components/schemas/TramiteStatus'
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - sub
+        - email
+        - emailVerified
+        - roles
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-order: 1
+        name:
+          type: string
+          example: John Doe
+        sub:
+          type: string
+          example: 7g34748743g843g7
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        emailVerified:
+          type: boolean
+          example: true
+        roles:
+          type: array
+          items:
+            type: string
+          example:
+            - admin
+            - user
   responses:
     BadRequest:
       description: Solicitud no aceptada o entendida. Quizá falte algún parámetro requerido.

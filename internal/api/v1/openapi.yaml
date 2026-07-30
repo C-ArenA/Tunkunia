@@ -28,6 +28,8 @@ paths:
     $ref: tramites.openapi.yaml#/paths/~1tramites
   /tramites/{id}:
     $ref: tramites.openapi.yaml#/paths/~1tramites~1{id}
+  /me:
+    $ref: users.openapi.yaml#/paths/~1me
 
 components:
   securitySchemes:
