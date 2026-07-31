@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { listTramitesQuery } from '#shared/client/@pinia/colada.gen'
+import { listTramitesQuery, getMeQuery } from '#shared/client/@pinia/colada.gen'
 import { useQuery } from '@pinia/colada'
 
 definePageMeta({
@@ -7,11 +7,35 @@ definePageMeta({
 })
 
 const institutionName = 'Institución de Prueba'
-const { data } = useQuery(listTramitesQuery)
+const { data: tramitesData } = useQuery(listTramitesQuery)
+const { data: userData, isPending } = useQuery(getMeQuery)
+const isLoggedIn = computed(() => !!userData.value)
 </script>
 
 <template>
   <div>
+    <div class="flex justify-end p-4">
+      <UButton
+        v-if="!isPending && !isLoggedIn"
+        to="/login"
+        external
+        color="primary"
+        variant="solid"
+        size="lg"
+      >
+        Ingresar
+      </UButton>
+      <UButton
+        v-if="!isPending && isLoggedIn"
+        to="/oidc-logout"
+        external
+        color="neutral"
+        variant="outline"
+        size="lg"
+      >
+        Cerrar sesión
+      </UButton>
+    </div>
     <UPageHero
       title="Tunkunia"
       :headline="institutionName"
@@ -19,11 +43,6 @@ const { data } = useQuery(listTramitesQuery)
       :description="`Plataforma de trámites en línea de la ${institutionName}, facilitando la interacción entre ciudadanos y entidades gubernamentales.`"
       orientation="horizontal"
       :links="[{
-        label: 'Ingresar',
-        to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-        trailingIcon: 'i-lucide-arrow-right',
-        size: 'xl'
-      }, {
         label: 'Ver trámites disponibles',
         to: '/tramites',
         icon: 'i-simple-icons-amazonredshift',
@@ -39,7 +58,7 @@ const { data } = useQuery(listTramitesQuery)
         class="w-full h-96"
       >
         <UCard
-          v-for="tramite in data?.data"
+          v-for="tramite in tramitesData?.data"
           :key="tramite.id"
           variant="subtle"
           :title="tramite.name"

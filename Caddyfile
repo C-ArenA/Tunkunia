@@ -1,7 +1,12 @@
-tunkunia.localhost
-
-reverse_proxy /api/* 127.0.0.1:8080
-reverse_proxy /login 127.0.0.1:8080
-reverse_proxy /callback 127.0.0.1:8080
-reverse_proxy /docs/* 127.0.0.1:8080
-reverse_proxy 127.0.0.1:3000
+{
+	debug
+}
+tunkunia.localhost {
+	reverse_proxy /api/* 127.0.0.1:8080
+	reverse_proxy /login 127.0.0.1:8080
+	reverse_proxy /callback 127.0.0.1:8080
+	reverse_proxy /oidc-logout* 127.0.0.1:8080
+	reverse_proxy /logout* 127.0.0.1:8080
+	reverse_proxy /docs/* 127.0.0.1:8080
+	reverse_proxy localhost:3000
+}

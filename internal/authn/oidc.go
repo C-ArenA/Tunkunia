@@ -204,11 +204,19 @@ func (h *OIDCHandler) tokenVerifier(ctx context.Context) (*oidc.IDTokenVerifier,
 	return h.provider.Verifier(&oidc.Config{ClientID: h.clientID}), nil
 }
 
+func (h *OIDCHandler) logout(w http.ResponseWriter, r *http.Request) {
+	http.SetCookie(w, NewCookie("jwt", "", WithDuration(-1*time.Hour)))
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
 func (h *OIDCHandler) Handler(loginRoute, callbackRoute string) http.Handler {
 	r := chi.NewRouter()
-	r.Use(RequireNonAuthenticatedOrRedirect)
-	r.Get(loginRoute, h.loginRedirect)
-	r.Get(callbackRoute, h.callback)
+	r.Get("/oidc-logout", h.logout)
+	r.Group(func(r chi.Router) {
+		r.Use(RequireNonAuthenticatedOrRedirect)
+		r.Get(loginRoute, h.loginRedirect)
+		r.Get(callbackRoute, h.callback)
+	})
 	return r
 }
 
