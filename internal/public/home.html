@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tunkunia: {{.Name}}</title>
+        <style>
+            .container {
+                display: flex;
+                max-width: 800px;
+                margin: 0 auto;
+                padding:;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Tunkunia</h1>
+                <h2>{{.Name}}</h2>
+                <p>{{.Description}}</p>
+                <a href="/login">Ingresa con Ciudadanía Digital</a>
+            </header>
+
+            <main>
+                <h2>Trámites Disponibles</h2>
+                <ul>
+                    {{ range .Tramites}}
+                    <li>
+                        <article>
+                            <h3>{{.Name}}</h3>
+                            <p>{{.Description}}</p>
+                            <a href="#">Ver Detalles</a>
+                        </article>
+                    </li>
+                    {{end}}
+                </ul>
+            </main>
+        </div>
+    </body>
+</html>

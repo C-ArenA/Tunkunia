@@ -17,6 +17,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
+	"github.com/C-ArenA/Tunkunia/internal/public"
 	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/Marlliton/slogpretty"
 	"github.com/go-chi/chi/v5"
@@ -67,6 +68,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	r.Mount(cfg.Route.ApiV1, strictHandlerV1.Handler())
 	r.Mount("/", oidcHandler.Handler(cfg.Route.OidcRedirect, cfg.Route.OidcCallback))
 	api.RegisterSpecsRoutes(r, cfg.Env == "dev")
+	public.RegisterRoutes(r, catalogService)
 
 	return db, r, cfg
 }
