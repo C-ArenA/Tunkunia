@@ -5,18 +5,296 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tunkunia: {{.Name}}</title>
         <style>
-            .container {
+            *,
+            *::before,
+            *::after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    "Segoe UI",
+                    system-ui,
+                    -apple-system,
+                    Arial,
+                    sans-serif;
+                line-height: 1.6;
+                color: #e6f5f0;
+                background: radial-gradient(
+                    1200px 800px at 15% -10%,
+                    #0d2b23 0%,
+                    #07140f 55%,
+                    #05100c 100%
+                );
+                min-height: 100vh;
+                position: relative;
                 display: flex;
-                max-width: 800px;
+                align-items: center;
+            }
+
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                background-image:
+                    linear-gradient(
+                        rgba(16, 185, 129, 0.05) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(16, 185, 129, 0.05) 1px,
+                        transparent 1px
+                    );
+                background-size: 44px 44px;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .flag {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 6px;
+                z-index: 2;
+                background: linear-gradient(
+                    90deg,
+                    #d52b1e 0%,
+                    #d52b1e 33.33%,
+                    #ffd200 33.33%,
+                    #ffd200 66.66%,
+                    #00a650 66.66%,
+                    #00a650 100%
+                );
+            }
+
+            .container {
+                position: relative;
+                z-index: 1;
+                max-width: 1200px;
+                height: 100%;
                 margin: 0 auto;
-                padding:;
+                padding: 5rem 2.5rem 4rem;
+                display: flex;
+                align-items: end;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+                gap: 4.5rem;
+            }
+
+            header {
+                text-align: left;
+                position: sticky;
+                flex-direction: column;
+                top: 4rem;
+                bottom: 4rem;
+            }
+
+            header .label {
+                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+                font-size: 0.8rem;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: #6ee7b7;
+                margin-bottom: 1.5rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+
+            header .label::before {
+                content: "";
+                width: 10px;
+                height: 10px;
+                background: #10b981;
+                border-radius: 2px;
+                box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.4;
+                }
+            }
+
+            header h1 {
+                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+                font-size: clamp(2.5rem, 5vw, 4rem);
+                font-weight: 700;
+                color: #ffffff;
+                letter-spacing: 0.02em;
+                margin-bottom: 0.35rem;
+                text-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
+            }
+
+            header h1::before {
+                content: "> ";
+                color: #10b981;
+            }
+
+            header h1 span {
+                color: #34d399;
+            }
+
+            header h2 {
+                font-size: 1.4rem;
+                font-weight: 400;
+                color: #a7f3d0;
+                margin-bottom: 1.25rem;
+            }
+
+            header p {
+                font-size: 1.05rem;
+                max-width: 46ch;
+                color: #9bb8ae;
+                margin-bottom: 2rem;
+            }
+
+            header a {
+                display: inline-block;
+                padding: 0.85rem 2rem;
+                background: #10b981;
+                color: #03130e;
+                text-decoration: none;
+                font-weight: 700;
+                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+                border-radius: 6px;
+                box-shadow: 0 0 24px rgba(16, 185, 129, 0.45);
+                transition:
+                    background 0.2s ease,
+                    transform 0.2s ease,
+                    box-shadow 0.2s ease;
+            }
+
+            header a:hover {
+                background: #34d399;
+                transform: translateY(-2px);
+                box-shadow: 0 0 36px rgba(16, 185, 129, 0.65);
+            }
+
+            main {
+                align-self: start;
+            }
+
+            main h2 {
+                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+                font-size: 1.35rem;
+                font-weight: 600;
+                color: #34d399;
+                margin-bottom: 1.5rem;
+            }
+
+            main h2::before {
+                content: "// ";
+                color: rgba(148, 163, 184, 0.6);
+            }
+
+            main ul {
+                list-style: none;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+                gap: 1.25rem;
+            }
+
+            main li article {
+                background: rgba(255, 255, 255, 0.035);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-top: 3px solid #10b981;
+                border-radius: 10px;
+                padding: 1.4rem;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                backdrop-filter: blur(6px);
+                transition:
+                    background 0.2s ease,
+                    transform 0.2s ease,
+                    border-color 0.2s ease;
+            }
+
+            main li:nth-child(3n + 1) article {
+                border-top-color: #d52b1e;
+            }
+
+            main li:nth-child(3n + 2) article {
+                border-top-color: #ffd200;
+            }
+
+            main li:nth-child(3n + 3) article {
+                border-top-color: #00a650;
+            }
+
+            main li article:hover {
+                background: rgba(255, 255, 255, 0.07);
+                border-color: rgba(16, 185, 129, 0.4);
+                transform: translateY(-4px);
+            }
+
+            main li article h3 {
+                font-size: 1.05rem;
+                color: #ffffff;
+                margin-bottom: 0.5rem;
+            }
+
+            main li article p {
+                flex-grow: 1;
+                color: #9bb8ae;
+                font-size: 0.92rem;
+                margin-bottom: 1rem;
+            }
+
+            main li article a {
+                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+                font-size: 0.85rem;
+                color: #6ee7b7;
+                text-decoration: none;
+            }
+
+            main li article a::before {
+                content: "[ ";
+                color: rgba(148, 163, 184, 0.5);
+            }
+
+            main li article a::after {
+                content: " ]";
+                color: rgba(148, 163, 184, 0.5);
+            }
+
+            main li article a:hover {
+                color: #ffffff;
+                text-decoration: underline;
+            }
+
+            @media (max-width: 900px) {
+                .container {
+                    flex-direction: column;
+                    grid-template-columns: 1fr;
+                    gap: 3rem;
+                    padding: 3.5rem 1.5rem 3rem;
+                }
+
+                header {
+                    position: static;
+                }
+
+                header h1 {
+                    font-size: 2.4rem;
+                }
             }
         </style>
     </head>
     <body>
+        <div class="flag"></div>
         <div class="container">
             <header>
-                <h1>Tunkunia</h1>
+                <h1>Tunkun<span>ia</span></h1>
                 <h2>{{.Name}}</h2>
                 <p>{{.Description}}</p>
                 <a href="/login">Ingresa con Ciudadanía Digital</a>
@@ -26,6 +304,22 @@
                 <h2>Trámites Disponibles</h2>
                 <ul>
                     {{ range .Tramites}}
+                    <li>
+                        <article>
+                            <h3>{{.Name}}</h3>
+                            <p>{{.Description}}</p>
+                            <a href="#">Ver Detalles</a>
+                        </article>
+                    </li>
+                    {{end}} {{ range .Tramites}}
+                    <li>
+                        <article>
+                            <h3>{{.Name}}</h3>
+                            <p>{{.Description}}</p>
+                            <a href="#">Ver Detalles</a>
+                        </article>
+                    </li>
+                    {{end}} {{ range .Tramites}}
                     <li>
                         <article>
                             <h3>{{.Name}}</h3>
