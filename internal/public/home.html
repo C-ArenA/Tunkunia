@@ -5,6 +5,45 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tunkunia: {{.Name}}</title>
         <style>
+            :root {
+                --color-primary: #10b981;
+                --color-primary-soft: #34d399;
+                --color-primary-pale: #6ee7b7;
+                --color-primary-faint: #a7f3d0;
+                --color-primary-glow: rgba(16, 185, 129, 0.8);
+                --color-primary-glow-soft: rgba(16, 185, 129, 0.35);
+                --color-primary-glow-btn: rgba(16, 185, 129, 0.45);
+                --color-primary-glow-hover: rgba(16, 185, 129, 0.65);
+                --color-primary-grid: rgba(16, 185, 129, 0.05);
+                --color-primary-border: rgba(16, 185, 129, 0.4);
+
+                --color-ink: #03130e;
+                --color-text: #e6f5f0;
+                --color-text-bright: #ffffff;
+                --color-text-body: #9bb8ae;
+                --color-muted: rgba(148, 163, 184, 0.6);
+                --color-muted-dim: rgba(148, 163, 184, 0.5);
+
+                --color-flag-red: #d52b1e;
+                --color-flag-yellow: #ffd200;
+                --color-flag-green: #00a650;
+
+                --color-card-bg: rgba(255, 255, 255, 0.035);
+                --color-card-bg-hover: rgba(255, 255, 255, 0.07);
+                --color-card-border: rgba(255, 255, 255, 0.08);
+
+                --font-sans: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+                --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+
+                --radius-sm: 6px;
+                --radius-lg: 10px;
+
+                --transition-btn: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+                --transition-card: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+
+                --grid-size: 44px;
+            }
+
             *,
             *::before,
             *::after {
@@ -14,14 +53,9 @@
             }
 
             body {
-                font-family:
-                    "Segoe UI",
-                    system-ui,
-                    -apple-system,
-                    Arial,
-                    sans-serif;
+                font-family: var(--font-sans);
                 line-height: 1.6;
-                color: #e6f5f0;
+                color: var(--color-text);
                 background: radial-gradient(
                     1200px 800px at 15% -10%,
                     #0d2b23 0%,
@@ -32,25 +66,35 @@
                 position: relative;
                 display: flex;
                 align-items: center;
-            }
 
-            body::before {
-                content: "";
-                position: fixed;
-                inset: 0;
-                background-image:
-                    linear-gradient(
-                        rgba(16, 185, 129, 0.05) 1px,
-                        transparent 1px
-                    ),
-                    linear-gradient(
-                        90deg,
-                        rgba(16, 185, 129, 0.05) 1px,
-                        transparent 1px
-                    );
-                background-size: 44px 44px;
-                pointer-events: none;
-                z-index: 0;
+                &::before {
+                    content: "";
+                    position: fixed;
+                    inset: 0;
+                    background-image:
+                        linear-gradient(var(--color-primary-grid) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--color-primary-grid) 1px, transparent 1px);
+                    background-size: var(--grid-size) var(--grid-size);
+                    pointer-events: none;
+                    z-index: 0;
+                }
+
+                @media (max-width: 900px) {
+                    .container {
+                        flex-direction: column;
+                        grid-template-columns: 1fr;
+                        gap: 3rem;
+                        padding: 3.5rem 1.5rem 3rem;
+                    }
+
+                    header {
+                        position: static;
+
+                        h1 {
+                            font-size: 2.4rem;
+                        }
+                    }
+                }
             }
 
             .flag {
@@ -62,12 +106,12 @@
                 z-index: 2;
                 background: linear-gradient(
                     90deg,
-                    #d52b1e 0%,
-                    #d52b1e 33.33%,
-                    #ffd200 33.33%,
-                    #ffd200 66.66%,
-                    #00a650 66.66%,
-                    #00a650 100%
+                    var(--color-flag-red) 0%,
+                    var(--color-flag-red) 33.33%,
+                    var(--color-flag-yellow) 33.33%,
+                    var(--color-flag-yellow) 66.66%,
+                    var(--color-flag-green) 66.66%,
+                    var(--color-flag-green) 100%
                 );
             }
 
@@ -90,28 +134,80 @@
                 flex-direction: column;
                 top: 4rem;
                 bottom: 4rem;
-            }
 
-            header .label {
-                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
-                font-size: 0.8rem;
-                letter-spacing: 0.2em;
-                text-transform: uppercase;
-                color: #6ee7b7;
-                margin-bottom: 1.5rem;
-                display: inline-flex;
-                align-items: center;
-                gap: 0.6rem;
-            }
+                .label {
+                    font-family: var(--font-mono);
+                    font-size: 0.8rem;
+                    letter-spacing: 0.2em;
+                    text-transform: uppercase;
+                    color: var(--color-primary-pale);
+                    margin-bottom: 1.5rem;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.6rem;
 
-            header .label::before {
-                content: "";
-                width: 10px;
-                height: 10px;
-                background: #10b981;
-                border-radius: 2px;
-                box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
-                animation: pulse 2s infinite;
+                    &::before {
+                        content: "";
+                        width: 10px;
+                        height: 10px;
+                        background: var(--color-primary);
+                        border-radius: 2px;
+                        box-shadow: 0 0 12px var(--color-primary-glow);
+                        animation: pulse 2s infinite;
+                    }
+                }
+
+                h1 {
+                    font-family: var(--font-mono);
+                    font-size: clamp(2.5rem, 5vw, 4rem);
+                    font-weight: 700;
+                    color: var(--color-text-bright);
+                    letter-spacing: 0.02em;
+                    margin-bottom: 0.35rem;
+                    text-shadow: 0 0 30px var(--color-primary-glow-soft);
+
+                    &::before {
+                        content: "> ";
+                        color: var(--color-primary);
+                    }
+
+                    span {
+                        color: var(--color-primary-soft);
+                    }
+                }
+
+                h2 {
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    color: var(--color-primary-faint);
+                    margin-bottom: 1.25rem;
+                }
+
+                p {
+                    font-size: 1.05rem;
+                    max-width: 46ch;
+                    color: var(--color-text-body);
+                    margin-bottom: 2rem;
+                }
+
+                a {
+                    display: inline-block;
+                    padding: 0.85rem 2rem;
+                    background: var(--color-primary);
+                    color: var(--color-ink);
+                    text-decoration: none;
+                    font-weight: 700;
+                    font-family: var(--font-mono);
+                    border-radius: var(--radius-sm);
+                    box-shadow: 0 0 24px var(--color-primary-glow-btn);
+                    transition: var(--transition-btn);
+
+                    &:hover {
+                        background: var(--color-primary-soft);
+                        transform: translateY(-2px);
+                        box-shadow: 0 0 36px var(--color-primary-glow-hover);
+                    }
+                }
             }
 
             @keyframes pulse {
@@ -124,168 +220,93 @@
                 }
             }
 
-            header h1 {
-                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
-                font-size: clamp(2.5rem, 5vw, 4rem);
-                font-weight: 700;
-                color: #ffffff;
-                letter-spacing: 0.02em;
-                margin-bottom: 0.35rem;
-                text-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
-            }
-
-            header h1::before {
-                content: "> ";
-                color: #10b981;
-            }
-
-            header h1 span {
-                color: #34d399;
-            }
-
-            header h2 {
-                font-size: 1.4rem;
-                font-weight: 400;
-                color: #a7f3d0;
-                margin-bottom: 1.25rem;
-            }
-
-            header p {
-                font-size: 1.05rem;
-                max-width: 46ch;
-                color: #9bb8ae;
-                margin-bottom: 2rem;
-            }
-
-            header a {
-                display: inline-block;
-                padding: 0.85rem 2rem;
-                background: #10b981;
-                color: #03130e;
-                text-decoration: none;
-                font-weight: 700;
-                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
-                border-radius: 6px;
-                box-shadow: 0 0 24px rgba(16, 185, 129, 0.45);
-                transition:
-                    background 0.2s ease,
-                    transform 0.2s ease,
-                    box-shadow 0.2s ease;
-            }
-
-            header a:hover {
-                background: #34d399;
-                transform: translateY(-2px);
-                box-shadow: 0 0 36px rgba(16, 185, 129, 0.65);
-            }
-
             main {
                 align-self: start;
-            }
 
-            main h2 {
-                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
-                font-size: 1.35rem;
-                font-weight: 600;
-                color: #34d399;
-                margin-bottom: 1.5rem;
-            }
+                h2 {
+                    font-family: var(--font-mono);
+                    font-size: 1.35rem;
+                    font-weight: 600;
+                    color: var(--color-primary-soft);
+                    margin-bottom: 1.5rem;
 
-            main h2::before {
-                content: "// ";
-                color: rgba(148, 163, 184, 0.6);
-            }
-
-            main ul {
-                list-style: none;
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-                gap: 1.25rem;
-            }
-
-            main li article {
-                background: rgba(255, 255, 255, 0.035);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-top: 3px solid #10b981;
-                border-radius: 10px;
-                padding: 1.4rem;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                backdrop-filter: blur(6px);
-                transition:
-                    background 0.2s ease,
-                    transform 0.2s ease,
-                    border-color 0.2s ease;
-            }
-
-            main li:nth-child(3n + 1) article {
-                border-top-color: #d52b1e;
-            }
-
-            main li:nth-child(3n + 2) article {
-                border-top-color: #ffd200;
-            }
-
-            main li:nth-child(3n + 3) article {
-                border-top-color: #00a650;
-            }
-
-            main li article:hover {
-                background: rgba(255, 255, 255, 0.07);
-                border-color: rgba(16, 185, 129, 0.4);
-                transform: translateY(-4px);
-            }
-
-            main li article h3 {
-                font-size: 1.05rem;
-                color: #ffffff;
-                margin-bottom: 0.5rem;
-            }
-
-            main li article p {
-                flex-grow: 1;
-                color: #9bb8ae;
-                font-size: 0.92rem;
-                margin-bottom: 1rem;
-            }
-
-            main li article a {
-                font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
-                font-size: 0.85rem;
-                color: #6ee7b7;
-                text-decoration: none;
-            }
-
-            main li article a::before {
-                content: "[ ";
-                color: rgba(148, 163, 184, 0.5);
-            }
-
-            main li article a::after {
-                content: " ]";
-                color: rgba(148, 163, 184, 0.5);
-            }
-
-            main li article a:hover {
-                color: #ffffff;
-                text-decoration: underline;
-            }
-
-            @media (max-width: 900px) {
-                .container {
-                    flex-direction: column;
-                    grid-template-columns: 1fr;
-                    gap: 3rem;
-                    padding: 3.5rem 1.5rem 3rem;
+                    &::before {
+                        content: "// ";
+                        color: var(--color-muted);
+                    }
                 }
 
-                header {
-                    position: static;
-                }
+                ul {
+                    list-style: none;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+                    gap: 1.25rem;
 
-                header h1 {
-                    font-size: 2.4rem;
+                    li:nth-child(3n + 1) article {
+                        border-top-color: var(--color-flag-red);
+                    }
+
+                    li:nth-child(3n + 2) article {
+                        border-top-color: var(--color-flag-yellow);
+                    }
+
+                    li:nth-child(3n + 3) article {
+                        border-top-color: var(--color-flag-green);
+                    }
+
+                    li article {
+                        background: var(--color-card-bg);
+                        border: 1px solid var(--color-card-border);
+                        border-top: 3px solid var(--color-primary);
+                        border-radius: var(--radius-lg);
+                        padding: 1.4rem;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        backdrop-filter: blur(6px);
+                        transition: var(--transition-card);
+
+                        &:hover {
+                            background: var(--color-card-bg-hover);
+                            border-color: var(--color-primary-border);
+                            transform: translateY(-4px);
+                        }
+
+                        h3 {
+                            font-size: 1.05rem;
+                            color: var(--color-text-bright);
+                            margin-bottom: 0.5rem;
+                        }
+
+                        p {
+                            flex-grow: 1;
+                            color: var(--color-text-body);
+                            font-size: 0.92rem;
+                            margin-bottom: 1rem;
+                        }
+
+                        a {
+                            font-family: var(--font-mono);
+                            font-size: 0.85rem;
+                            color: var(--color-primary-pale);
+                            text-decoration: none;
+
+                            &::before {
+                                content: "[ ";
+                                color: var(--color-muted-dim);
+                            }
+
+                            &::after {
+                                content: " ]";
+                                color: var(--color-muted-dim);
+                            }
+
+                            &:hover {
+                                color: var(--color-text-bright);
+                                text-decoration: underline;
+                            }
+                        }
+                    }
                 }
             }
         </style>
