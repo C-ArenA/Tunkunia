@@ -39,3 +39,4 @@ tmp
 .task
 *.db
 /bin/
+node_modules

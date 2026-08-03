@@ -74,6 +74,14 @@ tasks:
     cmds:
       - go build -o bin/server ./cmd/api
 
+  templ:generate:
+    cmd: go tool templ generate --watch
+  dev:gotth:
+    deps:
+      - server:dev
+      - templ:generate
+    failfast: true
+
   dev:caddy:
     cmd: sudo caddy run
 
