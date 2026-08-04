@@ -8,9 +8,6 @@ dotenv:
 output: prefixed
 
 includes:
-  site:
-    taskfile: ./site/Taskfile.yml
-    dir: ./site
   spa:
     taskfile: ./spa/Taskfile.yml
     dir: ./spa
@@ -112,7 +109,6 @@ tasks:
     desc: Build all projects
     cmds:
       - task: server:build
-      - task: site:build
       - task: spa:build
 
   docs:all:
