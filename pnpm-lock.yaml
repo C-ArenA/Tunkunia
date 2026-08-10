@@ -214,7 +214,7 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3
 
-  apps/site:
+  site:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.41.6
@@ -229,7 +229,7 @@ importers:
         specifier: ^0.34.5
         version: 0.34.5
 
-  apps/spa:
+  spa:
     dependencies:
       nuxt:
         specifier: ^4.5.2

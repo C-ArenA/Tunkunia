@@ -1,83 +1,31 @@
-<script setup lang="ts">
-import { listTramitesQuery, getMeQuery } from '#shared/client/@pinia/colada.gen'
-import { useQuery } from '@pinia/colada'
-
-definePageMeta({
-  layout: 'empty'
-})
-
-const institutionName = 'Institución de Prueba'
-const { data: tramitesData } = useQuery(listTramitesQuery)
-const { data: userData, isPending } = useQuery(getMeQuery)
-const isLoggedIn = computed(() => !!userData.value)
-</script>
-
 <template>
   <div>
-    <div class="flex justify-end p-4">
-      <UButton
-        v-if="!isPending && !isLoggedIn"
-        to="/login"
-        external
-        color="primary"
-        variant="solid"
-        size="lg"
-      >
-        Ingresar
-      </UButton>
-      <UButton
-        v-if="!isPending && isLoggedIn"
-        to="/oidc-logout"
-        external
-        color="neutral"
-        variant="outline"
-        size="lg"
-      >
-        Cerrar sesión
-      </UButton>
-    </div>
-    <UPageHero
-      title="Tunkunia"
-      :headline="institutionName"
-      reverse
-      :description="`Plataforma de trámites en línea de la ${institutionName}, facilitando la interacción entre ciudadanos y entidades gubernamentales.`"
-      orientation="horizontal"
-      :links="[{
-        label: 'Ver trámites disponibles',
-        to: '/tramites',
-        icon: 'i-simple-icons-amazonredshift',
-        size: 'xl',
-        color: 'neutral',
-        variant: 'subtle'
-      }]"
-    >
-      <UMarquee
-        pause-on-hover
-        orientation="vertical"
-        :repeat="4"
-        class="w-full h-96"
-      >
-        <UCard
-          v-for="tramite in tramitesData?.data"
-          :key="tramite.id"
-          variant="subtle"
-          :title="tramite.name"
-          :description="tramite.description || 'Sin descripción disponible'"
-          class="w-full"
-        >
-          <p>Paso 1: Requisitos</p>
-          <template #footer>
-            <UButton
-              to="#"
-              color="primary"
-              variant="solid"
-              size="sm"
-            >
-              Iniciar trámite
-            </UButton>
-          </template>
-        </UCard>
-      </UMarquee>
-    </UPageHero>
+			<div class="flag flex">
+				<div class="bg-red-600 h-1 w-full"></div>
+				<div class="bg-yellow-400 h-1 w-full"></div>
+				<div class="bg-green-600 h-1 w-full"></div>
+			</div>
+			<div class="container flex">
+				<header class="basis-1/2">
+					<h1 class="text-2xl">Tunkun<span>ia</span></h1>
+					<h2>{ inst.Name }</h2>
+					<p>Tunkxx: { inst.Description }</p>
+					<a href="/login">Ingresar con Ciudadanía Digital</a>
+				</header>
+				<main>
+					<h2>Trámites Disponibles</h2>
+					<ul>
+						for _, item := range inst.Tramites {
+							<li>
+								<article>
+									<h3>{ item.Name }</h3>
+									<p>{ item.Description }</p>
+									<a href="#">Ver + Detalles</a>
+								</article>
+							</li>
+						}
+					</ul>
+				</main>
+			</div>
   </div>
 </template>

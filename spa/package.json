@@ -1,35 +1,17 @@
 {
   "name": "spa",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "nuxt build",
-    "gen": "nuxt generate",
     "dev": "nuxt dev",
+    "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "typecheck": "nuxt typecheck",
-    "openapi-ts": "openapi-ts"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@iconify-json/lucide": "^1.2.114",
-    "@iconify-json/simple-icons": "^1.2.86",
-    "@nuxt/ui": "^4.9.0",
-    "@pinia/colada": "^1.3.1",
-    "@pinia/colada-nuxt": "1.0.1",
-    "@pinia/nuxt": "0.11.3",
-    "nuxt": "^4.4.8",
-    "ofetch": "^1.5.1",
-    "pinia": "^3.0.4",
-    "tailwindcss": "^4.3.1"
-  },
-  "devDependencies": {
-    "@hey-api/openapi-ts": "0.99.0",
-    "@nuxt/eslint": "^1.16.0",
-    "eslint": "^10.5.0",
-    "typescript": "^6.0.3",
-    "vue-tsc": "^3.3.5"
+    "nuxt": "^4.5.2",
+    "vue": "^3.5.41",
+    "vue-router": "^5.2.0"
   }
 }
