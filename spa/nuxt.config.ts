@@ -20,4 +20,8 @@ export default defineNuxtConfig({
   },
 
   modules: ["@pinia/colada-nuxt", "@pinia/nuxt", "@nuxt/ui"],
+  
+  routeRules: {
+    '/app/**': { appLayout: 'dashboard'}
+  }
 });
