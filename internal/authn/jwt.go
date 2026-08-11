@@ -116,7 +116,7 @@ func RequireAuthenticated(next http.Handler) http.Handler {
 		_, requiresAuthentication := oapi.BearerAuthScopesFromContext(r.Context())
 		_, isAuthenticated := FromAuthContext(r.Context())
 		if requiresAuthentication && !isAuthenticated {
-			oapi.Error(w, oapi.NewForbiddenResponse("Requires authenticated user"), http.StatusUnauthorized)
+			oapi.Error(w, oapi.NewUnauthorizedResponse("Requires authenticated user"), http.StatusUnauthorized)
 			return
 		}
 		next.ServeHTTP(w, r)

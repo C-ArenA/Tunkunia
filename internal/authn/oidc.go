@@ -86,7 +86,7 @@ func (h *OIDCHandler) loginRedirect(w http.ResponseWriter, r *http.Request) {
 
 func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 	const loginRoute = "/login"
-	const successRoute = "/"
+	const successRoute = "/app"
 
 	state, err := r.Cookie(oidcStateCookieName)
 	http.SetCookie(w, NewCookie(oidcStateCookieName, "", WithDuration(-1*time.Second)))
