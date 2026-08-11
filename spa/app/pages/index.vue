@@ -35,7 +35,7 @@ const { data: me } = useQuery(getMeQuery)
 					<p class="text-gray-600 md:hidden my-2">Tunkunia: {{ inst.Description }}</p>
 					<ul class="flex flex-col gap-4">
 							<li v-for="item in tramites?.data" :key="item.id">
-								<article class="border border-green-200 p-4 rounded hover:shadow-lg transition-shadow duration-300">
+								<article class="border border-primary p-4 rounded hover:shadow-lg transition-shadow duration-300">
 									<h3 class="text-xl font-semibold">{{ item.name }}</h3>
 									<p class="text-gray-600">{{ item.description }}</p>
 									<a :href="`/tramites/${item.id}`" class="text-green-500 hover:text-green-700">Ver Detalles</a>

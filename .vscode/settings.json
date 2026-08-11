@@ -4,5 +4,13 @@
     "bin": true,
     "node_modules": true,
     "tmp": true
-  }
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "class:list",
+    "ui"
+  ],
+  "tailwindCSS.classFunctions": ["defineAppConfig"]
 }

@@ -22,5 +22,5 @@ export default defineNuxtConfig({
     ]
   },
 
-  modules: ['@pinia/colada-nuxt', '@pinia/nuxt']
+  modules: ['@pinia/colada-nuxt', '@pinia/nuxt', '@nuxt/ui']
 })

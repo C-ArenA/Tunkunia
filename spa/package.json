@@ -11,6 +11,7 @@
     "openapi-ts": "openapi-ts"
   },
   "dependencies": {
+    "@nuxt/ui": "^4.10.0",
     "@pinia/colada": "^1.4.2",
     "@pinia/colada-nuxt": "1.0.2",
     "@pinia/nuxt": "1.0.1",
