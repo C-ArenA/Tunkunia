@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { getMeQuery } from '#shared/clientV1/@pinia/colada.gen'
-const { data: me } = useQuery(getMeQuery)
-const open = ref(false)
+import { getMeQuery } from "#shared/clientV1/@pinia/colada.gen";
+const { data: me } = useQuery(getMeQuery);
+const open = ref(false);
 </script>
 
 <template>
-    <div class="flex flex-1">
-        <USidebar
-        v-model:open="open"
-                title="Dashboard"
-                description="This is the dashboard sidebar"
-                mode="modal"
-            collapsible="icon"
-        >
-        <template #footer>
-            {{ me?.email }}
-        </template>
-        </USidebar>
+  <div class="flex flex-1">
+    <USidebar
+      v-model:open="open"
+      title="Dashboard"
+      description="This is the dashboard sidebar"
+      mode="modal"
+      collapsible="icon"
+    >
+      <template #footer>
+        {{ me?.email }}
+      </template>
+    </USidebar>
 
-        <div class="flex-1 flex flex-col">
+    <div class="flex-1 flex flex-col">
       <div class="h-(--ui-header-height) shrink-0 flex items-center px-4 border-b border-default">
         <UButton
           icon="i-lucide-panel-left"
@@ -33,10 +33,7 @@ const open = ref(false)
         <Placeholder class="size-full" />
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>
