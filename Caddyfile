@@ -1,7 +1,8 @@
 {
 	debug
+	http_port 8081
 }
-tunkunia.localhost {
+{$APP_URL:https://localhost:8443} {
 	reverse_proxy /api/* 127.0.0.1:8080
 	reverse_proxy /login 127.0.0.1:8080
 	reverse_proxy /callback 127.0.0.1:8080

@@ -35,9 +35,7 @@ log = "build-errors.log"
 poll = false
 poll_interval = 0
 post_cmd = []
-pre_cmd = [
-    "pnpm tailwindcss -i ./static/input.css -o ./static/style.css --cwd ./resources",
-]
+pre_cmd = []
 rerun = false
 rerun_delay = 500
 send_interrupt = false
@@ -62,7 +60,7 @@ startup_banner = ""
 [proxy]
 app_port = 8080
 app_start_timeout = 0
-enabled = true
+enabled = false
 proxy_port = 8081
 
 [screen]

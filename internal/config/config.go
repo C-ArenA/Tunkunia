@@ -18,7 +18,7 @@ type RoutesConfig struct {
 
 type Config struct {
 	AppName         string       `env:"APP_NAME" envDefault:"Tunkunia"`
-	AppURL          string       `env:"APP_URL" envDefault:"https://tunkunia.localhost"`
+	AppURL          string       `env:"APP_URL" envDefault:"https://localhost:8443"`
 	Host            string       `env:"HOST" envDefault:"http://127.0.0.1"`
 	Port            string       `env:"PORT" envDefault:":8080"`
 	DevNuxtPort     string       `env:"DEV_NUXT_PORT" envDefault:":3000"`

@@ -20,15 +20,16 @@ grpc:
   addr: 127.0.0.1:5557
 
 staticClients:
-  - id: tunkunia
+  - idEnv: OIDC_CLIENT_ID
     redirectURIs:
       - "http://127.0.0.1:8080/callback"
       - "http://127.0.0.1:3000/callback"
       - "http://localhost:8080/callback"
       - "http://localhost:3000/callback"
-      - "https://tunkunia.localhost/callback"
+      - "https://localhost:8443/callback"
+      - "https://tunkunia.localhost:8443/callback"
     name: "Tunkunia"
-    secret: ZXhhbXBsZS1hcHAtc2VjcmV0
+    secretEnv: OIDC_SECRET
 
 connectors:
   - type: mockCallback

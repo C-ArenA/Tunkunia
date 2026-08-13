@@ -8,9 +8,9 @@ import (
 	"github.com/rs/cors"
 )
 
-func CorsMiddleware() func(http.Handler) http.Handler {
+func CorsMiddleware(appURL string) func(http.Handler) http.Handler {
 	return cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:*", "https://tunkunia.com", "https://tunkunia.localhost"},
+		AllowedOrigins:   []string{appURL},
 		AllowedMethods:   []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete},
 		AllowedHeaders:   []string{"*"},
 		AllowCredentials: true,

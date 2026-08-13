@@ -62,6 +62,11 @@ tasks:
     desc: Run server with hot reload (air)
     cmds:
       - go tool air serve
+  spa:dev:
+    prefix: SPA
+    desc: Run SPA dev server
+    cmds:
+      - pnpm dev:spa
 
   server:build:
     desc: Build server binary
@@ -76,14 +81,9 @@ tasks:
       - templ:generate
     failfast: true
 
-  setup:caddy:
-    cmds:
-      - sudo setcap cap_net_bind_service=+ep "$(which caddy)"
-
   dev:caddy:
-    preconditions:
-      - sh: getcap "$(which caddy)" | grep -q cap_net_bind_service
-        msg: Run `go tool task setup:caddy` to allow Caddy to bind to ports 80 and 443.
+    env:
+      APP_URL: '{{default "https://localhost:8443" .APP_URL}}'
     cmd: caddy run
 
   dev:tools:
@@ -98,6 +98,7 @@ tasks:
     deps:
       - server:dev
       - spa:dev
+    failfast: true
 
   dev:all:
     desc: Run all dev servers in parallel

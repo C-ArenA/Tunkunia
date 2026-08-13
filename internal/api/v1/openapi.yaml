@@ -14,13 +14,8 @@ info:
       - Guías de diseño de APIs de [Google](https://docs.cloud.google.com/apis/design) y de [Microsoft](https://github.com/microsoft/api-guidelines) (Azure y Legacy)
 
 servers:
-  - url: https://tunkunia.localhost/api/v1
-    description: Development server
-  - url: https://{host}/api/v1
-    variables:
-      host:
-        default: tunkunia.com
-        description: Host o dominio de la API
+  - url: /api/v1
+    description: Same origin as the API reference
 paths:
   /health:
     $ref: health.openapi.yaml#/paths/~1health
