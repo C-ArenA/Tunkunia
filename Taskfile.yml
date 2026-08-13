@@ -8,9 +8,6 @@ dotenv:
 output: prefixed
 
 includes:
-  spa:
-    taskfile: ./spa/Taskfile.yml
-    dir: ./spa
   docs:
     taskfile: ./docs/Taskfile.yml
     dir: ./docs
@@ -79,8 +76,15 @@ tasks:
       - templ:generate
     failfast: true
 
+  setup:caddy:
+    cmds:
+      - sudo setcap cap_net_bind_service=+ep "$(which caddy)"
+
   dev:caddy:
-    cmd: sudo caddy run
+    preconditions:
+      - sh: getcap "$(which caddy)" | grep -q cap_net_bind_service
+        msg: Run `go tool task setup:caddy` to allow Caddy to bind to ports 80 and 443.
+    cmd: caddy run
 
   dev:tools:
     desc: Run dev tooling servers
