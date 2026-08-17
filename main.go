@@ -1,7 +1,6 @@
 package main
 
 //go:generate go tool sqlc generate
-//go:generate go tool goose up
 //go:generate go tool jet -source=sqlite -dsn=./database/tunkunia.db -path=./database/jet
 
 //go:generate redocly bundle ./internal/api/v1/openapi.yaml --output ./v1.openapi.yaml
