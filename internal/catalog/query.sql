@@ -1,6 +1,3 @@
--- name: ListTramites :many
-SELECT *
-FROM tramites;
 -- name: CreateTramite :one
 INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
 VALUES (?, ?, ?, ?)

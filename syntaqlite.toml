@@ -1,0 +1,9 @@
+[schemas]
+"internal/**/*.sql" = ["database/migrations/*.sql"]
+"database/migrations/*.sql" = []  # no schema validation for migrations
+
+[format]
+line-width = 80
+indent-width = 2
+keyword-case = "upper"    # "upper" | "lower"
+semicolons = true

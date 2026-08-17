@@ -1,8 +1,16 @@
 {
   "files.exclude": {
-    "docs": true,
-    "site": true,
-    "spa": true,
-    ".zed": true
-  }
+    ".zed": true,
+    "bin": true,
+    "node_modules": true,
+    "tmp": true
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "class:list",
+    "ui"
+  ],
+  "tailwindCSS.classFunctions": ["defineAppConfig"]
 }
