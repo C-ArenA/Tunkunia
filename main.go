@@ -7,7 +7,6 @@ package main
 //go:generate redocly bundle ./internal/api/v1/openapi.yaml --output ./v1.openapi.yaml
 //go:generate go tool oapi-codegen -config ./oapi.cfg.yaml -o ./internal/api/v1/oapi/oapi.gen.go ./v1.openapi.yaml
 //go:generate go tool oapi-codegen -config ./models.oapi.cfg.yaml -o ./internal/api/v1/oapi/models.oapi.gen.go ./v1.openapi.yaml
-//go:generate go tool task gen:heyapi
 import (
 	"os"
 

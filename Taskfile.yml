@@ -29,12 +29,6 @@ tasks:
         ./internal/api/v1/openapi.yaml
         -o ./v1.openapi.yaml
 
-  gen:heyapi:
-    desc: Genera cliente de api
-    dir: ./spa
-    cmds:
-      - pnpm openapi-ts
-
   dex:serve:
     desc: Start local Dex OIDC sandbox server
     preconditions:
