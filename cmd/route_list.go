@@ -20,7 +20,7 @@ func NewRouteListCmd() *cobra.Command {
 			ctx := context.Background()
 			_, r, _ := initServer(ctx)
 			chi.Walk(r, func(method, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
-				log.Printf("[%s]:\t'%s'\thas %d middlewares\n", method, route, len(middlewares))
+				log.Printf("[%s]:\t'%s'\t\thas %d middlewares\n", method, route, len(middlewares))
 				return nil
 			})
 		},

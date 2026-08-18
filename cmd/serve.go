@@ -65,8 +65,8 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	r := chi.NewRouter()
 	r.Use(api.CorsMiddleware(cfg.AppURL), middleware.Logger, authn.Authenticate(jwtAuthn))
 
-	r.Mount(cfg.Route.ApiV1, strictHandlerV1.Handler())
 	r.Mount("/", oidcHandler.Handler(cfg.Route.OidcRedirect, cfg.Route.OidcCallback))
+	strictHandlerV1.RegisterRoutes(r, cfg.Route.ApiV1)
 	api.RegisterSpecsRoutes(r, cfg.Env == "dev")
 	public.RegisterRoutes(r, catalogService)
 

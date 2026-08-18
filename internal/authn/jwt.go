@@ -9,7 +9,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/lestrrat-go/jwx/v4/jwa"
 	"github.com/lestrrat-go/jwx/v4/jwk"
 	"github.com/lestrrat-go/jwx/v4/jwt"
@@ -109,18 +108,6 @@ func Authenticate(j *JWTAuth) func(http.Handler) http.Handler {
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
-}
-
-func RequireAuthenticated(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		_, requiresAuthentication := oapi.BearerAuthScopesFromContext(r.Context())
-		_, isAuthenticated := FromAuthContext(r.Context())
-		if requiresAuthentication && !isAuthenticated {
-			oapi.Error(w, oapi.NewUnauthorizedResponse("Requires authenticated user"), http.StatusUnauthorized)
-			return
-		}
-		next.ServeHTTP(w, r)
-	})
 }
 
 func RequireNonAuthenticatedOrRedirect(next http.Handler) http.Handler {
