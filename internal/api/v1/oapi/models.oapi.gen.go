@@ -94,23 +94,17 @@ func (e TramiteType) Valid() bool {
 
 // AuditMetadata defines model for AuditMetadata.
 type AuditMetadata struct {
-	// CreatedAt Example: 2026-03-15T14:30:00Z
 	CreatedAt time.Time `json:"createdAt"`
-
-	// UpdatedAt Example: 2026-04-02T11:15:22Z
 	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 // CollectionBase defines model for CollectionBase.
 type CollectionBase struct {
-	// NextPageUrl Example: https://api.example.com/users?page=3
-	NextPageUrl *string `json:"next_page_url"`
-
-	// PreviousPageUrl Example: https://api.example.com/users?page=1
-	PreviousPageUrl *string `json:"previous_page_url"`
+	NextPageUrl     *string `json:"nextPageUrl"`
+	PreviousPageUrl *string `json:"previousPageUrl"`
 }
 
-// ErrorDetail El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
+// ErrorDetail Error de validación basado en el ejemplo de la sección 3 de RFC 9457.
 type ErrorDetail struct {
 	Detail  string `json:"detail"`
 	Pointer string `json:"pointer"`
@@ -118,199 +112,140 @@ type ErrorDetail struct {
 
 // Health defines model for Health.
 type Health struct {
-	Status HealthStatus `json:"status"`
-
-	// Timestamp Example: 2026-06-06T15:30:00Z
-	Timestamp time.Time `json:"timestamp"`
+	Status    HealthStatus `json:"status"`
+	Timestamp time.Time    `json:"timestamp"`
 }
 
 // HealthStatus defines model for Health.Status.
 type HealthStatus string
 
-// ProblemDetails Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+// ProblemDetails Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type ProblemDetails struct {
-	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-	//
-	//
-	// Example: Su caso de trámite con código 500424 no se encuentra vigente
+	// Detail Explicación de esta ocurrencia orientada a corregir el problema.
 	Detail string `json:"detail"`
 
-	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
-	//
-	//
-	// Example: /cuenta/12345/mensajes/abc
+	// Instance Referencia URI que identifica esta ocurrencia del problema.
 	Instance *string `json:"instance,omitempty"`
 
-	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-	//
-	//
-	// Example: 403
+	// Status Código de estado que coincide con la respuesta HTTP.
 	Status int32 `json:"status"`
 
-	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-	//
-	//
-	// Example: Usted no es participante de este caso de trámite.
+	// Title Resumen legible del tipo de problema.
 	Title string `json:"title"`
 
-	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
-	//
-	//
-	// Example: /problems/invalid-citizen
+	// Type Referencia URI que identifica el tipo de problema.
 	Type *string `json:"type,omitempty"`
 }
 
 // Tramite defines model for Tramite.
 type Tramite struct {
-	Id int64 `json:"id"`
-
-	// Name Example: Inscripción de Personería Jurídica
-	Name string `json:"name"`
-
-	// Description Example: Trámite legal para la obtención y registro de personería jurídica de asociaciones civiles.
-	Description string `json:"description"`
-
-	// ProcedureDescription Example: El usuario debe cargar los requisitos formales, esperar validación de actas y proceder a la firma digital.
-	ProcedureDescription string `json:"procedureDescription"`
-
-	// Status Example: draft
-	Status TramiteStatus `json:"status"`
-
-	// Type Example: Otro
-	Type TramiteType `json:"type"`
-
-	// CreatedAt Example: 2026-03-15T14:30:00Z
-	CreatedAt time.Time `json:"createdAt"`
-
-	// UpdatedAt Example: 2026-04-02T11:15:22Z
-	UpdatedAt time.Time `json:"updatedAt"`
+	Id                   TramiteId     `json:"id"`
+	Name                 string        `json:"name"`
+	Description          string        `json:"description"`
+	ProcedureDescription string        `json:"procedureDescription"`
+	Status               TramiteStatus `json:"status"`
+	Type                 TramiteType   `json:"type"`
+	CreatedAt            time.Time     `json:"createdAt"`
+	UpdatedAt            time.Time     `json:"updatedAt"`
 }
 
 // TramiteBase defines model for TramiteBase.
 type TramiteBase struct {
-	Id int64 `json:"id"`
-
-	// Name Example: Inscripción de Personería Jurídica
-	Name string `json:"name"`
-
-	// Description Example: Trámite legal para la obtención y registro de personería jurídica de asociaciones civiles.
-	Description string `json:"description"`
+	Id          TramiteId `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
 }
 
 // TramiteCollection defines model for TramiteCollection.
 type TramiteCollection struct {
-	Data []TramiteBase `json:"data"`
-
-	// NextPageUrl Example: https://api.example.com/users?page=3
-	NextPageUrl *string `json:"next_page_url"`
-
-	// PreviousPageUrl Example: https://api.example.com/users?page=1
-	PreviousPageUrl *string `json:"previous_page_url"`
+	Data            []TramiteBase `json:"data"`
+	NextPageUrl     *string       `json:"nextPageUrl"`
+	PreviousPageUrl *string       `json:"previousPageUrl"`
 }
 
 // TramiteCreate defines model for TramiteCreate.
 type TramiteCreate struct {
-	Description          *string `json:"description,omitempty"`
-	Name                 string  `json:"name"`
-	ProcedureDescription *string `json:"procedureDescription,omitempty"`
-
-	// Type Example: Otro
-	Type *TramiteType `json:"type,omitempty"`
+	Description          *string      `json:"description,omitempty"`
+	Name                 string       `json:"name"`
+	ProcedureDescription *string      `json:"procedureDescription,omitempty"`
+	Type                 *TramiteType `json:"type,omitempty"`
 }
 
-// TramiteStatus Example: draft
+// TramiteId defines model for TramiteId.
+type TramiteId = int64
+
+// TramiteStatus defines model for TramiteStatus.
 type TramiteStatus string
 
-// TramiteType Example: Otro
+// TramiteType defines model for TramiteType.
 type TramiteType string
 
 // TramiteUpdate defines model for TramiteUpdate.
 type TramiteUpdate struct {
-	Description          *string `json:"description,omitempty"`
-	Name                 *string `json:"name,omitempty"`
-	ProcedureDescription *string `json:"procedureDescription,omitempty"`
+	Description          *string        `json:"description,omitempty"`
+	Name                 *string        `json:"name,omitempty"`
+	ProcedureDescription *string        `json:"procedureDescription,omitempty"`
+	Status               *TramiteStatus `json:"status,omitempty"`
+	Type                 *TramiteType   `json:"type,omitempty"`
+}
 
-	// Status Example: draft
-	Status *TramiteStatus `json:"status,omitempty"`
-
-	// Type Example: Otro
-	Type *TramiteType `json:"type,omitempty"`
+// TramiteWritableFields defines model for TramiteWritableFields.
+type TramiteWritableFields struct {
+	Description          *string      `json:"description,omitempty"`
+	Name                 *string      `json:"name,omitempty"`
+	ProcedureDescription *string      `json:"procedureDescription,omitempty"`
+	Type                 *TramiteType `json:"type,omitempty"`
 }
 
 // User defines model for User.
 type User struct {
-	Id int64 `json:"id"`
-
-	// Email Example: john.doe@example.com
-	Email openapi_types.Email `json:"email"`
-
-	// EmailVerified Example: true
-	EmailVerified bool `json:"emailVerified"`
-
-	// Name Example: John Doe
-	Name string `json:"name"`
-
-	// Roles Example: ["admin","user"]
-	Roles []string `json:"roles"`
-
-	// Sub Example: 7g34748743g843g7
-	Sub string `json:"sub"`
+	Id            int64               `json:"id"`
+	Email         openapi_types.Email `json:"email"`
+	EmailVerified bool                `json:"emailVerified"`
+	Name          string              `json:"name"`
+	Roles         []string            `json:"roles"`
+	Sub           string              `json:"sub"`
 }
 
-// BadRequest Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+// BadRequest Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type BadRequest = ProblemDetails
 
-// Forbidden Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+// Forbidden Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type Forbidden = ProblemDetails
 
-// InternalError Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+// InternalError Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type InternalError = ProblemDetails
 
-// NotFound Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+// NotFound Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type NotFound = ProblemDetails
 
-// Unauthorized Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
+// Unauthorized Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type Unauthorized = ProblemDetails
 
 // ValidationError defines model for ValidationError.
 type ValidationError struct {
-	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-	//
-	//
-	// Example: Su caso de trámite con código 500424 no se encuentra vigente
+	// Detail Explicación de esta ocurrencia orientada a corregir el problema.
 	Detail string `json:"detail"`
 
-	// Errors Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
+	// Errors Lista de errores de validación identificados.
 	Errors []ErrorDetail `json:"errors"`
 
-	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
-	//
-	//
-	// Example: /cuenta/12345/mensajes/abc
+	// Instance Referencia URI que identifica esta ocurrencia del problema.
 	Instance *string `json:"instance,omitempty"`
 
-	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-	//
-	//
-	// Example: 403
+	// Status Código de estado que coincide con la respuesta HTTP.
 	Status int32 `json:"status"`
 
-	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-	//
-	//
-	// Example: Usted no es participante de este caso de trámite.
+	// Title Resumen legible del tipo de problema.
 	Title string `json:"title"`
 
-	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
-	//
-	//
-	// Example: /problems/invalid-citizen
+	// Type Referencia URI que identifica el tipo de problema.
 	Type *string `json:"type,omitempty"`
 }
 
 // ListTramitesParams defines parameters for ListTramites.
 type ListTramitesParams struct {
-	// Status Filter trámites by status
+	// Status Filtra los trámites por estado.
 	Status *TramiteStatus `form:"status,omitempty" json:"status,omitempty"`
 	Page   *string        `form:"page,omitempty" json:"page,omitempty"`
 	Limit  *int           `form:"limit,omitempty" json:"limit,omitempty"`
@@ -327,67 +262,59 @@ type UpdateTramiteJSONRequestBody = TramiteUpdate
 // const string: with thousands of chunks the chained `+` fold is several
 // times slower for the Go compiler than parsing a slice literal.
 var swaggerSpec = []string{
-	"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",
+	"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",
+	"/w==",
 }
 
 // decodeSpec returns the embedded OpenAPI spec as raw JSON bytes,

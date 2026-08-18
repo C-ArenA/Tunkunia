@@ -1,0 +1,41 @@
+components:
+  pathItems:
+    Health:
+      get:
+        operationId: getHealth
+        tags:
+          - Health
+        summary: Salud Módulo
+        security: []
+        responses:
+          "200":
+            description: El servicio está saludable y opera normalmente.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Health"
+          "503":
+            description: El servicio no está disponible o funciona de manera degradada.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Health"
+          "404":
+            $ref: common.yaml#/components/responses/NotFound
+  schemas:
+    Health:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum:
+            - UP
+            - DOWN
+            - DEGRADED
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-06-06T15:30:00Z"

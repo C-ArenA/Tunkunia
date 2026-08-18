@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Tunkunia API
   license:
@@ -14,18 +14,25 @@ info:
       - Guías de diseño de APIs de [Google](https://docs.cloud.google.com/apis/design) y de [Microsoft](https://github.com/microsoft/api-guidelines) (Azure y Legacy)
 servers:
   - url: /api/v1
-    description: Same origin as the API reference
+    description: Mismo origen que la referencia de la API.
+tags:
+  - name: Catalog
+    description: Catálogo institucional de trámites.
+  - name: Authn
+    description: Identidad del usuario autenticado.
+  - name: Health
+    description: Estado operativo del servicio.
 paths:
   /health:
     get:
-      operationId: GetHealth
+      operationId: getHealth
       tags:
-        - health
+        - Health
       summary: Salud Módulo
       security: []
       responses:
         '200':
-          description: The service is healthy and operating normally
+          description: El servicio está saludable y opera normalmente.
           content:
             application/json:
               schema:
@@ -33,7 +40,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         '503':
-          description: The service is unhealthy or degraded
+          description: El servicio no está disponible o funciona de manera degradada.
           content:
             application/json:
               schema:
@@ -42,19 +49,20 @@ paths:
     get:
       tags:
         - Catalog
-      operationId: ListTramites
+      operationId: listTramites
       summary: Listar Trámites
       description: |
-        Obtiene una lista de trámites paginados
-        - **Guests** will only see `published` items.
-        - **Creators** will see their own drafts/archived items alongside published ones.
-        - **Admins** will see everything.
+        Obtiene una lista paginada de trámites.
+        - Los visitantes sólo ven elementos publicados.
+        - Los creadores ven además sus propios borradores y elementos archivados.
+        - Los administradores ven todos los elementos.
       security:
         - {}
+        - BearerAuth: []
       parameters:
         - name: status
           in: query
-          description: Filter trámites by status
+          description: Filtra los trámites por estado.
           required: false
           schema:
             $ref: '#/components/schemas/TramiteStatus'
@@ -62,14 +70,17 @@ paths:
           in: query
           schema:
             type: string
+            description: Cursor opaco de la página que se desea obtener.
         - name: limit
           in: query
           schema:
             type: integer
             default: 20
+            minimum: 1
+            maximum: 100
       responses:
         '200':
-          description: A paginated list of trámites.
+          description: Lista paginada de trámites.
           content:
             application/json:
               schema:
@@ -85,8 +96,7 @@ paths:
       summary: Crear Trámite
       description: Permite a usuarios con rol de administración la creación de nuevos trámites en el catálogo de trámites. Los mismos nacerán con estado draft y pueden contener un procedimiento vacío
       security:
-        - BearerAuth:
-            - read:all
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -115,7 +125,7 @@ paths:
         required: true
         description: ID del Trámite
         schema:
-          type: integer
+          $ref: '#/components/schemas/TramiteId'
     get:
       tags:
         - Catalog
@@ -187,7 +197,7 @@ paths:
     get:
       tags:
         - Authn
-      operationId: GetMe
+      operationId: getMe
       summary: Obtener información del usuario
       security:
         - BearerAuth: []
@@ -210,73 +220,8 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: Enter your application JWT token
+      description: Token JWT de la aplicación.
   schemas:
-    CollectionBase:
-      type: object
-      required:
-        - next_page_url
-        - previous_page_url
-      properties:
-        next_page_url:
-          type: string
-          nullable: true
-          example: https://api.example.com/users?page=3
-        previous_page_url:
-          type: string
-          nullable: true
-          example: https://api.example.com/users?page=1
-    ProblemDetails:
-      type: object
-      description: |
-        Objeto de Detalles de Problema según RFC 9457. Se serializa con el tipo de medio "application/problem+json". Todos los miembros son OPCIONALES; los miembros ausentes no tienen valor por defecto salvo donde se indique explícitamente. Pueden estar presentes miembros adicionales (de extensión); los consumidores DEBEN ignorar los miembros cuyo tipo de valor no coincida con el tipo especificado.
-      required:
-        - title
-        - status
-        - detail
-      properties:
-        type:
-          type: string
-          format: uri-reference
-          default: about:blank
-          description: |
-            Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
-          example: /problems/invalid-citizen
-        status:
-          type: integer
-          format: int32
-          minimum: 400
-          maximum: 599
-          description: |
-            Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-          example: 403
-        title:
-          type: string
-          description: |
-            Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-          example: Usted no es participante de este caso de trámite.
-        detail:
-          type: string
-          description: |
-            Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-          example: Su caso de trámite con código 500424 no se encuentra vigente
-        instance:
-          type: string
-          format: uri-reference
-          description: |
-            Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
-          example: /cuenta/12345/mensajes/abc
-    ErrorDetail:
-      type: object
-      description: El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
-      required:
-        - detail
-        - pointer
-      properties:
-        detail:
-          type: string
-        pointer:
-          type: string
     Health:
       type: object
       required:
@@ -293,6 +238,41 @@ components:
           type: string
           format: date-time
           example: '2026-06-06T15:30:00Z'
+    ProblemDetails:
+      type: object
+      description: |
+        Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
+      required:
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          default: about:blank
+          description: Referencia URI que identifica el tipo de problema.
+          example: /problems/invalid-citizen
+        status:
+          type: integer
+          format: int32
+          minimum: 400
+          maximum: 599
+          description: Código de estado que coincide con la respuesta HTTP.
+          example: 403
+        title:
+          type: string
+          description: Resumen legible del tipo de problema.
+          example: Usted no es participante de este caso de trámite.
+        detail:
+          type: string
+          description: Explicación de esta ocurrencia orientada a corregir el problema.
+          example: Su caso de trámite con código 500424 no se encuentra vigente
+        instance:
+          type: string
+          format: uri-reference
+          description: Referencia URI que identifica esta ocurrencia del problema.
+          example: /cuenta/12345/mensajes/abc
     TramiteStatus:
       type: string
       enum:
@@ -300,6 +280,28 @@ components:
         - published
         - archived
       example: draft
+    CollectionBase:
+      type: object
+      required:
+        - nextPageUrl
+        - previousPageUrl
+      properties:
+        nextPageUrl:
+          type:
+            - string
+            - 'null'
+          format: uri
+          example: https://api.example.com/tramites?page=next-cursor
+        previousPageUrl:
+          type:
+            - string
+            - 'null'
+          format: uri
+          example: https://api.example.com/tramites?page=previous-cursor
+    TramiteId:
+      type: integer
+      format: int64
+      minimum: 1
     TramiteBase:
       type: object
       required:
@@ -308,8 +310,7 @@ components:
         - description
       properties:
         id:
-          type: integer
-          format: int64
+          $ref: '#/components/schemas/TramiteId'
           x-order: 1
         name:
           type: string
@@ -349,10 +350,8 @@ components:
         - Servicio
         - Permiso
       example: Otro
-    TramiteCreate:
+    TramiteWritableFields:
       type: object
-      required:
-        - name
       properties:
         name:
           type: string
@@ -362,6 +361,12 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/TramiteType'
+    TramiteCreate:
+      allOf:
+        - $ref: '#/components/schemas/TramiteWritableFields'
+        - type: object
+          required:
+            - name
     AuditMetadata:
       type: object
       required:
@@ -387,8 +392,6 @@ components:
             - procedureDescription
             - type
             - status
-            - createdAt
-            - updatedAt
           properties:
             procedureDescription:
               type: string
@@ -397,19 +400,24 @@ components:
               $ref: '#/components/schemas/TramiteType'
             status:
               $ref: '#/components/schemas/TramiteStatus'
-    TramiteUpdate:
+    ErrorDetail:
       type: object
+      description: Error de validación basado en el ejemplo de la sección 3 de RFC 9457.
+      required:
+        - detail
+        - pointer
       properties:
-        name:
+        detail:
           type: string
-        description:
+        pointer:
           type: string
-        procedureDescription:
-          type: string
-        type:
-          $ref: '#/components/schemas/TramiteType'
-        status:
-          $ref: '#/components/schemas/TramiteStatus'
+    TramiteUpdate:
+      allOf:
+        - $ref: '#/components/schemas/TramiteWritableFields'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/TramiteStatus'
     User:
       type: object
       required:
@@ -445,32 +453,38 @@ components:
             - admin
             - user
   responses:
+    NotFound:
+      description: El recurso solicitado no existe.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: No se ha provisto una credencial válida.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    InternalError:
+      description: No se pudo ejecutar la solicitud.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
     BadRequest:
       description: Solicitud no aceptada o entendida. Quizá falte algún parámetro requerido.
       content:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/ProblemDetails'
-    Unauthorized:
-      description: No se ha provisto con una llave válida.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/ProblemDetails'
     Forbidden:
-      description: No tiene permisos para realizar esta solicitud
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/ProblemDetails'
-    NotFound:
-      description: El recurso solicitado no existe
+      description: No tiene permisos para realizar esta solicitud.
       content:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/ProblemDetails'
     ValidationError:
-      description: Los datos provistos son incorrectos
+      description: Los datos provistos son incorrectos.
       content:
         application/problem+json:
           schema:
@@ -481,14 +495,7 @@ components:
                   - errors
                 properties:
                   errors:
-                    description: |
-                      Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
                     type: array
+                    description: Lista de errores de validación identificados.
                     items:
                       $ref: '#/components/schemas/ErrorDetail'
-    InternalError:
-      description: No se pudo ejecutar la solicitud
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/ProblemDetails'

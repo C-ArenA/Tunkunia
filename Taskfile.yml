@@ -29,6 +29,12 @@ tasks:
         ./internal/api/v1/openapi.yaml
         -o ./v1.openapi.yaml
 
+  openapi:lint:
+    desc: Validates the bundled OpenAPI specification
+    cmds:
+      - redocly bundle ./internal/api/v1/openapi.yaml -o ./v1.openapi.yaml
+      - redocly lint ./v1.openapi.yaml
+
   dex:serve:
     desc: Start local Dex OIDC sandbox server
     preconditions:

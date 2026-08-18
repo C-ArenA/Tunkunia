@@ -31,13 +31,13 @@ type ServerInterface interface {
 	CreateTramite(w http.ResponseWriter, r *http.Request)
 	// DeleteTramite Eliminar Trámite
 	// (DELETE /tramites/{id})
-	DeleteTramite(w http.ResponseWriter, r *http.Request, id int)
+	DeleteTramite(w http.ResponseWriter, r *http.Request, id TramiteId)
 	// GetTramite Obtener Trámite
 	// (GET /tramites/{id})
-	GetTramite(w http.ResponseWriter, r *http.Request, id int)
+	GetTramite(w http.ResponseWriter, r *http.Request, id TramiteId)
 	// UpdateTramite Modificar Trámite
 	// (PATCH /tramites/{id})
-	UpdateTramite(w http.ResponseWriter, r *http.Request, id int)
+	UpdateTramite(w http.ResponseWriter, r *http.Request, id TramiteId)
 }
 
 // Unimplemented server implementation that returns http.StatusNotImplemented for each endpoint.
@@ -70,19 +70,19 @@ func (_ Unimplemented) CreateTramite(w http.ResponseWriter, r *http.Request) {
 
 // DeleteTramite Eliminar Trámite
 // (DELETE /tramites/{id})
-func (_ Unimplemented) DeleteTramite(w http.ResponseWriter, r *http.Request, id int) {
+func (_ Unimplemented) DeleteTramite(w http.ResponseWriter, r *http.Request, id TramiteId) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
 // GetTramite Obtener Trámite
 // (GET /tramites/{id})
-func (_ Unimplemented) GetTramite(w http.ResponseWriter, r *http.Request, id int) {
+func (_ Unimplemented) GetTramite(w http.ResponseWriter, r *http.Request, id TramiteId) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
 // UpdateTramite Modificar Trámite
 // (PATCH /tramites/{id})
-func (_ Unimplemented) UpdateTramite(w http.ResponseWriter, r *http.Request, id int) {
+func (_ Unimplemented) UpdateTramite(w http.ResponseWriter, r *http.Request, id TramiteId) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -203,9 +203,9 @@ func (siw *ServerInterfaceWrapper) DeleteTramite(w http.ResponseWriter, r *http.
 	_ = err
 
 	// ------------- Path parameter "id" -------------
-	var id int
+	var id TramiteId
 
-	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: r.URL.RawPath == ""})
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
 	if err != nil {
 		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
 		return
@@ -229,9 +229,9 @@ func (siw *ServerInterfaceWrapper) GetTramite(w http.ResponseWriter, r *http.Req
 	_ = err
 
 	// ------------- Path parameter "id" -------------
-	var id int
+	var id TramiteId
 
-	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: r.URL.RawPath == ""})
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
 	if err != nil {
 		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
 		return
@@ -255,9 +255,9 @@ func (siw *ServerInterfaceWrapper) UpdateTramite(w http.ResponseWriter, r *http.
 	_ = err
 
 	// ------------- Path parameter "id" -------------
-	var id int
+	var id TramiteId
 
-	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: r.URL.RawPath == ""})
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
 	if err != nil {
 		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
 		return
@@ -423,37 +423,22 @@ type NotFoundApplicationProblemPlusJSONResponse ProblemDetails
 type UnauthorizedApplicationProblemPlusJSONResponse ProblemDetails
 
 type ValidationErrorApplicationProblemPlusJSONResponse struct {
-	// Detail Contiene una explicación legible para humanos, específica de esta ocurrencia del problema. Si está presente, debería centrarse en ayudar al cliente a corregir el problema, en lugar de proporcionar información de depuración. Los consumidores NO DEBERÍAN analizar (parsear) el miembro "detail" para obtener información; las extensiones son una forma más adecuada y menos propensa a errores de obtener dicha información.
-	//
-	//
-	// Example: Su caso de trámite con código 500424 no se encuentra vigente
+	// Detail Explicación de esta ocurrencia orientada a corregir el problema.
 	Detail string `json:"detail"`
 
-	// Errors Lista de errores de validación identificados. El formato se adecúa al ejemplo brindado en la sección 3 del RFC 9457
+	// Errors Lista de errores de validación identificados.
 	Errors []ErrorDetail `json:"errors"`
 
-	// Instance Referencia URI que identifica la ocurrencia específica del problema. Cuando es desreferenciable, el objeto de detalles de problema PUEDE obtenerse desde ella. Puede ser relativa o absoluta. No suele incluirse en la API de Tunkunia y se conserva en el esquema para obedecer el RFC 9457
-	//
-	//
-	// Example: /cuenta/12345/mensajes/abc
+	// Instance Referencia URI que identifica esta ocurrencia del problema.
 	Instance *string `json:"instance,omitempty"`
 
-	// Status Código de estado HTTP generado por el servidor de origen para esta ocurrencia del problema. Se incluye por conveniencia; DEBE coincidir con el código de estado de la respuesta HTTP real.
-	//
-	//
-	// Example: 403
+	// Status Código de estado que coincide con la respuesta HTTP.
 	Status int32 `json:"status"`
 
-	// Title Contiene un resumen corto y legible por humanos del tipo de problema. Es de carácter consultivo y se incluye únicamente para los usuarios que no conocen y no pueden descubrir la semántica del URI del campo "type".
-	//
-	//
-	// Example: Usted no es participante de este caso de trámite.
+	// Title Resumen legible del tipo de problema.
 	Title string `json:"title"`
 
-	// Type Referencia URI (RFC 3986) que identifica el tipo de problema. Al ser desreferenciada (si es una URI http/https), DEBERÍA ofrecer documentación legible por humanos sobre el tipo de problema. Si está ausente, se asume el valor "about:blank", que remite al código de estado HTTP como único identificador del tipo de problema. En el caso de Tunkunia se usan rutas relativas a modo de identificador y eventual creación de sitio de documentación de problemas específicos
-	//
-	//
-	// Example: /problems/invalid-citizen
+	// Type Referencia URI que identifica el tipo de problema.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -718,7 +703,7 @@ func (response CreateTramite422ApplicationProblemPlusJSONResponse) VisitCreateTr
 }
 
 type DeleteTramiteRequestObject struct {
-	Id int `json:"id"`
+	Id TramiteId `json:"id"`
 }
 
 type DeleteTramiteResponseObject interface {
@@ -782,7 +767,7 @@ func (response DeleteTramite404ApplicationProblemPlusJSONResponse) VisitDeleteTr
 }
 
 type GetTramiteRequestObject struct {
-	Id int `json:"id"`
+	Id TramiteId `json:"id"`
 }
 
 type GetTramiteResponseObject interface {
@@ -836,7 +821,7 @@ func (response GetTramite404ApplicationProblemPlusJSONResponse) VisitGetTramiteR
 }
 
 type UpdateTramiteRequestObject struct {
-	Id   int `json:"id"`
+	Id   TramiteId `json:"id"`
 	Body *UpdateTramiteJSONRequestBody
 }
 
@@ -1108,7 +1093,7 @@ func (sh *strictHandler) CreateTramite(w http.ResponseWriter, r *http.Request) {
 }
 
 // DeleteTramite operation middleware
-func (sh *strictHandler) DeleteTramite(w http.ResponseWriter, r *http.Request, id int) {
+func (sh *strictHandler) DeleteTramite(w http.ResponseWriter, r *http.Request, id TramiteId) {
 	var request DeleteTramiteRequestObject
 
 	request.Id = id
@@ -1134,7 +1119,7 @@ func (sh *strictHandler) DeleteTramite(w http.ResponseWriter, r *http.Request, i
 }
 
 // GetTramite operation middleware
-func (sh *strictHandler) GetTramite(w http.ResponseWriter, r *http.Request, id int) {
+func (sh *strictHandler) GetTramite(w http.ResponseWriter, r *http.Request, id TramiteId) {
 	var request GetTramiteRequestObject
 
 	request.Id = id
@@ -1160,7 +1145,7 @@ func (sh *strictHandler) GetTramite(w http.ResponseWriter, r *http.Request, id i
 }
 
 // UpdateTramite operation middleware
-func (sh *strictHandler) UpdateTramite(w http.ResponseWriter, r *http.Request, id int) {
+func (sh *strictHandler) UpdateTramite(w http.ResponseWriter, r *http.Request, id TramiteId) {
 	var request UpdateTramiteRequestObject
 
 	request.Id = id
