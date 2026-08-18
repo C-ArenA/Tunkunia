@@ -1,4 +1,4 @@
-package api
+package v1
 
 import (
 	"context"
@@ -18,23 +18,23 @@ import (
 
 var errRequiresAuthenticatedUser = errors.New("Requires authenticated user")
 
-var _ oapi.StrictServerInterface = (*StrictHandlerV1)(nil)
+var _ oapi.StrictServerInterface = (*StrictHandler)(nil)
 
-func NewStrictHandlerV1(catalogService *catalog.Service, userService *user.Service) *StrictHandlerV1 {
-	return &StrictHandlerV1{
+func NewStrictHandler(catalogService *catalog.Service, userService *user.Service) *StrictHandler {
+	return &StrictHandler{
 		health.NewStrictApiHandler(),
 		catalog.NewStrictApiHandler(catalogService),
 		authn.NewStrictHandler(userService),
 	}
 }
 
-type StrictHandlerV1 struct {
+type StrictHandler struct {
 	*health.StrictApiHandler
 	*catalog.StrictCatalogHandlerV1
 	*authn.StrictHandler
 }
 
-func (h *StrictHandlerV1) RegisterRoutes(r *chi.Mux, baseURL string) {
+func (h *StrictHandler) RegisterRoutes(r *chi.Mux, baseURL string) {
 	r.Route(baseURL, func(r chi.Router) {
 		mw, err := validationMiddleware(baseURL)
 		if err != nil {

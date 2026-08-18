@@ -14,6 +14,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/api"
+	apiv1 "github.com/C-ArenA/Tunkunia/internal/api/v1"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
@@ -54,7 +55,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
 
 	// Handlers
-	strictHandlerV1 := api.NewStrictHandlerV1(catalogService, userService)
+	strictHandlerV1 := apiv1.NewStrictHandler(catalogService, userService)
 
 	oidcHandler, err := authn.NewOIDCHandler(ctx, cfg, userService, jwtAuthn)
 	if err != nil {
@@ -67,7 +68,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 
 	r.Mount("/", oidcHandler.Handler(cfg.Route.OidcRedirect, cfg.Route.OidcCallback))
 	strictHandlerV1.RegisterRoutes(r, cfg.Route.ApiV1)
-	api.RegisterSpecsRoutes(r, cfg.Env == "dev")
+	apiv1.RegisterSpecsRoutes(r, cfg.Env == "dev")
 	public.RegisterRoutes(r, catalogService)
 
 	return db, r, cfg
