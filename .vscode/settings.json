@@ -5,6 +5,27 @@
     "node_modules": true,
     "tmp": true
   },
+  "tinymist.rootPath": "${workspaceFolder}/docs",
+  "tinymist.fontPaths": ["${workspaceFolder}/docs/shared/fonts"],
+  "tinymist.systemFonts": false,
+  "cSpell.words": [
+    "interopera",
+    "interoperabilidad",
+    "Latinobarómetro",
+    "microservicios",
+    "monitoreo",
+    "Plurinacional",
+    "SIAI",
+    "subnacionales",
+    "Viceministro",
+    "desreferenciable",
+    "desreferenciada",
+    "openapi",
+    "parsear",
+    "serializa",
+    "Tunkunia"
+  ],
+
   "tailwindCSS.classAttributes": [
     "class",
     "className",
