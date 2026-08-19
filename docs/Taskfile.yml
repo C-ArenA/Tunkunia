@@ -4,13 +4,71 @@ version: "3"
 
 output: prefixed
 
+vars:
+  TYPST_FLAGS: --root . --font-path shared/fonts --ignore-system-fonts
+
 tasks:
+  build:memoria:
+    desc: Build the thesis PDF
+    cmds:
+      - mkdir -p build
+      - typst compile {{.TYPST_FLAGS}} memoria/memoria.typ build/memoria.pdf
+
+  build:research:
+    desc: Build the standalone IEEE research paper
+    cmds:
+      - mkdir -p build
+      - typst compile {{.TYPST_FLAGS}} supporting/tram-research.typ build/tram-research.pdf
+
+  build:perfil:
+    desc: Build the frozen project profile
+    cmds:
+      - mkdir -p build
+      - typst compile {{.TYPST_FLAGS}} archive/perfil/perfil.typ build/perfil.pdf
+
+  build:report:
+    desc: Build the first project report
+    cmds:
+      - mkdir -p build
+      - typst compile {{.TYPST_FLAGS}} supporting/report1.typ build/report1.pdf
+
+  build:lean:
+    desc: Build the lean canvas
+    cmds:
+      - mkdir -p build
+      - typst compile {{.TYPST_FLAGS}} supporting/lean.typ build/lean.pdf
+
+  build:all:
+    desc: Build every supported Typst entrypoint
+    cmds:
+      - task: build:memoria
+      - task: build:research
+      - task: build:perfil
+      - task: build:report
+      - task: build:lean
+
+  fmt:
+    desc: Format active Typst entrypoints and shared research content
+    cmds:
+      - typstyle --inplace memoria/memoria.typ memoria/01-foundation/tram-research.typ archive/perfil/perfil.typ supporting/*.typ
+
+  fmt:check:
+    desc: Check formatting of active Typst entrypoints and shared research content
+    cmds:
+      - typstyle --check memoria/memoria.typ memoria/01-foundation/tram-research.typ archive/perfil/perfil.typ supporting/*.typ
+
+  check:
+    desc: Check formatting and compile every supported document
+    cmds:
+      - task: fmt:check
+      - task: build:all
+
   typstout:
     desc: Run Typstout documentation generator
     cmds:
       - cd .. && go run tooling/typstout/main.go -target .
 
   plantuml:
-    desc: Generate PlantUML diagrams
+    desc: Generate PlantUML figures from their editable sources
     cmds:
-      - plantuml ./**/*.puml --svg
+      - plantuml assets/sources/*.puml --svg -o ../figures
