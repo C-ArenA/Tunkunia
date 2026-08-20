@@ -1,5 +1,7 @@
 #import "@preview/acrostiche:0.7.0": *
 
+#heading(depth: 3, numbering: none)[Introducción]
+
 Durante el desarrollo del #acr("SIAI") del #acr("MDPyEP") por parte de la empresa *2IES*,
 se identificaron funcionalidades comunes a muchos sistemas de software gubernamentales relacionadas con los procesos administrativos conocidos como trámites,
 entendidos en este contexto como el conjunto de requisitos, pasos o acciones a través de los cuales los individuos o las empresas solicitan o entregan información a una entidad pública,
