@@ -1,21 +1,27 @@
-#import "@preview/acrostiche:0.7.0": init-acronyms, print-index
+#import "@preview/acrostiche:0.7.0": init-acronyms
+#import "backmatter.typ": backmatter, with-glossary
+#import "frontmatter.typ": frontmatter
 #import "global.typ": global
-#import "structure.typ": partChapter
-#import "cover.typ": makeCover
-#import "utils.typ": includeAcronyms
+#import "mainmatter.typ": mainmatter
 
 #let memoria(
-  title: "Mi Lindo Proyecto de Grado",
+  title: none,
+  authors: none,
   date: datetime.today(),
-  authors: ("Yo", "Tú"),
   copyright: none,
   dedication: none,
   acknowledgements: none,
   abstract: none,
   acronyms: (),
+  bibliography: none,
+  glossary: (),
+  appendices: none,
   font: "New Computer Modern",
   doc,
 ) = {
+  assert(title != none, message: "memoria requires a title")
+  assert(authors != none, message: "memoria requires authors")
+
   set document(
     description: "Proyecto de Grado",
     title: title,
@@ -23,62 +29,23 @@
     date: date,
   )
   init-acronyms(acronyms)
-  show: global
-  show: partChapter
-  set text(font: font)
-  makeCover()
+  show: global.with(font)
+  show: with-glossary.with(glossary)
 
-  set page(numbering: "i")
-  if copyright != none {
-    pagebreak()
-    copyright
-  }
-
-  if dedication != none {
-    pagebreak()
-    align(right)[
-      #v(1fr)
-      #heading(level: 3, numbering: none, outlined: false)[Dedicatoria]
-      #dedication
-      #v(1fr)
-    ]
-  }
-  if acknowledgements != none {
-    pagebreak()
-    align(right)[
-      #v(1fr)
-      #heading(level: 3, numbering: none, outlined: false)[Agradecimientos]
-      #acknowledgements
-      #v(1fr)
-    ]
-  }
-  if abstract != none {
-    pagebreak()
-    align(center)[
-      #heading(level: 3, numbering: none, outlined: false)[Abstract]
-      #abstract
-    ]
-  }
-
-  outline(title: "Índice General")
-
-  show outline.entry.where(level: 1): set outline.entry(fill: repeat()[.~~])
-  outline(
-    title: "Índice de Figuras",
-    target: figure.where(kind: image),
+  frontmatter(
+    title,
+    authors,
+    date,
+    copyright: copyright,
+    dedication: dedication,
+    acknowledgements: acknowledgements,
+    abstract: abstract,
+    acronyms: acronyms,
   )
-
-  outline(
-    title: "Índice de Tablas",
-    target: figure.where(kind: table),
+  mainmatter(doc)
+  backmatter(
+    bibliography: bibliography,
+    glossary: glossary,
+    appendices: appendices,
   )
-
-  if acronyms.len() > 0 {
-    pagebreak(weak: true)
-    includeAcronyms()
-  }
-
-  set page(numbering: "1")
-  show heading.where(level: 1): set heading(supplement: "Parte")
-  doc
 }

@@ -20,12 +20,6 @@ tasks:
       - mkdir -p build
       - typst compile {{.TYPST_FLAGS}} supporting/tram-research.typ build/tram-research.pdf
 
-  build:perfil:
-    desc: Build the frozen project profile
-    cmds:
-      - mkdir -p build
-      - typst compile {{.TYPST_FLAGS}} archive/perfil/perfil.typ build/perfil.pdf
-
   build:report:
     desc: Build the first project report
     cmds:
@@ -43,19 +37,18 @@ tasks:
     cmds:
       - task: build:memoria
       - task: build:research
-      - task: build:perfil
       - task: build:report
       - task: build:lean
 
   fmt:
-    desc: Format active Typst entrypoints and shared research content
+    desc: Format active Typst documents and the shared theme
     cmds:
-      - typstyle --inplace memoria/memoria.typ memoria/02-foundations-research/03-tram-research.typ archive/perfil/perfil.typ supporting/*.typ
+      - typstyle --inplace memoria/memoria.typ memoria/config.typ memoria/02-foundations-research/03-tram-research.typ supporting/*.typ shared/glossary.typ shared/theme/*.typ
 
   fmt:check:
-    desc: Check formatting of active Typst entrypoints and shared research content
+    desc: Check formatting of active Typst documents and the shared theme
     cmds:
-      - typstyle --check memoria/memoria.typ memoria/02-foundations-research/03-tram-research.typ archive/perfil/perfil.typ supporting/*.typ
+      - typstyle --check memoria/memoria.typ memoria/config.typ memoria/02-foundations-research/03-tram-research.typ supporting/*.typ shared/glossary.typ shared/theme/*.typ
 
   check:
     desc: Check formatting and compile every supported document

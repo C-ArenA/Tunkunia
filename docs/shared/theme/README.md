@@ -1,45 +1,74 @@
-# UMSA - Ingeniería Electrónica - Typst Template
+# Tema de Memoria de Ingeniería Electrónica de la UMSA
 
-Este es un template de Typst para crear documentos para la carrera de Ingeniería Electrónica de la Universidad Mayor de San Andrés. Fue creado específicamente pensando en la realización de mi Perfil y Memoria de Proyecto de Grado y transformado en un template reutilizable para cualquier otro estudiante que lo requiera. No existen reglas totalmente claras respecto al formato de presentación de estos documentos y a veces puede depender del docente asignado o del tutor, por lo que algunas decisiones de estilo fueron totalmente personales. Si este template es utilizado por varios estudiantes podría implementar mayor versatilidad al respecto o realizar cambios en base a sugerencias.
+Tema opinionado de Typst para la memoria de Proyecto de Grado de Ingeniería
+Electrónica de la UMSA. La API describe la materia del documento; las decisiones
+visuales permanecen en el módulo que las implementa.
 
-## Cómo usar
+Consulta [ARCHITECTURE.md](ARCHITECTURE.md) para leer y modificar el código.
 
-Al igual que la mayoría de templates básicos de Typst el paquete expone varias funciones de configuración, las cuales ayudan a inicializar el documento.
+## Uso
 
-La función config se encarga de introducir todas las configuraciones base del documento y debe ser llamado de la siguiente forma al inicio del documento:
-
-```typ
-#import "../shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
-#show: conf
-```
-
-Para facilitar la creación del cover se usan los metadatos de Typst, por lo que lo siguiente en el uso de este paquete será definirlos:
+`lib.typ` expone solamente `memoria`. El título y los autores son obligatorios.
+El cuerpo continúa siendo la estructura que escribe el usuario después del
+`show`:
 
 ```typ
-#set document(
-  description: "Perfil de Proyecto de Grado", // Tipo de documento
-  title: [TÍTULO],
-  author: (
-    "Postulante: [TU NOMBRE]", // Los autores se listan uno sobre otro y para lograr versatilidad se incluye la descripción del autor en el documento (Postulante, Asesor, etc)
-    "Asesor: [ASESOR]",
-    "D.A.M.: [DOCENTE]",
-  ),
-  date: datetime.today() // O una fecha específica: datetime(day:21, month:5, year:2024)
+#import "/shared/theme/lib.typ": memoria
+
+#show: memoria.with(
+  title: "Título del proyecto",
+  authors: ("Postulante: Nombre", "Tutor: Nombre"),
+  bibliography: bibliography("/shared/references.bib"),
+  glossary: (),
+  appendices: [
+    #include "appendices/primer-anexo.typ"
+  ],
 )
+
+= Primera parte
+== Primer capítulo
 ```
 
-Posteriormente se puede añadir la portada o carátula
+En una memoria grande, los parámetros deben reunirse en `config.typ`:
 
 ```typ
-#import "../shared/umsa-electronics-engineering-template/lib.typ": appendix, conf, includeAcronyms, makeCover
+#import "/shared/theme/lib.typ": memoria
+#import "config.typ": settings
 
-// ...
-
-#makecover() // No requiere argumentos, ya que los mismos se sacan de los metadatos del documento antes configurados
+#show: memoria.with(..settings)
 ```
 
-Los demás elementos pueden ser añadidos donde se deseen, su aspecto ya estará configurado si el template fue aplicado con el `#show`. Por ejemplo, para mostrar la tabla de contenidos:
+Los argumentos opcionales son `date`, `copyright`, `dedication`,
+`acknowledgements`, `abstract`, `acronyms`, `bibliography`, `glossary`,
+`appendices` y `font`. Todos los bloques documentales son opcionales. El glosario
+es una lista de diccionarios compatible con
+[Glossarium](https://typst.app/universe/package/glossarium/); los acrónimos
+existentes continúan usando Acrostiche.
 
-```typ
-#outline()
-```
+Los archivos suministrados en `appendices` deben comenzar con un encabezado de
+nivel uno (`=`). La plantilla lo convierte en `Anexo A`, reinicia cada anexo en
+una página y numera sus descendientes como `A.1`, `A.1.1`, etc.
+
+## Ciclo del documento
+
+1. `global.typ` instala papel, márgenes, texto, párrafos, listas, bibliografía,
+   figuras y tablas para toda la memoria.
+2. `frontmatter.typ` crea la portada de forma aislada, las páginas preliminares
+   sin numeración y los índices con numeración romana desde `i`. Los acrónimos
+   pertenecen a esta materia.
+3. `mainmatter.typ` reinicia la numeración arábiga en `1` y aplica solamente al
+   cuerpo el sistema visual de Partes y Capítulos.
+4. `backmatter.typ` conserva la numeración arábiga y, cuando fueron suministrados,
+   presenta bibliografía, glosario y anexos en ese orden, sin numeración de
+   encabezados ordinarios.
+5. `memoria.typ` valida datos y ensambla esas cuatro etapas.
+
+## Regla para modificar el tema
+
+Modifica el módulo dueño del resultado visible. Márgenes y texto pertenecen a
+`global.typ`; portada, preliminares e índices a `frontmatter.typ`; Partes y
+Capítulos a `mainmatter.typ`; bibliografía, glosario y anexos a
+`backmatter.typ`. `memoria.typ` sólo debe decidir el orden y pasar datos.
+
+La plantilla soporta únicamente la memoria. El Perfil archivado queda fuera de
+este tema y podrá recibir una plantilla separada en el futuro.

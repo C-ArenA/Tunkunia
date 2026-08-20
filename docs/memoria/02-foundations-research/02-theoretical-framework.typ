@@ -127,7 +127,9 @@ A su vez, es un proceso de ingeniería de software que se compone de cuatro fase
 ==== Estilos de Arquitectura
 
 === Modelado de Procesos
+==== Máquinas de Estado
 ==== BPMN (Business Process Model and Notation)
-==== UML (Unified Modeling Language)
+==== Diagramas de Actividad (Unified Modeling Language)
+==== Redes de Petri
 
 === Software Libre

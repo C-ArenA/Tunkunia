@@ -1,6 +1,7 @@
 #import "/shared/theme/lib.typ": memoria
 #import "/shared/metadata.typ": projectTitle, studentName, tutorName
 #import "/shared/acronyms.typ": acronyms
+#import "/shared/glossary.typ": glossary
 
 #show: memoria.with(
   title: projectTitle,
@@ -9,7 +10,13 @@
   acknowledgements: include "preamble/acknowledgements.typ",
   abstract: include "preamble/abstract.typ",
   acronyms: acronyms,
-  font: "STIX Two Text",
+  bibliography: bibliography("/shared/references.bib"),
+  glossary: glossary,
+  appendices: [
+    #include "appendices/configuration-management.typ"
+    #include "appendices/project-schedule.typ"
+  ],
+  font: "New Computer Modern",
 )
 
 = Presentación del Proyecto
@@ -40,10 +47,3 @@
 
 = Cierre del Proyecto
 #include "05-conclusion/01-conclusions-recommendations.typ"
-
-= Anexos
-#include "appendices/configuration-management.typ"
-#include "appendices/project-schedule.typ"
-
-#pagebreak(weak: true)
-#bibliography("/shared/references.bib", title: "Bibliografía y Referencias")

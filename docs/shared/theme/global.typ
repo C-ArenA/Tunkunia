@@ -1,45 +1,39 @@
-#let global(doc) = {
+#let render-table-figure(it) = {
+  v(1.5em)
+  if it.caption != none {
+    upper(it.caption.supplement)
+    [ ]
+    it.caption.counter.display()
+    linebreak()
+    smallcaps(it.caption.body)
+  }
+  it.body
+}
+
+#let global(font, body) = {
+  // Page and typography.
   set page(
     paper: "us-letter",
-    margin: (top: 4cm, bottom: 1in, left: 4cm, right: 2.5cm), //Márgenes HCU 118/2011
+    margin: (top: 4cm, bottom: 1in, left: 4cm, right: 2.5cm),
     number-align: center,
   )
-
-  set text(lang: "es", region: "bo", size: 12pt)
-
+  set text(font: font, lang: "es", region: "bo", size: 12pt)
   set par(first-line-indent: (amount: 1em, all: true), justify: true)
-  set outline.entry(fill: repeat()[.~~])
+  show heading: set text(weight: "semibold", hyphenate: false)
+  show heading: set par(justify: false)
+  show heading: set block(below: 1.5em)
+
+  // General document flow.
   set quote(block: true)
   set bibliography(title: "Bibliografía y Referencias")
-
-  show outline: it => {
-    pagebreak(weak: true)
-    it
-    pagebreak(weak: true)
-  }
   show list: set block(inset: (top: 1em, bottom: 1em))
-  show figure.where(kind: image): set block(inset: (top: 1em, bottom: 1em))
 
-  // Figuras de Tipo Tabla
+  // Figures and tables.
+  show figure.where(kind: image): set block(inset: (top: 1em, bottom: 1em))
   show figure.where(kind: table): set block(breakable: true)
   show figure.where(kind: table): set figure.caption(separator: linebreak())
   show figure.where(kind: table): set text(size: 11pt)
-  show figure.where(kind: table): it => {
-    [
-      #v(1.5em)
-      #upper(it.caption.supplement) #it.caption.counter.display()\
-      #smallcaps(it.caption.body)
-      #it.body
-    ]
-  }
-  doc
-}
+  show figure.where(kind: table): render-table-figure
 
-// Define entorno de apéndices
-#let appendix(body) = {
-  set heading(numbering: "A.", supplement: [Apéndice])
-  pagebreak()
-  counter(heading).update(0)
-  set page(numbering: "I")
   body
 }
