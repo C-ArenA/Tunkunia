@@ -4,17 +4,17 @@
 #let makeCover() = {
   let college = "Universidad Mayor de San Andrés"
   let faculty = "Facultad de Ingeniería"
-  let degree = "Ingeniería Electrónica"
-  page(numbering: none)[#align(center)[
+  let degree = "Carrera de Ingeniería Electrónica"
+  page(numbering: none, margin: (x: 3cm, y: 1in))[#align(center)[
       #set par(justify: false)
-      #text(upper([#college - #faculty\ #degree]), size: 10pt, weight: "bold")
+      #text(upper([#college\ #faculty\ #degree]), size: 12pt, weight: "medium")
       #v(2cm)
 
       #image("umsa.png", width: 20%) #v(0.5cm)
       #context {
         text(17.28pt)[#smallcaps(document.description)]
         v(0.5cm)
-        text(14.4pt)[#smallcaps(document.title)]
+        text(14.4pt)[#upper(document.title)]
         v(1fr)
         for author in document.author {
           upper(author)

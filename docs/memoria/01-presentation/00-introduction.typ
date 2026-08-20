@@ -1,6 +1,8 @@
 #import "@preview/acrostiche:0.7.0": *
 
-#heading(depth: 3, numbering: none)[Introducción]
+//#heading(depth: 3, numbering: none)[Introducción]
+
+== Introducción
 
 Durante el desarrollo del #acr("SIAI") del #acr("MDPyEP") por parte de la empresa *2IES*,
 se identificaron funcionalidades comunes a muchos sistemas de software gubernamentales relacionadas con los procesos administrativos conocidos como trámites,

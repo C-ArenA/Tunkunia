@@ -14,7 +14,6 @@ Esto significa que el año 2024 se registró que cerca de 5,5 mil millones de pe
 #figure(
   image("/assets/figures/internet_use.png", width: 60%),
   caption: [Número de usuarios de Internet en el mundo\ Fuente: #acr("UIT")],
-  placement: auto,
 )<fig:internet_use>
 
 Bolivia no es la excepción a esta tendencia, ya que el año 2023 se estima que el 70,2% de la población boliviana ya contaba con acceso a Internet, como puede verse en la @fig:internet_use_bolivia.

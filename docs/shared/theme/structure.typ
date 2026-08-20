@@ -48,23 +48,26 @@
   }
 
   let chapterCounter = counter("chapter-counter")
-  show heading.where(level: 2): it => chapterCounter.step() + it
 
   set heading(numbering: (..nums) => {
     let numsArray = nums.pos()
     if numsArray.len() == 1 {
       "Parte " + numbering("I", ..numsArray)
     } else if numsArray.len() == 2 {
-      "Capítulo " + numbering("1", chapterCounter.get().first() + 1)
+      "Capítulo " + numbering("1", chapterCounter.get().first() + 1) + linebreak()
     } else {
       numbering("1.1.1", ..chapterCounter.get(), ..numsArray.slice(2))
     }
   })
 
   show heading.where(level: 2): set align(center)
+  show heading.where(level: 2): set text(size: 1.4em)
+  show heading.where(level: 3): set text(size: 1.2em)
   show heading.where(level: 2): it => {
     pagebreak(weak: true)
+    chapterCounter.step()
     it
+    linebreak()
   }
 
   show heading.where(level: 1): it => {

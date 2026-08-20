@@ -9,7 +9,7 @@
   acknowledgements: include "preamble/acknowledgements.typ",
   abstract: include "preamble/abstract.typ",
   acronyms: acronyms,
-  font: "Lekton Nerd Font",
+  font: "STIX Two Text",
 )
 
 = Presentación del Proyecto

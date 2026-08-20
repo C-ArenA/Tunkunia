@@ -1,11 +1,11 @@
 #let global(doc) = {
   set page(
     paper: "us-letter",
-    margin: (x: 3cm, y: 1in),
+    margin: (top: 4cm, bottom: 1in, left: 4cm, right: 2.5cm), //Márgenes HCU 118/2011
     number-align: center,
   )
 
-  set text(lang: "es", region: "bo", size: 11pt)
+  set text(lang: "es", region: "bo", size: 12pt)
 
   set par(first-line-indent: (amount: 1em, all: true), justify: true)
   set outline.entry(fill: repeat()[.~~])
