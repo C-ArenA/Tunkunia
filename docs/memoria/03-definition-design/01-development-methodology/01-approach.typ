@@ -1,5 +1,3 @@
-== Metodología del Proyecto
-
 === Enfoque Metodológico
 
 El presente proyecto adoptó un enfoque híbrido, tomando como base el enfoque de UP (Unified Process) para mantener una estructura clara y favorecer la planificación y documentación tomando las fases del ciclo de vida del desarrollo de software y las actividades establecidas por dicho marco, pero además se adoptan enfoques ágiles para lograr iteraciones rápidas y una forma prescriptiva de cómo llevar a cabo cada paso del proyecto a partir de historias de usuario y tareas definidas en un backlog.

@@ -1,6 +1,21 @@
-== Ingeniería de Requerimientos
+== Requisitos y análisis del dominio
 
-=== Identificación de Actores
+=== Modelado del Negocio
+
+==== Modelado de Trámites Gubernamentales
+
+==== Entidades y Relaciones
+
+Siguiendo el modelo de tres dimensiones para representar un flujo, la  traduce en un diagrama entidad-relación de Chen
+
+#figure(
+  image("/assets/figures/basiserd.svg"),
+  caption: [Diagrama ERD  básico\ Elaboración propia],
+)<fig:basiserd>
+
+=== Ingeniería de Requerimientos
+
+==== Identificación de Actores
 
 Como se pudo identificar en el modelado del trámite, pueden existir distintos actores involucrados en la vida de un trámite y cada institución puede poner un rótulo diferente a los mismos, por lo que es necesario crear una taxonomía de actores del trámite que no sólo permita entender sus funciones, sino que además sea lo suficientemente general para poder aplicarse en multitud de trámites a lo largo de diferentes instituciones.
 
@@ -27,5 +42,3 @@ Analogía
 - Dibuja avioncito -> gestor de trámites
 - Árbitro que verifica que se juegue correctamente y determina si el jugador gana -> examinador
 - Jugador que salta por los cuadros en su turno -> ciudadano
-
-

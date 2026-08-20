@@ -50,12 +50,12 @@ tasks:
   fmt:
     desc: Format active Typst entrypoints and shared research content
     cmds:
-      - typstyle --inplace memoria/memoria.typ memoria/01-foundation/tram-research.typ archive/perfil/perfil.typ supporting/*.typ
+      - typstyle --inplace memoria/memoria.typ memoria/02-foundations-research/03-tram-research.typ archive/perfil/perfil.typ supporting/*.typ
 
   fmt:check:
     desc: Check formatting of active Typst entrypoints and shared research content
     cmds:
-      - typstyle --check memoria/memoria.typ memoria/01-foundation/tram-research.typ archive/perfil/perfil.typ supporting/*.typ
+      - typstyle --check memoria/memoria.typ memoria/02-foundations-research/03-tram-research.typ archive/perfil/perfil.typ supporting/*.typ
 
   check:
     desc: Check formatting and compile every supported document

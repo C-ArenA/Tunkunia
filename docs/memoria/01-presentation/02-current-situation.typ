@@ -1,11 +1,11 @@
 #import "@preview/acrostiche:0.7.0": acr
 
-= Situación Actual <section:current_situation>
+== Situación Actual <section:current_situation>
 
 En relación al contexto planteado en la sección de antecedentes, resulta fundamental exponer, antes de abordar la problemática del proyecto,
 la situación actual en el campo o área de trabajo en distintos niveles, como pueden ser la normativa vigente, las tendencias tecnológicas y los trabajos o proyectos similares.
 
-== Adopción del Internet y las Plataformas Digitales<section:adoption>
+=== Adopción del Internet y las Plataformas Digitales<section:adoption>
 
 Desde la aparición de Internet, el mundo ha cambiado drásticamente. La forma en que las personas se comunican, trabajan y realizan transacciones ha evolucionado de una forma acelerada.
 Esta tendencia puede evidenciarse en el ritmo de adopción de Internet en el mundo que, de acuerdo a estimaciones de la #acr("UIT"), pasó de un 53% de la población mundial en el año 2019 a un 68% en el año 2024, como puede apreciarse en la @fig:internet_use.
@@ -38,7 +38,7 @@ De este modo, el uso de las plataformas digitales también ha incrementado basta
 
 Como puede verse, la adopción de plataformas digitales ha crecido de forma acelerada en los últimos años, y se espera que continúe creciendo en el futuro. Esto se debe a la creciente disponibilidad de dispositivos móviles y a la mejora de la infraestructura de Internet en muchos países.
 
-== Gobierno Electrónico y Trámites Digitales en la actualidad
+=== Gobierno Electrónico y Trámites Digitales en la actualidad
 
 Al día de hoy se podría decir que ser un gobierno electrónico es más que una simple tendencia temporal. Durante la pandemia del COVID-19 se hizo una necesidad y ahora parece ser la norma.
 Esto puede verse reflejado en el reporte sobre gobiernos digitales de las Naciones Unidas,
@@ -56,13 +56,199 @@ tuvo un aumento relevante en tan sólo dos años (@fig:egdi2020_2022).
 
 La anterior afirmación, si bien se cita de un estudio realizado el año 2018 @rosethFinTramiteEterno2018, refleja de forma aproximada la situación actual ante la falta de estudios más recientes. En general, si bien se nota una mayor adopción de los trámites digitales, aún existen muchos que se realizan de forma total o parcialmente presencial. Sin embargo, podemos encontrar una tendencia clara en la evolución hacia los gobiernos electrónicos y, siendo los servicios electrónicos una de sus áreas más relevantes @naserGobiernoElectronicoGestion2011, se espera que más trámites se digitalicen en el futuro. Lo anterior se hizo evidente durante la pandemia del COVID-19, durante la cual hubo un aumento considerable de canales digitales para la realización de trámites, llegando a remplazar alrededor del 20% de los trámites presenciales en distintos países de América Latina @rosethServiciosPublicosGobierno2021.
 
-#include "current_situation_norm.typ"
+=== Normativa relevante vigente en Bolivia
 
-== Tendencias tecnológicas
+Como se pudo ver en la sección de antecedentes, y de forma resumida en la @fig:bolivia_norms, Bolivia cuenta con una normativa bastante amplia en relación al uso de las #acr("TICs"), el gobierno electrónico, la digitalización de trámites y el desarrollo de software gubernamental. A continuación se presentan algunos elementos relevantes adicionales y, aunque no se pretende abarcar toda la normativa existente, dada su extensión, sí se desea poder atender a los aspectos más importantes como punto de partida para entender la situación normativa del país.
+
+==== Acerca del Trámite
+
+Al respecto del trámite administrativo es menester citar al Decreto Supremo N° 3525 que tiene como uno de sus objetos normar la *tramitación digital* @DECRETOSUPREMO35252018. Si bien aún no se consigue poner en práctica la totalidad de dicha norma, podemos resaltar lo siguiente:
+
+#quote(attribution: [Decreto Supremo Nº 3525, Artículo 12])[
+  *Trámites Administrativos:*
+
+  I. Las instituciones públicas *deberán priorizar en todos sus trámites el uso de tecnologías de información* y comunicación a efecto de digitalizar, automatizar, interoperar y simplificar la tramitación de los asuntos que son de su competencia.
+
+  II. Para facilitar la realización de trámites a la ciudadanía, las entidades públicas, en observancia de su normativa específica, deberán *intercambiar entre ellas datos e información mediante interoperabilidad*. Los mecanismos y condiciones de publicación y acceso a los servicios de interoperabilidad serán establecidos por el Ente Rector de Gobierno Electrónico y Tecnologías de Información y Comunicación.
+
+  III. El intercambio de datos e información mediante interoperabilidad no afectará la percepción de recursos de las entidades públicas titulares de la información por la prestación del servicio público.
+
+  IV. Las entidades públicas *no podrán exigir* al administrado como requisito ningún documento que hubiera sido *emitido por la misma entidad*, o cuya información esté disponible mediante servicios de interoperabilidad de otra entidad.
+
+  V. Las entidades públicas *no podrán exigir al administrado como requisito ningún documento que hubiera sido requerido con anterioridad*, salvo actualización o modificación y conforme a normativa legal vigente.
+
+  VI. Las entidades públicas tendrán un plazo máximo de veinte (20) días hábiles a partir de la publicación de un nuevo servicio de interoperabilidad para adecuar sus procesos y procedimientos al mismo.
+]
+
+Lo anterior es muy importante, no sólo porque establece la obligación de digitalizar los trámites administrativos, sino también porque establece la interoperabilidad entre entidades públicas y la necesidad de resguardar la información de los administrados. Esto es clave para el funcionamiento del sistema propuesto en este proyecto, ya que se espera que el mismo pueda integrarse con otros sistemas de información y servicios de interoperabilidad.
+
+Muchas veces, los trámites que se digitalizan cuentan con documentos físicos importantes, que deben también ser tomados en cuenta en el proceso de digitalización. En este sentido, el mismo Decreto Supremo N° 3525 establece lo siguiente:
+
+#quote(attribution: [Decreto Supremo Nº 3525, Artículo 13])[
+  *Entidades generadoras de información:*
+
+  ...II. En el marco de procesos de actualización, certificación o emisión de copias legalizadas de documentos que aún se encuentren en formato físico, los datos e información pertinente consignados en los mismos *deberán ser registrados en medios digitales* que permitan ser publicados mediante servicios de interoperabilidad.]
+
+Asimismo, la Ley Nº 2341 tiene como uno de sus objetos "Establecer las normas que regulan la actividad administrativa y el *procedimiento
+administrativo* del sector público" @LeyNo23412002, por lo que contiene normativa relevante al proceso del trámite y a la ejecución de los mismos. Podemos resaltar su Artículo 4, de "Principios Generales de la Actividad Administrativa" que cuenta con dos principios importantes en nuestro contexto, que son el "Principio de eficacia" y el "Principio de economía, simplicidad y celeridad". También, en el mismo documento, se indican los derechos de las personas, que en su Artículo 16 lista, entre otros, los siguientes derechos:
+
+- Derecho a conocer *el estado del procedimiento* en que sea parte
+- Derecho a *obtener* certificados y copias de documentos que estén en poder de la Administración Pública
+- Derecho a *acceder* a registros y archivos administrativos
+
+Esta ley también define la acción correspondiente a los silencios administrativos y otras situaciones propias del proceso administrativo.
+
+La anterior normativa es importante porque, si bien es general, establece condiciones que pueden fácilmente ser atendidas con el uso de un sistema de gestión y seguimiento de trámites digitalizado. Estas necesidades pueden traducirse en objetivos del sistema propuesto en este proyecto, como el de poder consultar el estado de un trámite o poder obtener copias de documentos que obren en poder de la administración pública.
+
+==== Planes de Implementación
+
+Si bien la Ley Nº 164 establece los fundamentos sobre el uso de las tecnologías de la información en Bolivia a nivel normativo, a su vez establece la creación de planes de implementación, con una naturaleza más práctica. Esto se encuentra definido a partir de sus artículos 71 y 75, que establecen lo siguiente:
+
+#quote(attribution: [Ley Nº 164, Artículo 75])[
+  ...
+  II. El Órgano Ejecutivo del nivel central del Estado, elaborará los lineamientos para la incorporación del Gobierno Electrónico
+]
+
+#quote(attribution: [Ley Nº 164, Artículo 71])[
+  ...
+  II. El Órgano Ejecutivo del nivel central del Estado, elaborará el plan de implementación de software libre y estándares
+  abiertos en coordinación con los demás órganos del Estado y entidades de la administración pública.
+]
+
+Estos planes serían nuevamente requeridos en el reglamento aprobado por el Decreto Supremo Nº 1793, que es el "Reglamento para el Desarrollo de Tecnologías de Información y Comunicación", mismo que contiene definiciones y normativa importante para personas naturales o jurídicas, públicas o privadas que *realicen actividades o presten servicios relacionados con la certificación digital, gobierno electrónico, software libre, correo electrónico y el uso de documentos y firmas digitales en el Estado Plurinacional de Bolivia*. Este reglamento tiene bastante importancia para este proyecto, y su contenido sigue la misma filosofía encontrada tanto en la Ley Nº 164 como en los planes de implementación realizados de forma posterior a su aprobación.
+
+Dado lo anterior es que, mediante Decreto Supremo Nº 3251, se aprobaron tanto el "Plan de Implementación de Gobierno Electrónico" como el "Plan de Implementación de Software Libre y Estándares Abiertos".
+
+==== Implementación del Gobierno Electrónico
+
+El "Plan de Implementación de Gobierno Electrónico" es un documento en el que se definen los ejes estratégicos y las líneas estratégicas para la implementación de la política de gobierno electrónico en el país, como puede verse en la @table:ejes_egob. Estos ejes definen mucho de lo que se puede encontrar en las distintas leyes y reglamentos relevantes a este proyecto y tienen bastante importancia para afrontar cualquier proyecto de software gubernamental.
+
+#figure(
+  table(
+    columns: (1fr, 1.5fr),
+    align: (center + horizon, left),
+    fill: (x, y) => {
+      if y == 0 {
+        return rgb(230, 230, 230)
+      }
+    },
+    inset: (.3em, .6em),
+    table.header(
+      "Ejes estratégicos",
+      table.cell(align: center + horizon)[Líneas estratégicas],
+    ),
+    table.cell(rowspan: 5)[Gobierno Soberano],
+    [1. Infraestructura y conectividad],
+    [2. Investigación, innovación y desarrollo tecnológico],
+    [3. Interoperabilidad],
+    [4. Ciudadanía digital],
+    [5. Seguridad informática y de la información],
+    table.cell(rowspan: 7)[Gobierno Eficiente],
+    [6. Simplificación de trámites],
+    [7. Gestión pública],
+    [8. Asesoramiento y capacitación técnica],
+    [9. Registros públicos],
+    [10. Servicios de desarrollo económico],
+    [11. Calidad de servicios públicos],
+    [12. Entidades territoriales autónomas],
+    table.cell(rowspan: 2)[Gobierno Abierto y Participativo],
+    [13. Transparencia y datos abiertos],
+    [14. Participación y control social],
+  ),
+  caption: [Ejes estratégicos y líneas estratégicas\ Fuente: Plan de Implementación de Gobierno Electrónico],
+  placement: auto,
+)<table:ejes_egob>
+
+
+==== Implementación de Software Libre y Estándares Abiertos
+
+Bolivia también cuenta con un "Plan de Implementación de Software Libre y Estándares Abiertos", en el que se define al software libre del modo siguiente:
+
+#quote(attribution: "Plan de Implementación de Software Libre y Estándares Abiertos")[
+  El Software Libre se basa en una filosofía que busca que el desarrollo de la tecnología se
+  oriente al bienestar de los seres humanos en términos de igualdad; que el conocimiento sea
+  lo que realmente es: un bien común de la humanidad; que la cooperación sea el modelo de
+  su desarrollo y que todos puedan libremente disfrutar de sus resultados, sin mellar los
+  mismos derechos para los demás
+
+  [...]
+
+  La incorporación y uso del Software Libre y estándares abiertos, promueve valores de
+  innovación, solidaridad, búsqueda del bien común y el desarrollo de los individuos y de la
+  sociedad, coincidentes con los del Estado. A través de la implementación del Software Libre
+  *se busca que el Estado adquiera y desarrolle la capacidad de controlar las aplicaciones
+  informáticas que utiliza con soberanía tecnológica*.
+]
+
+Este plan derivaría directamente de la Ley N° 164 @Ley164Ley2011 que, en la misma línea, establece lo siguiente acerca del software libre:
+
+#quote(attribution: [Artículo 77, Ley Nº 164])[
+  I. Los Órganos Ejecutivo, Legislativo, Judicial y Electoral en todos sus niveles,
+  promoverán y priorizarán la *utilización del software libre y estándares abiertos*, en
+  el marco de la soberanía y seguridad nacional.
+]
+
+En base a ello, al igual que con el "Plan de Implementación de Gobierno Electrónico", se establecen los ejes estratégicos y líneas estratégicas para la implementación de la política de software libre y estándares abiertos en el país, como puede verse en la @table:ejes_software, que además incluye las metas que se plantearon para el año 2025.
+
+#figure(
+  table(
+    columns: (1fr, 1.5fr, 2.5fr),
+    align: (center + horizon, left + horizon, left + horizon),
+    fill: (x, y) => {
+      if y == 0 {
+        return rgb(230, 230, 230)
+      }
+    },
+    inset: (.6em, .5em),
+    table.header(
+      [Ejes\ estratégicos],
+      table.cell(align: center + horizon)[Líneas estratégicas],
+      table.cell(align: center + horizon)[Metas al 2025],
+    ),
+    table.cell(rowspan: 2)[Soberanía\ Tecnológica],
+    [Proceso de implementación de software libre y estándares abiertos],
+    [*100%* de los sistemas de las entidades públicas son Software Libre, excepto aquellos identificados en la norma.],
+    [Software libre, ciclo de vida],
+    [El Estado produce conocimiento en tecnologías libres a través de procesos de investigación en entidades públicas, empresas estatales y universidades públicas.],
+    table.cell(rowspan: 5)[Descolonización del\ conocimiento],
+    table.cell(rowspan: 3)[Formación y capacitación],
+    [70% de los profesores del Sistema Educativo Plurinacional están formados y capacitados en herramientas de software libre.],
+    [100% del software utilizado en el Sistema Educativo Plurinacional es software libre.],
+    [100% de los servidores públicos del nivel central que utilizan herramientas informáticas en sus funciones diarias están capacitados en el manejo de software libre.],
+    [Innovación, investigación y desarrollo],
+    [80% de los desarrollos generados por los procesos de investigación, innovación y desarrollo del Estado son aplicados en instancias públicas.],
+    [Sensibilización, difusión y comunicación],
+    [30% de la población conoce el proceso de implementación de software libre.],
+    [], [],
+    [100% de los servidores públicos conocen los beneficios del software libre y el plan de implementación de su institución.],
+    table.cell(rowspan: 3)[Gestión\ del Cambio],
+    table.cell(rowspan: 2)[Soporte y\ acompañamiento],
+    [80% de las solicitudes de soporte y acompañamiento en el proceso de migración fueron atendidas por el órgano competente.],
+    [*Existe una oferta efectiva del sector privado* en servicios de desarrollo, soporte técnico y capacitación con respecto a software libre.],
+    [Seguimiento, evaluación y control],
+    [100% de las entidades públicas envían sus planes y reportes anuales al Estado para su verificación y validación.],
+  ),
+  caption: [Ejes estratégicos, líneas estratégicas y metas al 2025\ Fuente: Plan de Implementación de Software Libre y Estándares Abiertos],
+  placement: auto,
+)<table:ejes_software>
+
+El mismo documento hace un análisis del estado de situación respecto al software libre en el país, del cual se puede resaltar lo siguiente:
+
+- El 61% de las entidades públicas utiliza lenguajes de programación que están bajo estándares libres; y el 39% corresponde a herramientas privativas.
+- Respecto a los Términos de Referencia (TDR) de todas y cada una de las 160 licitaciones analizadas, en la mayoría de los casos se trata de trabajos internos (dentro de la institución). Se indica que deben dejar todo el material de trabajo, aunque no se dice que están obligados a entregar el código fuente del programa; por el formato del contrato, se puede suponer que esto es así.
+- El 64% de las contrataciones externas son realizadas sin solicitar herramientas de software libre y sólo el 36% de las mismas son realizadas solicitando herramientas de software libre
+- El 57% de los desarrollos internos son realizados sin herramientas de software libre y el 43% de las mismas son realizadas con herramientas de software libre.
+- La mayor parte de las empresas de software no trabajan con herramientas de desarrollo libres. El 59% de las empresas no trabajan desarrollando con herramientas de software libre, el 19% usan herramientas de software libre para sus desarrollos internos y sólo el 22% usan herramientas de desarrollo libre para los clientes.
+- Las entidades públicas cuentan con buenas condiciones para iniciar el proceso de implementación de software libre y estándares abiertos.
+
+Como se evidencia de la normativa señalada anteriormente el Software libre hoy en día se encuentra regulado y se establecen los lineamientos y directrices para su implementación y posterior aplicación en nuestro país de un modo prioritario.
+//NOTE: Podríamos añadir subtítulo sobre los lineamientos aprobados por RM 079/2, pero a pesar de su relevancia, lo dejaremos para el final, porque ya tenemos mucha información. Quizá podríamos añadir lo que se indica sobre que cada entidad pública debe digitalizar los trámites por su cuenta
+
+=== Tendencias tecnológicas
 
 Las necesidades que surgen alrededor de la digitalización de trámites son diversas. Sin embargo, para resolver este tipo de problemas existen algunas prácticas que se han vuelto comunes, tanto a nivel de desarrollo de software, de sistemas y de enfoques. A su vez, pueden existir tendencias tecnológicas generales que potencialmente logren aportar a este proyecto. Las mismas no necesariamente responden a los trámites realizados por entidades públicas, sino a entidades privadas que enfrentan necesidades similares, pero pueden ser igualmente aplicadas. Algunas de estas tendencias se describen a continuación.
 
-=== Reutilización de Software
+==== Reutilización de Software
 
 La reutilización de software (software reuse) es el uso sistemático de piezas existentes de software para construir otras nuevas, modificadas o incluso productos de software completos a partir de las mismas. Estas piezas pueden ser código fuente, ejecutables, guìas de diseño, componentes de software libre, componentes comerciales, o arquitecturas completas. Es importante resaltar que el conocimiento también es reutilizable y se ve reflejado en la reutilización de patrones, procesos o arquitecturas de software @mohagheghiQualityProductivityEconomic2007. Las formas en que las piezas reutilizables se materializan son variadas y pueden incluir bibliotecas o librerías, frameworks, componentes, sistemas de software completos, etc (@fig:reuse_landscape).
 
@@ -86,7 +272,7 @@ En este sentido, la @fig:mobile_reuse, que forma parte de un estudio publicado e
 
 Esta tendencia se ve también en otros campos del desarrollo de software, particularmente en el desarrollo web, donde se popularizó la herramienta de gestión de paquetes #acr("NPM") para facilitar la reutilización de código en el desarrollo de aplicaciones web y sobre la cual se puede evidenciar un aumento significativo de paquetes reutilizables, con más de un millón registrados el año 2022 y con un crecimiento del 60% entre los meses de enero del 2019 y 2022 @mujahidWhatAreCharacteristics2023. Una búsqueda actual (2025) en el sitio oficial de #acr("NPM") muestra que existen ya más de dos millones de paquetes disponibles en su registro y que cuenta con la contribución de más de 17 millones de desarrolladores de software a nivel mundial @NpmHome.
 
-=== Sistemas de Gestión de Flujos de Trabajo y Procesos<section:wfms>
+==== Sistemas de Gestión de Flujos de Trabajo y Procesos<section:wfms>
 
 Existe en la actualidad un tipo de sistema que va muy de la mano con el propuesto en este proyecto, el cual es el #acr("WFMS"). Estos sistemas contemplan de forma general el manejo de flujos de trabajo. De forma similar, y a veces usado de forma indistinta con WFM existe el término BPM (Business Process Management), que de modo más amplio es el arte y la ciencia de supervisar cómo el trabajo es realizado dentro de una organización.
 
@@ -111,7 +297,7 @@ La necesidad de manejar flujos de trabajo es realmente frecuente en muchos siste
 
 Podemos entender, de forma general y sintética, que el propósito principal de los sistemas de flujo de trabajo (WFMS) es el apoyo en la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que posteriormente podría guiar en la implementación de un sistema específico a los trámites administrativos.
 
-=== Arquitectura y Modularidad
+==== Arquitectura y Modularidad
 
 Se puede advertir al día de hoy que queda cada vez más claro que una ingeniería de software efectiva requiere del diseño de la arquitectura del software, una práctica que siempre se lleva a cabo de forma implícita al desarrollar software, pero que conviene aplicar de forma fundamentada.
 Primero, es importante poder reconocer paradigmas comunes para que se puedan entender las relaciones de alto nivel entre sistemas y para que se puedan construir nuevos sistemas como variaciones de sistemas antiguos.
@@ -152,7 +338,7 @@ Finalmente, en lo que respecta a la arquitectura de software y modularidad, es i
 
 Estos términos pueden ser intercambiables entre sí ante la falta de definiciones universales. Sin embargo, respecto al subsistema, conviene mencionar un proyecto licitado en años recientes por el gobierno boliviano, para la Autoridad de Regulación y Fiscalización de Telecomunicaciones y Transportes (ATT), que es el "Sistema Integrado Nacional del Espectro Radioeléctrico" (SINER) @GobiernoLanzaSegunda2023. Este sistema cuenta con dos componentes de software que el documento base de contratación de dicha licitación define como subsistemas, haciendo referencia a que forman parte de un sistema más grande, a pesar de que los mismos pueden también ser utilizados, aunque parcialmente, de forma independiente. De hecho, se toma esto como inspiración para categorizar lo propuesto en este proyecto como un subsistema.
 
-=== Proyectos de Software Libre
+==== Proyectos de Software Libre
 
 El software libre tiene un efecto democratizador en los gobiernos @donorfioPoliticsFreeOpen2004 y también brinda soberanía sobre el código utilizado por los mismos, permitiéndoles tener el *control de la tecnología* empleada @LibertadSoftwareSu.
 De acuerdo a Richard Stallman, gran referente en el área, es necesario usar software libre en el gobierno electrónico para no tener la necesidad de pedir *permiso a un tercero* para manipular el código fuente y para que gobiernos de todo el mundo puedan *utilizar, corregir, difundir y contribuir a la mejora del software* @SoftwareLibreGobierno.
@@ -182,7 +368,7 @@ Una de estas empresas es Microsoft que, entre otras cosas, adquirió la platafor
 
 Este último dato señala algo importante y sobre lo cual Haefliger, von Krogh y Spaeth profundizan en uno de sus artículos @vonkroghCarrotsRainbowsMotivation2012 y es que el desarrollo del software libre podría tener una motivación social y comunitaria, más allá de lo económico.
 
-=== Lenguajes de Modelado de Procesos<section:modeling>
+==== Lenguajes de Modelado de Procesos<section:modeling>
 
 Cuando se habla de trámites, de acuerdo a las definiciones establecidas en la sección de antecedentes, se hace referencia a *procesos*. Por lo tanto, es importante mencionar que existen varios lenguajes para modelar procesos que permiten representar gráficamente los mismos y que, de forma general, consisten mínimamente en conjuntos de nodos de dos tipos: actividad y control @dumasFundamentalsBusinessProcess2013. A continuación se describen algunos de estos lenguajes o herramientas para modelar procesos:
 
@@ -217,7 +403,7 @@ Adicionalmente, existen otros lenguajes de modelado de sistemas que no son tan c
 
 Podemos ver que al día de hoy tenemos disponibles una gran cantidad de lenguajes, herramientas y técnicas para modelar sistemas de software y procesos. La elección del lenguaje dependerá de la naturaleza del sistema a modelar y de los beneficios que cada uno de ellos pueda aportar. Aún así, es posible modelar un mismo sistema de procesos usando distintos lenguajes.
 
-=== Inteligencia Artificial
+==== Inteligencia Artificial
 
 Es difícil no hablar de inteligencia artificial (IA) en la actualidad. La IA ha tenido un crecimiento exponencial en los últimos años, y su uso se ha vuelto común en muchos ámbitos. Sin embargo, es importante aclarar que la IA no es un concepto nuevo, sino que ha existido desde hace décadas. Lo que ha cambiado es la forma en que se aplica y la cantidad de datos disponibles para entrenar modelos de IA.
 
@@ -231,11 +417,11 @@ La inferencia consiste en usar modelos de inteligencia artificial ya entrenados 
 
 Este análisis de documentos tiene cierto parecido con el análisis realizado por funcionarios públicos al momento de revisar los formularios de un trámite. Sin embargo, hoy en día se siguen empleando servidores fuera de Bolivia para emplear estos modelos de lenguaje, por lo que su utilización podría estar limitada por la normativa vigente en el país. Aún así, es importante mencionar este tipo de posibles aplicaciones dentro del proceso de digitalización de trámites.
 
-== Trabajos Relacionados<section:related_work>
+=== Trabajos Relacionados<section:related_work>
 
 Para poder identificar los trabajos relacionados a este proyecto se buscaron los mismos en torno al trámite digital y distintos procesos administrativos, tanto en el sector público, como en el sector privado. Esto nos permite abarcar trabajos relacionados de forma directa e indirecta. Se debe tomar en cuenta que estos trabajos carecen de características fundamentales como la reutilización o la naturaleza de software libre y no se encontró ninguno que cumpla con todas las características deseadas. Sin embargo, muchos de ellos sí tienen una gran cantidad de funcionalidades o conceptos que podrían inspirar el desarrollo del subsistema propuesto en este proyecto.
 
-=== En el ámbito académico
+==== En el ámbito académico
 
 Debido a la cantidad de procesos administrativos que existen en distintas instituciones, podemos encontrar también una gran cantidad de proyectos de grado realizados que tratan sobre la implementación de sistemas de gestión de trámites. A continuación se listan algunos de los más relevantes:
 
@@ -253,7 +439,7 @@ Debido a la cantidad de procesos administrativos que existen en distintas instit
 
 - *Implementación de un sistema de trámite documentario para la Agencia de Compras de las Fuerzas Armadas* @yrupailladiazImplementacionSistemaTramite2019: Este proyecto, realizado el año 2019, es otra implementación más de un sistema de trámite documentario. Sin embargo, añade una característica que, a pesar de no contemplarse de la misma forma en este proyecto, es muy importante y tiene que ver con la integración de la firma digital. Los trámites involucran el manejo de documentos para tomar decisiones importantes, por lo que la veracidad de estos es importante.
 
-=== Fuera del ámbito académico
+==== Fuera del ámbito académico
 
 Si bien no se pudo encontrar módulos especializados en la gestión de trámites que se puedan integrar en sistemas más grandes con un enfoque de reutilización de software, sí existen sistemas con características similares a la funcionalidad de gestión de trámites o que incluso ofrecen todo lo necesario para gestionar procesos administrativos. A su vez, existen casos dentro de instancias públicas que podrían inspirar la solución propuesta más adelante.
 

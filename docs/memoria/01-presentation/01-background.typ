@@ -1,7 +1,7 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "@preview/acrostiche:0.7.0": acr
 
-= Antecedentes
+== Antecedentes
 
 A continuación se hace un repaso histórico en torno al trámite, su relevancia, sus problemas originales, la necesidad de adopción de tecnologías de la información por el gobierno boliviano, la atención a dicha necesidad en el sistema #acr("SIAI") mediante la consultora 2IES y cómo esto deriva posteriormente en la identificación de características comunes a diversos trámites (@fig:background).
 
@@ -10,16 +10,16 @@ A continuación se hace un repaso histórico en torno al trámite, su relevancia
   caption: [Antecedentes a la identificación de la problemática de este proyecto\ Fuente: Elaboración propia],
 )<fig:background>
 
-== El origen de los trámites gubernamentales
+=== El origen de los trámites gubernamentales
 
-=== El Estado como Sistema Organizativo
+==== El Estado como Sistema Organizativo
 
 Para los teóricos de la armonía social, el estado aparece como la solución colectiva de necesidades nuevas que surgen a partir de situaciones también nuevas @vacarofernandezOrigenEstado2000[pág. 3].
 Se dice que esta organización representa un fenómeno político que *supuso la separación o la salida de lo político del terreno social* y
 *la conversión del individuo en un ciudadano*, cuya relación de pertenencia fundamental será con el estado al margen de cualquier característica particular @gordilloperezPorQueSurge2017.
 Dicha separación se ve reflejada en los cuatro elementos clave mediante los cuales se materializa el estado, que son el territorio, la población, el gobierno y la soberanía @delarocharadaElementosParaTeoria2019.
 
-=== Gobierno, Burocracia y Administración Pública
+==== Gobierno, Burocracia y Administración Pública
 
 El gobierno (del griego $kappa mu beta epsilon rho v á omega$ kybernéin "pilotar un barco" o "capitán de un barco"),
 es un sistema orgánico de autoridades a través del cual se expresa el poder del estado, creando, afirmando y desenvolviendo el orden jurídico @fernandezruizDerechoParlamentario2023, siendo así el actor que *materializa el poder del estado hacia la población*.
@@ -33,7 +33,7 @@ que según el sociólogo alemán Max Weber, no sólo es la forma más avanzada d
 
 De este modo, el gobierno, mediante la administración pública, y practicando la burocracia, emplea diferentes mecanismos, entre los cuales se encuentra el trámite como una forma de hacer efectiva la comunicación con la población.
 
-== El trámite tradicional y sus problemas
+=== El trámite tradicional y sus problemas
 
 La palabra trámite viene del latín "trames", "tramitis", que para los romanos significaba "senda" o "camino" @TramiteCastellanoPagina.
 Según la Real Academia de la Lengua Española, se define como "Cada uno de los *pasos* y diligencias que hay que recorrer en un asunto hasta su conclusión" @asaleDiccionarioLenguaEspanola.
@@ -61,7 +61,7 @@ Un ejemplo de esto es el caso de *Domitila Murillo*, una ciudadana boliviana que
 
 Estos problemas dentro de la administración pública, despiertan el interés acerca del impacto que podría tener la utilización de las tecnologías de la información en este ámbito, llevando a la creación del concepto de *Gobierno Electrónico* o *e-government*.
 
-== La Modernización Administrativa
+=== La Modernización Administrativa
 
 #let governmentFootNote = [
   No existe consenso en la definición y uso del término "Gobierno Electrónico" por ser relativamente incipiente y más de una vez se emplean los términos
@@ -83,7 +83,7 @@ en suma, brinda mayor calidad de vida a la ciudadanía @naserGobiernoElectronico
 
 Sin embargo, la implementación de un gobierno electrónico no es una tarea sencilla, ya que requiere la realización de esfuerzos en conjunto dentro de los gobiernos. En Bolivia, a partir del año 2009, se han promulgado decretos, leyes y reglamentos que buscan promover el uso de las tecnologías de la información y comunicación en la administración pública, pero aún queda un largo camino por recorrer para lograr una implementación efectiva y eficiente.
 
-== Bolivia: Gobierno Electrónico
+=== Bolivia: Gobierno Electrónico
 
 En Bolivia, la nueva Constitución Política del Estado, promulgada el 7 de febrero del año 2009, establece en su Artículo 103 que:
 "El Estado asumirá como política la implementación de estrategias para incorporar el conocimiento y *aplicación de nuevas tecnologías de información y comunicación*" @BoliviaConstitucionPolitica2009.
@@ -108,7 +108,7 @@ No se debe ignorar que en lineas generales, la Constitución Política del Estad
 
 Como puede notarse, aunque se lista solamente lo considerado más relevante, existe bastante normativa y documentación que promueve y/o demanda el uso de las #acr("TICs") y la digitalización de trámites en el gobierno boliviano. En este contexto, distintas entidades públicas han comenzado a implementar sistemas para facilitar sus funciones administrativas, en particular las funciones que tienen que ver con trámites.
 
-=== Sistema de Información Ambiental Industrial
+==== Sistema de Información Ambiental Industrial
 
 Un caso que ilustra la implementación de un sistema con características de gestión de trámites es el Sistema de Información Ambiental Industrial (SIAI), desarrollado por el Ministerio de Desarrollo Productivo y Economía Plural (MDPyEP) en Bolivia.
 
@@ -122,13 +122,13 @@ Por lo anterior, se requirió el año 2023, mediante licitación, la implementac
   attribution: [Términos de Referencia del proyecto de implementación del SIAI @ConsultoriaPorProducto],
 )[Diseñar e implementar un sistema informático denominado “Sistema de Información Ambiental Industrial (SIAI)”, que permita un Registro en Línea de la Información Ambiental Industrial y que ayude en el monitoreo y seguimiento Nacional a través del MDPyEP y los gobiernos subnacionales competentes en el marco de lo establecido en el Reglamento Industrial para el Sector Industrial Manufacturero, actualizando los datos ambientales de la industria a nivel nacional y acreditar la idoneidad de los mismos, asegurando el cumplimiento de la normativa ambiental vigente]
 
-== Consultoría de 2IES
+=== Consultoría de 2IES
 
 La consultora 2IES #sym.dash.em Ingeniería Estructural e Ingeniería de Telecomunicaciones #sym.dash.em, es una empresa fundada en Bolivia el año 1997 y cuenta con experiencia en sectores de infraestructura y en áreas relacionadas con la planificación estratégica, la regulación, el mejoramiento de negocios, y el desarrollo de sistemas, así como la aplicación e integración en Tecnologías de la Información y Comunicación, tanto en empresas como entidades del sector público.
 
 En años recientes, con la adopción de las tecnologías de la información cada vez más relevante en el mercado local boliviano, el desarrollo de sistemas de software se volvió un pilar fundamental para 2IES, lo que llevó a su presentación en la licitación del proyecto de implementación del SIAI.
 
-=== Experiencias en el desarrollo del SIAI
+==== Experiencias en el desarrollo del SIAI
 
 La ejecución del proyecto, licitado por el #acr("MDPyEP"), estuvo entonces a cargo de la consultora 2IES,
 que procedió a la implementación del nuevo #acr("SIAI") atendiendo a las especificaciones técnicas del Documento Base de Contratación,
@@ -170,3 +170,4 @@ Dado que una gran parte de la funcionalidad de este sistema, consistía en el ma
 Al implementar los diferentes componentes referentes a dichos trámites, se identificaron claras similitudes entre ellos, como la necesidad de permitir un seguimiento transparente, la aprobación de documentos por etapas, la auditoría y la gestión general de cada trámite.
 
 Si bien el proyecto del SIAI llegó a su conclusión, estas similitudes identificadas a la hora de implementar los distintos trámites, además de la potencial similitud con trámites de otras distintas instancias del sector público, guiaron a la identificación del problema presentado en este proyecto.
+

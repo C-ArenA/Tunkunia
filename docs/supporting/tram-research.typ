@@ -17,4 +17,4 @@
   bibliography: bibliography("/shared/references.bib"),
 )
 
-#include "/memoria/01-foundation/tram-research.typ"
+#include "/memoria/02-foundations-research/03-tram-research.typ"

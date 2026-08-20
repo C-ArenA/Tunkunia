@@ -1,7 +1,5 @@
 #import "@preview/acrostiche:0.7.0": *
 
-= Introducción
-
 Durante el desarrollo del #acr("SIAI") del #acr("MDPyEP") por parte de la empresa *2IES*,
 se identificaron funcionalidades comunes a muchos sistemas de software gubernamentales relacionadas con los procesos administrativos conocidos como trámites,
 entendidos en este contexto como el conjunto de requisitos, pasos o acciones a través de los cuales los individuos o las empresas solicitan o entregan información a una entidad pública,
@@ -20,8 +18,6 @@ Además, en favor de la soberanía tecnológica y la normativa vigente en Bolivi
 ].
 
 Con esto, se pretende facilitar y optimizar la implementación de trámites digitales en diversas instituciones públicas, con el objetivo de brindar beneficios al ciudadano mediante la adopción de enfoques de gobierno electrónico.
-
-== Notas y Aclaraciones Preliminares
 
 Con el fin de facilitar su referencia y dotarlo de una identidad propia, se ha asignado al proyecto el nombre de *Tunkunia*, en honor al tradicional juego boliviano que consiste en seguir una secuencia estructurada de movimientos para alcanzar un objetivo, de forma análoga al proceso del trámite.
 

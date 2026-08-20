@@ -2,7 +2,7 @@
 
 `memoria/memoria.typ` is the primary thesis entrypoint. The research on trámite
 modeling belongs to the thesis and lives in the single foundation file
-`memoria/01-foundation/tram-research.typ`.
+`memoria/02-foundations-research/03-tram-research.typ`.
 
 `supporting/tram-research.typ` is a presentation-only IEEE entrypoint that
 consumes that thesis-owned file. Other secondary entrypoints live alongside it
@@ -23,7 +23,7 @@ Use paths according to dependency locality:
 
 - use a relative path for a file in the same directory or below it, such as
   `#import "memoria.typ"` inside `shared/theme/lib.typ` or
-  `#include "sections/01-introduction.typ"` inside a section aggregator;
+  `#include "introduction.typ"` inside a large chapter's primary file;
 - use a docs-root path only when the dependency lives above the current file's
   subtree, such as `image("/assets/figures/example.png")` from a deeply nested
   chapter; and
@@ -32,10 +32,45 @@ Use paths according to dependency locality:
 This keeps reusable folders internally self-contained while preventing deeply
 nested content from depending on its current nesting depth.
 
-Write the trámite research in `memoria/01-foundation/tram-research.typ`; it
-appears in both the thesis and the IEEE rendering. Write all other thesis prose
-under `memoria/`. Change the supporting IEEE entrypoint only when changing its
-presentation or publication metadata.
+Within each numbered part, keep chapter entrypoints as numbered `.typ` files
+directly under the part directory. Restart numbering in every directory so the
+prefix expresses local reading order rather than the chapter number rendered in
+the thesis. The exceptional `01-presentation/00-introduction.typ` contains the
+unheaded prose that opens its part.
+
+Only a chapter that has grown enough to need several cohesive source files gets
+a same-numbered companion directory. Its entrypoint remains at the part root so
+all chapters stay visible together in the file explorer. For example,
+`03-definition-design/01-development-methodology.typ` owns the locally numbered
+fragments under `03-definition-design/01-development-methodology/`.
+
+Do not create generic intermediate folders such as `sections/`, `analysis/`,
+or `design/` merely to group fragments. First write the chapter in its direct
+numbered file, and split it only when its actual size makes that easier to edit.
+
+The thesis follows an artifact-centered argument:
+
+1. `01-presentation/` establishes the historical and current context, then
+   defines the problem, objectives, scope, and proposal.
+2. `02-foundations-research/` establishes the reference and theoretical bases,
+   then derives a general trámite model through research.
+3. `03-definition-design/` explains the development method, requirements,
+   domain analysis, architecture, and design.
+4. `04-construction-evaluation/` documents the prototype and evaluates it with
+   representative cases and tests.
+5. `05-conclusion/` relates the results back to the objectives and records
+   limitations and future work.
+
+Detailed schedules and repository procedures live in `appendices/` instead of
+interrupting the main argument. Write the trámite research in
+`memoria/02-foundations-research/03-tram-research.typ`; it appears in both the
+thesis and IEEE rendering. Change the supporting IEEE entrypoint only when
+changing presentation or publication metadata.
+
+A practical writing order is research, requirements, architecture,
+implementation, validation, focused foundations, introduction, and finally
+conclusions. This allows each chapter to consume evidence established by the
+previous one.
 
 Portable commands from the repository root are:
 
@@ -71,7 +106,7 @@ the change. Add or correct the Zotero item, wait for the export, cite it as
 
 ## Directory guide
 
-- `memoria/`: primary thesis entrypoint, preamble, chapters, and research prose.
+- `memoria/`: thesis entrypoint, five numbered parts, preamble, and appendices.
 - `shared/`: metadata, acronyms, bibliography, template, and bundled fonts.
 - `assets/figures/`: render-ready images used by Typst.
 - `assets/sources/`: editable Drawio, Excalidraw, and PlantUML sources.

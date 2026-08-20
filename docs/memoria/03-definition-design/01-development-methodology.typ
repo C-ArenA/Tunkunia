@@ -1,7 +1,11 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "@preview/acrostiche:0.7.0": acr
 
-= Metodología<sec:meth>
+== Metodología y gestión del desarrollo<sec:meth>
+
+#include "01-development-methodology/01-approach.typ"
+
+=== Proceso de desarrollo aplicado
 
 Para atacar el objetivo principal de este proyecto, se requiere una metodología que logre alinearse con el mismo y tome como experiencia enfoques ya existentes, pero considerando sus características únicas que, entre otras son:
 
@@ -38,13 +42,13 @@ Siguiendo estos objetivos, se propone la utilización de una metodología híbri
 - *Iteraciones Cortas*: Las iteraciones, como en XP, se realizarán de forma semanal para buscar evoluciones rápidas.
 - *Pair Programming*: Se incluye el uso de herramientas de inteligencia artificial como una pareja de programación para generación de boilerplate y revisión de código.
 
-== Roles
+=== Roles
 
-=== Cliente Potencial
+==== Cliente Potencial
 
 En metodologías como SCRUM, se usa el rol de cliente para lograr tener una fuente de verdad acerca de las necesidades que el proyecto busca resolver. Este cliente puede redirigir el objetivo del proyecto e incluso cambiar los requerimientos del mismo en cualquier iteración. Además, se usa como un eje sobre el cual pivotar el propósito y los alcances del producto final. Sin embargo, en este proyecto, el objetivo y los alcances iniciales ya se encuentran bastante bien definidos en un documento previo llamado Perfil de Proyecto y, si bien pueden realizarse algunos cambios menores sobre el mismo, estos no serán profundos y serán guiados en todo caso por la situación actual del país en cuanto a trámites, ya sea en forma de normativa vigente o comunicados oficiales y por el proponente del proyecto, en este caso, el estudiante.
 
-=== Dictador Benevolente
+==== Dictador Benevolente
 
 En proyectos de código abierto colaborativos es común hallar el concepto de dictador benevolente, incluso el sistema operativo GNU Linux usa este enfoque que le da la última palabra a una persona, normalmente, creadora del proyecto.
 
@@ -52,7 +56,7 @@ En Tunkunia sólo existe un único desarrollador y gestor del proyecto que, adem
 
 El dictador benevolente (Benevolent Dictator For Life) tomará decisiones técnicas y de gestión en el proyecto, pero escuchará y analizará sugerencias de los stakeholders. Sin embargo, dado el contexto académico del proyecto, este rol debe limitarse por la normativa de la universidad y también por las exigencias del tutor y el docente de la asignatura para la mención cuando estas sean críticas.
 
-=== Stakeholders
+==== Stakeholders
 
 No es sorpresa que en un proyecto académico el principal interesado por su éxito sea el estudiante que lo propone, convirtiéndose así en el principal stakeholder, cuyo rol estará sujeto al de dictador benevolente. Sin embargo, existen otros dos stakeholders importantes:
 
@@ -60,13 +64,13 @@ No es sorpresa que en un proyecto académico el principal interesado por su éxi
 
 - *Docente de la Asignatura para la Mención*: Es el docente de la materia ETN 1040 para la mención del estudiante y que *evaluará* el desarrollo del proyecto de forma periódica como lo señalan sus funciones dentro del reglamento de proyecto de grado de ETN 1040. Esto implica que se le deberán presentar informes de avance de forma constante y escuchar sus evaluaciones para encaminar de mejor manera el desarrollo del proyecto.
 
-=== Colaboradores Potenciales
+==== Colaboradores Potenciales
 
 En terminología de RUP, si bien en este ciclo de desarrollo que involucra a este proyecto no se trabajará con desarrolladores externos, sí se considera este rol para futuras colaboraciones y alguna de ejemplo durante este proyecto. En este sentido, se entiende el rol de colaborador como cualquier persona que busque realizar una mejora al sistema o solucionar algún problema mediante la realización de una solicitud pull request que debe ser atendida por el dictador benevolente para ser aceptada o no.
 
 Puede ser colaborador cualquier persona que tenga habilidades técnicas suficientes para la tarea en la cual desea colaborar y pueda realizar una solicitud de mejora mediante la plataforma que use el proyecto.
 
-== Ciclo de Vida
+=== Ciclo de Vida
 El ciclo de vida de este proyecto, que en adelante llamamos proceso del software en atención a la literatura sobre ingeniería de software y al hecho de que este proyecto está principalmente influenciado por esta disciplina, tomará de manera importante el proceso definido por la metodología #acr("RUP"). Esto quiere decir que se tomará la concepción bidimensional de fases y disciplinas.
 
 Como se vio en el marco teórico del proyecto, se tomarán en cuenta cuatro fases, mismas que deben priorizar ciertos objetivos y guiar el enfoque de las tareas realizadas durante las mismas. Esto, por supuesto, no se debe confundir con metodologías de cascada y no se deben confundir tampoco estas fases con las distintas etapas del proceso del software.
@@ -107,7 +111,7 @@ Entonces, el proceso del software se podrá ver mejor reflejado en las disciplin
 
 Ahora bien, como se hace en la metodología SCRUM, cada iteración debe tener cierto nivel de planificación, para lo cual no sólo se elegirán las tareas para cada iteración, sino que principalmente se definirá el objetivo de las mismas. Esto quiere decir que si en media iteración se identifica que una tarea no corresponde se puede hacer el cambio respondiendo al objetivo de cada iteración. Las iteraciones tendrán una duración de aproximadamente una semana, pero no más de dos, dependiendo de la dificultad del objetivo planteado. Se pueden realizar iteraciones cortas si su duración es motivada por el principio de divide y vencerás.
 
-== Artefactos
+=== Artefactos
 
 La @table:artifacts muestra los artefactos y el momento en que se deben inicializar en base a la tabla mostrada por la Guía a Rup de Martínez@martinezGuiaRationalUnified. Estos artefactos no se entregan como finalizados sino hasta el final del proyecto, pero se presentan avances sobre el mismo de forma regular y sólo se añadirán en la memoria las versiones finales de los mismos, anexando en algunos casos etapas intermedias si es que estas son relevantes o contienen información valiosa.
 
@@ -143,7 +147,7 @@ La @table:artifacts muestra los artefactos y el momento en que se deben iniciali
   placement: auto,
 )<table:artifacts>
 
-== Método de Trabajo
+=== Método de Trabajo
 - Creación del backlog
 - Creación de tareas paralela
 - Selección de tareas prioritarias de acuerdo a fase
@@ -151,10 +155,10 @@ La @table:artifacts muestra los artefactos y el momento en que se deben iniciali
 - Clasificación en base a disciplinas de RUP
 - Puesta en el kanban
 
-== Herramientas y Técnicas
-=== Software de Gestión de Proyectos
-=== Modelos de Lenguaje
-==== Uso de LLMs en la investigación
+=== Herramientas y Técnicas
+==== Software de Gestión de Proyectos
+==== Modelos de Lenguaje
+===== Uso de LLMs en la investigación
 
 Al haberse alimentado de todo el conocimiento humano disponible en internet, no hay duda de que los modelos de lenguaje se presentan como una tecnología valiosa para el proceso de investigación. Sin embargo, presenta características que ponen en peligro la adquisición de información relevante y confiable:
 
@@ -166,7 +170,7 @@ Al haberse alimentado de todo el conocimiento humano disponible en internet, no 
 
 En este sentido, los modelos de lenguaje deberán ser utilizados principalmente como aproximación inicial al conocimiento y petición específica de contextos de investigación. Adicionalmente, pueden usarse herramientas especializadas como NotebookLM y modos de deep research para forzar a los modelos a usar fuentes reales en sus respuestas.
 
-==== Uso de LLMs en la redacción
+===== Uso de LLMs en la redacción
 Si bien existe una evidente ventaja en el uso de modelos de lenguaje en la producción artesanal de código mediante herramientas como el autocompletado inteligente o agentes especializados y chats, en la redacción de documentos se debe tener cautela, ya que aparecen problemas importantes en el uso de inteligencia artificial:
 
 - Detrimento de la Productividad
@@ -179,8 +183,11 @@ En este sentido, para la redacción de documentos el uso de modelos de lenguaje 
 - Usar LLMs principalmente para revisión y no así para generación
 - Evitar completamente el uso de autocompletado inteligente
 
-=== Pareja de Programación
+==== Pareja de Programación
 
+#include "01-development-methodology/02-communication.typ"
 
+=== Planificación, seguimiento y control
 
+=== Gestión de riesgos y recursos
 
