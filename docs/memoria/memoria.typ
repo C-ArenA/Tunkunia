@@ -19,11 +19,13 @@
   font: "New Computer Modern",
 )
 
-= Presentación del Proyecto
 #include "01-presentation/00-introduction.typ"
-#include "01-presentation/01-background.typ"
-#include "01-presentation/02-current-situation.typ"
-#include "01-presentation/03-project-definition.typ"
+#[
+  #set heading(offset: 1)
+  #include "01-presentation/01-background.typ"
+  #include "01-presentation/02-current-situation.typ"
+  #include "01-presentation/03-project-definition.typ"
+]
 
 = Fundamentos e Investigación
 #include "02-foundations-research/01-reference-framework.typ"
@@ -36,14 +38,13 @@
   #include "02-foundations-research/03-tram-research.typ"
 ]
 
-= Definición y Diseño del Sistema
-#include "03-definition-design/01-development-methodology.typ"
-#include "03-definition-design/02-requirements-analysis.typ"
-#include "03-definition-design/03-architecture-design.typ"
+= Proceso de Ingeniería de Software
+#include "03-process/01-development-methodology.typ"
+#include "03-process/02-requirements.typ"
+#include "03-process/03-architecture.typ"
+#include "03-process/04-design.typ"
+#include "03-process/05-prototype-implementation.typ"
 
-= Construcción y Evaluación del Prototipo
-#include "04-construction-evaluation/01-prototype-implementation.typ"
-#include "04-construction-evaluation/02-validation-results.typ"
-
-= Cierre del Proyecto
-#include "05-conclusion/01-conclusions-recommendations.typ"
+= Etapa Conclusiva
+#include "04-conclusion/01-validation-results.typ"
+#include "04-conclusion/02-conclusions-recommendations.typ"

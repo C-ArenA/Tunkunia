@@ -71,4 +71,5 @@
   "XP": "Extreme Programming",
   "BPMN": "Business Process Model and Notation",
   "BDFL": "Benevolent Dictator For Life",
+  "SWEBOK": "Software Engineering Body of Knowledge"
 )

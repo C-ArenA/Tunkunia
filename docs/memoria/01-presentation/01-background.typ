@@ -7,6 +7,7 @@ A continuación se presenta el recorrido que conduce a la problemática de este 
 #figure(
   image("/assets/figures/background.png", width: 80%),
   caption: [Antecedentes a la identificación de la problemática de este proyecto\ Fuente: Elaboración propia],
+  placement: top,
 )<fig:background>
 
 === Del trámite tradicional a la modernización administrativa

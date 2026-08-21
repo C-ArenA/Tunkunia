@@ -79,7 +79,6 @@ No se encontraron módulos especializados en gestión de trámites que pudieran 
 #figure(
   image("/assets/figures/conecosa.png", width: 40%),
   caption: [Screenshot tomada del artículo "The Application of Petri Nets to Workflow Management" @vanderaalstAPPLICATIONPETRINETS1998],
-  placement: auto,
 )<fig:conecosa>
 
 #figure(
