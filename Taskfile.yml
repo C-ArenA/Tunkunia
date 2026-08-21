@@ -24,16 +24,16 @@ tasks:
     cmds:
       - >
         watchexec
-        -w ./internal/api/v1
-        redocly bundle
-        ./internal/api/v1/openapi.yaml
-        -o ./v1.openapi.yaml
+        -w ./specs/v1
+        pnpm exec redocly bundle
+        ./specs/v1/openapi.yaml
+        -o ./specs/v1.openapi.yaml
 
   openapi:lint:
     desc: Validates the bundled OpenAPI specification
     cmds:
-      - redocly bundle ./internal/api/v1/openapi.yaml -o ./v1.openapi.yaml
-      - redocly lint ./v1.openapi.yaml
+      - pnpm exec redocly bundle ./specs/v1/openapi.yaml -o ./specs/v1.openapi.yaml
+      - pnpm exec redocly lint ./specs/v1.openapi.yaml
 
   dex:serve:
     desc: Start local Dex OIDC sandbox server
@@ -45,9 +45,9 @@ tasks:
   scalar:serve:
     desc: Serves a scalar api reference
     preconditions:
-      - test -f ./v1.openapi.yaml
+      - test -f ./specs/v1.openapi.yaml
     cmds:
-      - pnpm dlx @scalar/cli document serve --watch --port 8491 ./v1.openapi.yaml
+      - pnpm dlx @scalar/cli document serve --watch --port 8491 ./specs/v1.openapi.yaml
     failfast: true
 
   scalar:dev:

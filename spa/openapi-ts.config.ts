@@ -1,7 +1,7 @@
 import { defineConfig } from "@hey-api/openapi-ts";
 
 export default defineConfig({
-  input: "../v1.openapi.yaml", // sign up at app.heyapi.dev
+  input: "../specs/v1.openapi.yaml", // sign up at app.heyapi.dev
   output: "./shared/clientV1",
   plugins: [
     {
