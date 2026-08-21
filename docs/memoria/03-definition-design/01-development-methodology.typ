@@ -1,5 +1,4 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
-#import "@preview/acrostiche:0.7.0": acr
 
 == Metodología y gestión del desarrollo<sec:meth>
 
@@ -71,7 +70,7 @@ En terminología de RUP, si bien en este ciclo de desarrollo que involucra a est
 Puede ser colaborador cualquier persona que tenga habilidades técnicas suficientes para la tarea en la cual desea colaborar y pueda realizar una solicitud de mejora mediante la plataforma que use el proyecto.
 
 === Ciclo de Vida
-El ciclo de vida de este proyecto, que en adelante llamamos proceso del software en atención a la literatura sobre ingeniería de software y al hecho de que este proyecto está principalmente influenciado por esta disciplina, tomará de manera importante el proceso definido por la metodología #acr("RUP"). Esto quiere decir que se tomará la concepción bidimensional de fases y disciplinas.
+El ciclo de vida de este proyecto, que en adelante llamamos proceso del software en atención a la literatura sobre ingeniería de software y al hecho de que este proyecto está principalmente influenciado por esta disciplina, tomará de manera importante el proceso definido por la metodología @RUP. Esto quiere decir que se tomará la concepción bidimensional de fases y disciplinas.
 
 Como se vio en el marco teórico del proyecto, se tomarán en cuenta cuatro fases, mismas que deben priorizar ciertos objetivos y guiar el enfoque de las tareas realizadas durante las mismas. Esto, por supuesto, no se debe confundir con metodologías de cascada y no se deben confundir tampoco estas fases con las distintas etapas del proceso del software.
 
@@ -190,4 +189,3 @@ En este sentido, para la redacción de documentos el uso de modelos de lenguaje 
 === Planificación, seguimiento y control
 
 === Gestión de riesgos y recursos
-

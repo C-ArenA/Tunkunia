@@ -1,8 +1,31 @@
-#import "@preview/acrostiche:0.7.0": init-acronyms
-#import "backmatter.typ": backmatter, with-glossary
+#import "@preview/glossy:0.9.2": init-glossary
+#import "backmatter.typ": backmatter
 #import "frontmatter.typ": frontmatter
 #import "global.typ": global
 #import "mainmatter.typ": mainmatter
+
+#let with-group(terms, group) = {
+  let grouped = (:)
+  for (key, value) in terms {
+    let entry = if type(value) == str {
+      (short: key, long: value)
+    } else {
+      value
+    }
+    entry.insert("group", group)
+    grouped.insert(key, entry)
+  }
+  grouped
+}
+
+#let with-terminology(acronyms, glossary, body) = {
+  if acronyms.len() == 0 and glossary.len() == 0 {
+    body
+  } else {
+    show: init-glossary.with(acronyms + with-group(glossary, "glossary"))
+    body
+  }
+}
 
 #let memoria(
   title: none,
@@ -12,9 +35,9 @@
   dedication: none,
   acknowledgements: none,
   abstract: none,
-  acronyms: (),
+  acronyms: (:),
   bibliography: none,
-  glossary: (),
+  glossary: (:),
   appendices: none,
   font: "New Computer Modern",
   doc,
@@ -28,9 +51,8 @@
     author: authors,
     date: date,
   )
-  init-acronyms(acronyms)
   show: global.with(font)
-  show: with-glossary.with(glossary)
+  show: with-terminology.with(acronyms, glossary)
 
   frontmatter(
     title,

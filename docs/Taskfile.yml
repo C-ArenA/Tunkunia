@@ -43,12 +43,12 @@ tasks:
   fmt:
     desc: Format active Typst documents and the shared theme
     cmds:
-      - typstyle --inplace memoria/memoria.typ memoria/config.typ memoria/02-foundations-research/03-tram-research.typ supporting/*.typ shared/glossary.typ shared/theme/*.typ
+      - typstyle --inplace memoria/memoria.typ memoria/02-foundations-research/03-tram-research.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/theme/*.typ
 
   fmt:check:
     desc: Check formatting of active Typst documents and the shared theme
     cmds:
-      - typstyle --check memoria/memoria.typ memoria/config.typ memoria/02-foundations-research/03-tram-research.typ supporting/*.typ shared/glossary.typ shared/theme/*.typ
+      - typstyle --check memoria/memoria.typ memoria/02-foundations-research/03-tram-research.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/theme/*.typ
 
   check:
     desc: Check formatting and compile every supported document

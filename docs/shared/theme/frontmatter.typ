@@ -1,4 +1,4 @@
-#import "@preview/acrostiche:0.7.0": print-index
+#import "@preview/glossy:0.9.2": glossary
 #import "@preview/icu-datetime:0.2.0": fmt
 
 // Cover -----------------------------------------------------------------------
@@ -133,6 +133,18 @@
   body
 }
 
+#let acronym-theme = (
+  section: (title, body) => {
+    heading(level: 1, numbering: none, title)
+    body
+  },
+  group: (name, index, total, body) => body,
+  entry: (entry, index, total) => block[
+    #strong(entry.short)#entry.label
+    #if entry.long != none { [ -- #entry.long] }
+  ],
+)
+
 #let indexes(acronyms) = outline-style[
   #outline(title: "Índice General")
 
@@ -142,12 +154,11 @@
 
   #if acronyms.len() > 0 {
     pagebreak(weak: true)
-    print-index(
-      outlined: true,
+    glossary(
       title: "Acrónimos",
-      sorted: "up",
-      row-gutter: 1.5em,
-      used-only: true,
+      theme: acronym-theme,
+      ignore-case: true,
+      groups: ("",),
     )
   }
 ]
@@ -162,7 +173,7 @@
   dedication: none,
   acknowledgements: none,
   abstract: none,
-  acronyms: (),
+  acronyms: (:),
 ) = {
   cover(title, authors, date)
 

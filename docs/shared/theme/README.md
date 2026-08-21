@@ -18,6 +18,7 @@ El cuerpo continúa siendo la estructura que escribe el usuario después del
 #show: memoria.with(
   title: "Título del proyecto",
   authors: ("Postulante: Nombre", "Tutor: Nombre"),
+  acronyms: acronyms,
   bibliography: bibliography("/shared/references.bib"),
   glossary: (),
   appendices: [
@@ -29,21 +30,42 @@ El cuerpo continúa siendo la estructura que escribe el usuario después del
 == Primer capítulo
 ```
 
-En una memoria grande, los parámetros deben reunirse en `config.typ`:
+Los acrónimos y términos de glosario son diccionarios de Glossy separados porque
+aparecen en lugares diferentes:
 
 ```typ
-#import "/shared/theme/lib.typ": memoria
-#import "config.typ": settings
+#let acronyms = (
+  API: "Application Programming Interface",
+  IRAP: (
+    short: "IRAP",
+    plural: "IRAPs",
+    long: "Instrumento de Regulación Ambiental Particular",
+    longplural: "Instrumentos de Regulación Ambiental Particular",
+  ),
+)
 
-#show: memoria.with(..settings)
+#let glossary = (
+  "gls-tramite": (short: "trámite", description: "Procedimiento administrativo."),
+)
 ```
+
+Después de registrar ambos diccionarios mediante la plantilla, el texto puede usar
+`@API`, `@IRAP:pl` y `@gls-tramite`. La primera referencia presenta la forma larga
+cuando existe; las siguientes presentan la forma corta.
+
+Los acrónimos usan directamente su forma corta como clave y se distinguen por sus
+mayúsculas. Los términos del glosario conservan el prefijo `gls-`; el guion evita
+conflictos con los dos puntos que Glossy reserva para modificadores como `:pl`.
 
 Los argumentos opcionales son `date`, `copyright`, `dedication`,
 `acknowledgements`, `abstract`, `acronyms`, `bibliography`, `glossary`,
 `appendices` y `font`. Todos los bloques documentales son opcionales. El glosario
-es una lista de diccionarios compatible con
-[Glossarium](https://typst.app/universe/package/glossarium/); los acrónimos
-existentes continúan usando Acrostiche.
+es un diccionario compatible con
+[Glossy](https://typst.app/universe/package/glossy/). `acronyms` usa el mismo
+formato. Los acrónimos quedan en el grupo vacío y la plantilla asigna
+automáticamente el grupo `glossary` a todos los términos del glosario; las claves
+de ambos diccionarios deben ser únicas. El tema usa Glossy 0.9.2 y requiere Typst
+0.14.0 o posterior.
 
 Los archivos suministrados en `appendices` deben comenzar con un encabezado de
 nivel uno (`=`). La plantilla lo convierte en `Anexo A`, reinicia cada anexo en
@@ -61,7 +83,8 @@ una página y numera sus descendientes como `A.1`, `A.1.1`, etc.
 4. `backmatter.typ` conserva la numeración arábiga y, cuando fueron suministrados,
    presenta bibliografía, glosario y anexos en ese orden, sin numeración de
    encabezados ordinarios.
-5. `memoria.typ` valida datos y ensambla esas cuatro etapas.
+5. `memoria.typ` valida datos, combina ambos diccionarios, instala una sola
+   instancia de Glossy y ensambla las cuatro etapas.
 
 ## Regla para modificar el tema
 

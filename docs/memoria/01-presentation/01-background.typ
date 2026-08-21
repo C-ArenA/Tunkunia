@@ -1,9 +1,8 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
-#import "@preview/acrostiche:0.7.0": acr
 
 == Antecedentes
 
-A continuación se hace un repaso histórico en torno al trámite, su relevancia, sus problemas originales, la necesidad de adopción de tecnologías de la información por el gobierno boliviano, la atención a dicha necesidad en el sistema #acr("SIAI") mediante la consultora 2IES y cómo esto deriva posteriormente en la identificación de características comunes a diversos trámites (@fig:background).
+A continuación se hace un repaso histórico en torno al trámite, su relevancia, sus problemas originales, la necesidad de adopción de tecnologías de la información por el gobierno boliviano, la atención a dicha necesidad en el sistema @SIAI mediante la consultora 2IES y cómo esto deriva posteriormente en la identificación de características comunes a diversos trámites (@fig:background).
 
 #figure(
   image("/assets/figures/background.png", width: 80%),
@@ -102,11 +101,11 @@ A su vez, la Ley 164, dio lugar a una serie de políticas públicas, reglamentos
 
 Dentro de estos documentos, el Plan de Implementación de Gobierno Electrónico, aprobado mediante Decreto Supremo Nº 3251 @DecretoSupremoNo2017, señala en su línea estratégica número 3, que se debe asegurar el intercambio de información entre entidades públicas y con la ciudadanía mediante la interoperabilidad.
 
-Adicionalmente, dada la situación de emergencia sanitaria provocada por la pandemia de COVID-19, el gobierno boliviano ha acelerado la implementación de #acr("TICs") en la administración pública, promoviendo el uso de plataformas digitales para la atención al ciudadano y la gestión de trámites. Por esto mismo, se aprobó, mediante Resolución Ministerial Nº 079/20, el documento de "Lineamientos y estándares técnicos para el desarrollo e implementación de Servicios Digitales", mismo que no sólo insiste en la digitalización de servicios como el trámite, sino que proporciona una guía a las entidades públicas y privadas que desarrollan software bajo este propósito, indicando la disponibilidad de diferentes herramientas creadas por la AGETIC, como la de Ciudadanía Digital.
+Adicionalmente, dada la situación de emergencia sanitaria provocada por la pandemia de COVID-19, el gobierno boliviano ha acelerado la implementación de @TICs en la administración pública, promoviendo el uso de plataformas digitales para la atención al ciudadano y la gestión de trámites. Por esto mismo, se aprobó, mediante Resolución Ministerial Nº 079/20, el documento de "Lineamientos y estándares técnicos para el desarrollo e implementación de Servicios Digitales", mismo que no sólo insiste en la digitalización de servicios como el trámite, sino que proporciona una guía a las entidades públicas y privadas que desarrollan software bajo este propósito, indicando la disponibilidad de diferentes herramientas creadas por la AGETIC, como la de Ciudadanía Digital.
 
 No se debe ignorar que en lineas generales, la Constitución Política del Estado Plurinacional de Bolivia, en su Artículo 21, también establece el derecho de la ciudadanía a acceder a la información pública y a la administración pública, así como el derecho a la participación en la gestión pública.
 
-Como puede notarse, aunque se lista solamente lo considerado más relevante, existe bastante normativa y documentación que promueve y/o demanda el uso de las #acr("TICs") y la digitalización de trámites en el gobierno boliviano. En este contexto, distintas entidades públicas han comenzado a implementar sistemas para facilitar sus funciones administrativas, en particular las funciones que tienen que ver con trámites.
+Como puede notarse, aunque se lista solamente lo considerado más relevante, existe bastante normativa y documentación que promueve y/o demanda el uso de las @TICs y la digitalización de trámites en el gobierno boliviano. En este contexto, distintas entidades públicas han comenzado a implementar sistemas para facilitar sus funciones administrativas, en particular las funciones que tienen que ver con trámites.
 
 ==== Sistema de Información Ambiental Industrial
 
@@ -130,16 +129,16 @@ En años recientes, con la adopción de las tecnologías de la información cada
 
 ==== Experiencias en el desarrollo del SIAI
 
-La ejecución del proyecto, licitado por el #acr("MDPyEP"), estuvo entonces a cargo de la consultora 2IES,
-que procedió a la implementación del nuevo #acr("SIAI") atendiendo a las especificaciones técnicas del Documento Base de Contratación,
+La ejecución del proyecto, licitado por el @MDPyEP, estuvo entonces a cargo de la consultora 2IES,
+que procedió a la implementación del nuevo @SIAI atendiendo a las especificaciones técnicas del Documento Base de Contratación,
 así como a las distintas interacciones efectuadas con el cliente.
 
-El sistema fue construido como una aplicación web con la arquitectura cliente-servidor, con un backend monolítico y un frontend elaborado como una #acr("SPA"). En base a esto y para poder responder a necesidades de integración e interoperabilidad futuras, se optó además por una comunicación entre el frontend y el backend mediante una #acr("API") de tipo #acr("REST"), abierta y bien documentada.
+El sistema fue construido como una aplicación web con la arquitectura cliente-servidor, con un backend monolítico y un frontend elaborado como una @SPA. En base a esto y para poder responder a necesidades de integración e interoperabilidad futuras, se optó además por una comunicación entre el frontend y el backend mediante una @API de tipo @REST, abierta y bien documentada.
 
 De forma más específica, se adoptó el estilo de arquitectura por capas (Layered Architecture Style),
 con tres unidades físicas desplegables, como se puede ver en la @fig:siai_architecture_style,
 que correspondería a una arquitectura monolítica muy común en aplicaciones web.
-La capa de negocio, sin embargo, interopera a su vez con otros sistemas mediante servicios #acr("REST") #acr("API")
+La capa de negocio, sin embargo, interopera a su vez con otros sistemas mediante servicios @REST @API
 #footnote[El SIAI consume datos de un servicio provisional del SEPREC para obtener información sobre las industrias registradas en el país],
 dándole características híbridas al sistema entre una arquitectura principalmente monolítica y una arquitectura de servicios.
 
@@ -151,9 +150,9 @@ dándole características híbridas al sistema entre una arquitectura principalm
 
 El backend fue desarrollado utilizando el lenguaje de programación PHP, con uno de los frameworks de desarrollo más populares y completos de su ecosistema, Laravel. El frontend, por su lado, fue desarrollado utilizando el framework Vue.js, que permite crear aplicaciones web interactivas y dinámicas. Además, se utilizó el sistema de gestión de bases de datos PostgreSQL, de tipo relacional.
 
-Inicialmente, se debe mencionar que el sistema #acr("SIAI") atiende una amplia variedad de requerimientos, de los cuales son relevantes en este documento aquellos de tipo administrativo, que involucran un grupo de documentos ambientales a ser obtenidos y actualizados por las industrias manufactureras del país, dependiendo de ciertas características y condiciones dadas a conocer en un primer trámite de registro (RAI).
+Inicialmente, se debe mencionar que el sistema @SIAI atiende una amplia variedad de requerimientos, de los cuales son relevantes en este documento aquellos de tipo administrativo, que involucran un grupo de documentos ambientales a ser obtenidos y actualizados por las industrias manufactureras del país, dependiendo de ciertas características y condiciones dadas a conocer en un primer trámite de registro (RAI).
 
-Es decir, el SIAI tiene como protagonistas a las industrias manufactureras que deben cumplir con la normativa ambiental vigente de acuerdo al #acr("RASIM"). Esta normativa demanda la obtención de una serie de documentos llamados #acr("IRAP", plural: true), que se listan a continuación:
+Es decir, el SIAI tiene como protagonistas a las industrias manufactureras que deben cumplir con la normativa ambiental vigente de acuerdo al @RASIM. Esta normativa demanda la obtención de una serie de documentos llamados @IRAP:pl, que se listan a continuación:
 
 - RAI: Registro Ambiental Industrial
 - EEIA: Estudio de Evaluación de Impacto Ambiental
@@ -170,4 +169,3 @@ Dado que una gran parte de la funcionalidad de este sistema, consistía en el ma
 Al implementar los diferentes componentes referentes a dichos trámites, se identificaron claras similitudes entre ellos, como la necesidad de permitir un seguimiento transparente, la aprobación de documentos por etapas, la auditoría y la gestión general de cada trámite.
 
 Si bien el proyecto del SIAI llegó a su conclusión, estas similitudes identificadas a la hora de implementar los distintos trámites, además de la potencial similitud con trámites de otras distintas instancias del sector público, guiaron a la identificación del problema presentado en este proyecto.
-

@@ -1,14 +1,17 @@
-#import "@preview/glossarium:0.5.10": make-glossary, print-glossary, register-glossary
+#import "@preview/glossy:0.9.2": glossary as render-glossary
 
-#let with-glossary(glossary, body) = {
-  if glossary.len() == 0 {
+#let glossary-theme = (
+  section: (title, body) => {
+    heading(level: 1, numbering: none, title)
     body
-  } else {
-    show: make-glossary
-    register-glossary(glossary)
-    body
-  }
-}
+  },
+  group: (name, index, total, body) => body,
+  entry: (entry, index, total) => block[
+    #strong(entry.short)#entry.label
+    #if entry.long != none { [ -- #entry.long] }
+    #if entry.description != none { [: #entry.description] }
+  ],
+)
 
 #let appendix-numbering(..numbers) = numbering(
   "A.1.1",
@@ -38,7 +41,7 @@
 
 #let backmatter(
   bibliography: none,
-  glossary: (),
+  glossary: (:),
   appendices: none,
 ) = {
   set page(numbering: "1")
@@ -49,8 +52,13 @@
     if bibliography != none { bibliography }
     if glossary.len() > 0 {
       pagebreak(weak: true)
-      heading(level: 1, numbering: none)[Glosario]
-      print-glossary(glossary, show-all: true)
+      render-glossary(
+        title: "Glosario",
+        theme: glossary-theme,
+        ignore-case: true,
+        groups: ("glossary",),
+        show-all: true,
+      )
     }
     if appendices != none {
       pagebreak(weak: true)

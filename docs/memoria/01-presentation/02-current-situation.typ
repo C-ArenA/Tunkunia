@@ -1,4 +1,4 @@
-#import "@preview/acrostiche:0.7.0": acr
+
 
 == Situación Actual <section:current_situation>
 
@@ -8,12 +8,12 @@ la situación actual en el campo o área de trabajo en distintos niveles, como p
 === Adopción del Internet y las Plataformas Digitales<section:adoption>
 
 Desde la aparición de Internet, el mundo ha cambiado drásticamente. La forma en que las personas se comunican, trabajan y realizan transacciones ha evolucionado de una forma acelerada.
-Esta tendencia puede evidenciarse en el ritmo de adopción de Internet en el mundo que, de acuerdo a estimaciones de la #acr("UIT"), pasó de un 53% de la población mundial en el año 2019 a un 68% en el año 2024, como puede apreciarse en la @fig:internet_use.
+Esta tendencia puede evidenciarse en el ritmo de adopción de Internet en el mundo que, de acuerdo a estimaciones de la @UIT, pasó de un 53% de la población mundial en el año 2019 a un 68% en el año 2024, como puede apreciarse en la @fig:internet_use.
 Esto significa que el año 2024 se registró que cerca de 5,5 mil millones de personas usan internet, mientras que 1,3 mil millones aún no estarían en línea a nivel mundial @Statistics.
 
 #figure(
   image("/assets/figures/internet_use.png", width: 60%),
-  caption: [Número de usuarios de Internet en el mundo\ Fuente: #acr("UIT")],
+  caption: [Número de usuarios de Internet en el mundo\ Fuente: @UIT],
 )<fig:internet_use>
 
 Bolivia no es la excepción a esta tendencia, ya que el año 2023 se estima que el 70,2% de la población boliviana ya contaba con acceso a Internet, como puede verse en la @fig:internet_use_bolivia.
@@ -21,7 +21,7 @@ Es decir que el país se encontraría por encima del promedio mundial de adopci�
 
 #figure(
   image("/assets/figures/internet_use_bolivia.png", width: 80%),
-  caption: [Número de usuarios de Internet en Bolivia y su crecimiento\ Fuente: #acr("UIT")],
+  caption: [Número de usuarios de Internet en Bolivia y su crecimiento\ Fuente: @UIT],
   placement: auto,
 )<fig:internet_use_bolivia>
 
@@ -41,7 +41,7 @@ Como puede verse, la adopción de plataformas digitales ha crecido de forma acel
 
 Al día de hoy se podría decir que ser un gobierno electrónico es más que una simple tendencia temporal. Durante la pandemia del COVID-19 se hizo una necesidad y ahora parece ser la norma.
 Esto puede verse reflejado en el reporte sobre gobiernos digitales de las Naciones Unidas,
-en el que el indicador #acr("EGDI"), que mide la adopción de políticas que favorecen la implementación del gobierno electrónico,
+en el que el indicador @EGDI, que mide la adopción de políticas que favorecen la implementación del gobierno electrónico,
 tuvo un aumento relevante en tan sólo dos años (@fig:egdi2020_2022).
 
 #figure(
@@ -57,7 +57,7 @@ La anterior afirmación, si bien se cita de un estudio realizado el año 2018 @r
 
 === Normativa relevante vigente en Bolivia
 
-Como se pudo ver en la sección de antecedentes, y de forma resumida en la @fig:bolivia_norms, Bolivia cuenta con una normativa bastante amplia en relación al uso de las #acr("TICs"), el gobierno electrónico, la digitalización de trámites y el desarrollo de software gubernamental. A continuación se presentan algunos elementos relevantes adicionales y, aunque no se pretende abarcar toda la normativa existente, dada su extensión, sí se desea poder atender a los aspectos más importantes como punto de partida para entender la situación normativa del país.
+Como se pudo ver en la sección de antecedentes, y de forma resumida en la @fig:bolivia_norms, Bolivia cuenta con una normativa bastante amplia en relación al uso de las @TICs, el gobierno electrónico, la digitalización de trámites y el desarrollo de software gubernamental. A continuación se presentan algunos elementos relevantes adicionales y, aunque no se pretende abarcar toda la normativa existente, dada su extensión, sí se desea poder atender a los aspectos más importantes como punto de partida para entender la situación normativa del país.
 
 ==== Acerca del Trámite
 
@@ -163,7 +163,9 @@ El "Plan de Implementación de Gobierno Electrónico" es un documento en el que 
 
 Bolivia también cuenta con un "Plan de Implementación de Software Libre y Estándares Abiertos", en el que se define al software libre del modo siguiente:
 
-#quote(attribution: "Plan de Implementación de Software Libre y Estándares Abiertos")[
+#quote(
+  attribution: "Plan de Implementación de Software Libre y Estándares Abiertos",
+)[
   El Software Libre se basa en una filosofía que busca que el desarrollo de la tecnología se
   oriente al bienestar de los seres humanos en términos de igualdad; que el conocimiento sea
   lo que realmente es: un bien común de la humanidad; que la cooperación sea el modelo de
@@ -269,11 +271,11 @@ La reutilización de software se ha popularizado bastante en los últimos años,
 
 En este sentido, la @fig:mobile_reuse, que forma parte de un estudio publicado el año 2014, sobre la reutilización de software en el desarrollo de aplicaciones móviles, halló que en las distintas categorías de aplicaciones analizadas, existe un alto porcentaje de reutilización #footnote[La reutilización en este estudio fue medida calculando la proporción de clases reutilizadas sobre la cantidad total de clases de cada proyecto], por encima del 62% @mojicaLargeScaleEmpiricalStudy2014.
 
-Esta tendencia se ve también en otros campos del desarrollo de software, particularmente en el desarrollo web, donde se popularizó la herramienta de gestión de paquetes #acr("NPM") para facilitar la reutilización de código en el desarrollo de aplicaciones web y sobre la cual se puede evidenciar un aumento significativo de paquetes reutilizables, con más de un millón registrados el año 2022 y con un crecimiento del 60% entre los meses de enero del 2019 y 2022 @mujahidWhatAreCharacteristics2023. Una búsqueda actual (2025) en el sitio oficial de #acr("NPM") muestra que existen ya más de dos millones de paquetes disponibles en su registro y que cuenta con la contribución de más de 17 millones de desarrolladores de software a nivel mundial @NpmHome.
+Esta tendencia se ve también en otros campos del desarrollo de software, particularmente en el desarrollo web, donde se popularizó la herramienta de gestión de paquetes @NPM para facilitar la reutilización de código en el desarrollo de aplicaciones web y sobre la cual se puede evidenciar un aumento significativo de paquetes reutilizables, con más de un millón registrados el año 2022 y con un crecimiento del 60% entre los meses de enero del 2019 y 2022 @mujahidWhatAreCharacteristics2023. Una búsqueda actual (2025) en el sitio oficial de @NPM muestra que existen ya más de dos millones de paquetes disponibles en su registro y que cuenta con la contribución de más de 17 millones de desarrolladores de software a nivel mundial @NpmHome.
 
 ==== Sistemas de Gestión de Flujos de Trabajo y Procesos<section:wfms>
 
-Existe en la actualidad un tipo de sistema que va muy de la mano con el propuesto en este proyecto, el cual es el #acr("WFMS"). Estos sistemas contemplan de forma general el manejo de flujos de trabajo. De forma similar, y a veces usado de forma indistinta con WFM existe el término BPM (Business Process Management), que de modo más amplio es el arte y la ciencia de supervisar cómo el trabajo es realizado dentro de una organización.
+Existe en la actualidad un tipo de sistema que va muy de la mano con el propuesto en este proyecto, el cual es el @WFMS. Estos sistemas contemplan de forma general el manejo de flujos de trabajo. De forma similar, y a veces usado de forma indistinta con WFM existe el término BPM (Business Process Management), que de modo más amplio es el arte y la ciencia de supervisar cómo el trabajo es realizado dentro de una organización.
 
 Toda organización, incluido por supuesto el aparato gubernamental, debe manejar *procesos* @dumasFundamentalsBusinessProcess2013, siendo los trámites típicos ejemplos. Es por esto que tanto los WFMS y BPM tienen bastante relevancia en los sistemas de software.
 
@@ -316,7 +318,7 @@ Con esto en mente, muchos patrones y estilos de arquitectura buscan lograr modul
 
 #figure(
   image("/assets/figures/soa_topo.png", width: 60%),
-  caption: [Topología del estilo de arquitectura #acr("SOA")\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  caption: [Topología del estilo de arquitectura @SOA\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
   placement: auto,
 )<fig:soa_topo>
 
@@ -426,7 +428,7 @@ Debido a la cantidad de procesos administrativos que existen en distintas instit
 
 - *Sistema de Control de Trámites utilizando Máquinas de Turing para la División de Gestiones, Admisiones y Registros U.M.S.A.* @nachoSISTEMACONTROLTRAMITES2007: En este proyecto de grado, realizado el año 2007, se toma como base teórica a las máquinas de Turing. En dichas máquinas, que son un modelo matemático de computación, se describe una suerte de cinta dividida en casillas que funciona como memoria y un cabezal que escribe y lee de esa cinta, cambiando de estados. Esta conceptualización, a pesar de no haber sido implementada de forma estricta en dicho proyecto, señala la necesidad de modelar los procesos y presenta una forma innovadora de hacerlo. El sistema propuesto presenta muchas de las funcionalidades esperadas en el presente proyecto, como el seguimiento y el control de los trámites desde el registro inicial hasta la conclusión del mismo. Además, este trabajo atiende alrededor de veintiún procesos diferentes que, si bien son todos parte de una misma institución, representan la atención a distintos trámites con un mismo sistema y técnica de modelado, algo muy relevante para el subsistema propuesto en este documento.
 
-- *Implementación De Un Módulo De Control Y Seguimiento Para Mejorar La Gestión Del Trámite Documentario En La Municipalidad Distrital De Cayaltí* @murosalazarImplementacionModuloControl2018: Esta tesis, del año 2018, forma parte de una línea de investigación de reforma y modernización del estado y busca demostrar la importancia de la creación de un módulo específico de trámites. Brinda algunas recomendaciones, pero no realiza ninguna implementación práctica. Se sugiere cierta preferencia en la metodología #acr("XP") por encima de la metodología SCRUM de desarrollo de software, la cual puede deberse a la demanda de desarrollos en corto tiempo dentro de las instituciones públicas. En la propuesta de este trabajo se recomienda entonces seguir dicha metodología ágil #acr("XP"), respetando el ciclo de vida del software para así obtener un sistema que sea, entre otras cosas, *reutilizable, portable e interoperable*. El enfoque de modularidad es evidente en este documento.
+- *Implementación De Un Módulo De Control Y Seguimiento Para Mejorar La Gestión Del Trámite Documentario En La Municipalidad Distrital De Cayaltí* @murosalazarImplementacionModuloControl2018: Esta tesis, del año 2018, forma parte de una línea de investigación de reforma y modernización del estado y busca demostrar la importancia de la creación de un módulo específico de trámites. Brinda algunas recomendaciones, pero no realiza ninguna implementación práctica. Se sugiere cierta preferencia en la metodología @XP por encima de la metodología SCRUM de desarrollo de software, la cual puede deberse a la demanda de desarrollos en corto tiempo dentro de las instituciones públicas. En la propuesta de este trabajo se recomienda entonces seguir dicha metodología ágil @XP, respetando el ciclo de vida del software para así obtener un sistema que sea, entre otras cosas, *reutilizable, portable e interoperable*. El enfoque de modularidad es evidente en este documento.
 
 - *Desarrollo de una aplicación _web responsive_ para mejorar el proceso de trámite documentario en un colegio profesional* @cajusolvallejosDesarrolloAplicacionWeb2020: Este trabajo de tipo tesis, realizado el año 2020, en el contexto de la ingeniería de sistemas, muestra la implementación de un sistema de gestión de trámites en un colegio profesional de Perú. Al igual que el proyecto realizado en la división de gestiones, admisiones y registros de la U.M.S.A., se enfrenta a una *variedad de procesos administrativos*, pero además se encarga de conceptualizarlos correctamente desde su origen. Al ser una implementación completa, el trabajo muestra bastante detalle sobre el proceso de desarrollo del software, utilizando una metodología SCRUM y documentando los diferentes sprints realizados. Finalmente, efectúa un análisis del impacto del nuevo sistema y hace una serie de recomendaciones, entre las cuales se puede resaltar la importancia de usar *software libre para reducir costos* y la necesidad de capacitar a los usuarios del sistema para lograr un máximo aprovechamiento del mismo.
 
@@ -481,9 +483,9 @@ Si bien no se pudo encontrar módulos especializados en la gestión de trámites
 
 - *SoftExpert BPM:* Solución de software para la gestión de procesos de negocio @BusinessProcessManagemente. Si bien su foco no son los trámites, cuenta con elementos de modelado y seguimiento de procesos que podrían ser útiles en el contexto de los trámites digitales.
 - *R2 Docuo:* Sistema completo de gestión de procesos que cuenta con una funcionalidad para el manejo de solicitudes y trámites @SoftwareParaGestionb. Crea fichas de información, define los pasos de cada trámite, almacena documentos asociados y ahorra tiempo con formularios y avisos (@fig:r2docuotimeline)
-- *Odoo:* Es un #acr("ERP") @ERPCRMCodigo con herramientas para el manejo de flujos de trabajo y con un diseño modular que permite la creación de soluciones de terceros, entre las cuales existe una, ya sin mantenimiento, que permite crear flujos desde una herramienta gráfica de modelado de procesos (@fig:odoowfms). Es importante resaltar que Odoo cuenta con una edición llamada "Community" que es totalmente de código abierto, y dado que es un ERP completo con capacidad de manejo de procesos, podría ser un punto de partida interesante para proyectos de digitalizazción de trámites.
-- *COSA:* Un gestor de flujos de trabajo antiguo que se menciona como ejemplo de caso de uso de redes de Petri en un #acr("WFMS") @vanderaalstAPPLICATIONPETRINETS1998, esto mediante una herramienta llamada CONE (@fig:conecosa).
-- *Insite CRM:* Es un CRM desarrollado por Insite @tanjaOPERATIONALCRM2024, el cual cuenta con un módulo de gestión de flujos de trabajo (@fig:insitecrm), mediante el cual se permite la definición de procesos en una interfaz de usuario avanzada que parece ser un editor de diagramas #acr("BPMN"), como los vistos en la @fig:bpmn.
+- *Odoo:* Es un @ERP @ERPCRMCodigo con herramientas para el manejo de flujos de trabajo y con un diseño modular que permite la creación de soluciones de terceros, entre las cuales existe una, ya sin mantenimiento, que permite crear flujos desde una herramienta gráfica de modelado de procesos (@fig:odoowfms). Es importante resaltar que Odoo cuenta con una edición llamada "Community" que es totalmente de código abierto, y dado que es un ERP completo con capacidad de manejo de procesos, podría ser un punto de partida interesante para proyectos de digitalizazción de trámites.
+- *COSA:* Un gestor de flujos de trabajo antiguo que se menciona como ejemplo de caso de uso de redes de Petri en un @WFMS @vanderaalstAPPLICATIONPETRINETS1998, esto mediante una herramienta llamada CONE (@fig:conecosa).
+- *Insite CRM:* Es un CRM desarrollado por Insite @tanjaOPERATIONALCRM2024, el cual cuenta con un módulo de gestión de flujos de trabajo (@fig:insitecrm), mediante el cual se permite la definición de procesos en una interfaz de usuario avanzada que parece ser un editor de diagramas @BPMN, como los vistos en la @fig:bpmn.
 - *POTyS:* En palabras de Marco Antonio Bravo Fabián, director general del Instituto Quintanarroense de Innovación y Tecnología, el Portal Oficial de Trámites y Servicios (POTyS) tiene como objetivo que la ciudadanía pueda realizar los trámites de gobierno en línea, disminuyendo al máximo el contacto físico, las filas y la corrupción @candurizDigitalizanTramitesGobierno. Esta plataforma busca ser una ventanilla única, que pueda centralizar los distintos trámites existentes en el estado de Quintana Roo de México. Para finales del año 2022, esta plataforma llegó a incluir un total de 26 procedimientos de este tipo @ramirezQuintanaRoo262022.
 - *OTTO:* La plataforma digital de Otorgamientos en Telecomunicaciones OTTO, que fue aprobada mediante Resolución Administrativa Interna ATT-DJ-RAI LP 8/2019 de la Autoridad de Regulación y Fiscalización de Telecomunicaciones y Transportes, atiende distintos trámites de solicitud y renovación de licencias para el uso de frecuencias @ResolucionAdministrativaInterna. Estos trámites tienen como una actividad importante la realización de un análisis técnico interno especializado relativo al campo de la gestión del espectro radioeléctrico para determinar el resultado de los mismos. Esta particularidad implica que, si bien hay características comunes en distintos trámites, la ejecución de verificaciones no es homogénea, siendo necesario que las distintas instancias públicas puedan implementar sus propios sistemas de gestión de trámites, conforme a sus propios modelos de negocio, en contraposición con la idea de usar una ventanilla única. Finalmente, vale la pena notar que, como puede verse en la @fig:att_platform, el ingreso a la plataforma OTTO se puede hacer mediante el uso de Ciudadanía Digital, siguiendo las guías de implementación de gobierno electrónico en Bolivia.
 - *Stateflow by MathWorks:* Producto incluido en MatLab para modelar y simular procesos usando máquinas de estado y diagramas de flujo con un lenguaje gráfico@Stateflow. Esta herramienta, comunmente empleada en simulación de sistemas en carreras relacionadas a la electrónica y el control (Ver @fig:stateflowrobot), podría, aunque no de la manera más adecuada, ser usada para modelar procesos como el trámite. Su interfaz gráfica permite conectar la lógica de los estados, el modelado y la ejecución, por lo que se presenta como una implementación aproximada a la que se desea en este proyecto en cuanto a la definición de procedimientos de trámites.

@@ -1,5 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
-#import "@preview/acrostiche:0.7.0": acr
+
 == Marco Teórico
 
 === Metodologías en Gestión de Proyectos
@@ -70,13 +70,13 @@ Entendido esto, se considera importante que estas metodologías consideren las c
 
 Evidentemente, existen ya diversos marcos de trabajo o metodologías que prescriben muchos de los elementos anteriores. En trabajos de ingeniería, por ejemplo, es común hallar metodologías de tipo cascada o waterfall, donde el desarrollo del proyecto se realiza en pasos secuenciales claramente definidos. Sin embargo, dependiendo de la naturaleza e incertidumbre asociada al proyecto, también existen otros enfoques.
 
-Un área que convive bastante con la incertidumbre es la ingeniería de software, donde se encuentran enfoques metodológicos que entienden un proceso no necesariamente lineal, sino también iterativo o evolutivo, como aquellos guiadas por filosofías ágiles o marcos de trabajo algo más específicos como el de #acr("UP") o #acr("RUP"). Sin embargo, estos enfoques no necesariamente representan metodologías completas para un proyecto de software y sus autores a menudo recomiendan su adaptación y uso únicamente como referencia para definir la metodología propia de cada trabajo.
+Un área que convive bastante con la incertidumbre es la ingeniería de software, donde se encuentran enfoques metodológicos que entienden un proceso no necesariamente lineal, sino también iterativo o evolutivo, como aquellos guiadas por filosofías ágiles o marcos de trabajo algo más específicos como el de @UP o @RUP. Sin embargo, estos enfoques no necesariamente representan metodologías completas para un proyecto de software y sus autores a menudo recomiendan su adaptación y uso únicamente como referencia para definir la metodología propia de cada trabajo.
 
 A continuación se listan algunos de estos enfoques metodológicos o marcos de trabajo que presentan relevancia en la metodología adoptada en este proyecto.
 
 ==== Proceso Unificado
 
-El Proceso Unificado, popularizado por Rational Software por documentarlo de forma detallada y desarrollarlo en lo que hoy conocemos como #acr("RUP"), es un proceso de ingeniería de software@RUPIBMRational que de forma prescriptiva define distintos principios, reglas, procesos, enfoques, ciclos, actividades y artefactos que constituyen en la práctica una metodología de desarrollo de software muy usada en la industria por seguir las buenas prácticas acumuladas durante los primeros años de la disciplina y proponer un ciclo de vida iterativo e incremental que se adapta mejor al desarrollo de software que uno lineal como el de la metodología waterfall.
+El Proceso Unificado, popularizado por Rational Software por documentarlo de forma detallada y desarrollarlo en lo que hoy conocemos como @RUP, es un proceso de ingeniería de software@RUPIBMRational que de forma prescriptiva define distintos principios, reglas, procesos, enfoques, ciclos, actividades y artefactos que constituyen en la práctica una metodología de desarrollo de software muy usada en la industria por seguir las buenas prácticas acumuladas durante los primeros años de la disciplina y proponer un ciclo de vida iterativo e incremental que se adapta mejor al desarrollo de software que uno lineal como el de la metodología waterfall.
 
 
 

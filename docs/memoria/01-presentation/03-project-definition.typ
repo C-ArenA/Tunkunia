@@ -1,5 +1,4 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
-#import "@preview/acrostiche:0.7.0": acr
 
 == Definición del Proyecto
 
@@ -131,7 +130,7 @@ Como se indicó, el sistema estará dirigido principalmente a desarrolladores de
 + emisión de notificaciones por correo electrónico para informar acerca de eventos del trámite al ciudadano y
 + generación de reportes y estadísticas de cada trámite y de los procesos de trámite en general
 
-Para modelar el proceso del trámite se emplearán los trámites definidos por el #acr("RASIM"), dado que este proyecto fue inspirado en la implementación del #acr("SIAI"), aunque no se descarta el uso de otros casos para enriquecer el modelado. En caso de existir particularidades del trámite que no sean identificables mediante dicho reglamento, no se contemplarán en la versión entregada al finalizar este proyecto. Sin embargo, se buscará hacer un análisis de estos casos en las recomendaciones finales del proyecto para guiar versiones futuras.
+Para modelar el proceso del trámite se emplearán los trámites definidos por el @RASIM, dado que este proyecto fue inspirado en la implementación del @SIAI, aunque no se descarta el uso de otros casos para enriquecer el modelado. En caso de existir particularidades del trámite que no sean identificables mediante dicho reglamento, no se contemplarán en la versión entregada al finalizar este proyecto. Sin embargo, se buscará hacer un análisis de estos casos en las recomendaciones finales del proyecto para guiar versiones futuras.
 
 Las técnicas de modelado utilizadas serán aquellas dirigidas a los sistemas que involucran procesos. Particularmente, se hará una exploración a la aplicación de las Redes de Petri y el uso del Business Process Model and Notation (BPMN), además de máquinas de estado y diagramas de actividad UML. De este modo se podrá partir de una vista formal de los aspectos comunes del trámite.
 
@@ -196,7 +195,7 @@ Para lograr esta implementación se partirá de un framework de desarrollo web g
   placement: auto,
 )<fig:modfun>
 
-Si bien la funcionalidad esperada del subsistema se detalla en la sección de alcances, podemos considerar que, tomando como inspiración lo señalado en la @section:wfms acerca de los #acr("WFMS"), la funcionalidad de este subsistema contemplará a grandes rasgos y de forma general lo señalado en la @fig:modfun. Es decir, la gestión de los flujos de trámite, desde la creación de estos procedimientos, pasando por su ejecución (trámites individuales), hasta el control de los mismos.
+Si bien la funcionalidad esperada del subsistema se detalla en la sección de alcances, podemos considerar que, tomando como inspiración lo señalado en la @section:wfms acerca de los @WFMS, la funcionalidad de este subsistema contemplará a grandes rasgos y de forma general lo señalado en la @fig:modfun. Es decir, la gestión de los flujos de trámite, desde la creación de estos procedimientos, pasando por su ejecución (trámites individuales), hasta el control de los mismos.
 
 Las funciones anteriores obligarán a contemplar distintos tipos de roles de usuario, los cuales también serán implementados. Si bien se pretende brindar facilidades de manejos de rol al administrador del sistema, se propone inicialmente la creación de tres grandes categorías: administradores, verificadores y ciudadanos, donde los administradores se harán cargo de la gestión general de los flujos de trámite, mientras que los verificadores serán empleados públicos dedicados a la revisión de documentos y los ciudadanos serán los ejecutores de cada trámite.
 
@@ -209,7 +208,7 @@ Es fundamental para el éxito de este proyecto, como se sugiere en uno de los ob
   placement: bottom,
 )<fig:stateex>
 
-El modelado señalado se formulará principalmente alrededor de los distintos trámites establecidos o sugeridos por el #acr("RASIM"), debido a la experiencia existente en los mismos (Ver antecedentes). Sin embargo, para lograr cubrir una mayor cantidad de características comunes no se descarta el uso de otros casos de trámites para la consolidación del modelo general del trámite.
+El modelado señalado se formulará principalmente alrededor de los distintos trámites establecidos o sugeridos por el @RASIM, debido a la experiencia existente en los mismos (Ver antecedentes). Sin embargo, para lograr cubrir una mayor cantidad de características comunes no se descarta el uso de otros casos de trámites para la consolidación del modelo general del trámite.
 
 #figure(
   image("/assets/figures/modulegraph.png"),
