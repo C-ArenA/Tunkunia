@@ -1,0 +1,37 @@
+openapi: "3.1.0"
+info:
+  title: Tunkunia API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: "1.0"
+  description: |
+    Interfaz de interacción con el subsistema de gestión de flujos de trámite Tunkunia.
+    Esta especificación se usará para consumo de los distintos tipos de clientes.
+    Para lograr uniformidad se siguen prácticas de la industria y estándares vigentes:
+      - [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457)
+      - [Documentación](https://docs.stripe.com/api-v2-overview) y [Referencia](https://docs.stripe.com/api/v2/core/accounts) de la API de Stripe v2
+      - Guías de diseño de APIs de [Google](https://docs.cloud.google.com/apis/design) y de [Microsoft](https://github.com/microsoft/api-guidelines) (Azure y Legacy)
+servers:
+  - url: /api/v1
+    description: Mismo origen que la referencia de la API.
+tags:
+  - name: Catalog
+    description: Catálogo institucional de trámites.
+  - name: Authn
+    description: Identidad del usuario autenticado.
+  - name: Health
+    description: Estado operativo del servicio.
+paths:
+  /health:
+    $ref: health.yaml#/components/pathItems/Health
+  /tramites:
+    $ref: catalog.yaml#/components/pathItems/Tramites
+  /tramites/{id}:
+    $ref: catalog.yaml#/components/pathItems/TramiteById
+  /me:
+    $ref: authn.yaml#/components/pathItems/CurrentUser
+components:
+  securitySchemes:
+    BearerAuth:
+      $ref: common.yaml#/components/securitySchemes/BearerAuth

@@ -1,0 +1,16 @@
+components:
+  schemas:
+    AuditMetadata:
+      type: object
+      required: [createdAt, updatedAt]
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          example: "2026-03-15T14:30:00Z"
+          x-order: 100
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2026-04-02T11:15:22Z"
+          x-order: 101

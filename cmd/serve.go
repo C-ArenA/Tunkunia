@@ -7,12 +7,20 @@ import (
 	"context"
 	"database/sql"
 	"log"
+	"log/slog"
 	"net/http"
+	"os"
 
-	"github.com/C-ArenA/Tunkunia/config"
 	"github.com/C-ArenA/Tunkunia/database"
+	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/api"
+	apiv1 "github.com/C-ArenA/Tunkunia/internal/api/v1"
+	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
+	"github.com/C-ArenA/Tunkunia/internal/config"
+	"github.com/C-ArenA/Tunkunia/internal/public"
+	"github.com/C-ArenA/Tunkunia/internal/user"
+	"github.com/Marlliton/slogpretty"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/spf13/cobra"
@@ -34,30 +42,47 @@ func NewServeCmd() *cobra.Command {
 
 func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	// Configs
+	initLogger()
 	cfg := loadConfig()
 
 	// Database
-	db := initDB(ctx, cfg)
+	db := initDB(ctx, cfg.GooseDbString, cfg.Env == "dev")
+	q := sqlc.New()
+
+	// modules wiring
+	userService := user.NewService(db, q)
+	catalogService := catalog.NewService(catalog.NewRepo(db, q))
+	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
+
+	// Handlers
+	strictHandlerV1 := apiv1.NewStrictHandler(catalogService, userService)
+
+	oidcHandler, err := authn.NewOIDCHandler(ctx, cfg, userService, jwtAuthn)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// HTTP
 	r := chi.NewRouter()
-	r.Use(api.CorsMiddleware(), middleware.Logger)
+	r.Use(api.CorsMiddleware(cfg.AppURL), middleware.Logger, authn.Authenticate(jwtAuthn))
 
-	// Modules Wiring
-	catalog.ModuleInit(db, r)
-	api.ModuleInit(r)
+	r.Mount("/", oidcHandler.Handler(cfg.Route.OidcRedirect, cfg.Route.OidcCallback))
+	strictHandlerV1.RegisterRoutes(r, cfg.Route.ApiV1)
+	apiv1.RegisterSpecsRoutes(r, cfg.Env == "dev")
+	public.RegisterRoutes(r, catalogService)
+
 	return db, r, cfg
 }
 
-func initDB(ctx context.Context, cfg *config.Config) *sql.DB {
-	db, err := sql.Open("sqlite", cfg.GooseDbString)
+func initDB(ctx context.Context, dataSourceName string, withSeeding bool) *sql.DB {
+	db, err := sql.Open("sqlite", dataSourceName)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	if err := database.Migrate(ctx, db); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	if cfg.Env == "dev" {
+	if withSeeding {
 		database.Seed(ctx, db)
 	}
 	return db
@@ -66,7 +91,19 @@ func initDB(ctx context.Context, cfg *config.Config) *sql.DB {
 func loadConfig() *config.Config {
 	cfg, err := config.Load()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	return cfg
+}
+
+func initLogger() {
+	handler := slogpretty.New(os.Stdout, &slogpretty.Options{
+		Level:     slog.LevelDebug,
+		Colorful:  true,
+		AddSource: true,
+		Multiline: true,
+	})
+
+	logger := slog.New(handler)
+	slog.SetDefault(logger)
 }

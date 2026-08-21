@@ -1,13 +1,13 @@
-import { defineConfig } from '@hey-api/openapi-ts'
+import { defineConfig } from "@hey-api/openapi-ts";
 
 export default defineConfig({
-  input: './../api/joined.openapi.yaml', // sign up at app.heyapi.dev
-  output: './shared/client',
+  input: "../specs/v1.openapi.yaml", // sign up at app.heyapi.dev
+  output: "./shared/clientV1",
   plugins: [
     {
-      name: '@hey-api/client-ofetch',
-      runtimeConfigPath: './shared/hey-api'
+      name: "@hey-api/client-ofetch",
+      runtimeConfigPath: "./shared/heyApiV1",
     },
-    '@pinia/colada'
-  ]
-})
+    "@pinia/colada",
+  ],
+});

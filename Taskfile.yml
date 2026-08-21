@@ -8,12 +8,6 @@ dotenv:
 output: prefixed
 
 includes:
-  site:
-    taskfile: ./site/Taskfile.yml
-    dir: ./site
-  spa:
-    taskfile: ./spa/Taskfile.yml
-    dir: ./spa
   docs:
     taskfile: ./docs/Taskfile.yml
     dir: ./docs
@@ -22,48 +16,94 @@ tasks:
   migrate:fresh:
     cmds:
       - echo "Using $GOOSE_DBSTRING"
-      - rm $GOOSE_DBSTRING
+      - rm -f $GOOSE_DBSTRING
       - go tool goose up
 
-  oapi:join:
+  openapi:bundle:
     desc: Joins multiple openapi specs into one
     cmds:
       - >
         watchexec
-        -w ./internal/catalog
-        -w ./internal/api
-        -w ./internal/audit
-        redocly join
-        ./internal/api/openapi.yaml
-        ./internal/audit/openapi.yaml
-        ./internal/catalog/openapi.yaml
-        -o ./tunkunia.openapi.yaml
-        --without-x-tag-groups
-      - cp ./tunkunia.openapi.yaml ./site/public/tunkunia.openapi.yaml
+        -w ./specs/v1
+        pnpm exec redocly bundle
+        ./specs/v1/openapi.yaml
+        -o ./specs/v1.openapi.yaml
+
+  openapi:lint:
+    desc: Validates the bundled OpenAPI specification
+    cmds:
+      - pnpm exec redocly bundle ./specs/v1/openapi.yaml -o ./specs/v1.openapi.yaml
+      - pnpm exec redocly lint ./specs/v1.openapi.yaml
+
+  dex:serve:
+    desc: Start local Dex OIDC sandbox server
+    preconditions:
+      - test -f ./bin/dex
+    cmds:
+      - ./bin/dex serve ./dex/config.tunkunia.yaml
 
   scalar:serve:
     desc: Serves a scalar api reference
-    prefix: scalar
     preconditions:
-      - test -f ./tunkunia.openapi.yaml
+      - test -f ./specs/v1.openapi.yaml
     cmds:
-      - scalar document serve --watch --port 8491 ./tunkunia.openapi.yaml
+      - pnpm dlx @scalar/cli document serve --watch --port 8491 ./specs/v1.openapi.yaml
+    failfast: true
+
+  scalar:dev:
+    prefix: scalar
+    deps:
+      - openapi:bundle
+      - scalar:serve
+    failfast: true
 
   server:dev:
     prefix: GO
     desc: Run server with hot reload (air)
     cmds:
       - go tool air serve
+  spa:dev:
+    prefix: SPA
+    desc: Run SPA dev server
+    cmds:
+      - pnpm dev:spa
 
   server:build:
     desc: Build server binary
     cmds:
       - go build -o bin/server ./cmd/api
 
+  templ:generate:
+    cmd: go tool templ generate --watch
+  dev:gotth:
+    deps:
+      - server:dev
+      - templ:generate
+    failfast: true
+
+  dev:caddy:
+    env:
+      APP_URL: '{{default "https://localhost:8443" .APP_URL}}'
+    cmd: caddy run
+
+  dev:tools:
+    desc: Run dev tooling servers
+    deps:
+      - dex:serve
+      - dev:caddy
+    failfast: true
+
+  dev:main:
+    desc: Run project dev servers
+    deps:
+      - server:dev
+      - spa:dev
+    failfast: true
+
   dev:all:
     desc: Run all dev servers in parallel
     deps:
-      - oapi:join
+      - dex:serve
       - scalar:serve
       - server:dev
       - spa:dev
@@ -74,7 +114,6 @@ tasks:
     desc: Build all projects
     cmds:
       - task: server:build
-      - task: site:build
       - task: spa:build
 
   docs:all:

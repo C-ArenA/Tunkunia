@@ -1,3 +1,0 @@
-== Entorno
-
-=== Tecnologías

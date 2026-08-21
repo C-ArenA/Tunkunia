@@ -12,4 +12,6 @@ package table
 func UseSchema(schema string) {
 	GooseDbVersion = GooseDbVersion.FromSchema(schema)
 	Tramites = Tramites.FromSchema(schema)
+	UserRoles = UserRoles.FromSchema(schema)
+	Users = Users.FromSchema(schema)
 }

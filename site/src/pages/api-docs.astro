@@ -1,12 +1,12 @@
 ---
 import { ScalarComponent } from "@scalar/astro";
-import { LinkButton } from "@astrojs/starlight/components";
+import apiSpec from "../../../specs/v1.openapi.yaml?raw";
 ---
 
 <a href="/">Tunkunia</a>
 <ScalarComponent
   configuration={{
-    url: "/tunkunia.openapi.yaml",
+    content: apiSpec,
     theme: "elysiajs",
     title: "Tunkunia API Docs",
     isEditable: true,

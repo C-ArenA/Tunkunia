@@ -1,18 +1,48 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-@theme static {
-  --font-sans: 'Public Sans', sans-serif;
+:root {
+  --tunkunia-primary: #087443;
+  --tunkunia-accent: #d3a000;
+}
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: #f7f8f5;
+  color: #17221d;
+}
+
+.tricolor {
+  height: 5px;
+  background: linear-gradient(90deg, #d52b1e 0 33.33%, #f9e300 33.33% 66.66%, #007934 66.66%);
+}
+.surface {
+  border: 1px solid #dfe5df;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 35px rgba(23, 34, 29, 0.06);
+}
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tunkunia-primary);
+}
+.diagram-shell {
+  overflow-x: auto;
+  border: 1px solid #dfe5df;
+  border-radius: 0.875rem;
+  background-color: #fbfcfa;
+  background-image: radial-gradient(#d7ddd8 1px, transparent 1px);
+  background-size: 18px 18px;
+  padding: 0.75rem;
+}
+.page-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 750;
+  letter-spacing: -0.035em;
 }

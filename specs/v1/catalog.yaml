@@ -1,0 +1,252 @@
+components:
+  pathItems:
+    Tramites:
+      get:
+        tags:
+          - Catalog
+        operationId: listTramites
+        summary: Listar Trámites
+        description: |
+          Obtiene una lista paginada de trámites.
+          - Los visitantes sólo ven elementos publicados.
+          - Los creadores ven además sus propios borradores y elementos archivados.
+          - Los administradores ven todos los elementos.
+        security:
+          - {}
+          - BearerAuth: []
+        parameters:
+          - name: status
+            in: query
+            description: Filtra los trámites por estado.
+            required: false
+            schema:
+              $ref: "#/components/schemas/TramiteStatus"
+          - name: page
+            in: query
+            schema:
+              type: string
+              description: Cursor opaco de la página que se desea obtener.
+          - name: limit
+            in: query
+            schema:
+              type: integer
+              default: 20
+              minimum: 1
+              maximum: 100
+        responses:
+          "200":
+            description: Lista paginada de trámites.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/TramiteCollection"
+          "401":
+            $ref: common.yaml#/components/responses/Unauthorized
+          "500":
+            $ref: common.yaml#/components/responses/InternalError
+      post:
+        tags:
+          - Catalog
+        operationId: createTramite
+        summary: Crear Trámite
+        description: Permite a usuarios con rol de administración la creación de nuevos trámites en el catálogo de trámites. Los mismos nacerán con estado draft y pueden contener un procedimiento vacío
+        security:
+          - BearerAuth: []
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TramiteCreate"
+        responses:
+          "201":
+            description: Creación de Trámite exitosa
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Tramite"
+          "400":
+            $ref: common.yaml#/components/responses/BadRequest
+          "401":
+            $ref: common.yaml#/components/responses/Unauthorized
+          "403":
+            $ref: common.yaml#/components/responses/Forbidden
+          "422":
+            $ref: common.yaml#/components/responses/ValidationError
+
+    TramiteById:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del Trámite
+          schema:
+            $ref: "#/components/schemas/TramiteId"
+      get:
+        tags:
+          - Catalog
+        operationId: getTramite
+        summary: Obtener Trámite
+        security:
+          - BearerAuth: []
+          - {}
+        responses:
+          "200":
+            description: Detalles del Trámite
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Tramite"
+          "403":
+            $ref: common.yaml#/components/responses/Forbidden
+          "404":
+            $ref: common.yaml#/components/responses/NotFound
+
+        deprecated: false
+      patch:
+        tags:
+          - Catalog
+        operationId: updateTramite
+        summary: Modificar Trámite
+        security:
+          - BearerAuth: []
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TramiteUpdate"
+        responses:
+          "200":
+            description: Trámite actualizado exitosamente
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Tramite"
+          "400":
+            $ref: common.yaml#/components/responses/BadRequest
+          "401":
+            $ref: common.yaml#/components/responses/Unauthorized
+          "403":
+            $ref: common.yaml#/components/responses/Forbidden
+          "404":
+            $ref: common.yaml#/components/responses/NotFound
+          "422":
+            $ref: common.yaml#/components/responses/ValidationError
+
+      delete:
+        tags:
+          - Catalog
+        operationId: deleteTramite
+        summary: Eliminar Trámite
+        security:
+          - BearerAuth: []
+        responses:
+          "204":
+            description: Trámite eliminado, nada que retornar
+          "401":
+            $ref: common.yaml#/components/responses/Unauthorized
+          "403":
+            $ref: common.yaml#/components/responses/Forbidden
+          "404":
+            $ref: common.yaml#/components/responses/NotFound
+        deprecated: false
+
+  schemas:
+    TramiteId:
+      type: integer
+      format: int64
+      minimum: 1
+
+    TramiteStatus:
+      type: string
+      enum: [draft, published, archived]
+      example: draft
+
+    TramiteType:
+      type: string
+      enum:
+        - Otro
+        - Trámite de registro
+        - Trámite de certificación
+        - Trámite de constancia
+        - Trámite para cumplir con obligaciones
+        - Trámite para acceder a servicios
+        - Trámite para obtener permisos
+      x-enumNames:
+        - Otro
+        - Registro
+        - Certification
+        - Constancia
+        - Obligation
+        - Servicio
+        - Permiso
+      example: Otro
+
+    TramiteBase:
+      type: object
+      required: [id, name, description]
+      properties:
+        id:
+          $ref: "#/components/schemas/TramiteId"
+          x-order: 1
+        name:
+          type: string
+          example: "Inscripción de Personería Jurídica"
+          x-order: 2
+        description:
+          type: string
+          example: "Trámite legal para la obtención y registro de personería jurídica de asociaciones civiles."
+          x-order: 3
+
+    Tramite:
+      allOf:
+        - $ref: "#/components/schemas/TramiteBase"
+        - $ref: audit.yaml#/components/schemas/AuditMetadata
+        - type: object
+          required: [procedureDescription, type, status]
+          properties:
+            procedureDescription:
+              type: string
+              example: "El usuario debe cargar los requisitos formales, esperar validación de actas y proceder a la firma digital."
+            type:
+              $ref: "#/components/schemas/TramiteType"
+            status:
+              $ref: "#/components/schemas/TramiteStatus"
+
+    TramiteCollection:
+      allOf:
+        - $ref: common.yaml#/components/schemas/CollectionBase
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/TramiteBase"
+
+    TramiteCreate:
+      allOf:
+        - $ref: "#/components/schemas/TramiteWritableFields"
+        - type: object
+          required: [name]
+
+    TramiteUpdate:
+      allOf:
+        - $ref: "#/components/schemas/TramiteWritableFields"
+        - type: object
+          properties:
+            status:
+              $ref: "#/components/schemas/TramiteStatus"
+
+    TramiteWritableFields:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        procedureDescription:
+          type: string
+        type:
+          $ref: "#/components/schemas/TramiteType"

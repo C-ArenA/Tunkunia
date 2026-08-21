@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tunkunia: {{.Name}}</title>
+        <style>
+            :root {
+                --color-primary: #10b981;
+                --color-primary-soft: #34d399;
+                --color-primary-pale: #6ee7b7;
+                --color-primary-faint: #a7f3d0;
+                --color-primary-glow: rgba(16, 185, 129, 0.8);
+                --color-primary-glow-soft: rgba(16, 185, 129, 0.35);
+                --color-primary-glow-btn: rgba(16, 185, 129, 0.45);
+                --color-primary-glow-hover: rgba(16, 185, 129, 0.65);
+                --color-primary-grid: rgba(16, 185, 129, 0.05);
+                --color-primary-border: rgba(16, 185, 129, 0.4);
+
+                --color-ink: #03130e;
+                --color-text: #e6f5f0;
+                --color-text-bright: #ffffff;
+                --color-text-body: #9bb8ae;
+                --color-muted: rgba(148, 163, 184, 0.6);
+                --color-muted-dim: rgba(148, 163, 184, 0.5);
+
+                --color-flag-red: #d52b1e;
+                --color-flag-yellow: #ffd200;
+                --color-flag-green: #00a650;
+
+                --color-card-bg: rgba(255, 255, 255, 0.035);
+                --color-card-bg-hover: rgba(255, 255, 255, 0.07);
+                --color-card-border: rgba(255, 255, 255, 0.08);
+
+                --font-sans: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+                --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+
+                --radius-sm: 6px;
+                --radius-lg: 10px;
+
+                --transition-btn: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+                --transition-card: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+
+                --grid-size: 44px;
+            }
+
+            *,
+            *::before,
+            *::after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: var(--font-sans);
+                line-height: 1.6;
+                color: var(--color-text);
+                background: radial-gradient(
+                    1200px 800px at 15% -10%,
+                    #0d2b23 0%,
+                    #07140f 55%,
+                    #05100c 100%
+                );
+                min-height: 100vh;
+                position: relative;
+                display: flex;
+                align-items: center;
+
+                &::before {
+                    content: "";
+                    position: fixed;
+                    inset: 0;
+                    background-image:
+                        linear-gradient(var(--color-primary-grid) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--color-primary-grid) 1px, transparent 1px);
+                    background-size: var(--grid-size) var(--grid-size);
+                    pointer-events: none;
+                    z-index: 0;
+                }
+
+                @media (max-width: 900px) {
+                    .container {
+                        flex-direction: column;
+                        grid-template-columns: 1fr;
+                        gap: 3rem;
+                        padding: 3.5rem 1.5rem 3rem;
+                    }
+
+                    header {
+                        position: static;
+
+                        h1 {
+                            font-size: 2.4rem;
+                        }
+                    }
+                }
+            }
+
+            .flag {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 6px;
+                z-index: 2;
+                background: linear-gradient(
+                    90deg,
+                    var(--color-flag-red) 0%,
+                    var(--color-flag-red) 33.33%,
+                    var(--color-flag-yellow) 33.33%,
+                    var(--color-flag-yellow) 66.66%,
+                    var(--color-flag-green) 66.66%,
+                    var(--color-flag-green) 100%
+                );
+            }
+
+            .container {
+                position: relative;
+                z-index: 1;
+                max-width: 1200px;
+                height: 100%;
+                margin: 0 auto;
+                padding: 5rem 2.5rem 4rem;
+                display: flex;
+                align-items: end;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+                gap: 4.5rem;
+            }
+
+            header {
+                text-align: left;
+                position: sticky;
+                flex-direction: column;
+                top: 4rem;
+                bottom: 4rem;
+
+                .label {
+                    font-family: var(--font-mono);
+                    font-size: 0.8rem;
+                    letter-spacing: 0.2em;
+                    text-transform: uppercase;
+                    color: var(--color-primary-pale);
+                    margin-bottom: 1.5rem;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.6rem;
+
+                    &::before {
+                        content: "";
+                        width: 10px;
+                        height: 10px;
+                        background: var(--color-primary);
+                        border-radius: 2px;
+                        box-shadow: 0 0 12px var(--color-primary-glow);
+                        animation: pulse 2s infinite;
+                    }
+                }
+
+                h1 {
+                    font-family: var(--font-mono);
+                    font-size: clamp(2.5rem, 5vw, 4rem);
+                    font-weight: 700;
+                    color: var(--color-text-bright);
+                    letter-spacing: 0.02em;
+                    margin-bottom: 0.35rem;
+                    text-shadow: 0 0 30px var(--color-primary-glow-soft);
+
+                    &::before {
+                        content: "> ";
+                        color: var(--color-primary);
+                    }
+
+                    span {
+                        color: var(--color-primary-soft);
+                    }
+                }
+
+                h2 {
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    color: var(--color-primary-faint);
+                    margin-bottom: 1.25rem;
+                }
+
+                p {
+                    font-size: 1.05rem;
+                    max-width: 46ch;
+                    color: var(--color-text-body);
+                    margin-bottom: 2rem;
+                }
+
+                a {
+                    display: inline-block;
+                    padding: 0.85rem 2rem;
+                    background: var(--color-primary);
+                    color: var(--color-ink);
+                    text-decoration: none;
+                    font-weight: 700;
+                    font-family: var(--font-mono);
+                    border-radius: var(--radius-sm);
+                    box-shadow: 0 0 24px var(--color-primary-glow-btn);
+                    transition: var(--transition-btn);
+
+                    &:hover {
+                        background: var(--color-primary-soft);
+                        transform: translateY(-2px);
+                        box-shadow: 0 0 36px var(--color-primary-glow-hover);
+                    }
+                }
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.4;
+                }
+            }
+
+            main {
+                align-self: start;
+
+                h2 {
+                    font-family: var(--font-mono);
+                    font-size: 1.35rem;
+                    font-weight: 600;
+                    color: var(--color-primary-soft);
+                    margin-bottom: 1.5rem;
+
+                    &::before {
+                        content: "// ";
+                        color: var(--color-muted);
+                    }
+                }
+
+                ul {
+                    list-style: none;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+                    gap: 1.25rem;
+
+                    li:nth-child(3n + 1) article {
+                        border-top-color: var(--color-flag-red);
+                    }
+
+                    li:nth-child(3n + 2) article {
+                        border-top-color: var(--color-flag-yellow);
+                    }
+
+                    li:nth-child(3n + 3) article {
+                        border-top-color: var(--color-flag-green);
+                    }
+
+                    li article {
+                        background: var(--color-card-bg);
+                        border: 1px solid var(--color-card-border);
+                        border-top: 3px solid var(--color-primary);
+                        border-radius: var(--radius-lg);
+                        padding: 1.4rem;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        backdrop-filter: blur(6px);
+                        transition: var(--transition-card);
+
+                        &:hover {
+                            background: var(--color-card-bg-hover);
+                            border-color: var(--color-primary-border);
+                            transform: translateY(-4px);
+                        }
+
+                        h3 {
+                            font-size: 1.05rem;
+                            color: var(--color-text-bright);
+                            margin-bottom: 0.5rem;
+                        }
+
+                        p {
+                            flex-grow: 1;
+                            color: var(--color-text-body);
+                            font-size: 0.92rem;
+                            margin-bottom: 1rem;
+                        }
+
+                        a {
+                            font-family: var(--font-mono);
+                            font-size: 0.85rem;
+                            color: var(--color-primary-pale);
+                            text-decoration: none;
+
+                            &::before {
+                                content: "[ ";
+                                color: var(--color-muted-dim);
+                            }
+
+                            &::after {
+                                content: " ]";
+                                color: var(--color-muted-dim);
+                            }
+
+                            &:hover {
+                                color: var(--color-text-bright);
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flag"></div>
+        <div class="container">
+            <header>
+                <h1>Tunkun<span>ia</span></h1>
+                <h2>{{.Name}}</h2>
+                <p>{{.Description}}</p>
+                <a href="/login">Ingresa con Ciudadanía Digital</a>
+            </header>
+
+            <main>
+                <h2>Trámites Disponibles</h2>
+                <ul>
+                    {{ range .Tramites}}
+                    <li>
+                        <article>
+                            <h3>{{.Name}}</h3>
+                            <p>{{.Description}}</p>
+                            <a href="#">Ver Detalles</a>
+                        </article>
+                    </li>
+                    {{end}} {{ range .Tramites}}
+                    <li>
+                        <article>
+                            <h3>{{.Name}}</h3>
+                            <p>{{.Description}}</p>
+                            <a href="#">Ver Detalles</a>
+                        </article>
+                    </li>
+                    {{end}} {{ range .Tramites}}
+                    <li>
+                        <article>
+                            <h3>{{.Name}}</h3>
+                            <p>{{.Description}}</p>
+                            <a href="#">Ver Detalles</a>
+                        </article>
+                    </li>
+                    {{end}}
+                </ul>
+            </main>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,501 @@
+openapi: 3.1.0
+info:
+  title: Tunkunia API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: '1.0'
+  description: |
+    Interfaz de interacción con el subsistema de gestión de flujos de trámite Tunkunia.
+    Esta especificación se usará para consumo de los distintos tipos de clientes.
+    Para lograr uniformidad se siguen prácticas de la industria y estándares vigentes:
+      - [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457)
+      - [Documentación](https://docs.stripe.com/api-v2-overview) y [Referencia](https://docs.stripe.com/api/v2/core/accounts) de la API de Stripe v2
+      - Guías de diseño de APIs de [Google](https://docs.cloud.google.com/apis/design) y de [Microsoft](https://github.com/microsoft/api-guidelines) (Azure y Legacy)
+servers:
+  - url: /api/v1
+    description: Mismo origen que la referencia de la API.
+tags:
+  - name: Catalog
+    description: Catálogo institucional de trámites.
+  - name: Authn
+    description: Identidad del usuario autenticado.
+  - name: Health
+    description: Estado operativo del servicio.
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      tags:
+        - Health
+      summary: Salud Módulo
+      security: []
+      responses:
+        '200':
+          description: El servicio está saludable y opera normalmente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          description: El servicio no está disponible o funciona de manera degradada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /tramites:
+    get:
+      tags:
+        - Catalog
+      operationId: listTramites
+      summary: Listar Trámites
+      description: |
+        Obtiene una lista paginada de trámites.
+        - Los visitantes sólo ven elementos publicados.
+        - Los creadores ven además sus propios borradores y elementos archivados.
+        - Los administradores ven todos los elementos.
+      security:
+        - {}
+        - BearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          description: Filtra los trámites por estado.
+          required: false
+          schema:
+            $ref: '#/components/schemas/TramiteStatus'
+        - name: page
+          in: query
+          schema:
+            type: string
+            description: Cursor opaco de la página que se desea obtener.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 100
+      responses:
+        '200':
+          description: Lista paginada de trámites.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TramiteCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+        - Catalog
+      operationId: createTramite
+      summary: Crear Trámite
+      description: Permite a usuarios con rol de administración la creación de nuevos trámites en el catálogo de trámites. Los mismos nacerán con estado draft y pueden contener un procedimiento vacío
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TramiteCreate'
+      responses:
+        '201':
+          description: Creación de Trámite exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tramite'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /tramites/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID del Trámite
+        schema:
+          $ref: '#/components/schemas/TramiteId'
+    get:
+      tags:
+        - Catalog
+      operationId: getTramite
+      summary: Obtener Trámite
+      security:
+        - BearerAuth: []
+        - {}
+      responses:
+        '200':
+          description: Detalles del Trámite
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tramite'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      deprecated: false
+    patch:
+      tags:
+        - Catalog
+      operationId: updateTramite
+      summary: Modificar Trámite
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TramiteUpdate'
+      responses:
+        '200':
+          description: Trámite actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tramite'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      tags:
+        - Catalog
+      operationId: deleteTramite
+      summary: Eliminar Trámite
+      security:
+        - BearerAuth: []
+      responses:
+        '204':
+          description: Trámite eliminado, nada que retornar
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      deprecated: false
+  /me:
+    get:
+      tags:
+        - Authn
+      operationId: getMe
+      summary: Obtener información del usuario
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Información del usuario autenticado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Token JWT de la aplicación.
+  schemas:
+    Health:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum:
+            - UP
+            - DOWN
+            - DEGRADED
+        timestamp:
+          type: string
+          format: date-time
+          example: '2026-06-06T15:30:00Z'
+    ProblemDetails:
+      type: object
+      description: |
+        Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
+      required:
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          default: about:blank
+          description: Referencia URI que identifica el tipo de problema.
+          example: /problems/invalid-citizen
+        status:
+          type: integer
+          format: int32
+          minimum: 400
+          maximum: 599
+          description: Código de estado que coincide con la respuesta HTTP.
+          example: 403
+        title:
+          type: string
+          description: Resumen legible del tipo de problema.
+          example: Usted no es participante de este caso de trámite.
+        detail:
+          type: string
+          description: Explicación de esta ocurrencia orientada a corregir el problema.
+          example: Su caso de trámite con código 500424 no se encuentra vigente
+        instance:
+          type: string
+          format: uri-reference
+          description: Referencia URI que identifica esta ocurrencia del problema.
+          example: /cuenta/12345/mensajes/abc
+    TramiteStatus:
+      type: string
+      enum:
+        - draft
+        - published
+        - archived
+      example: draft
+    CollectionBase:
+      type: object
+      required:
+        - nextPageUrl
+        - previousPageUrl
+      properties:
+        nextPageUrl:
+          type:
+            - string
+            - 'null'
+          format: uri
+          example: https://api.example.com/tramites?page=next-cursor
+        previousPageUrl:
+          type:
+            - string
+            - 'null'
+          format: uri
+          example: https://api.example.com/tramites?page=previous-cursor
+    TramiteId:
+      type: integer
+      format: int64
+      minimum: 1
+    TramiteBase:
+      type: object
+      required:
+        - id
+        - name
+        - description
+      properties:
+        id:
+          $ref: '#/components/schemas/TramiteId'
+          x-order: 1
+        name:
+          type: string
+          example: Inscripción de Personería Jurídica
+          x-order: 2
+        description:
+          type: string
+          example: Trámite legal para la obtención y registro de personería jurídica de asociaciones civiles.
+          x-order: 3
+    TramiteCollection:
+      allOf:
+        - $ref: '#/components/schemas/CollectionBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/TramiteBase'
+    TramiteType:
+      type: string
+      enum:
+        - Otro
+        - Trámite de registro
+        - Trámite de certificación
+        - Trámite de constancia
+        - Trámite para cumplir con obligaciones
+        - Trámite para acceder a servicios
+        - Trámite para obtener permisos
+      x-enumNames:
+        - Otro
+        - Registro
+        - Certification
+        - Constancia
+        - Obligation
+        - Servicio
+        - Permiso
+      example: Otro
+    TramiteWritableFields:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        procedureDescription:
+          type: string
+        type:
+          $ref: '#/components/schemas/TramiteType'
+    TramiteCreate:
+      allOf:
+        - $ref: '#/components/schemas/TramiteWritableFields'
+        - type: object
+          required:
+            - name
+    AuditMetadata:
+      type: object
+      required:
+        - createdAt
+        - updatedAt
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-03-15T14:30:00Z'
+          x-order: 100
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-04-02T11:15:22Z'
+          x-order: 101
+    Tramite:
+      allOf:
+        - $ref: '#/components/schemas/TramiteBase'
+        - $ref: '#/components/schemas/AuditMetadata'
+        - type: object
+          required:
+            - procedureDescription
+            - type
+            - status
+          properties:
+            procedureDescription:
+              type: string
+              example: El usuario debe cargar los requisitos formales, esperar validación de actas y proceder a la firma digital.
+            type:
+              $ref: '#/components/schemas/TramiteType'
+            status:
+              $ref: '#/components/schemas/TramiteStatus'
+    ErrorDetail:
+      type: object
+      description: Error de validación basado en el ejemplo de la sección 3 de RFC 9457.
+      required:
+        - detail
+        - pointer
+      properties:
+        detail:
+          type: string
+        pointer:
+          type: string
+    TramiteUpdate:
+      allOf:
+        - $ref: '#/components/schemas/TramiteWritableFields'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/TramiteStatus'
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - sub
+        - email
+        - emailVerified
+        - roles
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-order: 1
+        name:
+          type: string
+          example: John Doe
+        sub:
+          type: string
+          example: 7g34748743g843g7
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        emailVerified:
+          type: boolean
+          example: true
+        roles:
+          type: array
+          items:
+            type: string
+          example:
+            - admin
+            - user
+  responses:
+    NotFound:
+      description: El recurso solicitado no existe.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: No se ha provisto una credencial válida.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    InternalError:
+      description: No se pudo ejecutar la solicitud.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    BadRequest:
+      description: Solicitud no aceptada o entendida. Quizá falte algún parámetro requerido.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Forbidden:
+      description: No tiene permisos para realizar esta solicitud.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    ValidationError:
+      description: Los datos provistos son incorrectos.
+      content:
+        application/problem+json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ProblemDetails'
+              - type: object
+                required:
+                  - errors
+                properties:
+                  errors:
+                    type: array
+                    description: Lista de errores de validación identificados.
+                    items:
+                      $ref: '#/components/schemas/ErrorDetail'
