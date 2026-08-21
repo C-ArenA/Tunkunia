@@ -20,11 +20,16 @@ export default defineNuxtConfig({
   },
 
   modules: ["@pinia/colada-nuxt", "@pinia/nuxt", "@nuxt/ui"],
-  
+
   routeRules: {
+    "/**": { appLayout: "public" },
     "/app/**": {
       appLayout: "dashboard",
       appMiddleware: ["auth"],
+    },
+    "/admin/**": {
+      appLayout: "admin",
+      appMiddleware: ["auth", "admin"],
     },
   },
 });

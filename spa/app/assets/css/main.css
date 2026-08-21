@@ -1,2 +1,48 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+:root {
+  --tunkunia-primary: #087443;
+  --tunkunia-accent: #d3a000;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: #f7f8f5;
+  color: #17221d;
+}
+
+.tricolor {
+  height: 5px;
+  background: linear-gradient(90deg, #d52b1e 0 33.33%, #f9e300 33.33% 66.66%, #007934 66.66%);
+}
+.surface {
+  border: 1px solid #dfe5df;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 35px rgba(23, 34, 29, 0.06);
+}
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tunkunia-primary);
+}
+.diagram-shell {
+  overflow-x: auto;
+  border: 1px solid #dfe5df;
+  border-radius: 0.875rem;
+  background-color: #fbfcfa;
+  background-image: radial-gradient(#d7ddd8 1px, transparent 1px);
+  background-size: 18px 18px;
+  padding: 0.75rem;
+}
+.page-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}

@@ -1,62 +1,102 @@
 <script setup lang="ts">
-import { listTramitesQuery, getMeQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { getMeQuery, listTramitesQuery } from "#shared/clientV1/@pinia/colada.gen";
 
-const inst = {
-  Name: "Institución de Ejemplo",
-  Description: "Esta es una institución de ejemplo para mostrar cómo se vería la página de inicio.",
-};
-
-const { data: tramites } = useQuery(listTramitesQuery);
+const { state } = useTunkuniaDemo();
 const { data: me } = useQuery(getMeQuery);
+const {
+  data: tramites,
+  status,
+  error,
+} = useQuery(listTramitesQuery({ query: { status: "published", limit: 100 } }));
 </script>
 
-<style scoped></style>
 <template>
-  <div>
-    <div class="flag flex sticky top-0">
-      <div class="bg-red-600 h-1 w-full"></div>
-      <div class="bg-yellow-400 h-1 w-full"></div>
-      <div class="bg-green-600 h-1 w-full"></div>
-    </div>
-    <div class="flex flex-col md:flex-row h-screen overflow-hidden bg-white-50">
-      <header class="p-4 md:flex-1 flex md:flex-col items-center justify-between md:justify-center">
-        <div class="flex flex-col md:items-center md:text-center gap-2 mb-4">
-          <h1 class="text-2xl md:text-4xl">Tunkun<span>ia</span></h1>
-          <h2 class="text-lg font-semibold">{{ inst.Name }}</h2>
-          <p class="text-gray-600 hidden md:block text-center px-4">
-            Tunkunia: {{ inst.Description }}
-          </p>
-        </div>
-        <a
-          v-if="!me"
-          href="/login"
-          class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-          >Ingresar</a
+  <div class="bg-white">
+    <UContainer
+      class="grid min-h-[calc(100vh-0.25rem)] gap-10 py-10 md:grid-cols-[minmax(16rem,0.72fr)_minmax(0,1.28fr)] md:items-center md:gap-16 md:py-16"
+    >
+      <header class="flex flex-col items-start md:sticky md:top-20">
+        <div
+          class="grid size-14 place-items-center rounded-2xl bg-emerald-800 text-sm font-bold text-white"
         >
-        <NuxtLink
+          {{ state.institution.acronym }}
+        </div>
+        <p class="mt-7 text-sm font-semibold tracking-wide text-emerald-700">Tunkunia</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
+          {{ state.institution.name }}
+        </h1>
+        <p class="mt-4 max-w-md leading-7 text-slate-600">
+          {{ state.institution.description }}
+        </p>
+        <UButton
+          v-if="!me"
+          to="/login"
+          class="mt-8"
+          size="xl"
+          label="Ingresar"
+          icon="i-lucide-log-in"
+        />
+        <UButton
           v-else
           to="/app"
-          class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mt-2 md:mt-4"
-          >Ingresar</NuxtLink
-        >
+          class="mt-8"
+          size="xl"
+          label="Ir a mi cuenta"
+          icon="i-lucide-arrow-right"
+        />
       </header>
-      <main class="p-4 flex-1 overflow-y-auto flex flex-col md:justify-center">
-        <h2 class="text-2xl font-bold my-2 text-center md:hidden">Trámites Disponibles</h2>
-        <p class="text-gray-600 md:hidden my-2">Tunkunia: {{ inst.Description }}</p>
-        <ul class="flex flex-col gap-4">
-          <li v-for="item in tramites?.data" :key="item.id">
-            <article
-              class="border border-primary p-4 rounded hover:shadow-lg transition-shadow duration-300"
+
+      <main id="tramites" class="min-w-0 md:max-h-[calc(100vh-8rem)] md:overflow-y-auto md:pr-3">
+        <div class="border-b border-slate-200 pb-5">
+          <h2 class="text-2xl font-bold tracking-tight text-slate-950">Trámites disponibles</h2>
+          <p class="mt-2 text-slate-600">
+            Consulta la información, los requisitos y el procedimiento de cada trámite.
+          </p>
+        </div>
+
+        <div v-if="status === 'pending'" class="mt-6 grid gap-4">
+          <USkeleton v-for="n in 4" :key="n" class="h-32 rounded-xl" />
+        </div>
+        <UAlert
+          v-else-if="error"
+          class="mt-6"
+          color="error"
+          title="No pudimos cargar los trámites"
+          description="Vuelve a intentarlo en unos minutos."
+          icon="i-lucide-circle-alert"
+        />
+        <UEmpty
+          v-else-if="!tramites?.data.length"
+          class="mt-6"
+          icon="i-lucide-files"
+          title="No hay trámites publicados"
+          description="Los trámites disponibles aparecerán aquí."
+        />
+        <ul v-else class="divide-y divide-slate-200">
+          <li v-for="item in tramites.data" :key="item.id">
+            <NuxtLink
+              :to="`/tramites/${item.id}`"
+              class="group flex items-start justify-between gap-5 py-6"
             >
-              <h3 class="text-xl font-semibold">{{ item.name }}</h3>
-              <p class="text-gray-600">{{ item.description }}</p>
-              <a :href="`/tramites/${item.id}`" class="text-green-500 hover:text-green-700"
-                >Ver Detalles</a
-              >
-            </article>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-900 group-hover:text-emerald-700">
+                  {{ item.name }}
+                </h3>
+                <p class="mt-2 line-clamp-2 leading-6 text-slate-600">
+                  {{ item.description }}
+                </p>
+                <p class="mt-3 text-sm font-semibold text-emerald-700">
+                  Ver información y procedimiento
+                </p>
+              </div>
+              <UIcon
+                name="i-lucide-chevron-right"
+                class="mt-1 size-5 shrink-0 text-slate-400 transition group-hover:translate-x-1 group-hover:text-emerald-700"
+              />
+            </NuxtLink>
           </li>
         </ul>
       </main>
-    </div>
+    </UContainer>
   </div>
 </template>
