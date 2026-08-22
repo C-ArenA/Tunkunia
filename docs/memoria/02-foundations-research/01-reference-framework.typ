@@ -36,10 +36,12 @@ En una entrevista del año 2015 a Carlos Jiménez @digitalGobiernoInteligenteEnt
 
 El Gobierno Electrónico brinda muchos beneficios a la población, como la eliminación de barreras temporales y espaciales, el acceso igualitario a la información, la colaboración y el aumento en la producción de bienes y servicios; en suma, brinda mayor calidad de vida a la ciudadanía @naserGobiernoElectronicoGestion2011. Los esfuerzos por digitalizar los trámites se enmarcan dentro de este concepto.
 
-==== AGETIC y plataformas estatales
-
+==== AGETIC
+==== Ciudadanía Digital
+==== Firma Digital
+==== Plataforma GOB.BO
 La plataforma gob.bo funciona como un catálogo o directorio de trámites, registrando información relevante de estos. No digitaliza trámites, pero contiene información valiosa para su modelado.
-
+==== Distribución de soluciones a instituciones
 La AGETIC dispone además de mecanismos para la creación de sitios institucionales y de herramientas de Ciudadanía Digital relacionadas con la autenticación y la validación de documentos.
 
 === Marco normativo boliviano
@@ -221,18 +223,3 @@ Como evidencia esta normativa, el software libre se encuentra regulado y se esta
 
 //NOTE: Podríamos añadir subtítulo sobre los lineamientos aprobados por RM 079/2, pero a pesar de su relevancia, lo dejaremos para el final, porque ya tenemos mucha información. Quizá podríamos añadir lo que se indica sobre que cada entidad pública debe digitalizar los trámites por su cuenta
 
-=== Contexto institucional del SIAI
-
-El Decreto Supremo Nº 26736, que aprueba el Reglamento Ambiental del Sector Industrial Manufacturero (@RASIM), indica en su Artículo 9 las competencias, atribuciones y funciones del Viceministro de Industria y Comercio Interno, actualmente Viceministro de Políticas de Industrialización. Su inciso f) dispone: "Establecer y administrar el Sistema de Información Ambiental Industrial (SIAI) y el Sistema de Evaluación y Revelación de Información (SERI)" @DecretoSupremo263762002.
-
-El @SIAI atiende una amplia variedad de requerimientos. Para este documento son relevantes los de tipo administrativo, que involucran un grupo de documentos ambientales que deben obtener y actualizar las industrias manufactureras del país, dependiendo de características y condiciones dadas a conocer en un primer trámite de registro, el RAI.
-
-Las industrias manufactureras deben cumplir la normativa ambiental vigente de acuerdo con el @RASIM. Esta normativa demanda la obtención de una serie de documentos llamados @IRAP:pl:
-
-- RAI: Registro Ambiental Industrial.
-- EEIA: Estudio de Evaluación de Impacto Ambiental.
-- DP: Descripción del Proyecto.
-- PMA: Plan de Manejo Ambiental.
-- MAI: Manifiesto Ambiental Industrial.
-- ARI-PC: Análisis de Riesgos Industriales y Plan de Contingencias.
-- IAA: Informe Ambiental Anual.

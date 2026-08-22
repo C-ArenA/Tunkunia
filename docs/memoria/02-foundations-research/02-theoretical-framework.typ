@@ -2,7 +2,115 @@
 
 == Marco Teórico
 
-=== Metodologías en Gestión de Proyectos
+=== Flujos de Trabajo
+
+=== Sistemas de gestión de flujos de trabajo y procesos<section:wfms>
+
+Un @WFMS contempla, de forma general, el manejo de flujos de trabajo. De forma similar, y a veces usado indistintamente con WFM, existe el término BPM (_Business Process Management_), que de modo más amplio es el arte y la ciencia de supervisar cómo el trabajo es realizado dentro de una organización.
+
+Toda organización, incluido el aparato gubernamental, debe manejar *procesos* @dumasFundamentalsBusinessProcess2013, siendo los trámites ejemplos típicos. Por esto, tanto los WFMS como BPM tienen relevancia en los sistemas de software.
+
+Existe una organización dedicada a estandarizar los WFMS y BPM, fundada el año 1993 y llamada "Workflow Management Coalition" (WfMC) @WorkflowManagementCoalition. Esta organización define a los WFMS de la siguiente manera:
+
+#quote(attribution: [Workflow Management Coalition])[
+  A workflow management system (WMS) is a software application that is designed to help organizations automate and manage their business processes. A WMS allows an organization to define and implement a workflow #sym.dash.em\a series of tasks, steps, and decisions#sym.dash.em that need to be followed to complete a specific process. The system can then be used to track the progress of the workflow, manage the flow of information and documents, and ensure that tasks are completed in the correct order and by the right people.
+
+  A WMS can be used to automate a wide range of business processes, such as invoicing, order fulfillment, human resources, and project management. It can also be used to integrate different systems, such as email, calendar, and customer relationship management (CRM) software. WMS allows you to streamline the process and make it more efficient, reduce errors and delays, and give you real-time visibility into the status of your processes, also it's common to have a built-in reporting and analytics tools to measure the performance of the process.
+]
+
+#figure(
+  image("/assets/figures/wfms_history.png"),
+  caption: [WFMS desde una perspectiva histórica\ Fuente: The Application of Petri Nets
+    to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+  placement: auto,
+)<fig:wfms_history>
+
+La necesidad de manejar flujos de trabajo es frecuente en muchos sistemas, por lo que ciertos autores creen que debe ser un módulo tan importante como el sistema de gestión de bases de datos, como se aproxima mediante la @fig:wfms_history. De forma general y sintética, el propósito principal de los WFMS es apoyar la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que puede guiar la implementación de un sistema específico para trámites administrativos.
+
+
+
+=== Modelado de procesos<section:modeling>
+
+Los trámites son *procesos*. Existen varios lenguajes que permiten representarlos gráficamente y que, de forma general, consisten mínimamente en conjuntos de nodos de dos tipos: actividad y control @dumasFundamentalsBusinessProcess2013.
+
+#figure(
+  image("/assets/figures/bpmn.png", width: 60%),
+  caption: [Ejemplo de un diagrama BPMN\ Fuente: Business Process Model and Notation (BPMN) Version 2.0.2 @bpmn202],
+  placement: auto,
+)<fig:bpmn>
+
+==== Diagramas de flujo
+Quizá uno de los lenguajes más antiguos para describir procesos. En su forma básica emplea rectángulos para representar actividades y rombos o diamantes para representar puntos de decisión.
+
+==== Diagramas de actividad UML (Unified Modeling Language):
+UML es un lenguaje ampliamente utilizado para representar sistemas de software. Sus diagramas de actividad permiten representar gráficamente procesos de negocio a través de distintas organizaciones.
+==== EPC (Event-driven Process Chain):
+Técnica gráfica de modelado de procesos ampliamente utilizada en la industria y compatible con muchas herramientas. Se parece a los diagramas de flujo, pero trata a los eventos como ciudadanos de primera clase.
+==== Familia IDEF (Integration Definition):
+Conjunto de métodos y técnicas gráficas creado por la fuerza aérea estadounidense y basado en el manejo de escenarios. IDEF3 provee un mecanismo para recolectar y documentar procesos @IDEF3ProcessDescription.
+==== BPMN (Business Process Model and Notation)
+Estándar gráfico de modelado de procesos. Su última versión es BPMN 2.0.2 y fue publicada como estándar del Object Management Group (OMG) el año 2014. Las actividades se representan mediante rectángulos redondeados, los nodos de control o _gateways_ mediante diamantes y los nodos se conectan mediante arcos, como en el proceso colaborativo de la @fig:bpmn.
+
+Además, existen otros lenguajes de modelado de sistemas menos comunes para describir procesos, pero útiles porque reflejan la naturaleza paso a paso de los trámites.
+
+#figure(
+  image("/assets/figures/statediagramex.png", width: 50%),
+  caption: [Ejemplo de una máquina de estados\ Fuente: Elaboración propia],
+  placement: auto,
+)<fig:statediagramex>
+
+#figure(
+  image("/assets/figures/petricomplaints.png", width: 70%),
+  caption: [Red de Petri de un proceso de queja\ Fuente: The Application Of Petri Nets to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+  placement: auto,
+)<fig:petricomplaints>
+
+==== Máquinas de estado en el modelado de procesos
+Aunque no suelen mencionarse como lenguaje para modelar gráficamente procesos administrativos, pueden cumplir este propósito (ver @fig:statediagramex). Una máquina de estados es un conjunto de cinco elementos $M=(S,I,O,v,w)$, donde $S$ representa la colección de estados de $M$; $I$, el alfabeto de entradas; $O$, el alfabeto de salidas; $v:S x I->S$, la función del siguiente estado; y $w:S x I->O$, la función de salida @grimaldiDiscreteCombinatorialMathematics1998.
+
+- *Redes de Petri:* una de las técnicas de modelado más antiguas en las ciencias de la computación. Inspiró aspectos del lenguaje UML, tiene diversas variantes y está definida formal y matemáticamente, lo que permite analizar los sistemas modelados @reisigUnderstandingPetriNets2013. También se denominan _place/transition nets_ porque están formadas por lugares, representados por círculos, y transiciones, representadas por rectángulos, constituyendo un lenguaje matemático y una forma de representar sistemas distribuidos discretos @simonStateMachinesPetri. Algunos autores defienden que esta técnica es capaz de modelar procesos @vanderaalstAPPLICATIONPETRINETS1998, como en la @fig:petricomplaints.
+
+Existe una gran cantidad de lenguajes, herramientas y técnicas para modelar sistemas de software y procesos. La elección depende de la naturaleza del sistema y de los beneficios de cada alternativa, aunque un mismo sistema puede modelarse mediante distintos lenguajes.
+
+=== Redes de Petri
+==== Fundamentos
+==== Redes de Petri con Colores
+==== Redes de Petri con Tiempo
+
+=== Aplicación de Redes de Petri al Modelado de Procesos
+
+=== El Proceso de la Ingeniería de Software
+==== Ingeniería de Requerimientos
+==== Arquitectura de software y modularidad
+
+Una ingeniería de software efectiva requiere diseñar la arquitectura del software, práctica que siempre se lleva a cabo de forma implícita al desarrollar, pero que conviene aplicar de forma fundamentada. Primero, reconocer paradigmas comunes permite entender relaciones de alto nivel entre sistemas y construir sistemas nuevos como variaciones de sistemas antiguos. Segundo, conseguir una arquitectura correcta suele ser crucial para el éxito del diseño, mientras que hacerlo incorrectamente puede llevar a resultados desastrosos. Tercero, comprender las arquitecturas permite elegir de manera fundamentada entre alternativas de diseño. Cuarto, una representación arquitectónica suele ser esencial para analizar y describir propiedades de alto nivel de un sistema complejo @garlanIntroductionSoftwareArchitecture1994. La representación y el diseño explícitos de la arquitectura se han vuelto temas dominantes en la ingeniería de software @pressmanSoftwareEngineeringPractitioner2010.
+
+La modularidad es un principio de organización importante para sistemas compuestos por varias piezas. Es un término general para denotar grupos relacionados de código @richardsFundamentalsSoftwareArchitecture2020. Este agrupamiento se relaciona con la reutilización y con la organización de un sistema para facilitar su mantenimiento y evolución.
+
+Muchos patrones y estilos de arquitectura buscan modularidad en algún sentido. Entre ellos se encuentran la arquitectura en capas, la arquitectura orientada a servicios (@SOA), la arquitectura basada en microservicios, la arquitectura de eventos y la arquitectura hexagonal. Cada estilo tiene características, ventajas y desventajas propias, pero todos buscan facilitar el mantenimiento y la evolución del software.
+
+#figure(
+  image("/assets/figures/micro_topo.png", width: 60%),
+  caption: [Topología del estilo de arquitectura de microservicios\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  placement: auto,
+)<fig:micro_topo>
+
+#figure(
+  image("/assets/figures/soa_topo.png", width: 60%),
+  caption: [Topología del estilo de arquitectura @SOA\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  placement: auto,
+)<fig:soa_topo>
+
+- *La arquitectura por capas* es un estándar de facto para muchas aplicaciones, principalmente por su simplicidad, familiaridad y bajos costos. También es una forma natural de desarrollar aplicaciones siguiendo la ley de Conway de reflejar la estructura de una organización en el diseño de un producto. La @fig:siai_architecture_style muestra una topología común de este tipo.
+- *La arquitectura de microservicios* se basa en pequeños servicios totalmente independientes que pueden comunicarse entre sí para garantizar un alto desacoplamiento. Es compleja y requiere independencia incluso en las bases de datos, como puede verse en la @fig:micro_topo.
+- *La arquitectura orientada a servicios (SOA)* es un estilo pragmático y flexible que, si bien se basa en servicios independientes, no tiene el mismo nivel de complejidad que los microservicios y otras arquitecturas distribuidas (ver @fig:soa_topo). Se volvió popular en muchas aplicaciones relacionadas con empresas.
+
+==== Diseño de Software
+==== Construcción del Software
+===== Breve repaso de Tecnologías y Técnicas
+
+
+=== Metodologías en Gestión de Proyectos y Desarrollo de Software
 
 Un análisis etimológico de la palabra metodología, que proviene del griego μέθοδος y está conformado por tres partes: "meta" que significa "más allá", "hodos" que significa "camino" y el sufijo "-logía" que se refiere a "estudio", nos da a entender inicialmente que método es el camino del camino, es decir, cómo se logra lo que se quiere lograr y metodología es el análisis realizado sobre el mismo. Evidentemente, el significado de la palabra es más complejo y de acuerdo al diccionario puede indicar un conjunto de métodos que se siguen en una investigación científica o doctrinal @asaleDiccionarioLenguaEspanola, siendo ésta una definición influenciada por la epistemología y su carácter investigativo para generar nuevo conocimiento, sin reflejar necesariamente y de forma directa su uso en un proyecto de ingeniería.
 
@@ -82,6 +190,12 @@ Se compone de cuatro fases principales: Inicio (_Inception_), Elaboración, Cons
 
 // Los encabezados SCRUM y Kanban del borrador original no contaban con desarrollo.
 
+=== Interoperabilidad
+==== OAuth2
+==== OIDC
+==== REST API
+==== OpenAPI
+
 === Reutilización de software
 
 La reutilización de software (_software reuse_) es el uso sistemático de piezas existentes de software para construir otras nuevas, modificadas o incluso productos de software completos a partir de estas. Las piezas pueden ser código fuente, ejecutables, guías de diseño, componentes de software libre, componentes comerciales o arquitecturas completas. El conocimiento también es reutilizable y se refleja en patrones, procesos o arquitecturas de software @mohagheghiQualityProductivityEconomic2007. Las piezas reutilizables pueden materializarse como bibliotecas, _frameworks_, componentes o sistemas completos (@fig:reuse_landscape).
@@ -94,87 +208,6 @@ La reutilización de software (_software reuse_) es el uso sistemático de pieza
 
 Por su naturaleza de usar trabajo existente como bloques de construcción para proyectos mayores, la reutilización se relaciona con un aumento en la productividad, un posible aumento de calidad @selbyEnablingReusebasedSoftware2005 y una disminución en los costos. Medir empíricamente estos beneficios es difícil y algunos intentos pueden no contemplar todas las variables, dada la naturaleza particular de cada proyecto. Aun así, se han mostrado resultados positivos que indican un claro aumento de productividad al reutilizar software @basiliHowReuseInfluences1996, lo que también implicaría beneficios en tiempos y costos de desarrollo.
 
-=== Sistemas de gestión de flujos de trabajo y procesos<section:wfms>
-
-Un @WFMS contempla, de forma general, el manejo de flujos de trabajo. De forma similar, y a veces usado indistintamente con WFM, existe el término BPM (_Business Process Management_), que de modo más amplio es el arte y la ciencia de supervisar cómo el trabajo es realizado dentro de una organización.
-
-Toda organización, incluido el aparato gubernamental, debe manejar *procesos* @dumasFundamentalsBusinessProcess2013, siendo los trámites ejemplos típicos. Por esto, tanto los WFMS como BPM tienen relevancia en los sistemas de software.
-
-Existe una organización dedicada a estandarizar los WFMS y BPM, fundada el año 1993 y llamada "Workflow Management Coalition" (WfMC) @WorkflowManagementCoalition. Esta organización define a los WFMS de la siguiente manera:
-
-#quote(attribution: [Workflow Management Coalition])[
-  A workflow management system (WMS) is a software application that is designed to help organizations automate and manage their business processes. A WMS allows an organization to define and implement a workflow #sym.dash.em\a series of tasks, steps, and decisions#sym.dash.em that need to be followed to complete a specific process. The system can then be used to track the progress of the workflow, manage the flow of information and documents, and ensure that tasks are completed in the correct order and by the right people.
-
-  A WMS can be used to automate a wide range of business processes, such as invoicing, order fulfillment, human resources, and project management. It can also be used to integrate different systems, such as email, calendar, and customer relationship management (CRM) software. WMS allows you to streamline the process and make it more efficient, reduce errors and delays, and give you real-time visibility into the status of your processes, also it's common to have a built-in reporting and analytics tools to measure the performance of the process.
-]
-
-#figure(
-  image("/assets/figures/wfms_history.png"),
-  caption: [WFMS desde una perspectiva histórica\ Fuente: The Application of Petri Nets
-    to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
-  placement: auto,
-)<fig:wfms_history>
-
-La necesidad de manejar flujos de trabajo es frecuente en muchos sistemas, por lo que ciertos autores creen que debe ser un módulo tan importante como el sistema de gestión de bases de datos, como se aproxima mediante la @fig:wfms_history. De forma general y sintética, el propósito principal de los WFMS es apoyar la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que puede guiar la implementación de un sistema específico para trámites administrativos.
-
-=== Arquitectura de software y modularidad
-
-Una ingeniería de software efectiva requiere diseñar la arquitectura del software, práctica que siempre se lleva a cabo de forma implícita al desarrollar, pero que conviene aplicar de forma fundamentada. Primero, reconocer paradigmas comunes permite entender relaciones de alto nivel entre sistemas y construir sistemas nuevos como variaciones de sistemas antiguos. Segundo, conseguir una arquitectura correcta suele ser crucial para el éxito del diseño, mientras que hacerlo incorrectamente puede llevar a resultados desastrosos. Tercero, comprender las arquitecturas permite elegir de manera fundamentada entre alternativas de diseño. Cuarto, una representación arquitectónica suele ser esencial para analizar y describir propiedades de alto nivel de un sistema complejo @garlanIntroductionSoftwareArchitecture1994. La representación y el diseño explícitos de la arquitectura se han vuelto temas dominantes en la ingeniería de software @pressmanSoftwareEngineeringPractitioner2010.
-
-La modularidad es un principio de organización importante para sistemas compuestos por varias piezas. Es un término general para denotar grupos relacionados de código @richardsFundamentalsSoftwareArchitecture2020. Este agrupamiento se relaciona con la reutilización y con la organización de un sistema para facilitar su mantenimiento y evolución.
-
-Muchos patrones y estilos de arquitectura buscan modularidad en algún sentido. Entre ellos se encuentran la arquitectura en capas, la arquitectura orientada a servicios (@SOA), la arquitectura basada en microservicios, la arquitectura de eventos y la arquitectura hexagonal. Cada estilo tiene características, ventajas y desventajas propias, pero todos buscan facilitar el mantenimiento y la evolución del software.
-
-#figure(
-  image("/assets/figures/micro_topo.png", width: 60%),
-  caption: [Topología del estilo de arquitectura de microservicios\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
-  placement: auto,
-)<fig:micro_topo>
-
-#figure(
-  image("/assets/figures/soa_topo.png", width: 60%),
-  caption: [Topología del estilo de arquitectura @SOA\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
-  placement: auto,
-)<fig:soa_topo>
-
-- *La arquitectura por capas* es un estándar de facto para muchas aplicaciones, principalmente por su simplicidad, familiaridad y bajos costos. También es una forma natural de desarrollar aplicaciones siguiendo la ley de Conway de reflejar la estructura de una organización en el diseño de un producto. La @fig:siai_architecture_style muestra una topología común de este tipo.
-- *La arquitectura de microservicios* se basa en pequeños servicios totalmente independientes que pueden comunicarse entre sí para garantizar un alto desacoplamiento. Es compleja y requiere independencia incluso en las bases de datos, como puede verse en la @fig:micro_topo.
-- *La arquitectura orientada a servicios (SOA)* es un estilo pragmático y flexible que, si bien se basa en servicios independientes, no tiene el mismo nivel de complejidad que los microservicios y otras arquitecturas distribuidas (ver @fig:soa_topo). Se volvió popular en muchas aplicaciones relacionadas con empresas.
-
-=== Modelado de procesos<section:modeling>
-
-Los trámites son *procesos*. Existen varios lenguajes que permiten representarlos gráficamente y que, de forma general, consisten mínimamente en conjuntos de nodos de dos tipos: actividad y control @dumasFundamentalsBusinessProcess2013.
-
-#figure(
-  image("/assets/figures/bpmn.png", width: 60%),
-  caption: [Ejemplo de un diagrama BPMN\ Fuente: Business Process Model and Notation (BPMN) Version 2.0.2 @bpmn202],
-  placement: auto,
-)<fig:bpmn>
-
-- *Diagramas de flujo:* quizá uno de los lenguajes más antiguos para describir procesos. En su forma básica emplea rectángulos para representar actividades y rombos o diamantes para representar puntos de decisión.
-- *Diagramas de actividad UML (Unified Modeling Language):* UML es un lenguaje ampliamente utilizado para representar sistemas de software. Sus diagramas de actividad permiten representar gráficamente procesos de negocio a través de distintas organizaciones.
-- *EPC (Event-driven Process Chain):* técnica gráfica de modelado de procesos ampliamente utilizada en la industria y compatible con muchas herramientas. Se parece a los diagramas de flujo, pero trata a los eventos como ciudadanos de primera clase.
-- *Familia IDEF (Integration Definition):* conjunto de métodos y técnicas gráficas creado por la fuerza aérea estadounidense y basado en el manejo de escenarios. IDEF3 provee un mecanismo para recolectar y documentar procesos @IDEF3ProcessDescription.
-- *BPMN (Business Process Model and Notation):* estándar gráfico de modelado de procesos. Su última versión es BPMN 2.0.2 y fue publicada como estándar del Object Management Group (OMG) el año 2014. Las actividades se representan mediante rectángulos redondeados, los nodos de control o _gateways_ mediante diamantes y los nodos se conectan mediante arcos, como en el proceso colaborativo de la @fig:bpmn.
-
-Además, existen otros lenguajes de modelado de sistemas menos comunes para describir procesos, pero útiles porque reflejan la naturaleza paso a paso de los trámites.
-
-#figure(
-  image("/assets/figures/statediagramex.png", width: 50%),
-  caption: [Ejemplo de una máquina de estados\ Fuente: Elaboración propia],
-  placement: auto,
-)<fig:statediagramex>
-
-#figure(
-  image("/assets/figures/petricomplaints.png", width: 70%),
-  caption: [Red de Petri de un proceso de queja\ Fuente: The Application Of Petri Nets to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
-  placement: auto,
-)<fig:petricomplaints>
-
-- *Máquinas de estados:* aunque no suelen mencionarse como lenguaje para modelar gráficamente procesos administrativos, pueden cumplir este propósito (ver @fig:statediagramex). Una máquina de estados es un conjunto de cinco elementos $M=(S,I,O,v,w)$, donde $S$ representa la colección de estados de $M$; $I$, el alfabeto de entradas; $O$, el alfabeto de salidas; $v:S x I->S$, la función del siguiente estado; y $w:S x I->O$, la función de salida @grimaldiDiscreteCombinatorialMathematics1998.
-- *Redes de Petri:* una de las técnicas de modelado más antiguas en las ciencias de la computación. Inspiró aspectos del lenguaje UML, tiene diversas variantes y está definida formal y matemáticamente, lo que permite analizar los sistemas modelados @reisigUnderstandingPetriNets2013. También se denominan _place/transition nets_ porque están formadas por lugares, representados por círculos, y transiciones, representadas por rectángulos, constituyendo un lenguaje matemático y una forma de representar sistemas distribuidos discretos @simonStateMachinesPetri. Algunos autores defienden que esta técnica es capaz de modelar procesos @vanderaalstAPPLICATIONPETRINETS1998, como en la @fig:petricomplaints.
-
-Existe una gran cantidad de lenguajes, herramientas y técnicas para modelar sistemas de software y procesos. La elección depende de la naturaleza del sistema y de los beneficios de cada alternativa, aunque un mismo sistema puede modelarse mediante distintos lenguajes.
 
 === Software libre y código abierto
 
@@ -202,11 +235,6 @@ El "Plan de Implementación de Software Libre y Estándares Abiertos" define al 
   informáticas que utiliza con soberanía tecnológica*.
 ]
 
-=== Modelos grandes de lenguaje e inferencia
-
-Los grandes modelos de lenguaje (LLM) son un tipo de inteligencia artificial que reconoce y genera texto, entre otras tareas. Se entrenan con conjuntos grandes de datos y se construyen sobre _machine learning_, específicamente sobre un tipo de red neuronal llamado _transformer_ @WhatLLMLarge.
-
-La inferencia consiste en usar modelos de inteligencia artificial ya entrenados para reconocer patrones y obtener conclusiones sobre información nueva que no vieron antes @WhatAIInference2024. Este enfoque puede utilizarse para analizar documentos y datos sin necesidad de entrenar otro modelo.
 
 // El borrador original incluía encabezados vacíos sobre lenguajes, librerías, bases de datos,
 // OAuth, IDEs, control de versiones, plataformas de colaboración, automatización, clientes de

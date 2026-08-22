@@ -110,9 +110,21 @@ No se encontraron módulos especializados en gestión de trámites que pudieran 
 
 El borrador del Marco de referencia identificaba también, sin aportar todavía descripciones, a Camunda, Temporal y n8n como sistemas de gestión de flujos de trabajo, y a PocketBase y WordPress como sistemas que abstraen la creación de otros sistemas.
 
+==== Camunda
+// TODO: Completar
+==== Temporal
+// TODO: Completar
+
 === Tendencias tecnológicas y enfoques actuales
 
 Las necesidades alrededor de la digitalización de trámites son diversas. Para resolverlas se han vuelto comunes distintas prácticas, sistemas y enfoques. Algunas tendencias generales proceden de entidades privadas con necesidades similares, pero pueden aplicarse también a trámites de entidades públicas.
+
+==== Sistemas que generan sistemas
+// TODO: Completar
+===== Wordpress
+// TODO: Completar
+===== PocketBase
+// TODO: Completar
 
 ==== Reutilización de software
 
