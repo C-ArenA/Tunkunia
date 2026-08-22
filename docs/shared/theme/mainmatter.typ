@@ -1,57 +1,56 @@
 #let chapter-counter = counter("chapter-counter")
-
-#let heading-numbering(..numbers) = {
-  let numbers = numbers.pos()
-  if numbers.len() == 1 {
-    "Parte " + numbering("I", ..numbers)
-  } else if numbers.len() == 2 {
-    (
-      "Capítulo " + numbering("1", chapter-counter.get().first() + 1) + linebreak()
-    )
-  } else {
-    numbering("1.1.1", ..chapter-counter.get(), ..numbers.slice(2))
-  }
-}
-
-#let render-chapter-heading(it) = {
-  pagebreak(weak: true)
-  chapter-counter.step()
-  it
-  linebreak()
-}
-
-#let render-part-heading(it) = {
-  if it.numbering == none {
-    align(center, it)
-    v(1em)
-  } else {
-    page(numbering: none)[
-      #v(1fr)
-      #align(center)[
-        #set text(size: 25pt)
-        #set par(justify: false)
-        #smallcaps()[Parte #str(counter(heading).get().first())]\
-        #upper(it.body)
-      ]
-      #v(2fr)
-    ]
-  }
-}
+#let part-supp = [Parte]
+#let chapter-supp = [Capítulo]
 
 #let main-heading-style(body) = {
-  set heading(numbering: heading-numbering)
-  show heading.where(level: 2): set align(center)
-  show heading.where(level: 2): set text(size: 1.4em)
-  show heading.where(level: 3): set text(size: 1.2em)
-  show heading.where(level: 1): set heading(supplement: "Parte")
-  show heading.where(level: 1): render-part-heading
-  show heading.where(level: 2): render-chapter-heading
-  show selector.or(heading.where(level: 1), heading.where(level: 2)): smallcaps
+  // Heading defaults: Subsections and so on
+  set heading(numbering: (..n) => {
+    let nums = n.pos()
+    if nums.len() > 2 {
+      numbering("1.1.1", ..chapter-counter.get(), ..nums.slice(2))
+    }
+  })
+
+  // Parts specific settings and styling
+  show heading.where(level: 1): set heading(supplement: part-supp, numbering: "I")
+  show heading.where(level: 1): it => {
+    page(numbering: none, margin: (x: 4cm, top: 1in, bottom: 2in))[
+      #align(center + horizon)[
+        #block()[
+          #text([Parte #counter(heading).display()], weight: "medium", size: 3em)\
+          #linebreak()
+          #text(smallcaps(it.body), size: 1.1em, weight: "black")\
+        ]
+      ]
+    ]
+  }
+
+  // Chapters specific settings and styling
+  show heading.where(level: 2): set heading(supplement: chapter-supp, numbering: (..n) => {
+    let nums = n.pos()
+    numbering("1", chapter-counter.get().first() + 1)
+  })
+  show heading.where(level: 2): it => {
+    pagebreak(weak: true)
+    chapter-counter.step()
+    block(below: 4.6em, width: 100%, align(center)[
+      #set par(spacing: 0.9em)
+      #text(size: 0.9em, weight: "thin", font: "New Computer Modern", upper()[#it.supplement #counter(
+          heading,
+        ).display()])\
+
+      #text(size: 1.7em, weight: "medium", smallcaps(it.body))
+    ])
+  }
+
+  // Sections specific settings and styling
+  show heading.where(level: 3): set text(size: 1.2em, weight: "bold")
+
   body
 }
 
 #let mainmatter(body) = {
-  pagebreak()
+  pagebreak(weak: true)
   set page(numbering: "1")
   counter(page).update(1)
   main-heading-style(body)

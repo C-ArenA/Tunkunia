@@ -1,8 +1,6 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 
-== Definición del Proyecto
-
-=== Planteamiento del Problema<section:problem_statement>
+== Planteamiento del Problema<section:problem_statement>
 
 La @section:related_work hace un repaso por algunos de los trabajos relacionados a la digitalización de trámites, haciendo evidente que existe una cantidad importante de estos procesos que se buscan digitalizar. En su mayoría, estas implementaciones comparten características similares que se estarían replicando y que se seguirán replicando en el futuro para otros trámites aún no digitalizados. Además, como pudo observarse en los antecedentes de este trabajo, la digitalización de trámites en instancias públicas del estado debe responder a los lineamientos marcados por la normativa vigente y los diferentes planes, reglamentos y recomendaciones del gobierno boliviano, aspecto que no se atiende de manera correcta.
 
@@ -40,11 +38,11 @@ También conlleva a muchas desventajas directas, principalmente las que nacen de
 - Mala documentación. El código no reutilizado raras veces cuenta con buena documentación que pueda facilitar el futuro mantenimiento del software. A menudo, por ejemplo, las librerías de software cuentan con documentación útil que implica fácil adopción de tecnologías por una mayor cantidad de desarrolladores. Esto se debe a que se continúan sacando nuevas versiones de dichas librerías en un proceso de mejora constante.
 
 
-==== Abordaje al Problema
+=== Abordaje al Problema
 
 Estas desventajas podrían ser atacadas implementando un módulo, componte o subsistema reutilizable que atienda las características comunes entre distintos sistemas de gestión de trámites, buscando cumplir con normativa boliviana, siendo de tipo FOSS, con capacidad de integración de funcionalidades, interoperabilidad y considerando la definición, ejecución, registro, y control de dichos procesos administrativos.
 
-==== Desafíos
+=== Desafíos
 
 Sin embargo, la realización de elementos reutilizables de software acarrea varios desafíos técnicos y académicos, particularmente en el contexto de los trámites gubernamentales. A continuación se listan algunos de estos:
 
@@ -55,7 +53,7 @@ Sin embargo, la realización de elementos reutilizables de software acarrea vari
 - Control de versiones y colaboración: Cualquier proyecto de software moderno requiere el uso de sistemas de versionado, pero en un proyecto de código abierto esto es especialmente importante para permitir colaboraciones externas y evolución constante.
 - Testabilidad: Los proyectos de software moderno tienen como proceso importante el del testing, el cual permite realizar desarrollos que cumplan con lo que se desea en su diseño y que no hagan algo distinto @myersArtSoftwareTesting2012. Sin embargo, el campo del testing no es explorado en instituciones universitarias, a pesar de su importancia.
 
-=== Objetivo
+== Objetivo
 
 #quote()[
   #par()[*Implementar*, como producto mínimo viable (MVP), un *subsistema reutilizable de software libre* especializado en la gestión de flujos de *trámite* que, mediante el uso de técnicas de modelado de sistemas y procesos, represente e implemente los aspectos *comunes* del trámite y pueda ser adoptado por *distintas instituciones públicas* del estado *boliviano* mediante adaptación o configuración mínima y siguiendo los lineamientos establecidos por la normativa nacional sobre gobierno electrónico.]
@@ -75,7 +73,7 @@ Para alcanzar este objetivo será necesario:
 - *Publicar el proyecto como software libre*, bajo una licencia FOSS reconocida, en un repositorio público, asegurando su disponibilidad y potencial reutilización.
 - *Elaborar documentación técnica y funcional*, orientada tanto al uso como al mantenimiento del subsistema por parte de equipos técnicos institucionales.
 
-=== Justificación
+== Justificación
 
 El subsistema reutilizable que se plantea implementar en este proyecto busca contribuir a la adopción del gobierno electrónico en Bolivia mediante la simplificación en la digitalización de trámites en diferentes instancias públicas, permitiendo que la ciudadanía pueda efectuar esta actividad burocrática de una forma sencilla y rápida, minimizando el riesgo de ser víctimas de corrupción, discriminación, clientelismo o de gastos excesivos de tiempo y dinero en estos procedimientos administrativos, es decir, evitando las desventajas del trámite presencial tradicional. Esto es deseable porque, como se ha mencionado en los antecedentes de este documento, los trámites son una de las herramientas más importantes que tiene el gobierno para comunicarse con la ciudadanía y, por lo tanto, es importante que sean accesibles y fáciles de usar.
 
@@ -108,7 +106,7 @@ A su vez, aunque estrechamente relacionado con el factor económico, existe un f
 
 Finalmente, no se puede ignorar que este proyecto también busca validar ciertos patrones, estilos y prácticas de la ingeniería y la arquitectura de software. Incluso al día de hoy se considera a estas ciencias relativamente nuevas y no existen definiciones claras en muchos aspectos como la modularidad @richardsFundamentalsSoftwareArchitecture2020[pág. 37], a pesar de su importancia. Además, en la práctica, los términos usados alrededor del desarrollo del software sufren de una constante evolución. En este sentido, se busca validar el empleo del concepto de subsistema reutilizable para abarcar lo que también podría referirse a un marco de trabajo (framework) especializado, pero que además contemple cierta independencia y pueda integrarse en sistemas más grandes, pertenecientes a instancias públicas diversas. A partir de esto, también se desea desafiar el enfoque de ventanilla única que se hizo popular en años recientes, considerando que los trámites muchas veces deben integrarse a modelos de negocio específicos a cada entidad y en opinión del autor no deberían centralizarse en su totalidad.
 
-=== Alcance
+== Alcance
 
 Para comprender el alcance de este proyecto se debe considerar que, cuando se habla de un _subsistema reutilizable_, se habla de capacidad de integración en sistemas más grandes, pero a la vez de cierto funcionamiento independiente, en este caso como un sistema de gestión de trámites en sí mismo. Por otro lado, al ser reutilizable, se hace referencia a que puede configurarse, modificarse o extenderse como se haría con un marco de trabajo o framework de desarrollo. Esta dualidad entre subsistema y marco de trabajo, se debe a que este elemento de software busca ser empleado por otros desarrolladores de sistemas de software, pero a la vez, aunque en menor medida, por usuarios finales#footnote[Cuando se habla de usuarios finales en este contexto, se hace referencia a usuarios sin conocimiento de desarrollo de software, es decir, todos aquellos que emplean el sistema desde una GUI simplificada que requiera poco entrenamiento para ser utilizada]. Un ejemplo popular de este paradigma es la plataforma de Wordpress, un content management system (CMS) que permite a usuarios finales crear sus propios sitios web, pero que a la vez permite a desarrolladores extender su funcionalidad o configurar los sitios con mayor libertad siguiendo lineamientos establecidos por la plataforma. En este caso, Wordpress podría ser considerado un framework o marco de trabajo de desarrollo, pero su tarea principal es la de crear y gestionar contenidos en forma de sitios web, por lo que se le suele denominar CMS. Otro ejemplo más cercano, aunque menos popular, es Odoo, que se encuentra descrito en la @section:related_work. De forma similar a estos ejemplos, al producto de este proyecto se le llama entonces _subsistema de gestión de flujos de trámite_, tomando en cuenta el objetivo final del sistema.
 
@@ -156,7 +154,7 @@ Finalmente, se debe considerar lo siguiente:
 - No se pretende profundizar demasiado en aspectos de eficiencia y escalabilidad, debido a que se implementará un producto mínimo viable y las optimizaciones se dejan a versiones futuras, posteriores a la ejecución de este proyecto.
 - El funcionamiento del subsistema como sistema independiente para la gestión de trámites recién instalado será limitado en configuración y personalización, por lo que modificaciones específicas en el proceso del trámite pueden requerir intervención empleando algún lenguaje de programación. Esto representa un caso de uso esperado por el sistema, por lo que estas intervenciones deberán seguir los lineamientos del subsistema como marco de trabajo, mismos que estarán detallados en la documentación.
 
-=== Solución Propuesta
+== Solución Propuesta
 
 #figure(
   image("/assets/figures/tunkunia_dist.excalidraw.png", width: 100%),
@@ -222,6 +220,6 @@ El modelado señalado se formulará principalmente alrededor de los distintos tr
 
 El subsistema que implementará el modelado realizado será principalmente monolítico, aunque con un claro enfoque modular y fuertemente inspirado por la arquitectura Model View Controller (MVC). La @fig:modulegraph muestra una aproximación de la estructura final del producto de este proyecto. Se puede observar que se consideran los distintos tipos de usuario, que además se busca separar, en correspondencia con la @fig:wfms_history, el núcleo de manejo de procesos de trámite en su propio módulo, y que se planea no sólo garantizar la interoperabilidad, sino además facilitar la integración out-of-the-box con Ciudadanía Digital. También se muestran ejemplos potenciales de integración con LLMs y otros subsistemas.
 
-==== Transición de lo presencial a lo digital
+=== Transición de lo presencial a lo digital
 
 Es importante considerar que los trámites digitales, si bien tienen muchas ventajas, no son accesibles a todo el público, como pudo verse en la @section:adoption. Para no correr el riesgo de dejar de lado a cierta parte de la población, la solución propuesta tiene un enfoque claro: Tunkunia deberá poder funcionar con asistencia de funcionarios públicos. Es decir, el ciudadano sin acceso a internet aún podrá hacer sus trámites con ayuda en forma presencial. Este tipo de aplicación del sistema, si bien depende exclusivamente de quien lo emplee, se deberá tomar en cuenta a la hora de implementar la solución planteada.

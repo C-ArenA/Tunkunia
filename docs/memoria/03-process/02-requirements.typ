@@ -55,6 +55,7 @@ Analogía
 
 El estándar ISO 29148 presenta un listado de elementos necesarios que deberían formar parte de la especificación de requerimientos del negocio y de los interesados. Estos elementos se solapan en este trabajo con aquello definido en la definición misma del proyecto, además de tener poca compatibilidad con un trabajo de investigación tecnológica, por lo que se omiten como tal las especificaciones de requerimientos del negocio y de los interesados, más conocidos como BRS y STRS.
 
+// TODO: Las reestricciones del proyecto podrían ir aquí quizás
 === Especificación de Requerimientos del Sistema
 
 A continuación se especifican los requerimientos del sistema como un todo a partir de la estructura recomendada por el ISO 29148

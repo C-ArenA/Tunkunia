@@ -1,5 +1,6 @@
 #import "@preview/glossy:0.9.2": glossary
 #import "@preview/icu-datetime:0.2.0": fmt
+#import "mainmatter.typ": chapter-supp
 
 // Cover -----------------------------------------------------------------------
 
@@ -51,7 +52,7 @@
     pagebreak()
     align(right)[
       #v(1fr)
-      #heading(level: 3, numbering: none, outlined: false)[Dedicatoria]
+      #heading(level: 3, numbering: none)[Dedicatoria]
       #dedication
       #v(1fr)
     ]
@@ -60,7 +61,7 @@
     pagebreak()
     align(right)[
       #v(1fr)
-      #heading(level: 3, numbering: none, outlined: false)[
+      #heading(level: 3, numbering: none)[
         Agradecimientos
       ]
       #acknowledgements
@@ -70,7 +71,7 @@
   if abstract != none {
     pagebreak()
     align(center)[
-      #heading(level: 3, numbering: none, outlined: false)[Abstract]
+      #heading(level: 3, numbering: none)[Abstract]
       #abstract
     ]
   }
@@ -94,7 +95,7 @@
       entry.element.location(),
       grid(
         columns: (6em, 1fr),
-        [*#entry.prefix()*], [#entry.inner()],
+        [Parte *#entry.prefix()*], [#entry.inner()],
       ),
     ))
   }
@@ -102,13 +103,20 @@
 
 #let render-chapter-entry(entry) = {
   if entry.element.func() != heading { return entry }
-  upper(link(
-    entry.element.location(),
-    entry.indented(none, rect(
-      stroke: (bottom: .07em),
-      inset: (bottom: .3em, x: 0pt, top: 0pt),
-    )[#entry.prefix() #entry.inner()]),
-  ))
+  if entry.element.supplement == chapter-supp {
+    upper(link(
+      entry.element.location(),
+      entry.indented(none, rect(
+        stroke: (bottom: .07em),
+        inset: (bottom: .3em, x: 0pt, top: 0pt),
+      )[
+        Capítulo #entry.prefix()\
+        #entry.inner()
+      ]),
+    ))
+  } else {
+    upper(link(entry.element.location(), entry.indented(entry.prefix(), [#entry.inner()])))
+  }
 }
 
 #let render-section-entry(entry) = {
@@ -118,11 +126,6 @@
 #let outline-style(body) = {
   set outline(indent: outline-indent)
   set outline.entry(fill: repeat()[.~~])
-  show outline: it => {
-    pagebreak(weak: true)
-    it
-    pagebreak(weak: true)
-  }
   show outline.entry.where(level: 1): set outline.entry(fill: none)
   show outline.entry.where(level: 2): set outline.entry(fill: repeat()[~])
   show outline.entry.where(level: 2): set block(above: 1.5em, below: 1.5em)
@@ -135,7 +138,7 @@
 
 #let acronym-theme = (
   section: (title, body) => {
-    heading(level: 1, numbering: none, title)
+    heading(level: 3, numbering: none, title)
     body
   },
   group: (name, index, total, body) => body,
@@ -146,11 +149,19 @@
 )
 
 #let indexes(acronyms) = outline-style[
-  #outline(title: "Índice General")
+  #heading(level: 1, numbering: none, outlined: false)[Índice General]
+  #outline(title: none)
 
+  #pagebreak()
+  #v(0pt)
   #show outline.entry.where(level: 1): set outline.entry(fill: repeat()[.~~])
-  #outline(title: "Índice de Figuras", target: figure.where(kind: image))
-  #outline(title: "Índice de Tablas", target: figure.where(kind: table))
+  #heading(level: 3, numbering: none)[Índice de Figuras]
+  #outline(title: none, target: figure.where(kind: image))
+
+  #pagebreak()
+  #v(0pt)
+  #heading(level: 3, numbering: none)[Índice de Tablas]
+  #outline(title: none, target: figure.where(kind: table))
 
   #if acronyms.len() > 0 {
     pagebreak(weak: true)
@@ -177,7 +188,7 @@
 ) = {
   cover(title, authors, date)
 
-  set page(numbering: none)
+  set page(numbering: "i")
   preliminary-pages(
     copyright: copyright,
     dedication: dedication,
@@ -186,7 +197,5 @@
   )
 
   pagebreak()
-  set page(numbering: "i")
-  counter(page).update(1)
   indexes(acronyms)
 }
