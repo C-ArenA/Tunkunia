@@ -1,0 +1,13 @@
+flowchart LR
+  request["Solicitud"]
+  form_examination["Examen<br/>de Forma"]
+  publication["Publicación"]
+  opposition_period["Espera de<br/>Oposiciones"]
+  patentability_examination["Examen de<br/>Patentabilidad"]
+  decision["Otorgación o<br/>Denegatoria"]
+
+  request --> form_examination
+  form_examination --> publication
+  publication --> opposition_period
+  opposition_period --> patentability_examination
+  patentability_examination --> decision

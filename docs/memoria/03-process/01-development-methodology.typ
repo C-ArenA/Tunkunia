@@ -1,4 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "/shared/theme/lib.typ": typ-fig
 
 == Metodología y gestión del desarrollo<sec:meth>
 
@@ -83,7 +84,7 @@ Como se puede ver, con las fases de RUP hablamos de priorización y no así de t
 
 Entonces, el proceso del software se podrá ver mejor reflejado en las disciplinas sobre las cuales se iterará dentro de cada fase, las cuales son nueve y se muestran en la @fig:rupiter. Se debe tomar en cuenta que estas iteraciones no se ejecutan de forma lineal y secuencial sobre las distintas disciplinas, sino que pueden realizarse tareas de cualquier tipo durante la iteración e incluso se pueden ignorar algunas disciplinas, como indica Pressman al explicar los flujos de proceso iterativos.
 
-#figure(
+#typ-fig(
   diagram(
     spacing: (4mm, 10mm),
     node-stroke: luma(80%),
@@ -104,9 +105,10 @@ Entonces, el proceso del software se podrá ver mejor reflejado en las disciplin
     edge(<ayd>, <bmod>, "-|>", bend: 20deg),
     edge(<imp>, <req>, "-|>", bend: -30deg),
   ),
-  caption: [Iteraciones basadas en metodología RUP\ Elaboración propia],
+  [Iteraciones basadas en metodología RUP],
+  <fig:rupiter>,
   placement: auto,
-)<fig:rupiter>
+)
 
 Ahora bien, como se hace en la metodología SCRUM, cada iteración debe tener cierto nivel de planificación, para lo cual no sólo se elegirán las tareas para cada iteración, sino que principalmente se definirá el objetivo de las mismas. Esto quiere decir que si en media iteración se identifica que una tarea no corresponde se puede hacer el cambio respondiendo al objetivo de cada iteración. Las iteraciones tendrán una duración de aproximadamente una semana, pero no más de dos, dependiendo de la dificultad del objetivo planteado. Se pueden realizar iteraciones cortas si su duración es motivada por el principio de divide y vencerás.
 

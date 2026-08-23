@@ -1,0 +1,16 @@
+flowchart LR
+  business_modeling["Modelado<br/>del Negocio"]
+  requirements["Requerimientos"]
+  analysis_design["Análisis<br/>y Diseño"]
+  implementation["Implementación"]
+  testing["Pruebas"]
+  deployment["Despliegue"]
+  project_management["Gestión del<br/>Proyecto"]
+
+  business_modeling --> requirements
+  requirements --> analysis_design
+  analysis_design --> implementation
+  implementation --> testing
+  testing --> deployment
+  analysis_design --> business_modeling
+  implementation --> requirements

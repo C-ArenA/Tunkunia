@@ -1,6 +1,6 @@
 #import "@preview/cetz:0.4.2": canvas, draw, tree
 
-#canvas({
+#canvas(padding: (bottom: 1.35em), {
   import draw: *
 
   // --- Axes ---

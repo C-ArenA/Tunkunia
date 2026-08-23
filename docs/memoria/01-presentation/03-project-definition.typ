@@ -1,5 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
-#import "/shared/theme/lib.typ": img-fig
+#import "/shared/theme/lib.typ": img-fig, typ-fig
 
 == Planteamiento del Problema<section:problem_statement>
 
@@ -179,7 +179,7 @@ El subsistema tendrá funcionalidad out-of-the-box simplificada para usuarios fi
 
 Para lograr esta implementación se partirá de un framework de desarrollo web genérico, para lograr, mediante la adición de características, el framework especializado en trámites deseado (@fig:framework2subsystem). Tener un punto de partida utilizando una herramienta conocida permitirá una flexibilidad mayor por parte de quien use el subsistema, pudiendo incluso integrar características ajenas al trámite en la misma base de código, aunque eso no se contempla en este proyecto.
 
-#figure(
+#typ-fig(
   diagram(
     spacing: (18mm, 10mm),
     node-stroke: luma(80%),
@@ -198,9 +198,11 @@ Para lograr esta implementación se partirá de un framework de desarrollo web g
     edge(<c>, <s>),
     edge(<c>, <re>),
   ),
-  caption: [Funciones a grandes rasgos de Tunkunia],
+  [Funciones a grandes rasgos de Tunkunia],
+  <fig:modfun>,
   placement: auto,
-)<fig:modfun>
+  width: 60%,
+)
 
 Si bien la funcionalidad esperada del subsistema se detalla en la sección de alcances, podemos considerar que, tomando como inspiración lo señalado en la @section:wfms acerca de los @WFMS, la funcionalidad de este subsistema contemplará a grandes rasgos y de forma general lo señalado en la @fig:modfun. Es decir, la gestión de los flujos de trámite, desde la creación de estos procedimientos, pasando por su ejecución (trámites individuales), hasta el control de los mismos.
 

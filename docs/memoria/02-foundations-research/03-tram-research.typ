@@ -1,5 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
-#import "/shared/theme/lib.typ": img-fig
+#import "/shared/theme/lib.typ": img-fig, typ-fig
 
 = Introducción
 
@@ -43,11 +43,11 @@ Cada trámite se deberá definir en función a los siguientes parámetros:
 
 Dado el enfoque en gestión de flujos de trabajo, se deben también considerar de manera prioritaria que lo anterior tenga relación con las dimensiones del flujo de trabajo según Van Der Aalst@vanderaalstAPPLICATIONPETRINETS1998, como se puede ver exn la @fig:vanderaals3dwf
 
-#figure(
+#typ-fig(
   include "/assets/figures/vanderaals3dwf.typ",
-  caption: [Abstracción en 3 dimensiones de los flujos de trabajo según Van Der Aalst],
-  gap: 2em
-)<fig:vanderaals3dwf>
+  [Abstracción en 3 dimensiones de los flujos de trabajo según Van Der Aalst],
+  <fig:vanderaals3dwf>,
+)
 
 De este modo, los datos a relevar para cada trámite son:
 
@@ -136,7 +136,7 @@ En función a la metodología se hace la selección de los siguientes trámites:
   - Tras el segundo examen se toma una decisión que se convierte en un título de patente (un certificado)
   - Al conjunto de información que se va recolectando se le llama expediente, similar a como se hace en juzgados
 
-#figure(
+#typ-fig(
   diagram(
     spacing: (4mm, 10mm),
     node-stroke: luma(80%),
@@ -152,9 +152,10 @@ En función a la metodología se hace la selección de los siguientes trámites:
     edge("->"),
     node((2, 1), [Otorgación o\ Denegatoria]),
   ),
-  caption: [Etapas del trámite de solicitud de patente en el SENAPI],
+  [Etapas del trámite de solicitud de patente en el SENAPI],
+  <fig:senapiblocks>,
   placement: auto,
-)<fig:senapiblocks>
+)
 
 === Documento de Identidad
 
