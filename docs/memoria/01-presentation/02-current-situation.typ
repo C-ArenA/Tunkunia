@@ -1,3 +1,5 @@
+#import "/shared/theme/lib.typ": img-fig
+
 == Situación Actual<section:current_situation>
 
 En relación con el recorrido planteado en los antecedentes, esta sección presenta el estado contemporáneo del área mediante la adopción de plataformas digitales, los sistemas y soluciones existentes, las tendencias tecnológicas, los trabajos académicos relacionados y las brechas que permanecen.
@@ -6,38 +8,50 @@ En relación con el recorrido planteado en los antecedentes, esta sección prese
 
 Desde la aparición de Internet, la forma en que las personas se comunican, trabajan y realizan transacciones ha evolucionado aceleradamente. De acuerdo con estimaciones de la @UIT, el uso de Internet pasó del 53% de la población mundial en 2019 al 68% en 2024 (@fig:internet_use). Esto significa que en 2024 cerca de 5,5 mil millones de personas usaban Internet, mientras que 1,3 mil millones aún no estaban en línea @Statistics.
 
-#figure(
-  image("/assets/figures/internet_use.png", width: 60%),
-  caption: [Número de usuarios de Internet en el mundo\ Fuente: @UIT],
-)<fig:internet_use>
+#img-fig(
+  "/assets/figures/internet_use.png",
+  [Número de usuarios de Internet en el mundo],
+  <fig:internet_use>,
+  source: [@UIT],
+  width: 60%,
+)
 
 Bolivia no es una excepción a esta tendencia. Para 2023 se estimaba que el 70,2% de la población boliviana contaba con acceso a Internet (@fig:internet_use_bolivia), situando al país por encima del promedio mundial. Sin embargo, aún quedaba un 29,8% de la población sin acceso @IndividualsUsingInternet.
 
-#figure(
-  image("/assets/figures/internet_use_bolivia.png", width: 80%),
-  caption: [Número de usuarios de Internet en Bolivia y su crecimiento\ Fuente: @UIT],
+#img-fig(
+  "/assets/figures/internet_use_bolivia.png",
+  [Número de usuarios de Internet en Bolivia y su crecimiento],
+  <fig:internet_use_bolivia>,
+  source: [@UIT],
+  width: 80%,
   placement: auto,
-)<fig:internet_use_bolivia>
+)
 
 Uno de los factores que posiblemente acelera esta adopción es la cantidad de beneficios ofrecidos mediante la Web y las _webapps_, aplicaciones ejecutadas en un navegador que no requieren instalación en el dispositivo del usuario. Inicialmente estas aplicaciones eran puramente informativas, pero con la llegada de la Web 2.0 evolucionaron a plataformas digitales completas e integradas con aplicaciones de negocios @pressmanSoftwareEngineeringPractitioner2010. Muchas aplicaciones móviles también utilizan Internet para brindar servicios de forma similar.
 
 El uso de plataformas digitales también se ha incrementado. La @fig:ecommerce_adoption muestra la tendencia de adopción de plataformas de comercio electrónico y cómo parece haber sido acelerada por la pandemia de COVID-19 en distintos países de América Latina y el Caribe.
 
-#figure(
-  image("/assets/figures/ecommerce_adoption.png", width: 80%),
-  caption: [Tendencia de adopción de plataformas de comercio electrónico en América Latina y el Caribe\ Fuente: Latinobarómetro],
+#img-fig(
+  "/assets/figures/ecommerce_adoption.png",
+  [Tendencia de adopción de plataformas de comercio electrónico en América Latina y el Caribe],
+  <fig:ecommerce_adoption>,
+  source: [Latinobarómetro],
+  width: 80%,
   placement: auto,
-)<fig:ecommerce_adoption>
+)
 
 La adopción de plataformas digitales ha crecido aceleradamente en los últimos años y se espera que continúe creciendo, debido a la creciente disponibilidad de dispositivos móviles y a la mejora de la infraestructura de Internet en muchos países.
 
 En cuanto al gobierno electrónico, durante la pandemia de COVID-19 dejó de ser una simple tendencia temporal para convertirse en una necesidad. El @EGDI, indicador de las Naciones Unidas que mide la adopción de políticas favorables al gobierno electrónico, registró un aumento relevante en sólo dos años (@fig:egdi2020_2022).
 
-#figure(
-  image("/assets/figures/egdi2020_2022.png", width: 60%),
-  caption: [Valores promedio del EGDI y sus componentes\ Fuente: 2020 and 2022 United Nations E-Government Surveys],
+#img-fig(
+  "/assets/figures/egdi2020_2022.png",
+  [Valores promedio del EGDI y sus componentes],
+  <fig:egdi2020_2022>,
+  source: [2020 and 2022 United Nations E-Government Surveys],
+  width: 60%,
   placement: auto,
-)<fig:egdi2020_2022>
+)
 
 #quote(attribution: [Comunicado de Prensa, BID @BIDDigitalizacionTramites])[
   Los tramites digitales se demoran 74% menos que tramites presenciales, cuestan mucho menos, y reducen la incidencia de corrupción, sin embargo, en América Latina y el Caribe todavía hay poca inversión para ofrecer servicios públicos en línea. ¿El resultado? Los ciudadanos, las empresas y la administración pública pierden tiempo, dinero y productividad.]
@@ -52,11 +66,14 @@ El @SIAI, antecedente directo de este proyecto, fue construido como una aplicaci
 
 De forma más específica se adoptó el estilo de arquitectura por capas, con tres unidades físicas desplegables (@fig:siai_architecture_style), correspondiente a una arquitectura monolítica común en aplicaciones web. La capa de negocio, sin embargo, interopera con otros sistemas mediante servicios @REST @API #footnote[El SIAI consume datos de un servicio provisional del SEPREC para obtener información sobre las industrias registradas en el país], lo que le brinda características híbridas entre una arquitectura principalmente monolítica y una arquitectura de servicios.
 
-#figure(
-  image("/assets/figures/siai_architecture_style.png", width: 40%),
-  caption: [Arquitectura por capas (layered architecture) del sistema SIAI\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+#img-fig(
+  "/assets/figures/siai_architecture_style.png",
+  [Arquitectura por capas (layered architecture) del sistema SIAI],
+  <fig:siai_architecture_style>,
+  source: [Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  width: 40%,
   placement: auto,
-)<fig:siai_architecture_style>
+)
 
 El _backend_ fue desarrollado en PHP con Laravel; el _frontend_, con Vue.js, que permite crear aplicaciones web interactivas y dinámicas; y se utilizó el sistema de gestión de bases de datos relacional PostgreSQL.
 
@@ -64,40 +81,57 @@ El _backend_ fue desarrollado en PHP con Laravel; el _frontend_, con Vue.js, que
 
 No se encontraron módulos especializados en gestión de trámites que pudieran integrarse en sistemas mayores con un enfoque de reutilización, pero sí sistemas con características similares o capaces de gestionar procesos administrativos. También existen casos de instancias públicas que pueden inspirar la solución propuesta.
 
-#figure(
-  image("/assets/figures/r2docuotimeline.png", width: 40%),
-  caption: [Captura de pantalla del homepage de R2 Docuo donde se puede ver el timeline de un trámite\ Fuente: www.r2docuo.com],
+#img-fig(
+  "/assets/figures/r2docuotimeline.png",
+  [Captura de pantalla del homepage de R2 Docuo donde se puede ver el timeline de un trámite],
+  <fig:r2docuotimeline>,
+  source: [www.r2docuo.com],
+  width: 40%,
   placement: auto,
-)<fig:r2docuotimeline>
+)
 
-#figure(
-  image("/assets/figures/odoowfms.png", width: 40%),
-  caption: [Descripción de módulo de manejo de flujos de trabajo en Odoo\ Fuente: Captura de pantalla tomada de la tienda de extensiones de Odoo],
+#img-fig(
+  "/assets/figures/odoowfms.png",
+  [Descripción de módulo de manejo de flujos de trabajo en Odoo],
+  <fig:odoowfms>,
+  source: [Captura de pantalla tomada de la tienda de extensiones de Odoo],
+  width: 40%,
   placement: auto,
-)<fig:odoowfms>
+)
 
-#figure(
-  image("/assets/figures/conecosa.png", width: 40%),
-  caption: [Screenshot tomada del artículo "The Application of Petri Nets to Workflow Management" @vanderaalstAPPLICATIONPETRINETS1998],
-)<fig:conecosa>
+#img-fig(
+  "/assets/figures/conecosa.png",
+  [Captura de pantalla de CONECOSA],
+  <fig:conecosa>,
+  source: [The Application of Petri Nets to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+  width: 40%,
+)
 
-#figure(
-  image("/assets/figures/insitecrm.jpg", width: 50%),
-  caption: [Screenshot de video tutorial del producto Insite CRM],
+#img-fig(
+  "/assets/figures/insitecrm.jpg",
+  [Captura de pantalla de Insite CRM],
+  <fig:insitecrm>,
+  width: 50%,
   placement: auto,
-)<fig:insitecrm>
+)
 
-#figure(
-  image("/assets/figures/att_platform.png", width: 50%),
-  caption: [Captura de pantalla de la vista de ingreso a PlATTaformas Virtuales para acceder al sistema OTTO\ Fuente: https://plataformas.att.gob.bo/],
+#img-fig(
+  "/assets/figures/att_platform.png",
+  [Captura de pantalla de la vista de ingreso a PlATTaformas Virtuales para acceder al sistema OTTO],
+  <fig:att_platform>,
+  source: [https://plataformas.att.gob.bo/],
+  width: 50%,
   placement: auto,
-)<fig:att_platform>
+)
 
-#figure(
-  image("/assets/figures/stateflowrobot.png", width: 50%),
-  caption: [Diagrama de estados finitos elaborado con Stateflow\ Fuente: Documentación MathWorks - Stateflow],
+#img-fig(
+  "/assets/figures/stateflowrobot.png",
+  [Diagrama de estados finitos elaborado con Stateflow],
+  <fig:stateflowrobot>,
+  source: [Documentación MathWorks - Stateflow],
+  width: 50%,
   placement: auto,
-)<fig:stateflowrobot>
+)
 
 - *SoftExpert BPM:* solución para la gestión de procesos de negocio @BusinessProcessManagemente. Aunque no se enfoca en trámites, cuenta con elementos de modelado y seguimiento de procesos útiles en este contexto.
 - *R2 Docuo:* sistema completo de gestión de procesos con una funcionalidad para solicitudes y trámites @SoftwareParaGestionb. Crea fichas de información, define los pasos de cada trámite, almacena documentos y ahorra tiempo mediante formularios y avisos (@fig:r2docuotimeline).
@@ -130,11 +164,14 @@ Las necesidades alrededor de la digitalización de trámites son diversas. Para 
 
 La reutilización de software se ha popularizado, particularmente con el auge de los sistemas de código abierto y las plataformas digitales. Esta tendencia responde a la demanda de reducir costos de producción y mantenimiento, entregar sistemas con mayor rapidez y mejorar su calidad @sommervilleSoftwareEngineering2016.
 
-#figure(
-  image("/assets/figures/mobile_reuse.png", width: 60%),
-  caption: [Porcentaje de reutilización de software en aplicaciones móviles\ Fuente: A large-scale empirical study of the reuse of software components in mobile applications @mojicaLargeScaleEmpiricalStudy2014],
+#img-fig(
+  "/assets/figures/mobile_reuse.png",
+  [Porcentaje de reutilización de software en aplicaciones móviles],
+  <fig:mobile_reuse>,
+  source: [A large-scale empirical study of the reuse of software components in mobile applications @mojicaLargeScaleEmpiricalStudy2014],
+  width: 60%,
   placement: auto,
-)<fig:mobile_reuse>
+)
 
 La @fig:mobile_reuse, procedente de un estudio de 2014 sobre aplicaciones móviles, muestra un porcentaje de reutilización superior al 62% en las distintas categorías analizadas #footnote[La reutilización en este estudio fue medida calculando la proporción de clases reutilizadas sobre la cantidad total de clases de cada proyecto] @mojicaLargeScaleEmpiricalStudy2014. En el desarrollo web, @NPM facilitó la reutilización de código: registraba más de un millón de paquetes en 2022 y creció un 60% entre enero de 2019 y enero de 2022 @mujahidWhatAreCharacteristics2023. Una búsqueda realizada en 2025 en el sitio oficial mostraba más de dos millones de paquetes y contribuciones de más de 17 millones de desarrolladores @NpmHome.
 
@@ -148,11 +185,14 @@ En arquitectura de software, los estilos por capas, de microservicios y @SOA se 
 
 En años recientes, los proyectos de software libre sentaron las bases de muchos avances tecnológicos disponibles y grandes empresas tecnológicas, que antes daban preferencia exclusiva al software propietario, ahora los utilizan masivamente y contribuyen a su desarrollo @vonkroghCarrotsRainbowsMotivation2012.
 
-#figure(
-  image("/assets/figures/github_contributions.png", width: 50%),
-  caption: [Número de contribuciones a proyectos públicos y de software libre en GitHub (2021-2024)\ Fuente: GitHub Octoverse],
+#img-fig(
+  "/assets/figures/github_contributions.png",
+  [Número de contribuciones a proyectos públicos y de software libre en GitHub (2021-2024)],
+  <fig:github_contributions>,
+  source: [GitHub Octoverse],
+  width: 50%,
   placement: auto,
-)<fig:github_contributions>
+)
 
 Microsoft adquirió GitHub en 2018, la plataforma más popular para el desarrollo de software libre y de código abierto. Según el reporte "GitHub Octoverse" @staffOctoverseAILeads2024:
 

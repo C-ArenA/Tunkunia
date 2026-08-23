@@ -1,3 +1,5 @@
+#import "/shared/theme/lib.typ": img-fig
+
 == Marco de Referencia<section:reference_framework>
 
 === Administración pública y trámite
@@ -48,10 +50,12 @@ La AGETIC dispone además de mecanismos para la creación de sitios instituciona
 
 Bolivia cuenta con una normativa amplia en relación con el uso de las @TICs, el gobierno electrónico, la digitalización de trámites y el desarrollo de software gubernamental. La @fig:bolivia_norms resume los principales documentos normativos y sus relaciones más relevantes.
 
-#figure(
-  image("/assets/figures/bolivia_norms.png", width: 70%),
-  caption: [Documentos normativos relacionados con el gobierno electrónico en Bolivia y las relaciones más relevantes entre los mismos\ Fuente: Elaboración propia],
-)<fig:bolivia_norms>
+#img-fig(
+  "/assets/figures/bolivia_norms.png",
+  [Documentos normativos relacionados con el gobierno electrónico en Bolivia y las relaciones más relevantes entre los mismos],
+  <fig:bolivia_norms>,
+  width: 70%,
+)
 
 ==== Fundamentos constitucionales
 
@@ -222,4 +226,3 @@ La Ley Nº 164 establece al respecto:
 Como evidencia esta normativa, el software libre se encuentra regulado y se establecen lineamientos y directrices para su implementación y posterior aplicación prioritaria en el país.
 
 //NOTE: Podríamos añadir subtítulo sobre los lineamientos aprobados por RM 079/2, pero a pesar de su relevancia, lo dejaremos para el final, porque ya tenemos mucha información. Quizá podríamos añadir lo que se indica sobre que cada entidad pública debe digitalizar los trámites por su cuenta
-

@@ -1,4 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "/shared/theme/lib.typ": img-fig, mmd-fig
 
 == Marco Teórico
 
@@ -18,12 +19,13 @@ Existe una organización dedicada a estandarizar los WFMS y BPM, fundada el año
   A WMS can be used to automate a wide range of business processes, such as invoicing, order fulfillment, human resources, and project management. It can also be used to integrate different systems, such as email, calendar, and customer relationship management (CRM) software. WMS allows you to streamline the process and make it more efficient, reduce errors and delays, and give you real-time visibility into the status of your processes, also it's common to have a built-in reporting and analytics tools to measure the performance of the process.
 ]
 
-#figure(
-  image("/assets/figures/wfms_history.png"),
-  caption: [WFMS desde una perspectiva histórica\ Fuente: The Application of Petri Nets
-    to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+#img-fig(
+  "/assets/figures/wfms_history.png",
+  [WFMS desde una perspectiva histórica],
+  <fig:wfms_history>,
+  source: [The Application of Petri Nets to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
   placement: auto,
-)<fig:wfms_history>
+)
 
 La necesidad de manejar flujos de trabajo es frecuente en muchos sistemas, por lo que ciertos autores creen que debe ser un módulo tan importante como el sistema de gestión de bases de datos, como se aproxima mediante la @fig:wfms_history. De forma general y sintética, el propósito principal de los WFMS es apoyar la definición, ejecución, registro y control de procesos @vanderaalstAPPLICATIONPETRINETS1998, algo que puede guiar la implementación de un sistema específico para trámites administrativos.
 
@@ -33,11 +35,14 @@ La necesidad de manejar flujos de trabajo es frecuente en muchos sistemas, por l
 
 Los trámites son *procesos*. Existen varios lenguajes que permiten representarlos gráficamente y que, de forma general, consisten mínimamente en conjuntos de nodos de dos tipos: actividad y control @dumasFundamentalsBusinessProcess2013.
 
-#figure(
-  image("/assets/figures/bpmn.png", width: 60%),
-  caption: [Ejemplo de un diagrama BPMN\ Fuente: Business Process Model and Notation (BPMN) Version 2.0.2 @bpmn202],
+#img-fig(
+  "/assets/figures/bpmn.png",
+  [Ejemplo de un diagrama BPMN],
+  <fig:bpmn>,
+  source: [Business Process Model and Notation (BPMN) Version 2.0.2 @bpmn202],
+  width: 60%,
   placement: auto,
-)<fig:bpmn>
+)
 
 ==== Diagramas de flujo
 Quizá uno de los lenguajes más antiguos para describir procesos. En su forma básica emplea rectángulos para representar actividades y rombos o diamantes para representar puntos de decisión.
@@ -53,17 +58,22 @@ Estándar gráfico de modelado de procesos. Su última versión es BPMN 2.0.2 y 
 
 Además, existen otros lenguajes de modelado de sistemas menos comunes para describir procesos, pero útiles porque reflejan la naturaleza paso a paso de los trámites.
 
-#figure(
-  image("/assets/figures/statediagramex.png", width: 50%),
-  caption: [Ejemplo de una máquina de estados\ Fuente: Elaboración propia],
+#img-fig(
+  "/assets/figures/statediagramex.png",
+  [Ejemplo de una máquina de estados],
+  <fig:statediagramex>,
+  width: 50%,
   placement: auto,
-)<fig:statediagramex>
+)
 
-#figure(
-  image("/assets/figures/petricomplaints.png", width: 70%),
-  caption: [Red de Petri de un proceso de queja\ Fuente: The Application Of Petri Nets to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+#img-fig(
+  "/assets/figures/petricomplaints.png",
+  [Red de Petri de un proceso de queja],
+  <fig:petricomplaints>,
+  source: [The Application Of Petri Nets to Workflow Management @vanderaalstAPPLICATIONPETRINETS1998],
+  width: 70%,
   placement: auto,
-)<fig:petricomplaints>
+)
 
 ==== Máquinas de estado en el modelado de procesos
 Aunque no suelen mencionarse como lenguaje para modelar gráficamente procesos administrativos, pueden cumplir este propósito (ver @fig:statediagramex). Una máquina de estados es un conjunto de cinco elementos $M=(S,I,O,v,w)$, donde $S$ representa la colección de estados de $M$; $I$, el alfabeto de entradas; $O$, el alfabeto de salidas; $v:S x I->S$, la función del siguiente estado; y $w:S x I->O$, la función de salida @grimaldiDiscreteCombinatorialMathematics1998.
@@ -89,17 +99,23 @@ La modularidad es un principio de organización importante para sistemas compues
 
 Muchos patrones y estilos de arquitectura buscan modularidad en algún sentido. Entre ellos se encuentran la arquitectura en capas, la arquitectura orientada a servicios (@SOA), la arquitectura basada en microservicios, la arquitectura de eventos y la arquitectura hexagonal. Cada estilo tiene características, ventajas y desventajas propias, pero todos buscan facilitar el mantenimiento y la evolución del software.
 
-#figure(
-  image("/assets/figures/micro_topo.png", width: 60%),
-  caption: [Topología del estilo de arquitectura de microservicios\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+#img-fig(
+  "/assets/figures/micro_topo.png",
+  [Topología del estilo de arquitectura de microservicios],
+  <fig:micro_topo>,
+  source: [Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  width: 60%,
   placement: auto,
-)<fig:micro_topo>
+)
 
-#figure(
-  image("/assets/figures/soa_topo.png", width: 60%),
-  caption: [Topología del estilo de arquitectura @SOA\ Fuente: Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+#img-fig(
+  "/assets/figures/soa_topo.png",
+  [Topología del estilo de arquitectura @SOA],
+  <fig:soa_topo>,
+  source: [Fundamentals of Software Architecture: An Engineering Approach @richardsFundamentalsSoftwareArchitecture2020],
+  width: 60%,
   placement: auto,
-)<fig:soa_topo>
+)
 
 - *La arquitectura por capas* es un estándar de facto para muchas aplicaciones, principalmente por su simplicidad, familiaridad y bajos costos. También es una forma natural de desarrollar aplicaciones siguiendo la ley de Conway de reflejar la estructura de una organización en el diseño de un producto. La @fig:siai_architecture_style muestra una topología común de este tipo.
 - *La arquitectura de microservicios* se basa en pequeños servicios totalmente independientes que pueden comunicarse entre sí para garantizar un alto desacoplamiento. Es compleja y requiere independencia incluso en las bases de datos, como puede verse en la @fig:micro_topo.
@@ -114,33 +130,12 @@ Muchos patrones y estilos de arquitectura buscan modularidad en algún sentido. 
 
 Un análisis etimológico de la palabra metodología, que proviene del griego μέθοδος y está conformado por tres partes: "meta" que significa "más allá", "hodos" que significa "camino" y el sufijo "-logía" que se refiere a "estudio", nos da a entender inicialmente que método es el camino del camino, es decir, cómo se logra lo que se quiere lograr y metodología es el análisis realizado sobre el mismo. Evidentemente, el significado de la palabra es más complejo y de acuerdo al diccionario puede indicar un conjunto de métodos que se siguen en una investigación científica o doctrinal @asaleDiccionarioLenguaEspanola, siendo ésta una definición influenciada por la epistemología y su carácter investigativo para generar nuevo conocimiento, sin reflejar necesariamente y de forma directa su uso en un proyecto de ingeniería.
 
-#figure(
-  diagram(
-    spacing: (8mm, 10mm),
-    node-stroke: luma(80%),
-    node((2, -1), [*Políticas*], name: <p>),
-    node((2, 0), [*Decisiones*], name: <dec>),
-    node((4, 0), [*Control\ de calidad\ y costos*], name: <con>),
-    node((0, 1), [*Investigación\ Científica*], name: <ic>),
-    node((1, 1), [*Investigación\ Tecnológica*], name: <it>),
-    node((2, 1), [*Desarrollo*], name: <dev>),
-    node((3, 1), [*Producción\ o Práctica*], name: <pra>),
-    node((4, 1), [*Productos*], name: <pro>),
-
-    edge(<p>, "->", <dec>),
-    edge(<dec>, "->", <con>),
-    edge(<dec>, "l,d", "->"),
-    edge(<dec>, "d", "->"),
-    edge(<con>, "d", "->"),
-    edge(<ic>, "r", "<->"),
-    edge(<ic>, "d,r,r,r,r,u", "<->"),
-    edge(<it>, "->", <dev>),
-    edge(<dev>, "->", <pra>),
-    edge(<pra>, "->", <pro>),
-  ),
-  caption: [Diagrama de flujo del proceso tecnológico\ Elaboración propia a partir de Epistemología de Mario Bunge@bungeEpistemologiaCursoActualizacion2002],
-  placement: auto,
-)<fig:bungflow>
+#mmd-fig(
+  "/assets/figures/bunge-technological-process.png",
+  [Diagrama de flujo del proceso tecnológico],
+  <fig:bungflow>,
+  source: [Elaboración propia a partir de Epistemología de Mario Bunge@bungeEpistemologiaCursoActualizacion2002],
+)
 
 Ahora bien, si analizamos cómo estructura Bunge@bungeEpistemologiaCursoActualizacion2002 el proceso tecnológico en la @fig:bungflow y prestamos atención a las actividades de investigación podemos vislumbrar que existen similitudes importantes entre un proyecto, particularmente uno de desarrollo de software, y una investigación tecnológica que no sólo tiene como meta la verdad que sea útil a alguien sino que además cuenta con un ciclo de seis etapas que, para facilitar la visualización de similitudes, a continuación se agrupan de acuerdo al proceso del software de Sommerville@sommervilleSoftwareEngineering2016[p.~44]:
 
@@ -200,11 +195,14 @@ Se compone de cuatro fases principales: Inicio (_Inception_), Elaboración, Cons
 
 La reutilización de software (_software reuse_) es el uso sistemático de piezas existentes de software para construir otras nuevas, modificadas o incluso productos de software completos a partir de estas. Las piezas pueden ser código fuente, ejecutables, guías de diseño, componentes de software libre, componentes comerciales o arquitecturas completas. El conocimiento también es reutilizable y se refleja en patrones, procesos o arquitecturas de software @mohagheghiQualityProductivityEconomic2007. Las piezas reutilizables pueden materializarse como bibliotecas, _frameworks_, componentes o sistemas completos (@fig:reuse_landscape).
 
-#figure(
-  image("/assets/figures/reuse_landscape.png", width: 60%),
-  caption: [Reuse landscape\ Fuente: Sommerville, Software Engineering @sommervilleSoftwareEngineering2016],
+#img-fig(
+  "/assets/figures/reuse_landscape.png",
+  [Reuse landscape],
+  <fig:reuse_landscape>,
+  source: [Sommerville, Software Engineering @sommervilleSoftwareEngineering2016],
+  width: 60%,
   placement: auto,
-)<fig:reuse_landscape>
+)
 
 Por su naturaleza de usar trabajo existente como bloques de construcción para proyectos mayores, la reutilización se relaciona con un aumento en la productividad, un posible aumento de calidad @selbyEnablingReusebasedSoftware2005 y una disminución en los costos. Medir empíricamente estos beneficios es difícil y algunos intentos pueden no contemplar todas las variables, dada la naturaleza particular de cada proyecto. Aun así, se han mostrado resultados positivos que indican un claro aumento de productividad al reutilizar software @basiliHowReuseInfluences1996, lo que también implicaría beneficios en tiempos y costos de desarrollo.
 
@@ -219,7 +217,9 @@ Cuando Richard Stallman comenzó a trabajar como programador en el Laboratorio d
 
 El "Plan de Implementación de Software Libre y Estándares Abiertos" define al software libre del modo siguiente:
 
-#quote(attribution: "Plan de Implementación de Software Libre y Estándares Abiertos")[
+#quote(
+  attribution: "Plan de Implementación de Software Libre y Estándares Abiertos",
+)[
   El Software Libre se basa en una filosofía que busca que el desarrollo de la tecnología se
   oriente al bienestar de los seres humanos en términos de igualdad; que el conocimiento sea
   lo que realmente es: un bien común de la humanidad; que la cooperación sea el modelo de

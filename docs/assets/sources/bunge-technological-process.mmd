@@ -1,0 +1,20 @@
+flowchart LR
+  P["Políticas"]
+  D["Decisiones"]
+  C["Control de calidad<br/>y costos"]
+  IC["Investigación<br/>Científica"]
+  IT["Investigación<br/>Tecnológica"]
+  DEV["Desarrollo"]
+  PRA["Producción<br/>o Práctica"]
+  PRO["Productos"]
+
+  P --> D
+  D --> C
+  D --> IT
+  IC <--> IT
+  IT --> DEV
+  DEV --> PRA
+  PRA --> PRO
+  D --> DEV
+  C --> PRO
+  IC <--> PRO

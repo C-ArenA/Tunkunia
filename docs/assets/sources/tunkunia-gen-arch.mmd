@@ -1,0 +1,10 @@
+---
+config:
+    theme: 'forest'
+---
+sequenceDiagram
+    Citizen->>Tunkunia: Submit procedure
+    Tunkunia->>Database: Save instance
+    Database-->>Tunkunia: OK
+    Tunkunia-->>Citizen: Confirmation
+    Tunkunia-->>Citizen: Confirmation2

@@ -1,4 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "/shared/theme/lib.typ": img-fig
 
 = Introducción
 
@@ -40,11 +41,12 @@ Cada trámite se deberá definir en función a los siguientes parámetros:
 - Análisis sobre rasgos y características particulares del trámite
 - Modelado de procecos
 
-Dado el enfoque en gestión de flujos de trabajo, se deben también considerar de manera prioritaria que lo anterior tenga relación con las dimensiones del flujo de trabajo según Van Der Aalst@vanderaalstAPPLICATIONPETRINETS1998, como se puede ver en la @fig:vanderaals3dwf
+Dado el enfoque en gestión de flujos de trabajo, se deben también considerar de manera prioritaria que lo anterior tenga relación con las dimensiones del flujo de trabajo según Van Der Aalst@vanderaalstAPPLICATIONPETRINETS1998, como se puede ver exn la @fig:vanderaals3dwf
 
 #figure(
   include "/assets/figures/vanderaals3dwf.typ",
-  caption: [Abstracción en 3 dimensiones de los flujos de trabajo según Van Der Aalst\ Elaboración propia a partir de "The Application of Petri Nets to Workflow Management"],
+  caption: [Abstracción en 3 dimensiones de los flujos de trabajo según Van Der Aalst],
+  gap: 2em
 )<fig:vanderaals3dwf>
 
 De este modo, los datos a relevar para cada trámite son:
@@ -97,10 +99,12 @@ En función a la metodología se hace la selección de los siguientes trámites:
 - *Desencadenante*: Ciudadano con intención de obtener su cédula de identidad
 - *Modelos*: Se modeló el trámite usando una Red de Petri de tipo WFNet como se puede ver en la @fig:ci_wfnet.
 
-#figure(
-  image("/assets/figures/ci_wfnet.png", width: 80%),
-  caption: [Red de Petri para Trámite de Obtención de Cédula de Identidad\ Elaboración propia],
-)<fig:ci_wfnet>
+#img-fig(
+  "/assets/figures/ci_wfnet.png",
+  [Red de Petri para Trámite de Obtención de Cédula de Identidad],
+  <fig:ci_wfnet>,
+  width: 80%,
+)
 
 === Trámite: Solicitud de Patente SENAPI
 

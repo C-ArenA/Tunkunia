@@ -8,9 +8,9 @@ Consulta [ARCHITECTURE.md](ARCHITECTURE.md) para leer y modificar el código.
 
 ## Uso
 
-`lib.typ` expone solamente `memoria`. El título y los autores son obligatorios.
-El cuerpo continúa siendo la estructura que escribe el usuario después del
-`show`:
+`lib.typ` expone `memoria` y los elementos personalizados del tema. El título y
+los autores son obligatorios. El cuerpo continúa siendo la estructura que escribe
+el usuario después del `show`:
 
 ```typ
 #import "/shared/theme/lib.typ": memoria
@@ -29,6 +29,85 @@ El cuerpo continúa siendo la estructura que escribe el usuario después del
 = Primera parte
 == Primer capítulo
 ```
+
+### Figuras con fuente
+
+`img-fig` crea una figura de imagen con una leyenda uniforme que separa la
+descripción de su fuente. La etiqueta es un valor `label` de Typst; por ello puede
+referenciarse normalmente con `@fig:ejemplo`.
+
+```typ
+#import "/shared/theme/lib.typ": img-fig
+
+#img-fig(
+  "/assets/figures/ejemplo.png",
+  [Descripción de la figura],
+  <fig:ejemplo>,
+  source: [Elaboración propia],
+  width: 60%,
+  placement: top,
+)
+```
+
+`source` es opcional y usa `Elaboración propia` por defecto. `width` es opcional
+y usa `100%`; `placement` también es opcional y usa `none`.
+
+`mmd-fig` ofrece la misma leyenda, fuente, etiqueta, anchura y colocación para
+diagramas. La función selecciona el renderizador según la extensión de la ruta:
+los archivos `.mmd` se renderizan con Mermaid y cualquier otra extensión se
+trata como una imagen precompilada.
+
+```typ
+#import "/shared/theme/lib.typ": mmd-fig
+
+#mmd-fig(
+  "/assets/sources/diagrama.mmd",
+  [Descripción del diagrama],
+  <fig:diagrama>,
+  source: [Elaboración propia],
+  width: 80%,
+  placement: top,
+)
+```
+
+Cuando exista una versión precompilada, basta con cambiar la ruta y conservar los
+demás argumentos:
+
+```typ
+#mmd-fig(
+  "/assets/figures/diagrama.svg",
+  [Descripción del diagrama],
+  <fig:diagrama>,
+  width: 80%,
+)
+```
+
+La función no comprueba anticipadamente si la ruta existe: un archivo ausente,
+una extensión incorrecta o contenido inválido producen el error normal de Typst.
+
+`typ-fig` envuelve diagramas construidos directamente como contenido Typst, por
+ejemplo mediante CeTZ. Comparte con las demás funciones la leyenda, fuente,
+etiqueta, anchura y colocación.
+
+```typ
+#import "@preview/cetz:0.4.2": canvas, draw
+#import "/shared/theme/lib.typ": typ-fig
+
+#typ-fig(
+  canvas({
+    draw.circle((0, 0), radius: 1)
+  }),
+  [Descripción del diagrama],
+  <fig:diagrama-typst>,
+  source: [Elaboración propia],
+  width: 70%,
+  placement: top,
+)
+```
+
+El argumento `body` puede ser cualquier contenido Typst renderizable. `width`
+controla el bloque que lo contiene; no modifica internamente las dimensiones ni
+la escala del diagrama.
 
 Los acrónimos y términos de glosario son diccionarios de Glossy separados porque
 aparecen en lugares diferentes:

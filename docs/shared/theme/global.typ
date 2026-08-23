@@ -29,7 +29,7 @@
   show list: set block(inset: (top: 1em, bottom: 1em))
 
   // Figures and tables.
-  show figure.where(kind: image): set block(inset: (top: 1em, bottom: 1em))
+  show figure.where(kind: image): set block(inset: (y: 1em))
   show figure.where(kind: table): set block(breakable: true)
   show figure.where(kind: table): set figure.caption(separator: linebreak())
   show figure.where(kind: table): set text(size: 11pt)

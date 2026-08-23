@@ -1,14 +1,17 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "/shared/theme/lib.typ": img-fig
 
 == Antecedentes
 
 A continuación se presenta el recorrido que conduce a la problemática de este proyecto: los problemas del trámite tradicional, la adopción de tecnologías de la información por el gobierno boliviano, la atención a esta necesidad en el @SIAI mediante la consultora 2IES y la posterior identificación de características comunes a diversos trámites (@fig:background).
 
-#figure(
-  image("/assets/figures/background.png", width: 80%),
-  caption: [Antecedentes a la identificación de la problemática de este proyecto\ Fuente: Elaboración propia],
+#img-fig(
+  "/assets/figures/background.png",
+  [Antecedentes a la identificación de la problemática de este proyecto],
+  <fig:background>,
+  width: 80%,
   placement: top,
-)<fig:background>
+)
 
 === Del trámite tradicional a la modernización administrativa
 
@@ -18,17 +21,23 @@ Esto deriva en una serie de problemas que suelen afectar a la población, como l
 
 Un ejemplo es el caso de *Domitila Murillo*, una ciudadana boliviana que, a causa de un trámite, se vio obligada a trasladarse entre varias localidades del país (recorriendo al menos 900 km durante 11 meses), realizando interminables filas y vagando perdida entre una cantidad indefinida y mal documentada de requisitos. Su caso fue motivo de preocupación y, cuando finalmente logró recibir su cédula, que era el motivo del trámite, no le quedaron más que dos semanas antes de fallecer @charoskyQuejaComoEnergia2014[pág. 23].
 
-#figure(
-  image("/assets/figures/horastramite.png", width: 50%),
-  caption: [Horas necesarias para completar un trámite, por país\ Fuente: Datos del Latinobarómetro, 2017],
+#img-fig(
+  "/assets/figures/horastramite.png",
+  [Horas necesarias para completar un trámite, por país],
+  <fig:horastramite>,
+  source: [Datos del Latinobarómetro, 2017],
+  width: 50%,
   placement: auto,
-)<fig:horastramite>
+)
 
-#figure(
-  image("/assets/figures/tramites_una_interaccion.png", width: 50%),
-  caption: [Porcentaje de trámites resueltos en una interacción\ Fuente: Datos del Latinobarómetro, 2017],
+#img-fig(
+  "/assets/figures/tramites_una_interaccion.png",
+  [Porcentaje de trámites resueltos en una interacción],
+  <fig:tramites_una_interaccion>,
+  source: [Datos del Latinobarómetro, 2017],
+  width: 50%,
   placement: auto,
-)<fig:tramites_una_interaccion>
+)
 
 Estos problemas dentro de la administración pública despertaron el interés acerca del impacto que podría tener la utilización de las tecnologías de la información en este ámbito, llevando a la creación del concepto de *Gobierno Electrónico* o *e-government*, desarrollado en el @section:reference_framework.
 
