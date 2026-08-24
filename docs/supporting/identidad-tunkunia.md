@@ -20,7 +20,7 @@ La identidad de Tunkunia se organiza, en orden de importancia, alrededor de tres
 2. **Motor de procesos:** definición y ejecución de flujos a partir del modelo obtenido.
 3. **Gestión de trámites:** utilización del motor para iniciar, desarrollar, registrar, seguir y concluir casos concretos.
 
-La base de código libre complementa estos elementos al favorecer la reutilización, la soberanía tecnológica y el cumplimiento de los lineamientos bolivianos sobre software libre y gobierno electrónico.
+La base de código libre complementa estos elementos al favorecer la soberanía tecnológica y el cumplimiento de los lineamientos bolivianos sobre software libre y gobierno electrónico.
 
 ## El proceso como elemento permanente
 
@@ -42,14 +42,13 @@ Tunkunia no es un gestor genérico de flujos de trabajo. Se especializa en trám
 
 Tampoco está vinculado a un trámite o una institución determinados. Los casos concretos se definen sobre capacidades comunes y pueden incorporar particularidades sin exigir la construcción de un sistema completamente nuevo.
 
-## Formas de reutilización
+## Reutilización como aplicación configurable
 
-La reutilización tiene cuatro manifestaciones complementarias:
+En Tunkunia, la reutilización significa principalmente que una misma aplicación puede ser adoptada por distintas instituciones y ajustada a sus necesidades mediante configuración. Una institución reutiliza Tunkunia cuando despliega el sistema y define en él sus propios flujos de trámite, sin desarrollar una solución independiente para cada procedimiento.
 
-- **Configuración:** una institución puede definir y operar casos comunes sin modificar el sistema.
-- **Extensión:** pueden añadirse acciones y comportamientos específicos conservando el motor y las capacidades existentes.
-- **Integración:** Tunkunia puede formar parte de un sistema institucional mayor e intercambiar información con otros subsistemas.
-- **Software libre:** una institución puede estudiar, adaptar, mantener o bifurcar el código fuente de acuerdo con sus necesidades.
+Esta es la acepción mínima y principal de reutilización adoptada por el proyecto. Puede demostrarse mediante instancias del mismo producto configuradas para contextos institucionales diferentes.
+
+Tunkunia posee además propiedades complementarias: puede extenderse con acciones particulares, integrarse con otros sistemas y, por ser software libre, ser estudiado, modificado y redistribuido. Estas propiedades amplían sus posibilidades de adopción, pero no constituyen definiciones adicionales de reutilización.
 
 La extensibilidad forma parte de la identidad del producto; los mecanismos técnicos utilizados para conseguirla pertenecen al diseño y a la implementación. Tunkunia no se define por una tecnología, una forma de distribución ni un método único de despliegue.
 
@@ -59,11 +58,11 @@ Tunkunia se estudia como un sistema de software y puede funcionar de manera aut�
 
 Su condición de subsistema no significa que dependa necesariamente de otro sistema para operar. Expresa su vocación de integración y su capacidad de concentrar la gestión de trámites dentro de una solución pública más amplia.
 
-## Aplicación autónoma y núcleo reutilizable
+## Aplicación autónoma y núcleo conceptual
 
 Tunkunia se concibe como una aplicación completa de gestión de trámites, no únicamente como un modelo o motor aislado. Debe permitir que una institución adopte sus capacidades comunes sin realizar un desarrollo desde cero.
 
-Sin embargo, la identidad del sistema reside principalmente en el modelo y el motor. La experiencia de uso predeterminada hace posible su funcionamiento autónomo, pero puede adaptarse o reemplazarse sin que el núcleo deje de ser Tunkunia. Por el contrario, conservar solamente la apariencia de la aplicación y reemplazar el modelo y el motor implicaría dejar de utilizar Tunkunia.
+Sin embargo, la identidad del sistema reside principalmente en el modelo y el motor. La experiencia de uso predeterminada hace posible su funcionamiento autónomo y puede evolucionar sin alterar ese núcleo. Por el contrario, conservar solamente la apariencia de la aplicación y reemplazar el modelo y el motor implicaría dejar de utilizar Tunkunia.
 
 ## Actores
 
@@ -114,11 +113,11 @@ Tunkunia no se define por:
 - la presencia de pagos, reportes u otra acción especializada;
 - el cumplimiento exhaustivo de toda la normativa desde su primera versión.
 
-Estas decisiones y capacidades pueden evolucionar mientras se conserven el modelo común, el motor de procesos, la gestión de casos y la posibilidad de reutilización y extensión.
+Estas decisiones y capacidades pueden evolucionar mientras se conserven el modelo común, el motor de procesos, la gestión de casos, la configuración para distintos contextos institucionales y la posibilidad de extensión.
 
 ## Formulación canónica
 
-> **Tunkunia es un subsistema reutilizable de software libre, especializado en el modelado y la gestión de flujos de trámite, que permite a instituciones públicas bolivianas definir y ejecutar distintos trámites a partir de capacidades comunes, con posibilidad de configuración, integración y extensión para necesidades particulares.**
+> **Tunkunia es un subsistema reutilizable de software libre, especializado en el modelado y la gestión de flujos de trámite, que permite a instituciones públicas bolivianas definir y ejecutar distintos trámites mediante la configuración de capacidades comunes y que, de forma complementaria, puede integrarse y extenderse para atender necesidades particulares.**
 
 En términos del proyecto, su resultado central puede expresarse de la siguiente manera:
 
