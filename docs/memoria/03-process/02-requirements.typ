@@ -60,10 +60,252 @@ El estándar ISO 29148 presenta un listado de elementos necesarios que deberían
 
 A continuación se especifican los requerimientos del sistema como un todo a partir de la estructura recomendada por el ISO 29148
 
-=== Especificación de Requerimientos del Software: Servidor
+==== Propósito del sistema
+// TODO: Explicar por qué se desarrolla Tunkunia.
 
-A partir de la estructura recomendada por el ISO 29148, a continuación se presenta la especificación de requerimientos del primer elemento de software que nace a partir de una primera iteración en el diseño a partir de los requerimientos del sistema y que en adelante llamaremos servidor.
+==== Alcance del sistema
+// TODO: Delimitar qué hará y qué no hará el sistema.
 
-=== Especificación de Requerimientos del Software: Aplicación
+==== Panorama del sistema
+// TODO: Resumir el sistema, su contexto y sus usuarios.
 
-A partir de la estructura recomendada por el ISO 29148, a continuación se presenta la especificación de requerimientos del segundo elemento de software que nace a partir de una primera iteración en el diseño a partir de los requerimientos del sistema y que en adelante llamaremos aplicación.
+===== Contexto del sistema
+// TODO: Describir los límites, elementos e interfaces principales.
+
+===== Funciones del sistema
+// TODO: Resumir las capacidades y restricciones principales.
+
+===== Características de los usuarios
+// TODO: Caracterizar los tipos de usuario y su forma de uso.
+
+==== Requerimientos funcionales
+// TODO: Especificar las funciones requeridas del sistema.
+
+==== Requerimientos de usabilidad
+// TODO: Definir objetivos medibles de usabilidad y calidad en uso.
+
+==== Requerimientos de rendimiento
+// TODO: Definir condiciones y métricas críticas de rendimiento.
+
+==== Requerimientos de interfaces del sistema
+// TODO: Especificar interfaces internas, humanas y externas.
+
+==== Operación del sistema
+// TODO: Definir los requerimientos asociados a la operación.
+
+===== Integración entre personas y sistema
+// TODO: Especificar la asignación e interacción entre personas y sistema.
+
+===== Mantenibilidad
+// TODO: Definir objetivos cuantitativos de mantenimiento y soporte.
+
+===== Fiabilidad
+// TODO: Definir objetivos cuantitativos y condiciones de fiabilidad.
+
+===== Otros atributos de calidad
+// TODO: Especificar atributos como compatibilidad y portabilidad.
+
+==== Modos y estados del sistema
+// TODO: Definir modos, estados y transiciones operativas.
+
+==== Características físicas
+// TODO: Registrar restricciones físicas y necesidades de adaptación.
+
+===== Requerimientos físicos
+
+Este elemento no aplica: Tunkunia no prescribe equipamiento físico dedicado.
+
+===== Adaptabilidad
+// TODO: Definir necesidades de crecimiento, expansión y contracción.
+
+==== Condiciones ambientales
+// TODO: Definir condiciones técnicas, legales y sociales del entorno.
+
+==== Seguridad del sistema
+// TODO: Especificar requisitos de seguridad, privacidad y recuperación.
+
+==== Gestión de la información
+// TODO: Definir recepción, generación, protección y conservación de información.
+
+==== Políticas y normativa
+// TODO: Derivar requisitos de políticas institucionales y normativa aplicable.
+
+==== Sostenimiento durante el ciclo de vida
+// TODO: Definir actividades y medios de soporte durante el ciclo de vida.
+
+==== Embalaje, manipulación, envío y transporte
+
+Este elemento no aplica: Tunkunia se distribuye como producto digital y no requiere transporte físico.
+
+==== Verificación
+// TODO: Indicar los métodos previstos para verificar los requerimientos.
+
+==== Supuestos y dependencias
+// TODO: Enumerar los supuestos y dependencias del sistema.
+
+=== Especificación de Requerimientos del Software de Tunkunia
+
+A partir de la estructura recomendada por ISO/IEC/IEEE 29148, a continuación se presenta una única especificación para Tunkunia como producto software. El servidor y la aplicación web no constituyen productos independientes: son componentes lógicos con responsabilidades y entornos de ejecución diferentes, pero forman parte de una misma unidad de entrega. El objetivo de distribución es incorporar los recursos construidos de la aplicación web en el binario de Go; mientras esta integración no haya sido implementada, debe considerarse una condición objetivo y no una descripción del estado actual del prototipo.
+
+==== Propósito
+
+// TODO: Delimitar el propósito de la especificación y los lectores a quienes está
+// dirigida.
+
+==== Alcance
+
+// TODO: Identificar Tunkunia como producto software y describir sus límites sin
+// repetir el alcance del sistema sociotécnico.
+
+==== Perspectiva del producto
+
+// TODO: Relacionar el producto software con el sistema, sus usuarios, los sistemas
+// externos y el entorno institucional.
+
+===== Relación con el sistema
+
+// TODO: Explicar qué requerimientos del sistema se asignan al software y qué
+// responsabilidades permanecen en las personas, instituciones o sistemas externos.
+
+===== Componentes lógicos y asignación
+
+// TODO: Presentar el servidor y la SPA como componentes lógicos de un mismo
+// producto. Asignar al servidor dominio, persistencia, API, identidad e
+// integraciones; a la SPA, presentación, navegación e interacción; y a ambos, las
+// responsabilidades transversales.
+
+La separación lógica no implica dos especificaciones ni dos productos distribuibles. El servidor se ejecuta como proceso en el entorno de instalación y la SPA se ejecuta en el navegador después de que sus recursos estáticos son entregados por el servidor.
+
+===== Interfaces con el sistema
+
+// TODO: Relacionar las interfaces del software con los elementos y requerimientos
+// definidos en la especificación del sistema.
+
+===== Interfaces de usuario
+
+// TODO: Especificar las interfaces y reglas generales de interacción con los
+// distintos grupos de usuarios.
+
+===== Interfaces de hardware
+
+Este elemento no aplica: Tunkunia no requiere interfaces directas con hardware específico.
+
+===== Interfaces de software
+
+// TODO: Especificar dependencias e interfaces con otros programas, incluidos el
+// navegador, la base de datos y el proveedor de identidad.
+
+===== Interfaces de comunicación
+
+// TODO: Especificar protocolos, formatos e interfaces de comunicación internas y
+// externas.
+
+===== Restricciones de memoria
+
+// TODO: Registrar límites de memoria del servidor o de los dispositivos cliente
+// sólo cuando el entorno objetivo imponga valores verificables.
+
+===== Operaciones
+
+// TODO: Describir los modos de operación normal y excepcional, además de las
+// necesidades de respaldo, recuperación y mantenimiento.
+
+===== Adaptación a la institución o entorno
+
+// TODO: Definir los datos y opciones que permiten adaptar el producto a distintas
+// instituciones sin modificar su código fuente.
+
+===== Interfaces con servicios
+
+// TODO: Especificar las interacciones con servicios gubernamentales, proveedores
+// de identidad y otros servicios externos o simulados.
+
+==== Funciones del producto
+
+// TODO: Resumir las capacidades principales del producto completo, con
+// independencia del componente que las materialice.
+
+==== Características de los usuarios
+
+// TODO: Describir los grupos de usuarios y las características que condicionan
+// los requerimientos del software.
+
+==== Limitaciones
+
+// TODO: Registrar restricciones regulatorias, técnicas, institucionales y
+// operativas aplicables al producto.
+
+==== Supuestos y dependencias
+
+// TODO: Enumerar factores externos que puedan afectar los requerimientos del
+// software o su verificación.
+
+==== Requerimientos especificados
+
+// TODO: Formular requerimientos identificables, necesarios, trazables y
+// verificables. Emplear un espacio global de identificadores, por ejemplo
+// SWR-FUN-001, y registrar por separado su asignación al servidor, a la SPA o a
+// ambos componentes.
+
+===== Interfaces externas
+
+// TODO: Definir las entradas y salidas observables del producto, agrupadas por
+// interfaz de usuario, API y servicios externos cuando corresponda.
+
+===== Requerimientos funcionales
+
+// TODO: Especificar el procesamiento de entradas, reglas y salidas por capacidad
+// del producto, no por tecnología de implementación.
+
+===== Usabilidad
+
+// TODO: Definir objetivos medibles de usabilidad y calidad en uso, principalmente
+// observables mediante la SPA.
+
+===== Rendimiento
+
+// TODO: Establecer límites medibles de capacidad, tiempos de respuesta y uso de
+// recursos, indicando las condiciones de medición.
+
+===== Base de datos lógica
+
+// TODO: Definir los requerimientos de información, integridad, acceso, seguridad
+// y retención, sin prescribir innecesariamente el diseño físico.
+
+===== Restricciones de diseño
+
+// TODO: Registrar únicamente decisiones impuestas externamente o indispensables
+// para satisfacer el propósito del producto.
+
+====== Distribución y empaquetado
+
+// TODO: Formular como requisito verificable que la distribución objetivo incluya
+// el servidor y los recursos construidos de la SPA en un único binario de Go.
+// Aclarar las plataformas objetivo y cualquier recurso que deba permanecer
+// externo, como archivos de configuración o datos persistentes.
+
+===== Cumplimiento de estándares
+
+// TODO: Especificar requerimientos derivados de normas, regulaciones y contratos
+// de interoperabilidad aplicables.
+
+===== Atributos del sistema de software
+
+// TODO: Definir fiabilidad, disponibilidad, seguridad, mantenibilidad,
+// compatibilidad y portabilidad mediante condiciones verificables.
+
+==== Asignación y trazabilidad de requerimientos
+
+// TODO: Relacionar cada requerimiento del software con su origen en la SyRS, su
+// asignación al servidor, la SPA o ambos, y su método de verificación. Evitar que
+// el identificador dependa del componente para permitir reasignaciones futuras.
+
+==== Verificación
+
+// TODO: Indicar los métodos previstos para verificar el producto y distinguir las
+// comprobaciones por componente de las pruebas del producto integrado.
+
+==== Información de apoyo
+
+// TODO: Añadir antecedentes, glosario, modelos y materiales complementarios
+// necesarios para interpretar la especificación.
