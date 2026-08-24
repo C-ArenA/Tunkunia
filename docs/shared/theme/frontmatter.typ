@@ -46,7 +46,9 @@
 ) = {
   if copyright != none {
     pagebreak()
-    copyright
+    align(center + bottom)[
+      #copyright
+    ]
   }
   if dedication != none {
     pagebreak()

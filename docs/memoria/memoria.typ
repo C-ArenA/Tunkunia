@@ -1,11 +1,14 @@
 #import "/shared/theme/lib.typ": memoria
-#import "/shared/metadata.typ": projectTitle, studentName, tutorName
+#import "/shared/metadata.typ": (
+  projectTitle, rightsNotice, studentName, tutorName,
+)
 #import "/shared/acronyms.typ": acronyms
 #import "/shared/glossary.typ": glossary
 
 #show: memoria.with(
   title: projectTitle,
   authors: ("Postulante: " + studentName, "Tutor: " + tutorName),
+  copyright: rightsNotice,
   dedication: include "preamble/dedication.typ",
   acknowledgements: include "preamble/acknowledgements.typ",
   abstract: include "preamble/abstract.typ",

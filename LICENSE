@@ -1,3 +1,13 @@
+Licensing scope
+
+For purposes of the MIT License below, the "Software" means the software,
+technical documentation, build tooling, and reusable templates in this
+repository, except for the original literary and visual content expressly
+identified as reserved in docs/RIGHTS.md.
+
+That reserved content is not licensed under the MIT License. Third-party
+materials remain subject to their respective licenses and notices.
+
 MIT License
 
 Copyright (c) 2024 C-ArenA (Ernesto Carlos Arena Alarcon)

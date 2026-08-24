@@ -3,3 +3,9 @@
 #let studentName = "Ernesto Carlos Arena Alarcon"
 #let tutorName = "Jorge Antonio Nava Amador"
 #let damName = "Jorge Mario León Gómez"
+
+#let rightsNotice = [
+  Copyright © 2026 C-ArenA (Ernesto Carlos Arena Alarcon).
+
+  Todos los derechos reservados.
+]
