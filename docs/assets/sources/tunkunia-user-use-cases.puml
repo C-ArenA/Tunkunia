@@ -1,0 +1,42 @@
+@startuml tunkunia-user-use-cases
+left to right direction
+
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam actorStyle stickman
+skinparam packageStyle rectangle
+
+actor "Personal técnico" as Technical
+actor "Operador de la instancia" as Operator
+actor "Desarrollador o modificador" as Developer
+
+actor "Usuario directo" as DirectUser
+actor "Administrador institucional" as Administrator
+actor "Participante del trámite" as Participant
+actor "Ciudadano" as Citizen
+actor "Servidor público" as PublicServant
+actor "Visitante" as Visitor
+
+Technical <|-- Operator
+Technical <|-- Developer
+DirectUser <|-- Administrator
+DirectUser <|-- Participant
+Citizen --|> Participant
+PublicServant --|> Participant
+DirectUser <|-- Visitor
+
+rectangle Tunkunia {
+  usecase "Ver el catálogo\nde trámites" as ViewCatalogue
+  usecase "Gestionar trámites\ny la instancia" as ManageProcedures
+  usecase "Ejecutar y seguir\nun trámite" as ExecuteProcedure
+  usecase "Desplegar y mantener\nla instancia" as MaintainInstance
+  usecase "Extender e integrar\nel sistema" as ExtendSystem
+}
+
+Visitor --> ViewCatalogue
+Administrator --> ManageProcedures
+Participant --> ExecuteProcedure
+Participant --> ViewCatalogue
+Operator --> MaintainInstance
+Developer --> ExtendSystem
+@enduml

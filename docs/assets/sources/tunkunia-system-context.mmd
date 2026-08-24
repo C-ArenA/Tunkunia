@@ -1,0 +1,24 @@
+flowchart RL
+  subgraph government_platforms["`**AGETIC:** Plataformas de gobierno electrónico de Bolivia`"]
+    direction TB
+    digital_citizenship["🫆 Ciudadanía Digital"]
+    gob_bo["🌐 Plataforma gob.bo"]
+  end
+
+  public_institution["🏛️ Institución pública"]
+  participants["👤 Participantes del trámite"]
+  tunkunia["⭐ Tunkunia"]
+  external_systems["🤖 Otros Sistemas"]
+
+  public_institution -->|despliega y digitaliza| tunkunia
+  participants --- tunkunia
+  government_platforms -->|Gob. Electrónico| tunkunia
+  external_systems <-->|intercambia información| tunkunia
+
+  classDef system fill:#e8f1ff,stroke:#2457a6,stroke-width:3px,color:#102a43
+  classDef actor fill:#edf8ee,stroke:#397a3f,color:#173c1b
+  classDef external fill:#f5f5f5,stroke:#666,color:#222
+
+  class tunkunia system
+  class participants actor
+  class public_institution,institutional_systems,digital_citizenship,gob_bo,external_systems external

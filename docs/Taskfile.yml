@@ -63,5 +63,17 @@ tasks:
 
   plantuml:
     desc: Generate PlantUML figures from their editable sources
+    env:
+      JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
     cmds:
       - plantuml assets/sources/*.puml --svg -o ../figures
+
+  mermaid:
+    desc: Generate Mermaid figures as PDFs from their editable sources
+    vars:
+      SOURCES:
+        sh: find assets/sources -maxdepth 1 -type f -name '*.mmd' -print
+    cmds:
+      - for:
+          var: SOURCES
+        cmd: mmdc --input {{.ITEM}} --output assets/figures/{{trimSuffix ".mmd" (base .ITEM)}}.pdf --pdfFit
