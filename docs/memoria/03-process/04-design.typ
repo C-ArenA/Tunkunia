@@ -5,7 +5,10 @@
 // TODO: Identificar los elementos de software diseñados, la audiencia y el
 // nivel de detalle cubierto por el capítulo.
 
-Este capítulo documenta de forma selectiva el diseño de Tunkunia. Para ello, adopta el proceso de definición del diseño de ISO/IEC/IEEE 12207:2026 @iso12207SoftwareLifeCycle2026 y los lineamientos sobre elementos de información de ISO/IEC/IEEE 15289:2019 @iso15289InformationItems2019. Como convención documental se emplean de manera adaptada los puntos de vista de IEEE 1016-2009 @ieee1016SoftwareDesign2009, complementados por el área de conocimiento de diseño de software del SWEBOK @washizakiGuideSoftwareEngineering2025. No se declara conformidad completa con estos estándares.
+Este capítulo documenta de forma selectiva el diseño de Tunkunia.
+Para ello, adopta el proceso de definición del diseño de ISO/IEC/IEEE 12207:2026 @iso12207SoftwareLifeCycle2026 y los lineamientos sobre elementos de información de ISO/IEC/IEEE 15289:2019 @iso15289InformationItems2019.
+Como convención documental se emplean de manera adaptada los puntos de vista de IEEE 1016-2009 @ieee1016SoftwareDesign2009, complementados por el área de conocimiento de diseño de software del SWEBOK @washizakiGuideSoftwareEngineering2025.
+No se declara conformidad completa con estos estándares.
 
 === Fundamentos y enfoque de documentación
 

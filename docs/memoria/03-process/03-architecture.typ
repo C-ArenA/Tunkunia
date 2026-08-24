@@ -5,7 +5,9 @@
 // TODO: Identificar Tunkunia como sistema de interés, el propósito de la
 // descripción arquitectónica, su audiencia y sus límites.
 
-Este capítulo presenta una descripción adaptada de la arquitectura de Tunkunia de acuerdo con los conceptos de la norma ISO/IEC/IEEE 42010:2022 @iso42010ArchitectureDescription2022. La organización se apoya en el enfoque _Views and Beyond_ @clementsDocumentingSoftwareArchitectures2010 y en una adaptación del modelo de vistas 4+1 @kruchtenArchitecturalBlueprints1995. El modelo C4 @brownC4Model se emplea como notación para algunas representaciones y no como una estructura documental adicional.
+Este capítulo presenta una descripción adaptada de la arquitectura de Tunkunia de acuerdo con los conceptos de la norma ISO/IEC/IEEE 42010:2022 @iso42010ArchitectureDescription2022.
+La organización se apoya en el enfoque _Views and Beyond_ @clementsDocumentingSoftwareArchitectures2010 y en una adaptación del modelo de vistas 4+1 @kruchtenArchitecturalBlueprints1995.
+El modelo C4 @brownC4Model se emplea como notación para algunas representaciones y no como una estructura documental adicional.
 
 === Objetivos y restricciones arquitectónicas
 

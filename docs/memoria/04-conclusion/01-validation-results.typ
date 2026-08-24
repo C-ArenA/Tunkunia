@@ -5,9 +5,12 @@
 // TODO: Explicar el propósito, alcance y procedimiento de la validación
 // demostrativa, además de los criterios usados para seleccionar los casos.
 
-La validación del prototipo se organiza mediante casos de trámites con características diferentes. Este enfoque busca observar si Tunkunia permite configurar y recorrer los elementos relevantes identificados durante la investigación, como actores, documentos, condiciones, etapas, plazos, reintentos, eventos externos y resultados. No constituye una campaña exhaustiva de pruebas del software.
+La validación del prototipo se organiza mediante casos de trámites con características diferentes.
+Este enfoque busca observar si Tunkunia permite configurar y recorrer los elementos relevantes identificados durante la investigación, como actores, documentos, condiciones, etapas, plazos, reintentos, eventos externos y resultados.
+No constituye una campaña exhaustiva de pruebas del software.
 
-Para cada caso se distingue su caracterización, la configuración realizada en Tunkunia, el recorrido seguido, las evidencias obtenidas y las limitaciones observadas. Mientras un caso no haya sido ejecutado, sus apartados de configuración y resultados permanecen señalados como pendientes y no se presentan conclusiones sin evidencia.
+Para cada caso se distingue su caracterización, la configuración realizada en Tunkunia, el recorrido seguido, las evidencias obtenidas y las limitaciones observadas.
+Mientras un caso no haya sido ejecutado, sus apartados de configuración y resultados permanecen señalados como pendientes y no se presentan conclusiones sin evidencia.
 
 === Casos de trámites evaluados
 
@@ -15,7 +18,9 @@ Para cada caso se distingue su caracterización, la configuración realizada en 
 
 ===== Caracterización del caso
 
-El Registro Ambiental Industrial (RAI) es el trámite inicial mediante el cual se recoge información de una industria manufacturera y se determinan las condiciones que afectan sus obligaciones ambientales posteriores. Forma parte de los procedimientos administrativos atendidos por el @SIAI en el marco del @RASIM y se relaciona con la obtención y actualización de los distintos @IRAP:pl. Su contexto institucional y normativo se desarrolla en el capítulo de investigación sobre el modelado de trámites.
+El Registro Ambiental Industrial (RAI) es el trámite inicial mediante el cual se recoge información de una industria manufacturera y se determinan las condiciones que afectan sus obligaciones ambientales posteriores.
+Forma parte de los procedimientos administrativos atendidos por el @SIAI en el marco del @RASIM y se relaciona con la obtención y actualización de los distintos @IRAP:pl.
+Su contexto institucional y normativo se desarrolla en el capítulo de investigación sobre el modelado de trámites.
 
 Este caso permite valorar la representación de un trámite de registro cuyos datos condicionan otros procedimientos y documentos ambientales.
 
@@ -48,8 +53,10 @@ Este caso permite valorar la representación de un trámite de registro cuyos da
 - *Marco Legal*: DS 4861, DS 4342
 - *Tipo de Trámite*: Trámite de Registro y Certificación
 - *Características Resaltantes*:
-  - La normativa existente alrededor de este trámite solamente especifica los objetivos del trámite y no el trámite en sí mismo dejando esto a criterio de la institución. Este es un antecedente importante para otros trámites que no pueden ser simplificados debido al andamiaje legal que los aprisionan.
-  - Para comunicar al ciudadano, se divide el trámite en dos, uno para menores de edad y otro para mayores de edad. Sin embargo, para enriquecer este análisis se consideran ambos como parte del mismo trámite.
+  - La normativa existente alrededor de este trámite solamente especifica los objetivos del trámite y no el trámite en sí mismo dejando esto a criterio de la institución.
+    Este es un antecedente importante para otros trámites que no pueden ser simplificados debido al andamiaje legal que los aprisionan.
+  - Para comunicar al ciudadano, se divide el trámite en dos, uno para menores de edad y otro para mayores de edad.
+    Sin embargo, para enriquecer este análisis se consideran ambos como parte del mismo trámite.
 - *Involucrados*:
   - Funcionario del SEGIP
   - Ciudadano que desea obtener su Cédula
@@ -97,10 +104,13 @@ Este caso permite valorar la representación de un trámite de registro cuyos da
     - 1 colección de elementos multimedia (d)
     - 3 copias de documentos existentes (h,i,k)
     - 1 colección de documentos originales de certificación existente (f, j)
-  - Existen requisitos opcionales que sólo son necesarios si se cumplen otras condiciones. Esto sugiere que pueden pertenecer a otras subetapas
-  - El trámite inicia con la presentación de requisitos de solicitud. Es decir, cuando el solicitante lo desee
+  - Existen requisitos opcionales que sólo son necesarios si se cumplen otras condiciones.
+    Esto sugiere que pueden pertenecer a otras subetapas
+  - El trámite inicia con la presentación de requisitos de solicitud.
+    Es decir, cuando el solicitante lo desee
   - El trámite parece ser de tipo servicio
-  - El solicitante puede modificar su información de solicitud durante el trámite e incluso la naturaleza del trámite. Esto sugiere un cambio de trámite (mismo caso o diferente caso) que pueda heredar información del anterior.
+  - El solicitante puede modificar su información de solicitud durante el trámite e incluso la naturaleza del trámite.
+    Esto sugiere un cambio de trámite (mismo caso o diferente caso) que pueda heredar información del anterior.
   - Existe una etapa de examen de documentos
   - Existe un plazo de 30 días para examinar la solicitud
   - Existe una etapa de reparación de solicitud con plazo de 2 meses

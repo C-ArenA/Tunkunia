@@ -15,7 +15,9 @@
 //
 == Ingeniería de Requerimientos
 
-El proceso de ingeniería de requerimientos se hizo de acuerdo al ISO 29148, presentando una conformidad adaptada, es decir, no una conformidad total, ya que se no se consideraron algunos elementos de información irrelevantes en el contexto de este proyecto dada la estructura de este documento. Además, se consideraron lineamientos establecidos en el @SWEBOK, es decir, la base de conocimientos sobre ingeniería de software. A continuación, se listan los distintos elementos requeridos por el estándar antes mencionado, precedidos por una lista de requerimientos producidos durante el proceso de elicitación.
+El proceso de ingeniería de requerimientos se hizo de acuerdo al ISO 29148, presentando una conformidad adaptada, es decir, no una conformidad total, ya que se no se consideraron algunos elementos de información irrelevantes en el contexto de este proyecto dada la estructura de este documento.
+Además, se consideraron lineamientos establecidos en el @SWEBOK, es decir, la base de conocimientos sobre ingeniería de software.
+A continuación, se listan los distintos elementos requeridos por el estándar antes mencionado, precedidos por una lista de requerimientos producidos durante el proceso de elicitación.
 
 === Elicitación y Descubrimiento
 
@@ -27,11 +29,14 @@ Como se pudo identificar en el modelado del trámite, pueden existir distintos a
 
 Adicionalmente, si bien se identificaron actores del proceso en sí mismo, dado el objetivo de este proyecto se hacen aparentes actores adicionales del meta-proceso, del sistema, y aquellos potenciales que nacen de los alcances del proyecto.
 
-Considerando el proceso en sí mismo, podemos identificar que este suele implicar a dos partes importantes, el participante de la ciudadanía y protagonista del trámite y el o los servidores públicos que examinan documentos y toman decisiones en representación de su entidad. En ciertos casos, podrían haber terceros involucrados.
+Considerando el proceso en sí mismo, podemos identificar que este suele implicar a dos partes importantes, el participante de la ciudadanía y protagonista del trámite y el o los servidores públicos que examinan documentos y toman decisiones en representación de su entidad.
+En ciertos casos, podrían haber terceros involucrados.
 
-Ahora bien, si hablamos del meta-proceso, el sistema y otros, es decir, la contribución importante de este proyecto, tenemos necesariamente que comenzar hablando de un gestor de trámites de la entidad, quien deberá encargarse de crear, poner en marcha y modificar los trámites, así como resolver casos excepcionales. También podemos señalar a los sistemas externos como aquellos de ciudadanía digital y otros subsistemas que se espera puedan interactuar con Tunkunia.
+Ahora bien, si hablamos del meta-proceso, el sistema y otros, es decir, la contribución importante de este proyecto, tenemos necesariamente que comenzar hablando de un gestor de trámites de la entidad, quien deberá encargarse de crear, poner en marcha y modificar los trámites, así como resolver casos excepcionales.
+También podemos señalar a los sistemas externos como aquellos de ciudadanía digital y otros subsistemas que se espera puedan interactuar con Tunkunia.
 
-Para rotular algunos de los actores que no necesariamente forman parte del proceso tradicional del trámite, se emplea una analogía con el juego de la Tunkuña, sobre cuyo nombre se inspira este proyecto. En este juego
+Para rotular algunos de los actores que no necesariamente forman parte del proceso tradicional del trámite, se emplea una analogía con el juego de la Tunkuña, sobre cuyo nombre se inspira este proyecto.
+En este juego
 
 Los actores se dividen en dos grupos:
 
@@ -53,7 +58,8 @@ Analogía
 
 === Especificación de Requerimientos del Negocio y de los Interesados (BRS y StRS)
 
-El estándar ISO 29148 presenta un listado de elementos necesarios que deberían formar parte de la especificación de requerimientos del negocio y de los interesados. Estos elementos se solapan en este trabajo con aquello definido en la definición misma del proyecto, además de tener poca compatibilidad con un trabajo de investigación tecnológica, por lo que se omiten como tal las especificaciones de requerimientos del negocio y de los interesados, más conocidos como BRS y STRS.
+El estándar ISO 29148 presenta un listado de elementos necesarios que deberían formar parte de la especificación de requerimientos del negocio y de los interesados.
+Estos elementos se solapan en este trabajo con aquello definido en la definición misma del proyecto, además de tener poca compatibilidad con un trabajo de investigación tecnológica, por lo que se omiten como tal las especificaciones de requerimientos del negocio y de los interesados, más conocidos como BRS y STRS.
 
 // TODO: Las reestricciones del proyecto podrían ir aquí quizás
 === Especificación de Requerimientos del Sistema
@@ -145,7 +151,9 @@ Este elemento no aplica: Tunkunia se distribuye como producto digital y no requi
 
 === Especificación de Requerimientos del Software de Tunkunia
 
-A partir de la estructura recomendada por ISO/IEC/IEEE 29148, a continuación se presenta una única especificación para Tunkunia como producto software. El servidor y la aplicación web no constituyen productos independientes: son componentes lógicos con responsabilidades y entornos de ejecución diferentes, pero forman parte de una misma unidad de entrega. El objetivo de distribución es incorporar los recursos construidos de la aplicación web en el binario de Go; mientras esta integración no haya sido implementada, debe considerarse una condición objetivo y no una descripción del estado actual del prototipo.
+A partir de la estructura recomendada por ISO/IEC/IEEE 29148, a continuación se presenta una única especificación para Tunkunia como producto software.
+El servidor y la aplicación web no constituyen productos independientes: son componentes lógicos con responsabilidades y entornos de ejecución diferentes, pero forman parte de una misma unidad de entrega.
+El objetivo de distribución es incorporar los recursos construidos de la aplicación web en el binario de Go; mientras esta integración no haya sido implementada, debe considerarse una condición objetivo y no una descripción del estado actual del prototipo.
 
 ==== Propósito
 
@@ -174,7 +182,8 @@ A partir de la estructura recomendada por ISO/IEC/IEEE 29148, a continuación se
 // integraciones; a la SPA, presentación, navegación e interacción; y a ambos, las
 // responsabilidades transversales.
 
-La separación lógica no implica dos especificaciones ni dos productos distribuibles. El servidor se ejecuta como proceso en el entorno de instalación y la SPA se ejecuta en el navegador después de que sus recursos estáticos son entregados por el servidor.
+La separación lógica no implica dos especificaciones ni dos productos distribuibles.
+El servidor se ejecuta como proceso en el entorno de instalación y la SPA se ejecuta en el navegador después de que sus recursos estáticos son entregados por el servidor.
 
 ===== Interfaces con el sistema
 

@@ -19,7 +19,9 @@ En su forma tradicional, los trámites se llevan a cabo de forma presencial, en 
 
 Esto deriva en una serie de problemas que suelen afectar a la población, como la corrupción, el clientelismo, la excesiva cantidad de horas necesarias para completar un trámite (@fig:horastramite), las distancias entre el ciudadano y las oficinas públicas, el número de interacciones necesarias (@fig:tramites_una_interaccion), la falta de definición de requisitos y las deficiencias en el acceso a la información, entre otros.
 
-Un ejemplo es el caso de *Domitila Murillo*, una ciudadana boliviana que, a causa de un trámite, se vio obligada a trasladarse entre varias localidades del país (recorriendo al menos 900 km durante 11 meses), realizando interminables filas y vagando perdida entre una cantidad indefinida y mal documentada de requisitos. Su caso fue motivo de preocupación y, cuando finalmente logró recibir su cédula, que era el motivo del trámite, no le quedaron más que dos semanas antes de fallecer @charoskyQuejaComoEnergia2014[pág. 23].
+Un ejemplo es el caso de *Domitila Murillo*, una ciudadana boliviana que, a causa de un trámite, se vio obligada a trasladarse entre varias localidades del país (recorriendo al menos 900 km durante 11 meses), realizando interminables filas y vagando perdida entre una cantidad indefinida y mal documentada de requisitos.
+Su caso fue motivo de preocupación y, cuando finalmente logró recibir su cédula, que era el motivo del trámite, no le quedaron más que dos semanas antes de fallecer @charoskyQuejaComoEnergia2014[pág.
+  23].
 
 #img-fig(
   "/assets/figures/horastramite.png",
@@ -43,11 +45,15 @@ Estos problemas dentro de la administración pública despertaron el interés ac
 
 === Evolución del gobierno electrónico en Bolivia
 
-La implementación de un gobierno electrónico no es una tarea sencilla, ya que requiere esfuerzos en conjunto dentro de los gobiernos. En Bolivia, a partir del año 2009, se promulgaron decretos, leyes y reglamentos orientados a promover el uso de las tecnologías de la información y comunicación en la administración pública, aunque aún queda un largo camino por recorrer para lograr una implementación efectiva y eficiente.
+La implementación de un gobierno electrónico no es una tarea sencilla, ya que requiere esfuerzos en conjunto dentro de los gobiernos.
+En Bolivia, a partir del año 2009, se promulgaron decretos, leyes y reglamentos orientados a promover el uso de las tecnologías de la información y comunicación en la administración pública, aunque aún queda un largo camino por recorrer para lograr una implementación efectiva y eficiente.
 
-La nueva Constitución Política del Estado, promulgada el 7 de febrero de 2009, estableció en su Artículo 103 que el Estado asumiría como política la implementación de estrategias para incorporar el conocimiento y la aplicación de nuevas tecnologías de información y comunicación @BoliviaConstitucionPolitica2009. Esto dio lugar, el año 2011, a la Ley General de Telecomunicaciones, Tecnologías de Información y Comunicación (Ley Nº 164) @Ley164Ley2011 y, posteriormente, a políticas públicas, reglamentos y planes que profundizaron la incorporación del gobierno electrónico y el desarrollo de software para el Estado.
+La nueva Constitución Política del Estado, promulgada el 7 de febrero de 2009, estableció en su Artículo 103 que el Estado asumiría como política la implementación de estrategias para incorporar el conocimiento y la aplicación de nuevas tecnologías de información y comunicación @BoliviaConstitucionPolitica2009.
+Esto dio lugar, el año 2011, a la Ley General de Telecomunicaciones, Tecnologías de Información y Comunicación (Ley Nº 164) @Ley164Ley2011 y, posteriormente, a políticas públicas, reglamentos y planes que profundizaron la incorporación del gobierno electrónico y el desarrollo de software para el Estado.
 
-Entre estos instrumentos, el Plan de Implementación de Gobierno Electrónico fue aprobado mediante Decreto Supremo Nº 3251 @DecretoSupremoNo2017. Más adelante, la emergencia sanitaria provocada por la pandemia de COVID-19 aceleró la implementación de @TICs en la administración pública y promovió plataformas digitales para la atención al ciudadano y la gestión de trámites. En ese contexto se aprobó, mediante Resolución Ministerial Nº 079/20, el documento de "Lineamientos y estándares técnicos para el desarrollo e implementación de Servicios Digitales".
+Entre estos instrumentos, el Plan de Implementación de Gobierno Electrónico fue aprobado mediante Decreto Supremo Nº 3251 @DecretoSupremoNo2017.
+Más adelante, la emergencia sanitaria provocada por la pandemia de COVID-19 aceleró la implementación de @TICs en la administración pública y promovió plataformas digitales para la atención al ciudadano y la gestión de trámites.
+En ese contexto se aprobó, mediante Resolución Ministerial Nº 079/20, el documento de "Lineamientos y estándares técnicos para el desarrollo e implementación de Servicios Digitales".
 
 Esta evolución normativa, desarrollada sistemáticamente en el @section:reference_framework, impulsó a distintas entidades públicas a implementar sistemas que facilitaran sus funciones administrativas, particularmente aquellas relacionadas con trámites.
 
@@ -71,7 +77,8 @@ La ejecución del proyecto, licitado por el @MDPyEP, estuvo a cargo de la consul
 
 === Identificación de la necesidad del proyecto
 
-Además de atender los requerimientos iniciales del DBC, 2IES propuso funcionalidades que modernizaran el trabajo con el SIAI. A partir del requerimiento de hacer seguimiento a las solicitudes de distintos documentos ambientales y a la generación de estos, se identificó a dichos procesos como trámites que debían ser digitalizados.
+Además de atender los requerimientos iniciales del DBC, 2IES propuso funcionalidades que modernizaran el trabajo con el SIAI.
+A partir del requerimiento de hacer seguimiento a las solicitudes de distintos documentos ambientales y a la generación de estos, se identificó a dichos procesos como trámites que debían ser digitalizados.
 
 Dado que una gran parte de la funcionalidad del sistema consistía en el manejo de documentos y su seguimiento mediante trámites, la consultora implementó el manejo de estados y roles, creó formularios e integró los datos al modelo de negocio general.
 

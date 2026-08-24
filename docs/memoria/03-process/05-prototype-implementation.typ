@@ -5,9 +5,13 @@
 // TODO: Identificar los elementos construidos, la audiencia del capítulo y el
 // alcance concreto del prototipo.
 
-Este capítulo documenta de forma selectiva la construcción del prototipo de Tunkunia. Para ello, adopta el proceso de implementación de ISO/IEC/IEEE 12207:2026 @iso12207SoftwareLifeCycle2026 y los lineamientos sobre elementos de información de ISO/IEC/IEEE 15289:2019 @iso15289InformationItems2019. Como guía para los aspectos propios de la construcción se emplea el área de conocimiento de construcción de software del SWEBOK @washizakiGuideSoftwareEngineering2025. No se declara conformidad completa con estos estándares.
+Este capítulo documenta de forma selectiva la construcción del prototipo de Tunkunia.
+Para ello, adopta el proceso de implementación de ISO/IEC/IEEE 12207:2026 @iso12207SoftwareLifeCycle2026 y los lineamientos sobre elementos de información de ISO/IEC/IEEE 15289:2019 @iso15289InformationItems2019.
+Como guía para los aspectos propios de la construcción se emplea el área de conocimiento de construcción de software del SWEBOK @washizakiGuideSoftwareEngineering2025.
+No se declara conformidad completa con estos estándares.
 
-La exposición se concentra en la materialización del servidor, la aplicación web y los servicios de apoyo. Las decisiones estructurales se remiten al capítulo de arquitectura, el detalle prescriptivo al capítulo de diseño y los resultados de las pruebas al capítulo de validación.
+La exposición se concentra en la materialización del servidor, la aplicación web y los servicios de apoyo.
+Las decisiones estructurales se remiten al capítulo de arquitectura, el detalle prescriptivo al capítulo de diseño y los resultados de las pruebas al capítulo de validación.
 
 === Estrategia de construcción del prototipo
 
@@ -112,7 +116,8 @@ La exposición se concentra en la materialización del servidor, la aplicación 
 
 ===== Entorno de prueba con Dex
 
-Para simular la existencia de un módulo de ciudadanía digital con el estándar OIDC, se empleó una herramienta llamada Dex. Esta herramienta tiene como propósito conectar distintos tipos de sistemas de autenticación mediante OIDC, lo cual resultó útil para crear un _mock_ del servicio de autenticación de la AGTIC.
+Para simular la existencia de un módulo de ciudadanía digital con el estándar OIDC, se empleó una herramienta llamada Dex.
+Esta herramienta tiene como propósito conectar distintos tipos de sistemas de autenticación mediante OIDC, lo cual resultó útil para crear un _mock_ del servicio de autenticación de la AGTIC.
 
 // TODO: Documentar la configuración y las limitaciones de Dex como sustituto del
 // servicio real, sin presentarlo como parte del producto desplegable.
