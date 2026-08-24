@@ -149,6 +149,30 @@ También existen casos de instancias públicas que pueden inspirar la solución 
   placement: auto,
 )
 
+#img-fig(
+  "/assets/figures/camunda_modeler.png",
+  [Modelado de un proceso BPMN ejecutable en Camunda Web Modeler],
+  <fig:camunda_modeler>,
+  source: [#link("https://docs.camunda.io/docs/components/modeler/web-modeler/")[Documentación oficial de Camunda]],
+  width: 75%,
+)
+
+#img-fig(
+  "/assets/figures/temporal_timeline.png",
+  [Línea de tiempo de la ejecución de un workflow en Temporal],
+  <fig:temporal_timeline>,
+  source: [#link("https://temporal.io/blog/lets-visualize-a-workflow")[Temporal]],
+  width: 80%,
+)
+
+#img-fig(
+  "/assets/figures/n8n_workflow.png",
+  [Flujo de trabajo visual con bifurcación y combinación de datos en n8n],
+  <fig:n8n_workflow>,
+  source: [#link("https://n8n.io/features/")[Sitio oficial de n8n]],
+  width: 70%,
+)
+
 - *SoftExpert BPM:* solución para la gestión de procesos de negocio @BusinessProcessManagemente.
   Aunque no se enfoca en trámites, cuenta con elementos de modelado y seguimiento de procesos útiles en este contexto.
 - *R2 Docuo:* sistema completo de gestión de procesos con una funcionalidad para solicitudes y trámites @SoftwareParaGestionb.
@@ -166,26 +190,15 @@ También existen casos de instancias públicas que pueden inspirar la solución 
 - *Stateflow by MathWorks:* producto incluido en MatLab para modelar y simular procesos mediante máquinas de estado y diagramas de flujo con un lenguaje gráfico @Stateflow.
   Aunque se emplea comúnmente para simulación en electrónica y control (@fig:stateflowrobot), podría utilizarse, no necesariamente de la forma más adecuada, para modelar trámites.
   Su interfaz conecta la lógica de estados, el modelado y la ejecución, por lo que aproxima la definición de procedimientos buscada por el proyecto.
-
-El borrador del Marco de referencia identificaba también, sin aportar todavía descripciones, a Camunda, Temporal y n8n como sistemas de gestión de flujos de trabajo, y a PocketBase y WordPress como sistemas que abstraen la creación de otros sistemas.
-
-==== Camunda
-// TODO: Completar
-==== Temporal
-// TODO: Completar
+- *Camunda:* plataforma de orquestación que permite modelar procesos ejecutables con BPMN, desplegarlos y coordinar tareas humanas y sistemas externos (@fig:camunda_modeler).
+- *Temporal:* plataforma de ejecución durable orientada a desarrolladores; los flujos se implementan en código y conservan su estado para continuar después de fallos, mientras su interfaz permite observar cada ejecución y sus eventos (@fig:temporal_timeline).
+- *n8n:* herramienta de automatización visual que conecta aplicaciones y transforma datos mediante nodos, bifurcaciones y bucles; resulta útil para integrar servicios y automatizar tareas alrededor de un trámite (@fig:n8n_workflow).
 
 === Tendencias tecnológicas y enfoques actuales
 
 Las necesidades alrededor de la digitalización de trámites son diversas.
 Para resolverlas se han vuelto comunes distintas prácticas, sistemas y enfoques.
 Algunas tendencias generales proceden de entidades privadas con necesidades similares, pero pueden aplicarse también a trámites de entidades públicas.
-
-==== Sistemas que generan sistemas
-// TODO: Completar
-===== Wordpress
-// TODO: Completar
-===== PocketBase
-// TODO: Completar
 
 ==== Reutilización de software
 
@@ -204,6 +217,10 @@ Esta tendencia responde a la demanda de reducir costos de producción y mantenim
 La @fig:mobile_reuse, procedente de un estudio de 2014 sobre aplicaciones móviles, muestra un porcentaje de reutilización superior al 62% en las distintas categorías analizadas #footnote[La reutilización en este estudio fue medida calculando la proporción de clases reutilizadas sobre la cantidad total de clases de cada proyecto] @mojicaLargeScaleEmpiricalStudy2014.
 En el desarrollo web, @NPM facilitó la reutilización de código: registraba más de un millón de paquetes en 2022 y creció un 60% entre enero de 2019 y enero de 2022 @mujahidWhatAreCharacteristics2023.
 Una búsqueda realizada en 2025 en el sitio oficial mostraba más de dos millones de paquetes y contribuciones de más de 17 millones de desarrolladores @NpmHome.
+
+===== Sistemas configurables
+
+Uno de los tipos de sistemas reutilizables descritos por Somerville son los sistemas configurables. Estos sistemas se especializan en un dominio específico y permiten a los usuarios implementar funcionalidad con simple configuración. El ejemplo más popular de este tipo de sistemas es WordPress, el cual permitió que usuarios sin conocimientos técnicos puedan desplegar sitios web completos que antes requerirían la escritura de código. Otro ejemplo que vale la pena mencionar es Pocketbase, un sistema para generar backends mediante una interfaz de usuario amigable que no requiere la escritura de código. Es importante mencionar que en ambos casos, estas herramientas exponen una serie de interfaces de código reutilizables para usuarios técnicos con necesidades más específicas.
 
 ==== Gestión de flujos de trabajo y arquitectura
 
