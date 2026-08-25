@@ -14,8 +14,6 @@
   bibliography: bibliography("/shared/references.bib"),
   glossary: glossary,
   appendices: [
-    #include "appendices/configuration-management.typ"
-    #include "appendices/project-schedule.typ"
   ],
   font: "New Computer Modern",
 )
@@ -47,5 +45,5 @@
 #include "03-process/05-prototype-implementation.typ"
 
 = Etapa Conclusiva
-#include "04-conclusion/01-validation-results.typ"
+//#include "04-conclusion/01-validation-results.typ"
 #include "04-conclusion/02-conclusions-recommendations.typ"
