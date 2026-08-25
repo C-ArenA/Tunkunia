@@ -1,240 +1,171 @@
-== Diseño del Software
-
-=== Introducción y alcance del diseño
-
-// TODO: Identificar los elementos de software diseñados, la audiencia y el
-// nivel de detalle cubierto por el capítulo.
-
-Este capítulo documenta de forma selectiva el diseño de Tunkunia.
-Para ello, adopta el proceso de definición del diseño de ISO/IEC/IEEE 12207:2026 @iso12207SoftwareLifeCycle2026 y los lineamientos sobre elementos de información de ISO/IEC/IEEE 15289:2019 @iso15289InformationItems2019.
-Como convención documental se emplean de manera adaptada los puntos de vista de IEEE 1016-2009 @ieee1016SoftwareDesign2009, complementados por el área de conocimiento de diseño de software del SWEBOK @washizakiGuideSoftwareEngineering2025.
-No se declara conformidad completa con estos estándares.
-
-=== Fundamentos y enfoque de documentación
-
-// TODO: Explicar el proceso, los puntos de vista y las notaciones seleccionadas.
-
-==== Proceso de definición del diseño
-
-// TODO: Relacionar el diseño con requisitos, arquitectura y construcción.
-
-==== Adaptación de IEEE 1016 y SWEBOK
-
-// TODO: Justificar el uso selectivo de puntos de vista y temas de diseño.
-
-==== Interesados e inquietudes de diseño
-
-// TODO: Identificar lectores, usos esperados e inquietudes de diseño.
-
-==== Trazabilidad con requisitos y arquitectura
-
-// TODO: Relacionar decisiones y elementos con requisitos y vistas arquitectónicas.
-
-==== Lenguajes y notaciones de diseño
-
-// TODO: Delimitar el uso de UML @uml251, BPMN @bpmn202, redes de Petri, modelos
-// entidad-relación, OpenAPI y prototipos de interfaz.
-
-Las representaciones se seleccionan según la inquietud de diseño: UML 2.5.1 @uml251 para estructuras e interacciones, BPMN 2.0.2 @bpmn202 y redes de Petri para procesos, modelos entidad-relación para persistencia y OpenAPI para contratos HTTP.
-
-==== Matriz de puntos de vista seleccionados
-
-// TODO: Mapear inquietudes, secciones, modelos, notaciones y justificación.
-
-=== Diseño del dominio y del flujo de trabajo
-
-// TODO: Describir los conceptos y comportamientos centrales del trámite.
-
-==== Trámites y casos
-
-// TODO: Definir la relación entre procesos configurados y casos en ejecución.
-
-==== Modelo conceptual del dominio
-
-// TODO: Representar entidades, valores, relaciones e invariantes del dominio.
-
-==== Modelo del proceso
-
-// TODO: Formalizar las actividades, eventos y reglas comunes del trámite.
-
-==== Selección del formalismo de representación
-
-// TODO: Comparar las alternativas, justificar las redes de Petri y representar
-// su correspondencia con el modelo de datos o con UML cuando sea pertinente.
-
-==== Motor de flujo de trabajo
-
-// TODO: Describir responsabilidades, entradas, salidas y comportamiento del motor.
-
-===== Estados, transiciones y eventos
-
-// TODO: Definir la dinámica de estados del proceso y de cada caso.
-
-===== Reglas de procesamiento y validación
-
-// TODO: Especificar reglas críticas sin repetir el detalle mecánico del código.
-
-===== Concurrencia y contingencias
-
-// TODO: Tratar ejecuciones simultáneas, fallos y recuperación del flujo.
-
-=== Diseño estructural de los elementos de software
-
-// TODO: Refinar las unidades arquitectónicas hasta elementos construibles.
-
-==== Diseño interno del servidor
-
-// TODO: Describir dominio, servicios, persistencia y transporte por módulo.
-
-==== Diseño interno de la aplicación cliente
-
-// TODO: Describir páginas, componentes, estado y acceso al servidor.
-
-==== Patrones y responsabilidades
-
-// TODO: Registrar patrones aplicados y asignación de responsabilidades.
-
-==== Dependencias e interfaces internas
-
-// TODO: Definir contratos y reglas de dependencia entre elementos internos.
-
-==== Mecanismos de extensión y reutilización
-
-// TODO: Explicar cómo adaptar o ampliar Tunkunia para otras instituciones.
-
-=== Diseño de la información y persistencia
-
-// TODO: Documentar los modelos y decisiones de almacenamiento de información.
-
-==== Modelo conceptual y lógico de datos
-
-// TODO: Relacionar conceptos del dominio con entidades y atributos persistentes.
-
-==== Diseño de la base de datos
-
-// TODO: Presentar tablas, relaciones, restricciones e índices relevantes.
-
-==== Integridad y consistencia
-
-// TODO: Especificar invariantes, transacciones y restricciones entre datos.
-
-==== Auditoría y trazabilidad de datos
-
-// TODO: Definir qué cambios se registran y cómo se identifica su origen.
-
-==== Conservación y protección de la información
-
-// TODO: Tratar retención, respaldo y protección de datos sensibles.
-
-=== Diseño de interfaces e integraciones
-
-// TODO: Documentar contratos externos, intercambio de datos e interacciones.
-
-==== Principios de diseño de la API
-
-// TODO: Justificar recursos, versionado, formatos y convenciones HTTP.
-
-==== Especificación OpenAPI
-
-// TODO: Explicar el contrato OpenAPI 3.1 @openapi310 y su organización modular.
-
-La interfaz HTTP se describe mediante OpenAPI 3.1 @openapi310 y se mantiene como artefacto versionado junto al código fuente.
-
-==== Modelo de errores y validación
-
-// TODO: Definir errores interoperables, validaciones y respuestas anómalas.
-
-==== Interoperabilidad
-
-// TODO: Describir mecanismos de integración sin repetir la vista arquitectónica.
-
-==== Servicios externos
-
-// TODO: Especificar contratos y supuestos de servicios gubernamentales o simulados.
-
-==== Notificaciones
-
-// TODO: Definir eventos, destinatarios, contenido, entrega y fallos.
-
-=== Diseño de identidad, seguridad y acceso
-
-// TODO: Documentar identidad, autorización, privacidad y evidencia de actividad.
-
-==== Usuarios, roles y permisos
-
-// TODO: Definir actores internos, roles, permisos y reglas de asignación.
-
-==== Flujo de autenticación
-
-// TODO: Representar el flujo OIDC y el establecimiento de la sesión local.
-
-==== Autorización y control de acceso
-
-// TODO: Especificar dónde y cómo se evalúan las políticas de acceso.
-
-==== Privacidad y protección de datos
-
-// TODO: Identificar datos sensibles y controles aplicables durante su uso.
-
-==== Registro de actividad y auditoría
-
-// TODO: Diseñar los eventos de auditoría y su asociación con actores y acciones.
-
-=== Diseño de la interfaz de usuario
-
-// TODO: Aplicar principios de diseño centrado en las personas de ISO 9241-210
-// @iso9241HumanCentredDesign2019 y criterios WCAG 2.2 @iso40500WCAG2025.
-
-El diseño de la aplicación cliente toma como referencia el diseño centrado en las personas de ISO 9241-210:2019 @iso9241HumanCentredDesign2019 y los criterios de accesibilidad WCAG 2.2 adoptados como ISO/IEC 40500:2025 @iso40500WCAG2025, sin declarar conformidad completa.
-
-==== Usuarios, tareas y contextos de uso
-
-// TODO: Relacionar perfiles de usuario, objetivos, capacidades y entorno.
-
-==== Arquitectura de información y navegación
-
-// TODO: Definir jerarquía de contenidos, rutas y navegación entre tareas.
-
-==== Flujos de interacción y estados
-
-// TODO: Representar tareas críticas, estados vacíos, carga, éxito y error.
-
-==== Componentes y patrones de interfaz
-
-// TODO: Describir componentes reutilizables y reglas de interacción coherentes.
-
-==== Vistas y prototipos
-
-// TODO: Presentar las pantallas principales y sus decisiones de diseño.
-
-==== Diseño responsivo y accesibilidad
-
-// TODO: Definir criterios para dispositivos, teclado, foco, contraste y formularios.
-
-=== Información transversal del diseño
-
-// TODO: Registrar decisiones y relaciones que afectan varias secciones.
-
-==== Decisiones y justificación
-
-// TODO: Documentar alternativas, elección y consecuencias de decisiones clave.
-
-==== Manejo de errores y contingencias
-
-// TODO: Consolidar criterios comunes de validación, fallos y recuperación.
-
-==== Correspondencias entre vistas
-
-// TODO: Relacionar entidades equivalentes entre dominio, datos, API y UI.
-
-==== Evaluación de consistencia y trazabilidad
-
-// TODO: Comprobar cobertura de inquietudes, requisitos y restricciones.
-
-==== Limitaciones y diseño diferido
-
-// TODO: Registrar aspectos omitidos o postergados después del MVP.
-
-==== Relación con la implementación
-
-// TODO: Referir código, migraciones, OpenAPI y componentes como materialización.
+#import "/shared/theme/lib.typ": img-fig
+
+// Continuación del capítulo «Arquitectura y diseño del software».
+
+=== Diseño de trámites y casos
+
+Un *trámite* reúne la información pública que aparece en el catálogo y una o
+varias versiones de su proceso. Cada versión comprende cuatro elementos: una red
+de Petri, la definición de los recursos que intervienen, el esquema del
+expediente y los metadatos que determinan cómo se presenta y controla cada lugar
+o transición. Mientras permanece como borrador puede editarse y validarse; al
+publicarse se vuelve inmutable. El archivado impide iniciar casos nuevos, pero no
+altera aquellos que ya se encuentran vinculados a la versión.
+
+La red se inspira en la aplicación de redes de Petri a la gestión de flujos
+@vanderaalstAPPLICATIONPETRINETS1998. Los lugares representan situaciones del
+procedimiento y las transiciones, acciones que permiten avanzar. Un caso posee
+su propio marcado y su color identifica todos los tokens que le pertenecen; los
+datos administrativos no viajan dentro del token, sino que permanecen en el
+expediente. Así, Petrunia se limita a decidir si una transición está habilitada y
+a calcular el marcado resultante, mientras Tunkunia resuelve autorización,
+entrada de datos y trazabilidad.
+
+#img-fig(
+  "/assets/figures/tunkunia-domain-model.svg",
+  [Relación entre la definición del trámite y el caso],
+  <fig:tunkunia-domain-model>,
+  width: 100%,
+)
+
+Los recursos de la definición son responsabilidades abstractas, no cuentas de
+usuario. Al iniciar un caso, la persona iniciadora ocupa el recurso ciudadano y
+los demás recursos se asignan mediante usuarios o grupos configurados. Estas
+asignaciones pueden modificarse con autorización y quedan auditadas. Ciudadano y
+servidor público son, por tanto, papeles contextuales: una misma identidad puede
+ocupar uno u otro en casos diferentes. Los roles globales de administrador y
+participante son independientes de estas asignaciones.
+
+La interacción con toda transición ordinaria sigue un único patrón. La pantalla
+muestra el estado vigente del expediente, un campo de entrada y un botón de
+envío. En el prototipo el campo es textual; su metadato permitirá incorporar
+posteriormente variantes numéricas, documentales u otras sin alterar la
+semántica del disparo. Cuando la transición representa una consulta externa, el
+cliente simulado únicamente precarga ese campo. El participante debe revisar el
+dato y pulsar el botón para ejecutar la acción; ninguna transición ordinaria se
+dispara por el solo hecho de estar habilitada.
+
+La ejecución descrita en la @fig:tunkunia-case-action-sequence comprueba cuatro
+condiciones antes de modificar el caso: la versión presentada por el cliente
+debe seguir vigente para ese caso, la transición debe estar habilitada por el
+marcado, la entrada debe ser válida y la persona debe ocupar un recurso
+autorizado. Un administrador puede omitir la última condición únicamente como
+acción de emergencia, proporcionando una justificación. El mecanismo no permite
+disparar una transición inhabilitada ni omitir las validaciones, y registra de
+forma explícita el uso de la excepción.
+
+#img-fig(
+  "/assets/figures/tunkunia-case-action-sequence.svg",
+  [Secuencia de ejecución de una acción de trámite],
+  <fig:tunkunia-case-action-sequence>,
+  width: 100%,
+)
+
+Lugares y transiciones habilitadas pueden declarar un plazo y un lugar sumidero
+de la misma red. Al vencer, un trabajador interno elimina todos los tokens del
+color del caso y coloca uno en el sumidero configurado. Esta operación es
+idempotente, afecta únicamente al caso correspondiente y genera una actuación de
+auditoría. El trabajador busca vencimientos al arrancar y después de forma
+periódica, de modo que una interrupción de la instancia retrasa la aplicación de
+la regla, pero no la pierde.
+
+Para resolver acciones simultáneas, cada caso mantiene una versión de
+concurrencia. La ejecución vuelve a comprobar esa versión y el marcado dentro de
+la transacción; si otro participante modificó antes el caso, la operación se
+rechaza y la interfaz debe recargar el estado. El nuevo marcado, el estado del
+expediente, la actuación histórica, la auditoría y el aviso interno se confirman
+como una unidad. De este modo no se informa una transición que finalmente no
+ocurrió.
+
+=== Información, seguridad e interoperabilidad
+
+La instancia utiliza una sola base SQLite, aunque cada módulo es propietario de
+sus tablas y solo ofrece acceso a ellas por medio de sus repositorios. El
+expediente combina dos representaciones complementarias: un estado estructurado
+vigente, validado contra el esquema de la versión, y una secuencia inmutable de
+actuaciones con la entrada, salida, actor y fecha. La primera facilita la consulta
+y la segunda permite explicar cómo se alcanzó ese estado. Auditoría añade una
+vista transversal con entidad, operación, resultado, identidad y momento de las
+acciones administrativas u operativas relevantes.
+
+Los archivos adjuntos se almacenan en un directorio de datos configurable.
+SQLite conserva sus metadatos, vínculo con el expediente y ubicación controlada;
+las rutas proporcionadas por el usuario nunca se utilizan directamente. La
+lectura aplica las mismas reglas de participación que el resto del expediente.
+El archivado conserva las referencias históricas y una futura política
+institucional podrá definir retención o anonimización sin que el prototipo
+realice borrados destructivos.
+
+La autenticación sigue el flujo de código de autorización de OIDC. En el primer
+ingreso se crea o actualiza una identidad local con privilegio de participante;
+la función administrativa se concede de forma explícita. Después del retorno del
+proveedor, el servidor establece una sesión propia mediante una cookie
+`HttpOnly`, `Secure` y `SameSite`, por lo que la aplicación web no almacena
+credenciales sensibles. Las páginas públicas del catálogo no requieren sesión.
+
+La autorización combina tres niveles. El rol global habilita funciones
+administrativas o de participación; la asignación del caso identifica los
+recursos que ocupa la persona; y la versión del proceso declara qué recursos
+pueden ejecutar cada transición. Consultar un expediente exige participar en el
+caso o ejercer una función administrativa expresamente autorizada. La excepción
+de emergencia no se confunde con el acceso ordinario y siempre queda justificada
+y auditada.
+
+La API HTTP se describe mediante OpenAPI 3.1 @openapi310. Las operaciones de la
+aplicación utilizan la sesión y las reglas anteriores. La gestión de sistemas
+externos es demostrativa: el administrador puede crear o revocar una clave y un
+único endpoint dedicado verifica que esté activa antes de devolver una respuesta
+ficticia. La clave no concede acceso a expedientes ni sustituye la autorización
+de usuarios.
+
+Las otras integraciones también respetan el alcance académico. Tunkunia produce
+un reporte descargable con los datos necesarios para que la institución actualice
+su catálogo en gob.bo, sin afirmar una sincronización directa. La acción de
+consulta externa depende de una interfaz de cliente, pero el adaptador del
+prototipo devuelve un dato simulado que precarga el campo de la transición. Una
+implementación posterior podrá sustituir el adaptador por HTTP real sin trasladar
+ese detalle a Petrunia ni a la definición del expediente.
+
+Notificaciones conserva una bandeja interna. Se genera un aviso cuando una tarea
+queda disponible para un participante y, para el ciudadano, cuando cambia el
+estado de su caso. El aviso es información derivada de una actuación confirmada;
+no sustituye al historial ni constituye evidencia de que la persona lo haya
+leído. La entrega por correo u otros canales queda fuera del prototipo.
+
+=== Interfaz y límites del prototipo
+
+La SPA organiza la experiencia en tres áreas. El área pública presenta el
+catálogo y el detalle de cada trámite. El área del participante reúne los casos,
+la bandeja de avisos, el expediente, el mapa del marcado y la pantalla uniforme
+de acción. El área administrativa contiene los datos institucionales, usuarios,
+grupos y el editor de trámites. Esta separación responde a tareas distintas y no
+impide que una misma identidad posea más de un rol global.
+
+El editor gráfico permite crear lugares, transiciones y arcos; asociar recursos;
+definir el campo textual; configurar plazos y seleccionar lugares sumidero. Antes
+de publicar, valida al menos las referencias, la estructura de la red y la
+existencia de los metadatos requeridos. La interfaz de ejecución no expone la
+complejidad interna: resalta las transiciones habilitadas como acciones y explica
+por qué una acción dejó de estar disponible cuando ocurre un conflicto de
+concurrencia.
+
+El diseño favorece formularios sencillos, mensajes de validación próximos al
+campo, navegación por teclado y estados visibles de carga, éxito y error. Estos
+criterios son especialmente importantes para ciudadanos que utilizan el sistema
+de manera ocasional. No se declara conformidad completa con un estándar de
+accesibilidad, pero la interfaz debe conservar semántica, foco, contraste y
+adaptación a pantallas de distinto tamaño.
+
+El prototipo no contempla multitenencia, ejecución distribuida, alta
+disponibilidad, webhooks, un bus de eventos ni un registro de acciones
+enchufables. Tampoco implementa colores que transporten datos ni transiciones
+automáticas generales: el color identifica al caso y solo los vencimientos se
+procesan sin intervención humana. Estas restricciones mantienen verificable el
+núcleo elegido.
+
+La evolución puede incorporar nuevos tipos de campo, adaptadores externos reales
+y canales de notificación sin modificar la semántica de los casos. Petrunia
+podría adquirir versionado independiente mientras conserve su contrato puro de
+red y marcado. Estas posibilidades son direcciones de evolución, no compromisos
+funcionales del prototipo ni una segunda definición de la reutilización del
+producto.

@@ -3,174 +3,246 @@
 
 = Introducción
 
-Siguiendo las tendencias tecnológicas, el gobierno de Bolivia busca utilizar las tecnologías de la información para modernizar el estado y sus procedimientos.
-Esta iniciativa, que esta presente al menos desde la promulgación de la Ley Nº 164 de Telecomunicaciones, Tecnologías de Información y Comunicación del año 2011@Ley164Ley2011, tuvo claros intentos de puesta en ejecución, en algunos casos de forma exitosa, pero en muchos más sin logros significativos y esto sin contar los escenarios en los cuales no se hizo aún ningún esfuerzo.
+Los trámites constituyen uno de los principales mecanismos de relación entre el
+Estado y la población. Su digitalización puede reducir costos, tiempos y
+oportunidades de corrupción @rosethFinTramiteEterno2018, pero la cantidad y
+diversidad de procedimientos existentes dificulta desarrollar y mantener una
+solución independiente para cada uno.
 
-Por supuesto, un tipo de procedimiento que se busca digitalizar constantemente es el conocido como trámite.
-Esto no es una sorpresa ya que, como puede verse justificado en el perfil del proyecto al cual se suscribe este documento, los trámites son ubicuos en la comunicación entre el gobierno y su población.
-Además, existen claras ventajas económicas y en contra de la corrupción cuando los mismos se digitalizan@rosethFinTramiteEterno2018.
+En Bolivia, este proceso forma parte de las políticas de gobierno electrónico
+impulsadas desde la Ley Nº 164 de 2011 @Ley164Ley2011. Sin embargo, al 24 de
+agosto de 2026, gob.bo registraba 1.195 trámites publicados y 286 digitalizados
+@PortalGobbo, aproximadamente el 23,9 %. Esta diferencia no demuestra por sí
+sola la calidad de las soluciones existentes, pero sí muestra que una parte
+importante de la oferta registrada todavía no se identifica como digital.
 
-Sin embargo, la cantidad de trámites que puede llegar a tener el estado en sus diferentes instituciones, representa un desafío en la digitalización de todos ellos.
-No sólo por la cantidad, sino además por la difícil estandarización y control en cada uno de ellos.
-Un avance importante, en el último año antes de la publicación de este documento, es la creación del portal gob.bo que aglutina en forma de catálogo o directorio una gran cantidad de los trámites del gobierno boliviano.
-Según sus estadísticas, tiene publicados alrededor de 1250 trámites, de los cuales sólo 274 estarían digitalizados@PortalGobbo, es decir, el 22% tras haber transcurrido cerca de 15 años a partir de la Ley Nº 164 y cerca de 9 a partir de la implementación del Plan de Implementación de Gobierno Electrónico mediante Decreto Supremo 3251@DecretoSupremoNo2017.
+Tunkunia parte de la hipótesis de ingeniería de que trámites pertenecientes a
+dominios distintos comparten mecanismos que pueden implementarse una sola vez y
+configurarse para cada institución. La presente investigación aporta la base
+empírica de esa hipótesis: caracteriza una muestra deliberadamente diversa de
+procedimientos bolivianos para que posteriormente puedan compararse sus casos,
+participantes, datos, documentos, actividades, decisiones, plazos y resultados.
 
-Una inspección rápida parece indicar que incluso los trámites que se señalan como digitalizados carecen de una implementación correcta y que, en general, cada uno se realiza de forma independiente sin seguir ningún estándar.
-Además, la ejecución de los proyectos de digitalización pueden tener una gran complejidad y representar costos importantes para las instituciones, sin contar que los trámites pueden cambiar, pueden desaparecer o pueden crearse, obligando a una constante manipulación de los mismos por parte de las instituciones.
+El propósito no es describir exhaustivamente el funcionamiento administrativo
+de las instituciones seleccionadas ni producir un catálogo general de trámites.
+Los resultados deben servir directamente para:
 
-Los esfuerzos alrededor de la implementación de trámites digitales parecen repetir ciertos patrones que pueden ser reutilizados.
-Si bien existen modelos generales para flujos de trabajo, aún podrían identificarse características similares en procedimientos de tipo trámite que puedan aportar en futuros desarrollos de sistemas alrededor de ellos.
-
-En esta investigación se trata de encontrar, usando un método inductivo, las similitudes que pueden existir entre distintos trámites y un modelo general del trámite que no sea tan amplio como los modelos de procesos como BPMN o Petri Nets, pero que se base en estos para resultar en una perspectiva especializada en los procedimientos de trámites en Bolivia.
+- delimitar el modelo de trámite utilizado por Tunkunia;
+- derivar requerimientos del sistema y del software;
+- justificar los conceptos del diseño, como proceso, recurso, caso, expediente,
+  actuación y plazo; y
+- preparar casos con los que posteriormente pueda validarse la expresividad del
+  modelo y el comportamiento del prototipo.
 
 = Metodología
 
-Para lograr identificar patrones en el proceso y en las tareas involucradas en un trámite, se sigue principalmente un enfoque *inductivo* que permita modelar un número limitado de casos de trámites en Bolivia para buscar a partir de los diferentes casos generalizar características similares.
+Se adopta un enfoque inductivo de casos múltiples. La unidad de análisis es el
+trámite entendido como un procedimiento que coordina actuaciones de personas o
+sistemas y transforma información hasta obtener un resultado administrativo.
+Las fuentes utilizadas son normativa vigente y documentación publicada por las
+instituciones responsables. Los diagramas constituyen interpretaciones del
+procedimiento realizadas para esta investigación y no reproducciones oficiales.
 
-Los candidatos a estudio son todos los trámites registrados en las siguientes fuentes:
+== Selección intencional de casos
 
-- Plataforma gob.bo de la AGETIC
-- Procedimientos descritos en el RASIM
-- Portales gubernamentales
-- Normativa con descripción de trámites
+La muestra se reduce a tres casos mediante un criterio de máxima variación. No
+se pretende representatividad estadística; se busca que cada caso introduzca
+mecanismos diferentes y relevantes para el diseño:
 
-Para elegir los casos de trámites a modelar se busca cubrir un amplio espectro de situaciones, por lo que se parte de la clasificación en cuatro categorías generales de los trámites de Roseth@rosethFinTramiteEterno2018 y grupos o categorías particulares adicionales que puedan enriquecer el análisis posterior:
+- *Registro Ambiental Industrial (RAI):* procedimiento regulatorio que clasifica
+  una unidad industrial y determina obligaciones posteriores.
+- *Cédula de identidad por primera vez:* servicio ciudadano de recorrido breve,
+  con verificación de información en otra entidad.
+- *Patente de invención:* procedimiento complejo con requisitos documentales,
+  exámenes sucesivos, subsanaciones, plazos y participación de terceros.
 
-- Trámites de registro, certificaciones y constancias
-- Trámites de sólo certificaciones y constancias
-- Trámites para cumplir con obligaciones
-- Trámites para acceder a servicios
-- Trámites para obtener permisos
-- Trámites simplificados
-- Trámites complejos (múltiples etapas)
+Se descartan de esta etapa la renovación del RAI, la adscripción al SUS, la
+licencia para conducir y la división y partición en Derechos Reales. La
+renovación se conserva como una variante temporal dentro del caso RAI; los demás
+procedimientos no añaden, para esta muestra inicial, una diferencia que compense
+el costo de caracterizarlos con el mismo nivel de detalle.
 
-Cada trámite se deberá definir en función a los siguientes parámetros:
-- Datos requeridos por la plataforma gob.bo para el registro de nuevos trámites
-- Análisis sobre rasgos y características particulares del trámite
-- Modelado de procecos
+== Dimensiones y ficha de levantamiento
 
-Dado el enfoque en gestión de flujos de trabajo, se deben también considerar de manera prioritaria que lo anterior tenga relación con las dimensiones del flujo de trabajo según Van Der Aalst@vanderaalstAPPLICATIONPETRINETS1998, como se puede ver exn la @fig:vanderaals3dwf
+El levantamiento se organiza a partir de las dimensiones de caso, proceso y
+recursos propuestas para los flujos de trabajo
+@vanderaalstAPPLICATIONPETRINETS1998, representadas en la
+@fig:vanderaals3dwf.
 
 #typ-fig(
   include "/assets/figures/vanderaals3dwf.typ",
-  [Abstracción en 3 dimensiones de los flujos de trabajo según Van Der Aalst],
+  [Abstracción en tres dimensiones de los flujos de trabajo según Van der Aalst],
   <fig:vanderaals3dwf>,
 )
 
-De este modo, los datos a relevar para cada trámite son:
+Para poder comparar los procedimientos, cada ficha registra los mismos
+elementos:
 
-- Dimensión de casos:
-  - Nombre del trámite
-  - Descripción
-  - Marco Legal
-  - Tipo de Trámite
-  - Características Resaltantes
-- Dimensión de recursos:
-  - Involucrados
-  - Dependencias
-- Dimensión de Proceso
-  - Desencadenante
-  - Modelado con BPMN
-  - Modelado con Redes de Petri
-  - Modelado alternativo
-  - Tareas Identificadas
+- *Caso:* nombre, propósito, institución competente, fundamento normativo,
+  desencadenante, precondiciones y resultados posibles.
+- *Recursos:* iniciador, participantes internos, terceros y sistemas o entidades
+  externas.
+- *Información:* datos, formularios, documentos, expediente y constancias
+  producidas.
+- *Proceso:* actividades, decisiones, caminos alternativos, correcciones,
+  eventos, plazos y condiciones de terminación.
 
-= Resultados
+Esta estructura conecta el estudio con Tunkunia. Los participantes observados
+permitirán definir recursos y reglas de asignación; los datos y documentos, la
+estructura del expediente; las actividades y decisiones, lugares y transiciones;
+los plazos, reglas temporales; y las dependencias institucionales, interfaces de
+interoperabilidad. La comparación posterior deberá indicar cuáles de estos
+elementos son comunes y cuáles permanecen como particularidades configurables.
 
-== Trámites Analizados
-En función a la metodología se hace la selección de los siguientes trámites:
+= Caracterización de los casos
 
-- Trámite de Registro: Registro Ambiental Industrial
-- Trámite de Certificación o Constancia: Patente SENAPI
-- Trámite para cumplir con obligaciones: Renovación RAI
-- Trámite para acceder a servicios: Adscripción al SUS
-- Trámite para obtener permisos: Licencia para conducir
-- Trámite simplificado: Cédula de Identidad
-- Trámite complejo: Inscripción de división y partición DDRR
+== Registro Ambiental Industrial
 
-=== Registro Ambiental Industrial
+- *Nombre:* Registro Ambiental Industrial.
+- *Propósito:* registrar y categorizar unidades del sector industrial
+  manufacturero para determinar las obligaciones ambientales que les
+  corresponden.
+- *Institución competente:* Instancia Ambiental del Gobierno Municipal en cuya
+  jurisdicción se encuentra o se proyecta la unidad industrial.
+- *Fundamento:* artículos 20 a 27 y anexos 1 y 2 del Reglamento Ambiental para el
+  Sector Industrial Manufacturero, aprobado mediante el Decreto Supremo Nº 26736
+  @DecretoSupremo26736RASIM2002.
+- *Iniciador:* representante legal de una unidad industrial en proyecto o en
+  operación.
+- *Desencadenante:* para una unidad en proyecto, la intención de iniciar su
+  instalación; para una unidad en operación, la obligación de registrarse. El
+  registro también debe modificarse cuando cambia el rubro o la capacidad
+  instalada.
+- *Participantes:* representante legal y personal de la instancia ambiental
+  municipal. La categoría resultante puede dar paso a instrumentos revisados por
+  otras autoridades ambientales, pero esas actuaciones posteriores no forman
+  parte del recorrido básico del RAI.
+- *Entrada principal:* formulario RAI del anexo 2, presentado como declaración
+  jurada. El formulario reúne identificación de la unidad y del representante,
+  ubicación, actividad productiva, materias primas, productos, consumo de
+  recursos y aspectos ambientales necesarios para aplicar la clasificación del
+  anexo 1.
+- *Proceso básico:*
+  1. El representante completa y presenta el formulario.
+  2. La instancia ambiental registra la recepción y revisa la información.
+  3. La autoridad aplica la clasificación del anexo 1.
+  4. Se notifica la categoría y las obligaciones correspondientes.
+- *Plazos:* la revisión dispone de cinco días para una industria en proyecto y
+  diez para una industria en operación. El registro tiene vigencia de cinco años
+  y debe renovarse treinta días antes de vencer.
+- *Decisiones y alternativas:* la categoría depende del rubro, el riesgo de
+  contaminación y la situación de proyecto u operación. Si existen varios
+  rubros, se utiliza la subclase de mayor riesgo.
+- *Resultados:* las categorías 1 y 2 de proyectos requieren EEIA y PMA; la
+  categoría 3 requiere DP y PMA; y la categoría 4 queda exenta de los
+  instrumentos indicados en el artículo 23. Para industrias en operación, las
+  categorías 1, 2 y 3 requieren MAI y PMA.
+- *Cambios posteriores:* el registro se actualiza ante inicio de operaciones,
+  cambio de razón social o representante y cierre. La diversificación del rubro,
+  la ampliación de capacidad o el traslado pueden obligar a modificarlo o iniciar
+  uno nuevo.
 
-El Decreto Supremo Nº 26736, que aprueba el Reglamento Ambiental del Sector Industrial Manufacturero (@RASIM), indica en su Artículo 9 las competencias, atribuciones y funciones del Viceministro de Industria y Comercio Interno, actualmente Viceministro de Políticas de Industrialización.
-Su inciso f) dispone: "Establecer y administrar el Sistema de Información Ambiental Industrial (SIAI) y el Sistema de Evaluación y Revelación de Información (SERI)" @DecretoSupremo263762002.
+Este caso deja disponibles para el análisis posterior una decisión de
+categorización, plazos de revisión y vigencia, ramificaciones que producen
+obligaciones posteriores y un documento con carácter de declaración jurada.
 
-El @SIAI atiende una amplia variedad de requerimientos.
-Para este documento son relevantes los de tipo administrativo, que involucran un grupo de documentos ambientales que deben obtener y actualizar las industrias manufactureras del país, dependiendo de características y condiciones dadas a conocer en un primer trámite de registro, el RAI.
+== Cédula de identidad por primera vez
 
-Las industrias manufactureras deben cumplir la normativa ambiental vigente de acuerdo con el @RASIM.
-Esta normativa demanda la obtención de una serie de documentos llamados @IRAP:pl:
-
-- RAI: Registro Ambiental Industrial.
-- EEIA: Estudio de Evaluación de Impacto Ambiental.
-- DP: Descripción del Proyecto.
-- PMA: Plan de Manejo Ambiental.
-- MAI: Manifiesto Ambiental Industrial.
-- ARI-PC: Análisis de Riesgos Industriales y Plan de Contingencias.
-- IAA: Informe Ambiental Anual.
-
-// TODO: Completar la caracterización del RAI mediante los parámetros definidos en
-// la metodología: involucrados, dependencias, desencadenante, características
-// resaltantes, actividades y modelos del proceso.
-
-=== Cédula de Identidad
-
-- *Nombre:* Trámite para obtener Cédula de Identidad por Primera Vez.
-- *Descripción*: Trámite esencial para el ciudadano boliviano, para ingresar al Registro Único de Identificación.
-- *Marco Legal*: DS 4861, DS 4342
-- *Tipo de Trámite*: Trámite de Registro y Certificación
-- *Características Resaltantes*:
-  - La normativa existente alrededor de este trámite solamente especifica los objetivos del trámite y no el trámite en sí mismo dejando esto a criterio de la institución.
-    Este es un antecedente importante para otros trámites que no pueden ser simplificados debido al andamiaje legal que los aprisionan.
-  - Para comunicar al ciudadano, se divide el trámite en dos, uno para menores de edad y otro para mayores de edad.
-    Sin embargo, para enriquecer este análisis se consideran ambos como parte del mismo trámite.
-- *Involucrados*:
-  - Funcionario del SEGIP
-  - Ciudadano que desea obtener su Cédula
-  - Tercero encargado en caso de que el ciudadano sea menor de edad
-- *Dependencias*:
-  - SERECI: Certificado de Nacimiento y otros
-  - Entidad Bancaria: Pagos
-- *Desencadenante*: Ciudadano con intención de obtener su cédula de identidad
-- *Modelos*: Se modeló el trámite usando una Red de Petri de tipo WFNet como se puede ver en la @fig:ci_wfnet.
+- *Nombre:* emisión de cédula de identidad por primera vez.
+- *Propósito:* registrar los datos de una persona en el Registro Único de
+  Identificación y otorgarle por primera vez un número y un documento de
+  identidad.
+- *Institución competente:* Servicio General de Identificación Personal (SEGIP).
+- *Fundamento:* Ley Nº 145 y reglamento emitido en el marco del Decreto Supremo
+  Nº 4861, especialmente sus artículos 17 a 20
+  @SEGIPReglamentoCedulaIdentidad2023.
+- *Iniciador:* persona boliviana que todavía no cuenta con un registro consolidado
+  para la emisión de su cédula. En el caso de menores interviene además la persona
+  responsable conforme a la normativa específica.
+- *Desencadenante:* solicitud de obtención del documento por primera vez.
+- *Participantes:* solicitante, servidor del SEGIP y, cuando corresponde,
+  responsable de una persona menor de edad.
+- *Dependencias:* el Servicio de Registro Cívico (SERECI) proporciona y permite
+  contrastar el certificado de nacimiento. Para personas naturalizadas también
+  interviene documentación emitida por la Dirección General de Migración.
+- *Precondiciones e información:* certificado de nacimiento original,
+  computarizado y vigente; datos de identidad necesarios para el registro;
+  documentación migratoria cuando corresponda; y pago del costo establecido. El
+  reglamento fija en Bs 17 el costo de la emisión física.
+- *Proceso básico:*
+  1. La persona presenta la solicitud y el certificado de nacimiento.
+  2. SEGIP verifica el certificado y contrasta la información con SERECI.
+  3. Se registran los datos de identidad en el sistema correspondiente.
+  4. Se asigna el número de cédula.
+  5. Se emite y entrega el documento.
+- *Decisiones y alternativas:* el recorrido varía para menores, personas
+  naturalizadas y bolivianos nacidos en el exterior. Una inconsistencia en los
+  datos impide continuar por el recorrido ordinario y requiere una actuación de
+  saneamiento o corrección cuya descripción detallada queda fuera de este caso.
+- *Resultado:* registro de identidad consolidado, número de cédula asignado y
+  documento físico emitido.
 
 #img-fig(
   "/assets/figures/ci_wfnet.png",
-  [Red de Petri para Trámite de Obtención de Cédula de Identidad],
+  [Representación preliminar del trámite de obtención de cédula de identidad],
   <fig:ci_wfnet>,
   width: 80%,
 )
 
-=== Trámite: Solicitud de Patente SENAPI
+Este caso permite analizar un recorrido principalmente secuencial, una
+precondición documental, una verificación con otra entidad, variantes según la
+situación de la persona y la producción de un documento final. La
+@fig:ci_wfnet representa una interpretación inicial que deberá revisarse durante
+el análisis formal.
 
-- *Características Resaltantes*:
-  - Respaldado por la Decisión 486 de La Comisión de la Comunidad Andina en sus capítulos III y IV
-  - Se detallan características de los plazos: días hábiles
-  - Existen condiciones claras para el inicio de la solicitud: Condiciones de sí o no
-  - Existen requisitos obligatorios cuya ausencia imposibilita el inicio del trámite (Artículo 33)
-  - La solicitud debe contener:
-    - 1 comprobante de pago (g)
-    - 1 elemento de texto plano (e)
-    - 2 formularios (a, b)
-    - 1 colección de elementos de texto plano (c)
-    - 1 colección de elementos multimedia (d)
-    - 3 copias de documentos existentes (h,i,k)
-    - 1 colección de documentos originales de certificación existente (f, j)
-  - Existen requisitos opcionales que sólo son necesarios si se cumplen otras condiciones.
-    Esto sugiere que pueden pertenecer a otras subetapas
-  - El trámite inicia con la presentación de requisitos de solicitud.
-    Es decir, cuando el solicitante lo desee
-  - El trámite parece ser de tipo servicio
-  - El solicitante puede modificar su información de solicitud durante el trámite e incluso la naturaleza del trámite.
-    Esto sugiere un cambio de trámite (mismo caso o diferente caso) que pueda heredar información del anterior.
-  - Existe una etapa de examen de documentos
-  - Existe un plazo de 30 días para examinar la solicitud
-  - Existe una etapa de reparación de solicitud con plazo de 2 meses
-  - La etapa de reparación de solicitud tiene un número máximo de retries
-  - La "oficina" debe notificar al "solicitante" cada decisión
-  - Tras cumplir el primer examen de forma, se publican los resultados y sólo entonces se pasa a una segunda ronda de examen de patentabilidad
-  - El segundo examen debe ser inicializado por el solicitante
-  - Actores externos pueden influir con oposiciones a la solicitud de patentado
-  - Tras el segundo examen se toma una decisión que se convierte en un título de patente (un certificado)
-  - Al conjunto de información que se va recolectando se le llama expediente, similar a como se hace en juzgados
+== Solicitud de patente de invención
+
+- *Nombre:* solicitud de patente de invención.
+- *Propósito:* obtener el derecho exclusivo que el Estado concede sobre una
+  invención que cumpla novedad, nivel inventivo y aplicación industrial.
+- *Institución competente:* Servicio Nacional de Propiedad Intelectual (SENAPI).
+- *Fundamento:* Decisión 486 de la Comisión de la Comunidad Andina
+  @ComunidadAndinaDecision4862000 y requisitos operativos publicados por SENAPI
+  @SENAPIPatentesDisenosIndustriales.
+- *Iniciador:* persona natural o jurídica solicitante, directamente o mediante
+  representación.
+- *Desencadenante:* presentación voluntaria de una solicitud de protección.
+- *Participantes:* solicitante o representante, personal receptor, examinadores
+  de forma y patentabilidad y autoridad que concede o deniega. Después de la
+  publicación pueden intervenir terceros con interés legítimo; también pueden
+  requerirse expertos u otras oficinas.
+- *Información y documentos:* petitorio, descripción, reivindicaciones, resumen,
+  dibujos cuando sean necesarios, identificación, poderes cuando corresponda,
+  comprobantes de pago y los demás documentos aplicables a prioridad, recursos
+  genéticos o conocimientos tradicionales.
+- *Precondición de admisión:* para asignar fecha de presentación deben existir,
+  como mínimo, indicación de que se solicita una patente, identificación o medio
+  de contacto del solicitante, descripción, dibujos cuando correspondan y
+  comprobante de pago.
+- *Proceso básico:*
+  1. Presentación y recepción de la solicitud.
+  2. Examen de forma.
+  3. Subsanación cuando se detectan omisiones formales.
+  4. Publicación de la solicitud.
+  5. Periodo para oposiciones de terceros.
+  6. Solicitud y realización del examen de patentabilidad.
+  7. Respuesta del solicitante a observaciones de fondo, cuando existan.
+  8. Resolución de concesión o denegación.
+- *Plazos y correcciones:* el examen de forma se realiza dentro de treinta días.
+  Las omisiones notificadas pueden subsanarse dentro de dos meses, prorrogables
+  una sola vez por un periodo igual. La publicación ordinaria ocurre después de
+  dieciocho meses, aunque puede solicitarse antes una vez concluido el examen de
+  forma. Desde la publicación, terceros con interés legítimo disponen de sesenta
+  días para oponerse. El examen de patentabilidad debe solicitarse dentro de seis
+  meses; durante este examen, el solicitante dispone de sesenta días para
+  responder observaciones, prorrogables una vez por treinta días.
+- *Decisiones y alternativas:* una solicitud puede no ser admitida, declararse
+  abandonada por falta de subsanación o de solicitud del examen, recibir
+  oposiciones, superar los exámenes o concluir en denegación. El solicitante
+  puede modificar la solicitud sin ampliar la protección inicialmente divulgada
+  y puede desistir durante el trámite.
+- *Resultado:* título de patente cuando se concede la protección, o resolución de
+  denegación, abandono o desistimiento.
 
 #typ-fig(
   diagram(
@@ -178,36 +250,65 @@ Esta normativa demanda la obtención de una serie de documentos llamados @IRAP:p
     node-stroke: luma(80%),
     node((0, 0), [Solicitud]),
     edge("->"),
-    node((0, 1), [Examen\ de Forma]),
+    node((0, 1), [Examen\ de forma]),
     edge("->"),
     node((1, 0), [Publicación]),
     edge("->"),
-    node((1, 1), [Espera de\ Oposiciones]),
+    node((1, 1), [Espera de\ oposiciones]),
     edge("->"),
-    node((2, 0), [Examen de\ Patentabilidad]),
+    node((2, 0), [Examen de\ patentabilidad]),
     edge("->"),
-    node((2, 1), [Otorgación o\ Denegatoria]),
+    node((2, 1), [Concesión o\ denegación]),
   ),
-  [Etapas del trámite de solicitud de patente en el SENAPI],
+  [Etapas principales de la solicitud de patente de invención],
   <fig:senapiblocks>,
   placement: auto,
 )
 
-== Similitudes
+Este caso aporta al análisis una estructura de expediente, requisitos
+obligatorios y opcionales, subsanaciones, abandonos, plazos prorrogables,
+publicación, participación de terceros y dos niveles de examen. La
+@fig:senapiblocks resume únicamente el recorrido principal y no sustituye el
+modelo formal de sus alternativas.
 
-Se identifican similitudes en los siguientes niveles:
-- Casos
-- Recursos (Actores)
-- Procedimiento o Flujo
-- Actividades del Proceso
-- Modelo General del Trámite
+= Base preparada para el análisis
 
-== Definición del Trámite
+La caracterización anterior deja una base homogénea, pero todavía no constituye
+por sí misma el modelo general del trámite. La siguiente etapa deberá comparar
+los tres casos sin asumir que una característica observada una sola vez es
+necesariamente común a todos los trámites.
 
-= Discusión
-Este modelo podrá ayudar a implementar trámites y digitalizarlos de forma especializada o incluso servir como generalización para sistemas genéricos de trámites
-Ignoramos trámites en otros países, pero pueden ser muy similares
+La comparación deberá responder, al menos, las siguientes preguntas:
 
-= Conclusión
-Se tiene modelado el trámite para casos específicos.
-Hace un tiempo los pagos digitales no eran una posibilidad y ahora lo son, por lo que se debe estar atento a cómo evolucionan los trámites, lo cual podría tener implicación en los hallazgos de esta investigación
+- ¿Qué elementos aparecen en los tres casos y pueden considerarse parte del
+  núcleo de Tunkunia?
+- ¿Qué elementos aparecen solo en uno o dos casos, pero deben admitirse como
+  configuración opcional?
+- ¿Qué particularidades dependen de reglas institucionales o normativa sectorial
+  y no deberían incorporarse al motor general?
+- ¿Cómo se representan las correcciones, abandonos, decisiones, plazos y
+  actuaciones externas mediante redes de Petri?
+- ¿Qué información pertenece al marcado y cuál debe conservarse en el
+  expediente?
+- ¿Qué conceptos resultantes requieren trazabilidad hacia los requerimientos y
+  el capítulo de arquitectura y diseño?
+
+Como producto de esa etapa se espera una matriz comparativa, una definición
+operativa del trámite, un catálogo breve de mecanismos comunes y modelos de
+Petri revisados. Esos artefactos constituirán la entrada para la especificación
+de Tunkunia y, posteriormente, el comportamiento esperado contra el cual se
+realizará la validación conceptual y funcional.
+
+= Limitaciones del levantamiento
+
+La muestra es intencional y pequeña, por lo que no permite afirmar que los
+mecanismos encontrados cubren todos los trámites bolivianos. Las fuentes
+normativas describen obligaciones y decisiones, pero no siempre revelan el
+procedimiento operativo completo, sus sistemas internos ni el tratamiento de
+excepciones. Por ello, los modelos posteriores deberán identificar qué pasos
+provienen directamente de una fuente y cuáles son interpretaciones necesarias
+para representar el flujo.
+
+La normativa y los servicios también pueden cambiar. La caracterización
+corresponde a las fuentes consultadas hasta agosto de 2026 y deberá verificarse
+antes de utilizarse para una implementación institucional real.

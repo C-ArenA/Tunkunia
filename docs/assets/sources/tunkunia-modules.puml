@@ -1,0 +1,35 @@
+@startuml tunkunia-modules
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 35
+skinparam ranksep 45
+top to bottom direction
+
+title Dependencias principales entre módulos
+
+component Casos as cases
+component Catálogo as catalog
+component Usuarios as users
+component Institución as institution
+component Autenticación as authn
+component Notificaciones as notifications
+component Interoperabilidad as interoperability
+component Auditoría as audit
+component "Petrunia\n<<paquete público>>" as petrunia
+
+cases -down-> catalog
+cases -down-> users
+cases -down-> petrunia
+cases -down-> notifications
+cases -down-> interoperability
+cases -down-> audit
+authn -down-> users
+catalog -down-> institution
+
+catalog -[hidden]right-> users
+users -[hidden]right-> petrunia
+notifications -[hidden]right-> interoperability
+interoperability -[hidden]right-> audit
+@enduml

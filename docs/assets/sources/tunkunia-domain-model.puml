@@ -1,0 +1,74 @@
+@startuml tunkunia-domain-model
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 30
+skinparam ranksep 35
+hide methods
+
+title Relación entre la definición del trámite y el caso
+
+class Trámite {
+  datos públicos
+  estado de publicación
+}
+
+class "Versión de proceso" as version {
+  número
+  estado: borrador | publicada | archivada
+}
+
+class "Red de Petri" as net
+class Lugar {
+  metadatos
+  plazo opcional
+  tipo sumidero
+}
+class Transición {
+  metadatos
+  campo de entrada
+  plazo opcional
+}
+class "Recurso abstracto" as resource
+class "Esquema de expediente" as schema
+
+class Caso {
+  color
+  versión de concurrencia
+}
+class Marcado
+class "Asignación de recurso" as assignment
+class Expediente {
+  estado actual
+}
+class Actuación {
+  entrada y salida
+  actor y fecha
+}
+class Documento {
+  metadatos y ubicación
+}
+
+Trámite "1" *-down- "1..*" version
+version "1" *-down- "1" net
+version "1" *-down- "1..*" resource
+version "1" *-down- "1" schema
+net "1" *-down- "1..*" Lugar
+net "1" *-down- "1..*" Transición
+version "1" <-down- "*" Caso : queda fijado a
+Caso "1" *-down- "1" Marcado
+Caso "1" *-down- "1..*" assignment
+assignment "*" -left-> "1" resource
+Caso "1" *-down- "1" Expediente
+Expediente "1" *-down- "0..*" Actuación
+Expediente "1" *-down- "0..*" Documento
+
+note bottom of version
+  Una versión publicada es inmutable.
+end note
+
+note bottom of Marcado
+  Contiene únicamente los tokens
+  del color que identifica al caso.
+end note
+@enduml

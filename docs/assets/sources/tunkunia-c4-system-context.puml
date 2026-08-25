@@ -1,0 +1,29 @@
+@startuml tunkunia-c4-system-context
+!include <C4/C4_Context>
+
+title Contexto del sistema Tunkunia
+
+Person(visitor, "Visitante", "Consulta el catálogo público sin autenticarse.")
+Person(participant, "Participante", "Actúa como ciudadano o servidor público según el recurso que ocupa en un caso.")
+Person(admin, "Administrador institucional", "Configura la institución, los usuarios y las definiciones de trámite.")
+Person(operator, "Operador técnico", "Despliega, configura y respalda una instancia.")
+
+System(tunkunia, "Tunkunia", "Aplicación configurable para definir, ejecutar y dar seguimiento a trámites.")
+
+System_Boundary(agetic_platforms, "Plataformas estatales") {
+  System_Ext(digital_citizenship, "Ciudadanía Digital", "Proveedor externo de identidad mediante OIDC.")
+  System_Ext(gob_bo, "gob.bo", "Recibe la información del catálogo mediante el procedimiento institucional vigente.")
+}
+
+System_Ext(external_systems, "Sistemas externos", "Sistemas institucionales o de terceros representados mediante integraciones controladas.")
+
+Rel(visitor, tunkunia, "Consulta catálogo y detalles", "HTTPS")
+Rel(participant, tunkunia, "Inicia, ejecuta y consulta casos", "HTTPS")
+Rel(admin, tunkunia, "Configura y publica trámites", "HTTPS")
+Rel(operator, tunkunia, "Despliega, configura y respalda")
+Rel(tunkunia, digital_citizenship, "Autentica identidades", "OIDC")
+Rel(tunkunia, gob_bo, "Genera reporte para actualizar")
+Rel(tunkunia, external_systems, "Demuestra intercambio de datos", "HTTP / API key")
+
+LAYOUT_LEFT_RIGHT()
+@enduml

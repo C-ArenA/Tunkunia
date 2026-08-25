@@ -1,0 +1,36 @@
+@startuml tunkunia-case-action-sequence
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam responseMessageBelowArrow true
+
+title Ejecución de una acción de trámite
+
+actor Participante
+boundary "Aplicación web" as web
+control "Módulo Casos" as cases
+control "Interoperabilidad" as interoperability
+control "Petrunia" as petrunia
+database "SQLite" as db
+
+Participante -> web : abre una transición habilitada
+web -> cases : solicita expediente y acción
+cases -> petrunia : comprobar habilitación(marcado, transición)
+petrunia --> cases : habilitada
+cases --> web : expediente + campo de texto
+
+opt consulta configurada a un sistema externo
+  web -> cases : solicita precarga
+  cases -> interoperability : consultar mediante cliente simulado
+  interoperability --> cases : dato ficticio
+  cases --> web : campo de texto precargado
+end
+
+Participante -> web : revisa el dato y pulsa Enviar
+web -> cases : enviar acción(dato, versión esperada)
+cases -> petrunia : disparar(marcado, transición)
+petrunia --> cases : nuevo marcado
+cases -> db : transacción: marcado, expediente,\nhistorial, auditoría y aviso
+db --> cases : confirmación
+cases --> web : nuevo estado del caso
+web --> Participante : muestra resultado
+@enduml

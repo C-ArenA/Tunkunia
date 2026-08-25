@@ -1,8 +1,4 @@
-
-
-//#heading(depth: 3, numbering: none)[Introducción]
-
-== Introducción
+== Introducción<chap:intro>
 
 Durante el desarrollo del @SIAI del @MDPyEP por parte de la empresa *2IES*,
 se identificaron funcionalidades comunes a muchos sistemas de software gubernamentales relacionadas con los procesos administrativos conocidos como trámites,

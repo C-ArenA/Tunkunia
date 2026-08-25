@@ -40,9 +40,7 @@ En su forma tradicional se realiza presencialmente en una oficina pública, dond
   En este documento se prefiere el uso del primero.
 ]
 
-En una entrevista del año 2015 a Carlos Jiménez @digitalGobiernoInteligenteEntrevista2015, responsable mundial de _IEEE e-government_, este señaló que el *gobierno electrónico #footnote(
-  governmentFootNote,
-)* es una fase para llegar a tener gobiernos inteligentes y abiertos y que:
+En una entrevista del año 2015 a Carlos Jiménez @digitalGobiernoInteligenteEntrevista2015, responsable mundial de _IEEE e-government_, este señaló que el *gobierno electrónico #footnote(governmentFootNote)* es una fase para llegar a tener gobiernos inteligentes y abiertos y que:
 
 #quote(attribution: "Carlos Jiménez")[
   ...consiste en implantar la tecnología para *mejorar procesos administrativos y permitir la interacción con los ciudadanos*
@@ -52,13 +50,89 @@ El Gobierno Electrónico brinda muchos beneficios a la población, como la elimi
 Los esfuerzos por digitalizar los trámites se enmarcan dentro de este concepto.
 
 ==== AGETIC
+
+La Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación
+(AGETIC) es una institución pública descentralizada de derecho público, bajo
+tuición del Ministerio de la Presidencia, con personalidad jurídica, patrimonio
+propio y autonomía de gestión administrativa, financiera, legal y técnica. Fue
+creada mediante el Decreto Supremo Nº 2514, de 9 de septiembre de 2015
+@AGETICPlanEstrategicoInstitucional.
+
+Sus atribuciones comprenden elaborar, proponer e implementar políticas, planes y
+estrategias de gobierno electrónico y tecnologías de información y comunicación
+para el sector público; coordinar su ejecución; proponer lineamientos técnicos
+para servicios e infraestructura informática; establecer lineamientos de
+seguridad de la información; coordinar la gestión de incidentes; y evaluar la
+calidad y eficiencia de los servicios de gobierno electrónico. También articula
+y actualiza los planes nacionales de gobierno electrónico y de software libre y
+estándares abiertos @AGETICPlanEstrategicoInstitucional. Por tanto, constituye un
+actor técnico central del contexto institucional en el que Tunkunia pretende ser
+adoptado, aunque cada institución pública conserva la responsabilidad sobre sus
+competencias y procedimientos.
+
 ==== Ciudadanía Digital
-==== Firma Digital
+
+La ciudadanía digital consiste en el ejercicio de derechos y deberes mediante el
+uso de tecnologías de información y comunicación en la interacción de las
+personas con entidades públicas y con entidades privadas que prestan servicios
+públicos delegados por el Estado. El servicio de Ciudadanía Digital reúne los
+mecanismos que, al integrarse con los servicios digitales de estas entidades,
+permiten una interacción eficiente, transparente y segura, y pueden evitar la
+presencia física y la presentación de documentación en papel durante un trámite
+@CiudadaniaDigitalPreguntasFrecuentes.
+
+Entre sus mecanismos se encuentran la autenticación de la persona mediante
+credenciales únicas, la aprobación digital de documentos, las notificaciones
+electrónicas y la autorización de acceso a servicios o información. Estos
+mecanismos no constituyen por sí mismos un sistema de gestión de trámites, sino
+servicios comunes que las plataformas institucionales pueden integrar
+@CiudadaniaDigitalTerminos. En Tunkunia resultan especialmente relevantes como
+proveedor externo de identidad y como referencia para futuras integraciones de
+aprobación y notificación.
+
 ==== Plataforma GOB.BO
-La plataforma gob.bo funciona como un catálogo o directorio de trámites, registrando información relevante de estos.
-No digitaliza trámites, pero contiene información valiosa para su modelado.
+
+La plataforma gob.bo es el portal que centraliza y facilita el acceso a
+información del Estado Plurinacional de Bolivia. Gestiona información sobre
+trámites y servicios, entidades y páginas institucionales, datos abiertos y
+observatorios para la ciudadanía @GobBoAcerca. En el caso de los trámites,
+funciona como catálogo oficial: permite conocer sus requisitos y características
+y acceder o iniciar aquellos que ya fueron virtualizados. Esto no implica que la
+plataforma implemente por sí misma los procesos internos de cada institución,
+pero la información que publica constituye una fuente relevante para modelarlos.
+
+Al 24 de agosto de 2026, las estadísticas visibles en la plataforma registraban
+1.195 trámites publicados, de los cuales 286 estaban digitalizados, equivalentes
+a aproximadamente 23,9 %, además de 662 entidades registradas @PortalGobbo. Estas
+cifras describen el estado del portal en la fecha de consulta y pueden variar a
+medida que las instituciones publiquen, actualicen o retiren información.
+
+#img-fig(
+  "/assets/figures/gobbo-proporcion-digitalizacion.pdf",
+  [Proporción de trámites digitalizados entre los publicados en gob.bo al 24 de agosto de 2026],
+  <fig:gobbo-proporcion-digitalizacion>,
+  source: [Plataforma gob.bo @PortalGobbo],
+  width: 70%,
+)
+
 ==== Distribución de soluciones a instituciones
-La AGETIC dispone además de mecanismos para la creación de sitios institucionales y de herramientas de Ciudadanía Digital relacionadas con la autenticación y la validación de documentos.
+
+Además de operar servicios transversales como Ciudadanía Digital, la AGETIC
+facilita la adopción de soluciones comunes por parte de las instituciones
+públicas. Un ejemplo son las Plantillas de Portales Web Institucionales,
+desarrolladas sobre los sistemas de gestión de contenidos Drupal y WordPress,
+ambos de código abierto y uso gratuito. Las plantillas buscan uniformar el
+contenido y la estructura de los portales públicos, mejorar la experiencia de
+las personas usuarias y simplificar la gestión y actualización de la información
+institucional @AGETICPlantillasPortalesInstitucionales.
+
+La AGETIC proporciona plantillas demostrativas y en blanco, especificaciones
+técnicas y manuales de instalación y configuración, y prevé su publicación en el
+Repositorio Estatal de Software Libre para que estén disponibles a las entidades
+del sector público @AGETICPlantillasPortalesInstitucionales. Este mecanismo
+constituye un antecedente directo para la forma de reutilización propuesta por
+Tunkunia: distribuir una base tecnológica común y configurable sin centralizar
+en ella las competencias ni la lógica particular de todas las instituciones.
 
 === Marco normativo boliviano
 

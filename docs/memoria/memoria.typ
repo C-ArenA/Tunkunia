@@ -1,7 +1,5 @@
 #import "/shared/theme/lib.typ": memoria
-#import "/shared/metadata.typ": (
-  projectTitle, rightsNotice, studentName, tutorName,
-)
+#import "/shared/metadata.typ": projectTitle, rightsNotice, studentName, tutorName
 #import "/shared/acronyms.typ": acronyms
 #import "/shared/glossary.typ": glossary
 

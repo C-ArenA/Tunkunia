@@ -71,5 +71,9 @@
   "XP": "Extreme Programming",
   "BPMN": "Business Process Model and Notation",
   "BDFL": "Benevolent Dictator For Life",
-  "SWEBOK": "Software Engineering Body of Knowledge"
+  "SWEBOK": "Software Engineering Body of Knowledge",
+  "BRS": "Business Requirements Specification",
+  "StRS": "Stakeholder Requirements Specification",
+  "SyRS": "System Requirements Specification",
+  "SRS": "Software Requirements Specification",
 )

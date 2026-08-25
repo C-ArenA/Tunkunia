@@ -1,220 +1,269 @@
-== Implementación del prototipo
+== Construcción del prototipo
 
-=== Introducción y alcance de la implementación
+=== Alcance y estrategia de construcción
 
-// TODO: Identificar los elementos construidos, la audiencia del capítulo y el
-// alcance concreto del prototipo.
+Este capítulo describe la construcción del prototipo funcional de Tunkunia y la
+correspondencia entre sus elementos ejecutables. La exposición se concentra en
+las tecnologías, el código, la integración y los artefactos obtenidos; las
+decisiones estructurales se desarrollan en el capítulo de arquitectura y las
+especificaciones detalladas en el capítulo de diseño.
 
-Este capítulo documenta de forma selectiva la construcción del prototipo de Tunkunia.
-Para ello, adopta el proceso de implementación de ISO/IEC/IEEE 12207:2026 @iso12207SoftwareLifeCycle2026 y los lineamientos sobre elementos de información de ISO/IEC/IEEE 15289:2019 @iso15289InformationItems2019.
-Como guía para los aspectos propios de la construcción se emplea el área de conocimiento de construcción de software del SWEBOK @washizakiGuideSoftwareEngineering2025.
-No se declara conformidad completa con estos estándares.
+La construcción se realizó de forma incremental. Primero se establecieron el
+contrato HTTP y la persistencia del catálogo; después se incorporaron los
+módulos de usuarios y autenticación; finalmente se integraron la aplicación web,
+la edición de procedimientos y las vistas de seguimiento. En cada incremento se
+mantuvieron ejecutables el servidor, la base de datos y el cliente, lo que
+permitió comprobar la integración durante el desarrollo.
 
-La exposición se concentra en la materialización del servidor, la aplicación web y los servicios de apoyo.
-Las decisiones estructurales se remiten al capítulo de arquitectura, el detalle prescriptivo al capítulo de diseño y los resultados de las pruebas al capítulo de validación.
+Tunkunia se implementó como un monolito modular con una aplicación web separada.
+El servidor conserva los límites de las capacidades de negocio y expone una API
+REST; la aplicación web consume dicho contrato y presenta interfaces públicas,
+de participantes y de administración. Los servicios locales de identidad y
+proxy reproducen las condiciones necesarias para ejecutar el conjunto mediante
+HTTPS.
 
-=== Estrategia de construcción del prototipo
+=== Tecnologías y organización del código
 
-// TODO: Explicar cómo se materializó el diseño mediante una construcción
-// iterativa y cómo se integraron progresivamente los elementos del prototipo.
+La selección tecnológica favoreció herramientas de software libre, contratos
+abiertos y una separación clara entre dominio, transporte y persistencia. La
+@table:implementation-stack resume los elementos principales empleados.
 
-==== Correspondencia entre diseño y código
+#pagebreak(weak: true)
 
-// TODO: Relacionar requisitos, elementos de diseño, módulos, artefactos de código
-// y funcionalidades construidas, sin repetir las especificaciones de diseño.
+#figure(
+  table(
+    columns: (1.15fr, 1.45fr, 2.4fr),
+    align: (left, left, left),
+    inset: (3pt, 5pt),
+    table.header([Elemento], [Tecnología], [Función]),
+    [Servidor], [Go 1.26 y Chi 5], [Composición, lógica de negocio y transporte HTTP.],
 
-==== Proceso de construcción e integración
+    [Línea de comandos], [Cobra 1.10], [Arranque del servidor y operaciones administrativas.],
 
-// TODO: Describir las iteraciones, el orden de implementación y los puntos de
-// integración relevantes con la metodología de desarrollo adoptada.
+    [Persistencia], [SQLite, Goose, SQLC y Jet], [Migraciones, consultas tipadas y acceso a datos.],
 
-==== Selección del stack tecnológico
+    [Contrato], [OpenAPI 3.1 y oapi-codegen], [Especificación, validación y tipos del servidor.],
 
-// TODO: Presentar una tabla con elemento, tecnología, versión, función y
-// justificación. Distinguir restricciones previas de decisiones tomadas durante
-// la construcción.
+    [Aplicación web], [Nuxt 4, Vue 3 y TypeScript], [Interfaz de página única para los distintos actores.],
 
-==== Entorno y herramientas de desarrollo
+    [Interfaz visual], [Nuxt UI 4 y Tailwind CSS 4], [Componentes, estilos responsivos y estados de interacción.],
 
-// TODO: Documentar las herramientas necesarias para editar, generar, compilar,
-// ejecutar y comprobar el prototipo, evitando enumerar herramientas incidentales.
+    [Cliente HTTP], [Hey API y Pinia Colada], [Cliente generado, consultas y caché de datos.],
+
+    [Identidad], [OIDC, Dex y JWT], [Autenticación federada simulada y sesión local.],
+
+    [Proxy local], [Caddy], [Origen HTTPS único para el servidor y la aplicación web.],
+  ),
+  caption: [Tecnologías principales de la implementación],
+  placement: auto,
+)<table:implementation-stack>
+
+El repositorio reúne en una sola unidad versionada el servidor, el cliente, las
+especificaciones y la documentación. Su organización relevante se resume a
+continuación; se omiten dependencias descargadas, cachés y archivos de
+compilación.
+
+```text
+Tunkunia/
+├── cmd/                 # comandos y arranque
+├── internal/
+│   ├── api/             # transporte HTTP
+│   ├── authn/           # OIDC y sesión JWT
+│   ├── catalog/         # catálogo de trámites
+│   ├── user/            # usuarios y roles
+│   └── health/          # estado operativo
+├── database/
+│   ├── migrations/      # evolución del esquema
+│   ├── seeds/           # datos iniciales
+│   ├── sqlc/            # consultas generadas
+│   └── jet/             # modelo relacional
+├── specs/v1/            # contrato OpenAPI
+├── spa/                 # aplicación Nuxt
+└── docs/                # documentación
+```
+
+Esta distribución conserva las capacidades de negocio dentro de `internal/` y
+limita la composición a los puntos de entrada. Los módulos intercambian tipos o
+interfaces deliberadas y no utilizan los modelos generados de la base de datos
+como contratos públicos.
 
 === Implementación del servidor
 
-// TODO: Describir cómo se materializaron las responsabilidades del servidor y
-// remitir su descomposición conceptual al diseño y a la vista lógica.
+==== Composición y módulos de negocio
 
-==== Composición y punto de entrada
+El ejecutable principal utiliza Cobra para registrar los comandos del sistema.
+El comando `serve` carga la configuración, abre la base de datos, aplica las
+migraciones y conecta los servicios con sus adaptadores HTTP. Sobre el enrutador
+Chi se instalan, en orden, las políticas CORS, el registro de solicitudes y la
+recuperación de la identidad antes de montar las rutas OIDC, la API versionada y
+los recursos públicos.
 
-// TODO: Explicar la composición de la aplicación, el arranque y la conexión de
-// los módulos y adaptadores en cmd/, main.go e internal/api/.
+El módulo `catalog` implementa la creación, consulta, modificación, publicación,
+archivo y eliminación de definiciones de trámite. Su servicio depende de una
+interfaz de repositorio, mientras que el adaptador SQLite traduce entre los
+tipos del dominio y los modelos de persistencia. El módulo `user` mantiene la
+identidad local, los roles y la asignación inicial de administración. El módulo
+`authn` integra el proveedor OIDC, establece la sesión y construye el principal
+que utilizan los demás manejadores. El módulo `health` aporta una comprobación
+operativa independiente de las capacidades de negocio.
 
-==== Módulos de negocio
+// TODO: Incorporar aquí una captura del editor administrativo de un trámite y
+// su procedimiento cuando se disponga de un navegador controlable.
+// #img-fig(
+//   "/assets/figures/implementation-procedure-editor.png",
+//   [Edición administrativa de un trámite y su procedimiento],
+//   <fig:implementation-procedure-editor>,
+// )
 
-// TODO: Presentar los módulos implementados por capacidad de negocio, sus
-// responsabilidades efectivas y los mecanismos relevantes de colaboración.
+==== Persistencia y contrato HTTP
 
-==== Persistencia y migraciones
+SQLite contiene las tablas de usuarios, roles y trámites. Goose aplica las
+migraciones en el arranque y carga datos demostrativos durante el desarrollo.
+Las restricciones de unicidad, claves foráneas e índices complementan las
+validaciones del dominio. SQLC genera consultas tipadas para las operaciones
+directas y Jet construye dinámicamente las consultas que requieren filtros,
+ordenamiento o actualización selectiva.
 
-// TODO: Describir la materialización del modelo de datos, las migraciones y los
-// adaptadores de persistencia, incluyendo el tratamiento del código generado.
+La API se especificó en OpenAPI 3.1 mediante archivos separados para catálogo,
+identidad, salud, auditoría y respuestas comunes. A partir del contrato se
+generaron los tipos y las interfaces estrictas del servidor. Un _middleware_
+valida cada solicitud contra la especificación antes de ejecutar el manejador y
+convierte los fallos en respuestas HTTP uniformes. Los manejadores sólo realizan
+la adaptación entre los objetos de transporte y los tipos pertenecientes a cada
+módulo.
 
-==== API HTTP
+La versión implementada expone los recursos `/health`, `/me`, `/tramites` y
+`/tramites/{id}` bajo `/api/v1`. Esta organización mantiene explícito el
+versionado y permite generar el cliente de la SPA desde la misma fuente que
+define al servidor.
 
-// TODO: Explicar la implementación del contrato OpenAPI, el transporte HTTP, la
-// validación y la correspondencia entre tipos de transporte y dominio.
+==== Identidad y control de acceso
 
-==== Identidad, autorización y auditoría
+El inicio de sesión emplea el flujo de código de autorización de OIDC. El
+servidor genera un valor aleatorio de estado, redirige al proveedor, valida la
+respuesta y actualiza el usuario local a partir de los _claims_ `sub`, `email`,
+`email_verified` y `name`. Después emite un JWT firmado que se conserva en una
+_cookie_ segura, `HttpOnly` y `SameSite=Lax`.
 
-// TODO: Documentar los mecanismos implementados para sesión, permisos y registro
-// de actividad, remitiendo sus reglas al capítulo de diseño.
+Cada solicitud recupera la sesión desde la _cookie_ o desde el encabezado de
+autorización. La identidad resultante se incorpora al contexto HTTP y la
+validación OpenAPI rechaza las operaciones protegidas cuando no existe un
+principal autenticado. En el cliente, los _middleware_ de Nuxt protegen las
+rutas de participante y verifican el rol `admin` para las rutas de gestión.
+
+// TODO: Completar la política de autorización por operación y el registro de
+// auditoría antes de describirlos con mayor detalle en la versión final.
 
 === Implementación de la aplicación web
 
-// TODO: Describir cómo se materializó el diseño de la SPA y remitir los flujos y
-// prototipos de interacción al capítulo de diseño.
+La SPA se construyó con Nuxt en modo cliente. Tres _layouts_ separan el portal
+público, el espacio de participantes y la administración. Las reglas de ruta
+asignan automáticamente el _layout_ y los controles de acceso correspondientes,
+mientras que Nuxt UI proporciona componentes consistentes para navegación,
+formularios, tablas, alertas, esqueletos de carga y estados vacíos.
 
-==== Estructura de la aplicación
+El portal público muestra la identidad de la institución, lista los trámites
+disponibles y presenta su descripción y procedimiento. El área autenticada
+permite buscar trámites, iniciar un caso, consultar su avance e historial y
+atender tareas personales. El área administrativa reúne el catálogo, la edición
+de cada trámite, la representación de su procedimiento, los usuarios y la
+configuración institucional.
 
-// TODO: Presentar la organización de la aplicación Nuxt, sus puntos de entrada,
-// layouts, middleware y mecanismos de composición.
+// TODO: Incorporar aquí una captura del portal público y su catálogo.
+// #img-fig(
+//   "/assets/figures/implementation-public-catalog.png",
+//   [Portal público y catálogo institucional de trámites],
+//   <fig:implementation-public-catalog>,
+// )
 
-==== Páginas y navegación
+La integración con el servidor utiliza un cliente TypeScript generado desde la
+especificación OpenAPI. Las consultas declarativas de Pinia Colada mantienen el
+estado de carga, los datos y los errores, y las operaciones administrativas
+invocan directamente las funciones generadas de creación, actualización y
+eliminación. De este modo, el cliente y el servidor comparten las mismas formas
+de datos sin duplicar manualmente el contrato.
 
-// TODO: Relacionar las rutas y páginas implementadas con las tareas principales
-// de los usuarios.
+Los procedimientos se representan mediante lugares, transiciones y arcos
+dirigidos. `ProcedureEditor` permite incorporar y retirar elementos, modificar
+sus etiquetas y posiciones y validar las conexiones; `ProcedureDiagram` genera
+una representación SVG reutilizada en la edición, la consulta pública y el
+seguimiento del caso. Los casos, tareas y datos institucionales del recorrido
+demostrativo se conservan en el estado reactivo y en el almacenamiento local del
+navegador, lo que mantiene los cambios entre sesiones del prototipo.
 
-==== Componentes y estado
+// TODO: Sustituir el almacenamiento demostrativo de procedimientos, casos,
+// tareas e institución por los servicios persistentes definitivos.
+// TODO: Incorporar aquí una captura del seguimiento de un caso.
+// #img-fig(
+//   "/assets/figures/implementation-case-tracking.png",
+//   [Seguimiento de un caso y estado de su procedimiento],
+//   <fig:implementation-case-tracking>,
+// )
 
-// TODO: Describir los componentes reutilizables, composables y mecanismos de
-// estado relevantes para la implementación.
+Las páginas contemplan estados de espera, error y ausencia de resultados. La
+navegación se adapta a pantallas pequeñas mediante paneles y cuadrículas
+responsivas; los controles emplean etiquetas, nombres accesibles e indicadores
+visuales que no dependen exclusivamente del color.
 
-==== Integración con la API
+=== Integración, configuración y construcción
 
-// TODO: Explicar el uso del cliente generado, el intercambio de datos y el
-// tratamiento de respuestas y errores.
+Dex actúa como proveedor OIDC del entorno controlado y permite recorrer el mismo
+protocolo previsto para un servicio externo de identidad. Su configuración
+registra a Tunkunia como cliente, habilita usuarios locales de prueba y expone
+los puntos de autorización y emisión de tokens. Esta sustitución permite probar
+el flujo sin afirmar una integración operativa con Ciudadanía Digital.
 
-==== Formularios y estados de interacción
+Caddy ofrece un único origen HTTPS y distribuye las solicitudes entre Nuxt y el
+servidor Go. Esto permite usar _cookies_ seguras durante el desarrollo y evita
+diferencias innecesarias con la terminación TLS de un despliegue. La base de
+datos SQLite completa el entorno autocontenido y facilita iniciar una instancia
+sin un servicio de persistencia externo.
 
-// TODO: Presentar la implementación de validación, carga, ausencia de datos,
-// éxito y error, además de las medidas responsivas y de accesibilidad aplicadas.
+La configuración se carga desde variables de entorno y, en desarrollo, desde
+archivos `.env`. Los valores admitidos y sus predeterminados se declaran en
+`internal/config/config.go`; las claves de firma y credenciales se suministran
+externamente y no se incorporan al código ni a la documentación.
 
-=== Servicios e infraestructura de apoyo
+La generación reproducible se centraliza mediante `go generate ./...`: SQLC y
+Jet producen los adaptadores de datos, Redocly agrupa y valida la especificación
+OpenAPI y oapi-codegen genera el transporte del servidor. El _plugin_ de Hey API
+genera el cliente TypeScript durante la construcción de la SPA. Estos artefactos
+no se editan manualmente.
 
-// TODO: Identificar los servicios necesarios para ejecutar el prototipo que no
-// constituyen por sí mismos elementos funcionales de Tunkunia.
+El conjunto puede comprobarse y construirse con las siguientes operaciones:
 
-==== Base de datos y almacenamiento
+```sh
+go test ./...
+go build .
+go generate ./...
+pnpm --filter spa lint
+pnpm --filter spa fmt:check
+pnpm --filter spa build
+```
 
-// TODO: Describir el motor utilizado por el prototipo, su inicialización y los
-// supuestos operativos relevantes.
+Las tareas del repositorio añaden arranque con recarga automática, migración de
+la base de datos, ejecución de Dex y Caddy, validación de OpenAPI y compilación
+de la documentación. El resultado desplegable comprende el ejecutable Go, los
+recursos construidos de la SPA, las migraciones, la especificación OpenAPI y la
+configuración externa de la instancia.
 
-==== Integración OIDC
+// TODO: Registrar el despliegue institucional definitivo, su topología, el
+// mecanismo de respaldo y la provisión de secretos.
 
-// TODO: Explicar la configuración concreta del proveedor, los puntos de
-// integración y el recorrido de autenticación implementado.
+=== Funcionalidad alcanzada y relación con la validación
 
-===== Entorno de prueba con Dex
+La implementación integra un catálogo configurable, una API versionada, una
+aplicación web para tres contextos de uso, autenticación federada simulada y una
+representación interactiva del procedimiento. La separación modular y el uso de
+contratos generados permiten sustituir adaptadores o ampliar capacidades sin
+acoplar el núcleo a una institución o a un trámite específico.
 
-Para simular la existencia de un módulo de ciudadanía digital con el estándar OIDC, se empleó una herramienta llamada Dex.
-Esta herramienta tiene como propósito conectar distintos tipos de sistemas de autenticación mediante OIDC, lo cual resultó útil para crear un _mock_ del servicio de autenticación de la AGTIC.
+El prototipo también proporciona el recorrido visual de creación, publicación,
+consulta, inicio y seguimiento de trámites. Las capacidades que dependen todavía
+del estado demostrativo constituyen puntos concretos de sustitución y no alteran
+la organización general del producto. La ejecución de casos representativos y
+la evaluación de sus resultados se presentan en el capítulo de validación.
 
-// TODO: Documentar la configuración y las limitaciones de Dex como sustituto del
-// servicio real, sin presentarlo como parte del producto desplegable.
-
-==== Servicios externos y simulados
-
-// TODO: Registrar otros servicios externos o sustitutos empleados, sus contratos
-// y las diferencias relevantes respecto a un entorno institucional real.
-
-=== Integración y comprobaciones de construcción
-
-// TODO: Documentar cómo se obtuvo un conjunto ejecutable coherente. Los resultados
-// cuantitativos y la evaluación del producto corresponden al capítulo de validación.
-
-==== Integración de los elementos del prototipo
-
-// TODO: Explicar la integración entre servidor, aplicación web, persistencia,
-// proveedor de identidad y demás servicios de apoyo.
-
-==== Dependencias y generación de código
-
-// TODO: Describir la gestión de dependencias y los flujos de generación para la
-// base de datos, OpenAPI y otros artefactos reproducibles.
-
-==== Comprobaciones mínimas de construcción
-
-// TODO: Indicar las comprobaciones aplicadas durante la construcción, como
-// compilación, formato, análisis estático y pruebas unitarias, y remitir sus
-// resultados consolidados al capítulo de validación.
-
-=== Repositorio y gestión de la configuración
-
-// TODO: Presentar sólo la información necesaria para comprender y reproducir la
-// construcción. Remitir las convenciones operativas al apéndice de configuración
-// y gestión de cambios.
-
-==== Organización del monorepositorio
-
-// TODO: Resumir la distribución del servidor, la SPA, la documentación y los
-// artefactos compartidos, relacionándola con la vista de desarrollo.
-
-==== Automatización y tareas reproducibles
-
-// TODO: Documentar los comandos y tareas que automatizan generación, compilación,
-// ejecución y comprobaciones.
-
-==== Control de versiones y código generado
-
-// TODO: Sintetizar la estrategia de control de versiones y explicar qué
-// artefactos se generan, cuáles se versionan y cuáles no se editan manualmente.
-
-=== Construcción y despliegue del prototipo
-
-// TODO: Describir la instalación concreta del prototipo. La topología esperada y
-// las alternativas de infraestructura permanecen en la vista de despliegue.
-
-==== Unidades y artefactos construidos
-
-// TODO: Identificar ejecutables, paquetes de la SPA, migraciones, especificaciones
-// y archivos de configuración producidos por la construcción.
-
-==== Configuración y secretos
-
-// TODO: Explicar las fuentes de configuración, sus valores predeterminados y el
-// tratamiento seguro de credenciales y secretos, sin publicar valores sensibles.
-
-==== Procedimiento de construcción y ejecución
-
-// TODO: Presentar los prerrequisitos y la secuencia reproducible para preparar,
-// compilar e iniciar el prototipo.
-
-==== Despliegue concreto
-
-// TODO: Registrar el entorno donde se ejecutó el prototipo, la asignación de sus
-// artefactos y las diferencias respecto al despliegue objetivo.
-
-=== Resultados y limitaciones de la implementación
-
-// TODO: Delimitar qué se construyó y qué quedó fuera del prototipo sin anticipar
-// la evaluación desarrollada en el capítulo de validación.
-
-==== Funcionalidad materializada
-
-// TODO: Resumir las capacidades implementadas y proporcionar trazabilidad hacia
-// requisitos y elementos de diseño.
-
-==== Desviaciones respecto al diseño
-
-// TODO: Registrar diferencias justificadas entre el diseño previsto y la
-// implementación efectiva, junto con sus consecuencias.
-
-==== Deuda técnica y trabajo diferido
-
-// TODO: Identificar simulaciones, limitaciones conocidas, deuda técnica y
-// elementos reservados para una versión posterior al prototipo.
-
-==== Relación con la validación
-
-// TODO: Referir los escenarios, pruebas y resultados que evalúan el prototipo en
-// el capítulo siguiente.
+// TODO: Actualizar esta síntesis después de persistir la ejecución de flujos y
+// completar los casos de validación, las notificaciones y las integraciones
+// externas.
