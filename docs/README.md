@@ -1,14 +1,12 @@
 # Tunkunia documents
 
-`memoria/memoria.typ` is the primary thesis entrypoint. The research on trámite
-modeling belongs to the thesis and lives in the single foundation file
-`memoria/02-foundations-research/03-tram-research.typ`.
-
-`supporting/tram-research.typ` is a presentation-only IEEE entrypoint that
-consumes that thesis-owned file. Other secondary entrypoints live alongside it
-under `supporting/`, while the old project profile and its content are frozen
-together under `archive/perfil/`. They remain buildable but are not sources for
-current thesis prose.
+`memoria/memoria.typ` is the primary thesis entrypoint. The trámites used by the
+project are described as reference cases in
+`memoria/02-foundations-research/01-reference-framework.typ`; their influence on
+the software is developed in design and their executable models belong to
+validation. Secondary entrypoints live under `supporting/`, while the old
+project profile and its content are frozen together under `archive/perfil/`.
+They remain buildable but are not sources for current thesis prose.
 
 ## Writing workflow
 
@@ -53,7 +51,7 @@ The thesis follows an artifact-centered argument:
 1. `01-presentation/` establishes the historical and current context, then
    defines the problem, objectives, scope, and proposal.
 2. `02-foundations-research/` establishes the reference and theoretical bases,
-   then derives a general trámite model through research.
+   including the trámites used as reference cases.
 3. `03-definition-design/` explains the development method, requirements,
    domain analysis, architecture, and design.
 4. `04-construction-evaluation/` documents the prototype and evaluates it with
@@ -62,21 +60,19 @@ The thesis follows an artifact-centered argument:
    limitations and future work.
 
 Detailed schedules and repository procedures live in `appendices/` instead of
-interrupting the main argument. Write the trámite research in
-`memoria/02-foundations-research/03-tram-research.typ`; it appears in both the
-thesis and IEEE rendering. Change the supporting IEEE entrypoint only when
-changing presentation or publication metadata.
+interrupting the main argument. Keep factual descriptions of the reference
+trámites in the reference framework, justify modeling decisions in design, and
+place executable models and their observed results in validation.
 
-A practical writing order is research, requirements, architecture,
-implementation, validation, focused foundations, introduction, and finally
-conclusions. This allows each chapter to consume evidence established by the
-previous one.
+A practical writing order is reference cases, requirements, architecture,
+design, implementation, validation, focused foundations, introduction, and
+finally conclusions. This allows each chapter to consume evidence established
+by the previous one.
 
 Portable commands from the repository root are:
 
 ```sh
 go tool task docs:build:memoria
-go tool task docs:build:research
 go tool task docs:build:perfil
 go tool task docs:build:report
 go tool task docs:build:lean

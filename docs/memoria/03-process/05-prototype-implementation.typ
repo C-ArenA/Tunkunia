@@ -1,3 +1,5 @@
+#import "/shared/theme/lib.typ": img-fig
+
 == Construcción del prototipo
 
 === Alcance y estrategia de construcción
@@ -36,23 +38,41 @@ abiertos y una separación clara entre dominio, transporte y persistencia. La
     align: (left, left, left),
     inset: (3pt, 5pt),
     table.header([Elemento], [Tecnología], [Función]),
-    [Servidor], [Go 1.26 y Chi 5], [Composición, lógica de negocio y transporte HTTP.],
+    [Servidor],
+    [Go 1.26 y Chi 5],
+    [Composición, lógica de negocio y transporte HTTP.],
 
-    [Línea de comandos], [Cobra 1.10], [Arranque del servidor y operaciones administrativas.],
+    [Línea de comandos],
+    [Cobra 1.10],
+    [Arranque del servidor y operaciones administrativas.],
 
-    [Persistencia], [SQLite, Goose, SQLC y Jet], [Migraciones, consultas tipadas y acceso a datos.],
+    [Persistencia],
+    [SQLite, Goose, SQLC y Jet],
+    [Migraciones, consultas tipadas y acceso a datos.],
 
-    [Contrato], [OpenAPI 3.1 y oapi-codegen], [Especificación, validación y tipos del servidor.],
+    [Contrato],
+    [OpenAPI 3.1 y oapi-codegen],
+    [Especificación, validación y tipos del servidor.],
 
-    [Aplicación web], [Nuxt 4, Vue 3 y TypeScript], [Interfaz de página única para los distintos actores.],
+    [Aplicación web],
+    [Nuxt 4, Vue 3 y TypeScript],
+    [Interfaz de página única para los distintos actores.],
 
-    [Interfaz visual], [Nuxt UI 4 y Tailwind CSS 4], [Componentes, estilos responsivos y estados de interacción.],
+    [Interfaz visual],
+    [Nuxt UI 4 y Tailwind CSS 4],
+    [Componentes, estilos responsivos y estados de interacción.],
 
-    [Cliente HTTP], [Hey API y Pinia Colada], [Cliente generado, consultas y caché de datos.],
+    [Cliente HTTP],
+    [Hey API y Pinia Colada],
+    [Cliente generado, consultas y caché de datos.],
 
-    [Identidad], [OIDC, Dex y JWT], [Autenticación federada simulada y sesión local.],
+    [Identidad],
+    [OIDC, Dex y JWT],
+    [Autenticación federada simulada y sesión local.],
 
-    [Proxy local], [Caddy], [Origen HTTPS único para el servidor y la aplicación web.],
+    [Proxy local],
+    [Caddy],
+    [Origen HTTPS único para el servidor y la aplicación web.],
   ),
   caption: [Tecnologías principales de la implementación],
   placement: auto,
@@ -107,14 +127,6 @@ identidad local, los roles y la asignación inicial de administración. El módu
 que utilizan los demás manejadores. El módulo `health` aporta una comprobación
 operativa independiente de las capacidades de negocio.
 
-// TODO: Incorporar aquí una captura del editor administrativo de un trámite y
-// su procedimiento cuando se disponga de un navegador controlable.
-// #img-fig(
-//   "/assets/figures/implementation-procedure-editor.png",
-//   [Edición administrativa de un trámite y su procedimiento],
-//   <fig:implementation-procedure-editor>,
-// )
-
 ==== Persistencia y contrato HTTP
 
 SQLite contiene las tablas de usuarios, roles y trámites. Goose aplica las
@@ -151,9 +163,6 @@ validación OpenAPI rechaza las operaciones protegidas cuando no existe un
 principal autenticado. En el cliente, los _middleware_ de Nuxt protegen las
 rutas de participante y verifican el rol `admin` para las rutas de gestión.
 
-// TODO: Completar la política de autorización por operación y el registro de
-// auditoría antes de describirlos con mayor detalle en la versión final.
-
 === Implementación de la aplicación web
 
 La SPA se construyó con Nuxt en modo cliente. Tres _layouts_ separan el portal
@@ -168,13 +177,6 @@ permite buscar trámites, iniciar un caso, consultar su avance e historial y
 atender tareas personales. El área administrativa reúne el catálogo, la edición
 de cada trámite, la representación de su procedimiento, los usuarios y la
 configuración institucional.
-
-// TODO: Incorporar aquí una captura del portal público y su catálogo.
-// #img-fig(
-//   "/assets/figures/implementation-public-catalog.png",
-//   [Portal público y catálogo institucional de trámites],
-//   <fig:implementation-public-catalog>,
-// )
 
 La integración con el servidor utiliza un cliente TypeScript generado desde la
 especificación OpenAPI. Las consultas declarativas de Pinia Colada mantienen el
@@ -191,19 +193,57 @@ seguimiento del caso. Los casos, tareas y datos institucionales del recorrido
 demostrativo se conservan en el estado reactivo y en el almacenamiento local del
 navegador, lo que mantiene los cambios entre sesiones del prototipo.
 
-// TODO: Sustituir el almacenamiento demostrativo de procedimientos, casos,
-// tareas e institución por los servicios persistentes definitivos.
-// TODO: Incorporar aquí una captura del seguimiento de un caso.
-// #img-fig(
-//   "/assets/figures/implementation-case-tracking.png",
-//   [Seguimiento de un caso y estado de su procedimiento],
-//   <fig:implementation-case-tracking>,
-// )
-
 Las páginas contemplan estados de espera, error y ausencia de resultados. La
 navegación se adapta a pantallas pequeñas mediante paneles y cuadrículas
 responsivas; los controles emplean etiquetas, nombres accesibles e indicadores
 visuales que no dependen exclusivamente del color.
+
+=== Vistas del sistema
+
+Las siguientes figuras presentan algunas vistas relevantes de la interfaz y de
+los componentes técnicos del sistema.
+
+#img-fig(
+  "/assets/figures/imp_home.png",
+  [Portal público y catálogo institucional de trámites],
+  <fig:implementation-public-home>,
+  width: 100%,
+)
+
+#img-fig(
+  "/assets/figures/imp_app.png",
+  [Catálogo de trámites del área de participantes],
+  <fig:implementation-participant-catalog>,
+  width: 100%,
+)
+
+#img-fig(
+  "/assets/figures/imp_net_example.png",
+  [Inicio de un caso y representación de su procedimiento],
+  <fig:implementation-procedure-view>,
+  width: 100%,
+)
+
+#img-fig(
+  "/assets/figures/imp_scalar_api.png",
+  [Documentación interactiva de la API HTTP],
+  <fig:implementation-api-documentation>,
+  width: 100%,
+)
+
+#img-fig(
+  "/assets/figures/imp_dex.png",
+  [Inicio de sesión mediante el proveedor OIDC],
+  <fig:implementation-oidc-login>,
+  width: 100%,
+)
+
+#img-fig(
+  "/assets/figures/imp_cli_routes.png",
+  [Rutas HTTP registradas al iniciar el servidor],
+  <fig:implementation-http-routes>,
+  width: 100%,
+)
 
 === Integración, configuración y construcción
 
@@ -247,9 +287,6 @@ de la documentación. El resultado desplegable comprende el ejecutable Go, los
 recursos construidos de la SPA, las migraciones, la especificación OpenAPI y la
 configuración externa de la instancia.
 
-// TODO: Registrar el despliegue institucional definitivo, su topología, el
-// mecanismo de respaldo y la provisión de secretos.
-
 === Funcionalidad alcanzada y relación con la validación
 
 La implementación integra un catálogo configurable, una API versionada, una
@@ -259,11 +296,7 @@ contratos generados permiten sustituir adaptadores o ampliar capacidades sin
 acoplar el núcleo a una institución o a un trámite específico.
 
 El prototipo también proporciona el recorrido visual de creación, publicación,
-consulta, inicio y seguimiento de trámites. Las capacidades que dependen todavía
-del estado demostrativo constituyen puntos concretos de sustitución y no alteran
-la organización general del producto. La ejecución de casos representativos y
-la evaluación de sus resultados se presentan en el capítulo de validación.
-
-// TODO: Actualizar esta síntesis después de persistir la ejecución de flujos y
-// completar los casos de validación, las notificaciones y las integraciones
-// externas.
+consulta, inicio y seguimiento de trámites. Los datos demostrativos permiten
+recorrer estas funciones sin utilizar información institucional real. La
+ejecución de casos representativos y la evaluación de sus resultados se
+presentan en el capítulo de validación.

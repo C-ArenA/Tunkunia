@@ -24,10 +24,12 @@ Por su lado, la especificación de requerimientos del sistema y la especificaci�
 
 === Elicitación, descubrimiento y gestión
 
+// TODO: MY: Describir técnicas empleadas: Ingeno lista algunas que sí use como Observación, Análisis de documentos y brainstorming.
+
 Antes de describir las especificaciones mencionadas conviene presentar, de manera superficial, el trabajo realizado para elaborarlas mediante la elicitación, que forma parte de las actividades iniciales de desarrollo de los requerimientos @washizakiGuideSoftwareEngineering2025.
 
 Las distintas especificaciones de requerimientos nacieron a partir de esta actividad y en atención a la definición del proyecto. La elicitación inicial realizada reúne necesidades expresadas en forma de historias de usuario, descripciones simples, requerimientos formales, entre otros, que permiten capturar las cualidades deseadas del sistema a partir de sus fuentes que
-incluyen los objetivos, los alcances, la investigación sobre trámites bolivianos, la normativa y los planes de
+incluyen los objetivos, los alcances, los trámites de referencia, la normativa y los planes de
 gobierno electrónico considerados en el marco de referencia, así como la experiencia que
 dio origen al proyecto.
 
@@ -262,7 +264,7 @@ de pocos administradores y decenas de servidores públicos por instancia son ref
 // al plan de validación y a una muestra definida.
 - La institución deberá ser capaz de digitalizar un trámite sencillo en menos de 30 minutos si tiene el procedimiento claro
 - El despliegue de la aplicación podrá realizarse en un sólo día hábil
-- Los trámites analizados en el modelado de trámites deben ser implementables
+- Los trámites de referencia no descartados deben ser implementables
 - El ingreso a la plataforma debe ser la primera acción que el usuario vea al ingresar al sitio principal.
 - La lista de trámites publicados debe aparecer en la vista principal de la interfaz.
 - Los datos de los casos de trámite pasados deben conservarse
@@ -498,4 +500,3 @@ Cada instancia del sistema deberá servir para una institución. No podrán usar
 // indispensables para satisfacer el producto. Tecnologías presentes en el
 // repositorio, como Go, Nuxt, SQLite, REST o redes de Petri, deben justificarse en
 // arquitectura y diseño si no constituyen una restricción del requerimiento.
-

@@ -1,165 +1,198 @@
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "/shared/theme/lib.typ": typ-fig
+
 == Validación y resultados
 
-=== Enfoque de validación mediante casos
+=== Alcance provisional de la validación
 
-// TODO: Explicar el propósito, alcance y procedimiento de la validación
-// demostrativa, además de los criterios usados para seleccionar los casos.
+La validación definitiva deberá ejecutar en Tunkunia casos completos de los
+trámites descritos en el marco referencial y contrastar los resultados esperados
+con evidencias producidas por el prototipo. Mientras esa implementación no se
+encuentre concluida, este capítulo no presenta resultados observados. En su
+lugar, prepara los modelos y recorridos que se configurarán posteriormente como
+pruebas de validación.
 
-La validación del prototipo se organiza mediante casos de trámites con características diferentes.
-Este enfoque busca observar si Tunkunia permite configurar y recorrer los elementos relevantes identificados durante la investigación, como actores, documentos, condiciones, etapas, plazos, reintentos, eventos externos y resultados.
-No constituye una campaña exhaustiva de pruebas del software.
+Se consideran el Registro Ambiental Industrial, la cédula de identidad por
+primera vez y la adscripción al Sistema Único de Salud. La solicitud de patente
+de invención se conserva como referencia para el diseño, pero se excluye de esta
+etapa porque su representación exigiría interpretar aspectos operativos no
+descritos con suficiente detalle y abarcar una cantidad de excepciones que
+excede el alcance del prototipo.
 
-Para cada caso se distingue su caracterización, la configuración realizada en Tunkunia, el recorrido seguido, las evidencias obtenidas y las limitaciones observadas.
-Mientras un caso no haya sido ejecutado, sus apartados de configuración y resultados permanecen señalados como pendientes y no se presentan conclusiones sin evidencia.
+Cada caso se expresa mediante una red de flujo de trabajo con un único lugar de
+inicio y uno de terminación. Los círculos representan lugares o situaciones; los
+rectángulos, transiciones ejecutables; y las flechas, la relación de flujo. El
+recorrido satisfactorio indica la secuencia de disparos y el lugar que conserva
+el token después de cada acción. Los datos y documentos producidos se mantienen
+en el expediente y no se codifican dentro del token.
 
-=== Casos de trámites evaluados
+=== Casos preparados para validación
 
 ==== Registro Ambiental Industrial
 
-===== Caracterización del caso
+El modelo de la @fig:validation-rai representa el recorrido ordinario de una
+unidad industrial cuya información es suficiente para que la instancia
+ambiental municipal determine una categoría. Las reglas técnicas de
+clasificación se registran como datos y condiciones de la transición, no como
+estructura propia del motor.
 
-El Registro Ambiental Industrial (RAI) es el trámite inicial mediante el cual se recoge información de una industria manufacturera y se determinan las condiciones que afectan sus obligaciones ambientales posteriores.
-Forma parte de los procedimientos administrativos atendidos por el @SIAI en el marco del @RASIM y se relaciona con la obtención y actualización de los distintos @IRAP:pl.
-Su contexto institucional y normativo se desarrolla en el capítulo de investigación sobre el modelado de trámites.
+#typ-fig(
+  diagram(
+    spacing: (8mm, 12mm),
+    node-stroke: luma(70%),
+    node((0, 0), [Inicio], name: <rai-start>, shape: circle),
+    edge("->"),
+    node((1, 0), [Presentar\ formulario], name: <rai-submit>),
+    edge("->"),
+    node((2, 0), [Solicitud\ recibida], name: <rai-received>, shape: circle),
+    edge("->"),
+    node((3, 0), [Revisar\ información], name: <rai-review>),
+    edge("->"),
+    node((4, 0), [Información\ revisada], name: <rai-reviewed>, shape: circle),
+    edge("->", bend: 30deg),
+    node((4, 1), [Asignar\ categoría], name: <rai-classify>),
+    edge("->"),
+    node((3, 1), [Categoría\ asignada], name: <rai-classified>, shape: circle),
+    edge("->"),
+    node((2, 1), [Notificar\ resultado], name: <rai-notify>),
+    edge("->"),
+    node((1, 1), [Fin], name: <rai-end>, shape: circle),
+  ),
+  [Red de Petri preparada para el Registro Ambiental Industrial],
+  <fig:validation-rai>,
+)
 
-Este caso permite valorar la representación de un trámite de registro cuyos datos condicionan otros procedimientos y documentos ambientales.
+El recorrido satisfactorio previsto es el siguiente:
 
-===== Configuración en Tunkunia
+#figure(
+  table(
+    columns: (.45fr, 1.7fr, 1.3fr, 1.8fr),
+    align: (center + horizon, left + horizon, left + horizon, left + horizon),
+    fill: (x, y) => if y == 0 { rgb(230, 230, 230) },
+    inset: (.35em, .45em),
+    table.header([Paso], [Transición], [Responsable], [Lugar resultante]),
+    [0], [Marcado inicial], [Sistema], [Inicio],
+    [1], [Presentar formulario], [Representante legal], [Solicitud recibida],
+    [2], [Revisar información], [Servidor municipal], [Información revisada],
+    [3], [Asignar categoría], [Servidor municipal], [Categoría asignada],
+    [4], [Notificar resultado], [Servidor municipal], [Fin],
+  ),
+  caption: [Recorrido satisfactorio previsto para el RAI],
+)<table:validation-rai-path>
 
-// TODO: Registrar actores, datos, documentos, actividades, condiciones,
-// transiciones y resultados configurados para el RAI.
+Al concluir, el expediente debe conservar el formulario presentado, la
+categoría, la información que fundamentó la decisión, la notificación y las
+actuaciones de cada participante.
 
-===== Recorrido de validación
+==== Cédula de identidad por primera vez
 
-// TODO: Describir el caso concreto ejecutado, sus datos de entrada, las acciones
-// realizadas por cada actor y el resultado esperado.
+La @fig:validation-identity limita el caso satisfactorio a una persona cuyos
+datos coinciden con SERECI. Las variantes para menores, personas naturalizadas,
+nacidos en el exterior y saneamiento de datos deberán configurarse como caminos
+adicionales cuando se cuente con suficiente información operativa.
 
-===== Evidencias y resultados observados
+#typ-fig(
+  diagram(
+    spacing: (8mm, 12mm),
+    node-stroke: luma(70%),
+    node((0, 0), [Inicio], name: <ci-start>, shape: circle),
+    edge("->"),
+    node((1, 0), [Presentar\ solicitud], name: <ci-submit>),
+    edge("->"),
+    node((2, 0), [Solicitud\ recibida], name: <ci-received>, shape: circle),
+    edge("->"),
+    node((3, 0), [Verificar\ con SERECI], name: <ci-check>),
+    edge("->"),
+    node((4, 0), [Datos\ verificados], name: <ci-verified>, shape: circle),
+    edge("->", bend: 30deg),
+    node((4, 1), [Registrar identidad\ y asignar número], name: <ci-register>),
+    edge("->"),
+    node((3, 1), [Identidad\ registrada], name: <ci-registered>, shape: circle),
+    edge("->"),
+    node((2, 1), [Emitir y entregar\ cédula], name: <ci-issue>),
+    edge("->"),
+    node((1, 1), [Fin], name: <ci-end>, shape: circle),
+  ),
+  [Red de Petri preparada para la emisión inicial de la cédula de identidad],
+  <fig:validation-identity>,
+)
 
-// TODO: Incorporar capturas, registros o artefactos producidos durante el
-// recorrido y contrastar el resultado esperado con el observado.
+El recorrido satisfactorio previsto es el siguiente:
 
-===== Limitaciones encontradas
+#figure(
+  table(
+    columns: (.45fr, 1.7fr, 1.3fr, 1.8fr),
+    align: (center + horizon, left + horizon, left + horizon, left + horizon),
+    fill: (x, y) => if y == 0 { rgb(230, 230, 230) },
+    inset: (.35em, .45em),
+    table.header([Paso], [Transición], [Responsable], [Lugar resultante]),
+    [0], [Marcado inicial], [Sistema], [Inicio],
+    [1], [Presentar solicitud], [Solicitante], [Solicitud recibida],
+    [2], [Verificar con SERECI], [Servidor del SEGIP], [Datos verificados],
+    [3], [Registrar identidad y asignar número], [Servidor del SEGIP], [Identidad registrada],
 
-// TODO: Registrar aspectos del RAI que el prototipo no pueda representar o que
-// requieran simplificaciones.
+    [4], [Emitir y entregar cédula], [Servidor del SEGIP], [Fin],
+  ),
+  caption: [Recorrido satisfactorio previsto para la cédula de identidad],
+)<table:validation-identity-path>
 
-==== Obtención de cédula de identidad
+Al concluir, el expediente debe conservar la solicitud, las referencias a la
+documentación presentada, el resultado de la consulta externa, el número
+asignado y la constancia de entrega.
 
-===== Caracterización del caso
+==== Adscripción al Sistema Único de Salud
 
-- *Nombre:* Trámite para obtener Cédula de Identidad por Primera Vez.
-- *Descripción*: Trámite esencial para el ciudadano boliviano, para ingresar al Registro Único de Identificación.
-- *Marco Legal*: DS 4861, DS 4342
-- *Tipo de Trámite*: Trámite de Registro y Certificación
-- *Características Resaltantes*:
-  - La normativa existente alrededor de este trámite solamente especifica los objetivos del trámite y no el trámite en sí mismo dejando esto a criterio de la institución.
-    Este es un antecedente importante para otros trámites que no pueden ser simplificados debido al andamiaje legal que los aprisionan.
-  - Para comunicar al ciudadano, se divide el trámite en dos, uno para menores de edad y otro para mayores de edad.
-    Sin embargo, para enriquecer este análisis se consideran ambos como parte del mismo trámite.
-- *Involucrados*:
-  - Funcionario del SEGIP
-  - Ciudadano que desea obtener su Cédula
-  - Tercero encargado en caso de que el ciudadano sea menor de edad
-- *Dependencias*:
-  - SERECI: Certificado de Nacimiento y otros
-  - Entidad Bancaria: Pagos
-- *Desencadenante*: Ciudadano con intención de obtener su cédula de identidad
-- *Modelo*: El trámite fue modelado mediante una red de Petri de tipo WFNet, presentada en la @fig:ci_wfnet.
+La @fig:validation-sus representa a una persona identificada, no afiliada a un
+ente gestor de la Seguridad Social de Corto Plazo y atendida por el
+establecimiento de primer nivel que le corresponde. El modelo admite que la
+captura sea manual o informatizada sin convertir cada canal en un trámite
+diferente.
 
-===== Configuración en Tunkunia
+#typ-fig(
+  diagram(
+    spacing: (8mm, 12mm),
+    node-stroke: luma(70%),
+    node((0, 0), [Inicio], name: <sus-start>, shape: circle),
+    edge("->"),
+    node((1, 0), [Solicitar\ adscripción], name: <sus-submit>),
+    edge("->"),
+    node((2, 0), [Solicitud\ recibida], name: <sus-received>, shape: circle),
+    edge("->"),
+    node((3, 0), [Verificar identidad\ y cobertura], name: <sus-check>),
+    edge("->"),
+    node((4, 0), [Persona\ habilitada], name: <sus-eligible>, shape: circle),
+    edge("->", bend: 30deg),
+    node((4, 1), [Registrar\ datos], name: <sus-register>),
+    edge("->"),
+    node((3, 1), [Registro\ incorporado], name: <sus-recorded>, shape: circle),
+    edge("->"),
+    node((2, 1), [Confirmar\ adscripción], name: <sus-confirm>),
+    edge("->"),
+    node((1, 1), [Fin], name: <sus-end>, shape: circle),
+  ),
+  [Red de Petri preparada para la adscripción al Sistema Único de Salud],
+  <fig:validation-sus>,
+)
 
-// TODO: Registrar actores, datos, documentos, actividades, condiciones,
-// transiciones y resultados configurados para la obtención de la cédula.
+El recorrido satisfactorio previsto es el siguiente:
 
-===== Recorrido de validación
+#figure(
+  table(
+    columns: (.45fr, 1.7fr, 1.3fr, 1.8fr),
+    align: (center + horizon, left + horizon, left + horizon, left + horizon),
+    fill: (x, y) => if y == 0 { rgb(230, 230, 230) },
+    inset: (.35em, .45em),
+    table.header([Paso], [Transición], [Responsable], [Lugar resultante]),
+    [0], [Marcado inicial], [Sistema], [Inicio],
+    [1], [Solicitar adscripción], [Persona beneficiaria], [Solicitud recibida],
+    [2], [Verificar identidad y cobertura], [Personal de salud], [Persona habilitada],
 
-// TODO: Describir el recorrido ejecutado y distinguir las variantes para una
-// persona mayor y una persona menor de edad cuando corresponda.
+    [3], [Registrar datos], [Personal de salud], [Registro incorporado],
+    [4], [Confirmar adscripción], [Personal de salud], [Fin],
+  ),
+  caption: [Recorrido satisfactorio previsto para la adscripción al SUS],
+)<table:validation-sus-path>
 
-===== Evidencias y resultados observados
-
-// TODO: Incorporar las evidencias producidas y contrastar el comportamiento
-// esperado con el observado.
-
-===== Limitaciones encontradas
-
-// TODO: Registrar las simplificaciones y los elementos no cubiertos por el
-// prototipo, incluidas las dependencias con SERECI y la entidad bancaria.
-
-==== Solicitud de patente SENAPI
-
-===== Caracterización del caso
-
-- *Características Resaltantes*:
-  - Respaldado por la Decisión 486 de La Comisión de la Comunidad Andina en sus capítulos III y IV
-  - Se detallan características de los plazos: días hábiles
-  - Existen condiciones claras para el inicio de la solicitud: Condiciones de sí o no
-  - Existen requisitos obligatorios cuya ausencia imposibilita el inicio del trámite (Artículo 33)
-  - La solicitud debe contener:
-    - 1 comprobante de pago (g)
-    - 1 elemento de texto plano (e)
-    - 2 formularios (a, b)
-    - 1 colección de elementos de texto plano (c)
-    - 1 colección de elementos multimedia (d)
-    - 3 copias de documentos existentes (h,i,k)
-    - 1 colección de documentos originales de certificación existente (f, j)
-  - Existen requisitos opcionales que sólo son necesarios si se cumplen otras condiciones.
-    Esto sugiere que pueden pertenecer a otras subetapas
-  - El trámite inicia con la presentación de requisitos de solicitud.
-    Es decir, cuando el solicitante lo desee
-  - El trámite parece ser de tipo servicio
-  - El solicitante puede modificar su información de solicitud durante el trámite e incluso la naturaleza del trámite.
-    Esto sugiere un cambio de trámite (mismo caso o diferente caso) que pueda heredar información del anterior.
-  - Existe una etapa de examen de documentos
-  - Existe un plazo de 30 días para examinar la solicitud
-  - Existe una etapa de reparación de solicitud con plazo de 2 meses
-  - La etapa de reparación de solicitud tiene un número máximo de reintentos
-  - La "oficina" debe notificar al "solicitante" cada decisión
-  - Tras cumplir el primer examen de forma, se publican los resultados y sólo entonces se pasa a una segunda ronda de examen de patentabilidad
-  - El segundo examen debe ser inicializado por el solicitante
-  - Actores externos pueden influir con oposiciones a la solicitud de patentado
-  - Tras el segundo examen se toma una decisión que se convierte en un título de patente (un certificado)
-  - Al conjunto de información que se va recolectando se le llama expediente, similar a como se hace en juzgados
-- *Modelo*: Las etapas principales del trámite se presentan en la @fig:senapiblocks.
-
-===== Configuración en Tunkunia
-
-// TODO: Registrar actores, requisitos documentales, etapas, condiciones, plazos,
-// reintentos, oposiciones y resultados configurados para la solicitud de patente.
-
-===== Recorrido de validación
-
-// TODO: Describir al menos un recorrido satisfactorio y uno que active la
-// reparación de la solicitud o una oposición externa.
-
-===== Evidencias y resultados observados
-
-// TODO: Incorporar las evidencias producidas y contrastar cada recorrido esperado
-// con el comportamiento observado.
-
-===== Limitaciones encontradas
-
-// TODO: Registrar las reglas temporales, documentales o de participación externa
-// que no puedan representarse completamente en el prototipo.
-
-=== Resultados comparativos
-
-// TODO: Comparar los tres casos mediante una tabla que incluya actores,
-// documentos, condiciones, etapas, plazos, reintentos, eventos externos,
-// resultados y grado de representación alcanzado en Tunkunia.
-
-==== Cobertura de mecanismos del trámite
-
-// TODO: Identificar qué mecanismos del modelo general fueron ejercitados por cada
-// caso y señalar aquellos que no llegaron a validarse.
-
-==== Diferencias y limitaciones comunes
-
-// TODO: Consolidar las limitaciones observadas sin ocultar las simplificaciones
-// realizadas para el prototipo.
-
-=== Síntesis de la validación
-
-// TODO: Determinar, únicamente a partir de las evidencias registradas, en qué
-// medida los casos respaldan la aplicabilidad y reutilización del prototipo.
+Al concluir, el expediente debe conservar los datos del formulario, el canal de
+registro empleado, el resultado de la verificación y el establecimiento al que
+la persona quedó adscrita.

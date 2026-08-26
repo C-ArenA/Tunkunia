@@ -21,12 +21,12 @@ De este modo, el objetivo principal de esta metodología es el de definir los li
 
 Podemos traducir estas características en objetivos claros que se desean seguir para definir la metodología del proyecto:
 
-+ Tener la cantidad mínima necesaria de artefactos, para que el desarrollador pueda concentrarse más en el desarrollo, siguiendo el principio 1 de modelado de Pressman
++ Mantener únicamente los artefactos que aporten al desarrollo, de modo que el esfuerzo se concentre en el producto, siguiendo el principio 1 de modelado de Pressman
 + Brindar flexibilidad en los procedimientos, pero respetando un marco claro
 + Considerar generación de informes periódicos o constantes para ser evaluados
 + Realizar iteraciones cortas y frecuentes
 + Usar herramientas que permitan gestionar tareas y ajustar el cronograma de forma flexible y constante
-+ Fomentar la creación y constante actualización de los distintos artefactos del proyecto.
++ Fomentar la actualización continua de los artefactos seleccionados mientras resulten útiles para el proyecto
 + Basarse en prácticas y metodologías propias de la disciplina de la ingeniería de software
 + Dar protagonismo al perfil de este proyecto, normativa actual e información sobre trámites emitida por el estado boliviano
 + Priorizar prácticas modernas y ser considerar evolución futura en un entorno colaborativo
@@ -37,10 +37,8 @@ Estos ajustes a partir de RUP pueden resumirse en la siguiente lista:
 - *Actores Principales Definidos*: En RUP se maneja el concepto de workers, pero no se definen roles a grandes rasgos del proyecto como se haría en SCRUM o incluso XP.
   Esta metodología define a los mismos en tres grupos: Dictador Benevolente, Tutor y Evaluador.
 - *Fases orientadas a la priorización*: En RUP se tienen objetivos para cada fase, en esta metodología se mantienen, pero se entienden más como una guía de priorización de tareas, donde cada fase obligará al gestor del proyecto a priorizar las tareas que obedezcan al objetivo de la fase.
-- *Artefactos evolutivos*: En RUP se deben presentar artefactos al finalizar cada fase.
-  Aquí se propone la presentación de una primera versión o boceto de cada artefacto durante la fase correspondiente, pero estos podrán seguirse elaborando hasta el final del proyecto, para ser introducidos en esta memoria en su versión final.
-- *Viajar Liviano*: Se hace un ajuste a los artefactos esperados del proyecto.
-  Se reducen muchos y se añaden otros.
+- *Artefactos evolutivos*: Los documentos y modelos seleccionados se elaboran progresivamente y pueden actualizarse mientras aporten valor al proyecto, sin considerarse cerrados al concluir una fase.
+- *Viajar liviano*: Se reduce el conjunto amplio de artefactos propuesto por RUP a aquellos necesarios para orientar el desarrollo, comunicar decisiones y conservar la trazabilidad, evitando documentación redundante.
 - *Diagramas modernos y flexibles*: Si bien se seguirá usando UML, sólo se hará cuando esto aporte al desarrollo del proyecto y además se usarán modelos de diagramación modernos como C4, que se adapta mejor al desarrollo moderno de software.
 - *Gestión atómica de tareas definida*: Para poder tener control de las tareas a realizar y responder a la pregunta de "Qué hago ahora", se definen los procedimientos de gestión de tareas con un enfoque agile, usando el concepto de backlog y un tablero Kanban, así como la priorización inmediata propia de XP.
 - *Iteraciones Cortas*: Las iteraciones, como en XP, se realizarán de forma semanal para buscar evoluciones rápidas.
@@ -136,68 +134,34 @@ Se pueden realizar iteraciones cortas si su duración es motivada por el princip
 
 === Artefactos
 
-La @table:artifacts muestra los artefactos y el momento en que se deben inicializar en base a la tabla mostrada por la Guía a Rup de Martínez@martinezGuiaRationalUnified.
-Estos artefactos no se entregan como finalizados sino hasta el final del proyecto, pero se presentan avances sobre el mismo de forma regular y sólo se añadirán en la memoria las versiones finales de los mismos, anexando en algunos casos etapas intermedias si es que estas son relevantes o contienen información valiosa.
+Para este proyecto se adaptó el conjunto de artefactos propuesto por RUP a su alcance, duración y composición del equipo. Se conservaron aquellos que apoyan la planificación, la comunicación de decisiones y la trazabilidad entre los objetivos, los requisitos, el diseño, la implementación y la validación; los que duplicaban información o no aportaban directamente al desarrollo fueron omitidos o simplificados.
 
-#figure(
-  table(
-    columns: (2fr, 4fr, 1fr, 1fr, 1fr, 1fr),
-    align: (center + horizon),
-    fill: (x, y) => {
-      if y == 0 {
-        return rgb(230, 230, 230)
-      }
-    },
-    inset: (.3em, .6em),
-    table.header(
-      "Disciplina",
-      "Artefacto",
-      "Inicio",
-      "Elaboración",
-      "Construcción",
-      "Transición",
-    ),
-    table.cell(rowspan: 2)[Gestión del\ Proyecto],
-    [Metodología], table.cell(colspan: 3, fill: rgb(200, 250, 150))[], [],
-    [Cronograma del Proyecto],
-    table.cell(colspan: 4, fill: rgb(200, 250, 150))[],
-    table.cell(rowspan: 3)[Modelado del\ Negocio],
-    [Perfil de Proyecto], table.cell(fill: rgb(200, 250, 150))[], [], [], [],
-    [Lista de Trámites Modelados],
-    [],
-    table.cell(colspan: 3, fill: rgb(200, 250, 150))[],
-    [Lista de Procedimientos],
-    [],
-    table.cell(colspan: 3, fill: rgb(200, 250, 150))[],
-    table.cell(rowspan: 3)[Requerimientos],
-    [Backlog de Historias de Usuario],
-    table.cell(colspan: 4, fill: rgb(200, 250, 150))[],
-    [Modelo de Casos de Uso],
-    [],
-    table.cell(colspan: 3, fill: rgb(200, 250, 150))[],
-    [Glosario], [], table.cell(colspan: 3, fill: rgb(200, 250, 150))[],
-    table.cell(rowspan: 2)[Análisis y Diseño],
-    [Modelo de Diseño], [], table.cell(colspan: 3, fill: rgb(200, 250, 150))[],
-    [Arquitectura], [], table.cell(colspan: 3, fill: rgb(200, 250, 150))[],
-    table.cell(rowspan: 1)[Entorno],
-    [Selección de Tecnologías],
-    [],
-    table.cell(colspan: 3, fill: rgb(200, 250, 150))[],
-  ),
-  caption: [Artefactos relacionados con su disciplina y cuándo se trabajan],
-  placement: auto,
-)<table:artifacts>
+Los artefactos se elaboran de manera evolutiva y con el nivel de detalle requerido en cada iteración. Su utilización no implica que todos deban reproducirse en la memoria o en sus anexos: podrán integrarse en el cuerpo del documento, mantenerse en el repositorio o registrarse mediante las herramientas de gestión del proyecto. Solo se incorporarán a la memoria aquellos que resulten necesarios para sustentar o comprender el trabajo realizado.
 
 === Método de Trabajo
+
 - Creación del backlog
+
 - Creación de tareas paralela
+
 - Selección de tareas prioritarias de acuerdo a fase
+
 - Relación de tareas con el backlog
+
 - Clasificación en base a disciplinas de RUP
+
 - Puesta en el kanban
 
 === Herramientas y Técnicas
 ==== Software de Gestión de Proyectos
+
+La gestión se apoyó en el repositorio público de GitHub, un backlog y un tablero
+Kanban. El trabajo se dividió en tareas breves relacionadas con los objetivos del
+proyecto y con las disciplinas de RUP; cada tarea avanzó entre estados pendientes,
+en curso y concluidos. El cronograma conservó los hitos generales, mientras el
+tablero permitió ordenar el trabajo de cada iteración sin mantener artefactos de
+gestión duplicados.
+
 ==== Modelos de Lenguaje
 ===== Uso de LLMs en la investigación
 
@@ -230,10 +194,50 @@ En este sentido, para la redacción de documentos el uso de modelos de lenguaje 
 - Usar LLMs principalmente para revisión y no así para generación
 - Evitar completamente el uso de autocompletado inteligente
 
+#v(1em)
+
 ==== Pareja de Programación
+
+La programación en pareja de XP busca que dos personas trabajen sobre el mismo
+problema y revisen continuamente las decisiones tomadas. Debido a que el equipo
+de desarrollo de Tunkunia estuvo compuesto por una sola persona, se utilizó la
+inteligencia artificial como una pareja de programación con matices importantes:
+su intervención no sustituyó el criterio ni la responsabilidad del autor.
+
+La asistencia se concentró en la escritura de código repetitivo de soporte
+(_boilerplate_), la revisión de código y la generación de elementos no críticos,
+como operaciones CRUD e interfaces de usuario previamente definidas. Las
+decisiones de dominio, arquitectura, seguridad y funcionamiento del motor de
+procesos permanecieron bajo control del desarrollador. Toda propuesta generada
+por inteligencia artificial fue tratada como un borrador sujeto a revisión,
+pruebas y adaptación antes de incorporarse al proyecto.
 
 #include "01-development-methodology/02-communication.typ"
 
 === Planificación, seguimiento y control
 
+Al inicio de cada iteración se definió un objetivo acorde con la fase vigente y
+se seleccionaron del backlog las tareas de mayor prioridad, considerando sus
+dependencias y riesgos. Durante la iteración, el tablero Kanban permitió observar
+el trabajo en curso y ajustar tareas sin perder el objetivo acordado. Al cierre
+se revisaron el incremento y los artefactos producidos; las tareas pendientes se
+reformularon o devolvieron al backlog. Las observaciones del tutor y las
+evaluaciones académicas alimentaron las iteraciones posteriores y, cuando fue
+necesario, la actualización del cronograma.
+
 === Gestión de riesgos y recursos
+
+La gestión de riesgos fue continua y ligera, adecuada a un proyecto dirigido y
+desarrollado por una sola persona. Se prestó especial atención a los riesgos de
+plazo, decisiones técnicas inciertas, cambios de alcance y dependencia de
+servicios externos. Las respuestas principales fueron priorizar temprano los
+prototipos de mayor incertidumbre, limitar el trabajo de cada iteración, mantener
+versionado el código y la documentación, automatizar compilaciones y pruebas, y
+emplear adaptadores o servicios simulados cuando una integración real no estaba
+disponible.
+
+Los recursos principales fueron el tiempo y trabajo del autor, la orientación
+del tutor y del docente evaluador, el equipo local de desarrollo y herramientas
+de software libre. Como el tiempo constituyó el recurso más restrictivo, las
+capacidades del prototipo se priorizaron por su relación con los objetivos y los
+requerimientos, dejando las ampliaciones no esenciales para trabajo futuro.

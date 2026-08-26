@@ -1,6 +1,6 @@
 #import "/shared/theme/lib.typ": img-fig
 
-== Arquitectura y diseño del software
+== Descripción de arquitectura
 
 Este capítulo describe la arquitectura prevista para el prototipo funcional de
 Tunkunia. La descripción se concentra en las decisiones que condicionan su

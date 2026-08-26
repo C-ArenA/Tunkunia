@@ -74,9 +74,7 @@ Para alcanzar este objetivo se plantean los siguientes objetivos específicos:
 - *Identificar los requerimientos del sistema y del software* derivados del modelo del trámite, de los actores involucrados y de los lineamientos bolivianos priorizados sobre gobierno electrónico y trámites digitales.
 - *Diseñar el subsistema reutilizable* de modo que distinga el núcleo de gestión de flujos, las capacidades comunes y las particularidades configurables de cada trámite o institución.
 - *Implementar un prototipo funcional* que permita definir flujos, ejecutar casos de trámite, registrar las acciones realizadas y consultar su estado e historial.
-- *Incorporar en el prototipo mecanismos representativos de gobierno electrónico*, incluidos la autenticación externa simulada, la interoperabilidad y la trazabilidad de las actuaciones.
 - *Validar el modelo y el prototipo mediante casos representativos de diferentes tipos de trámite*, comprobando que puedan definirse y recorrerse de principio a fin en un entorno controlado.
-- *Demostrar la reutilización del subsistema mediante dos instancias institucionales ficticias*, configuradas para atender necesidades o trámites diferentes a partir del mismo producto.
 - *Evaluar los resultados y limitaciones del prototipo*, identificando las capacidades que deberán desarrollarse o profundizarse en versiones posteriores.
 - *Publicar el proyecto como software libre*, bajo una licencia FOSS reconocida, en un repositorio público, permitiendo su inspección, modificación y distribución.
 - *Elaborar documentación técnica y funcional*, orientada a la configuración, uso, integración, mantenimiento y evolución del subsistema por parte de equipos técnicos institucionales.
@@ -138,31 +136,34 @@ Para comprender el alcance de este proyecto se debe considerar que, cuando se ha
 Para delimitar el proyecto, su reutilización se entiende según el enfoque de las aplicaciones configurables descrito por Sommerville @sommervilleSoftwareEngineering2016: una misma aplicación se diseña para ser adoptada por distintos clientes y ajustada a sus necesidades mediante configuración.
 Por tanto, una institución reutiliza Tunkunia cuando adopta el subsistema y configura en él sus propios flujos de trámite, sin requerir un desarrollo independiente para cada procedimiento.
 Tunkunia no se plantea como una librería que deba incorporarse a otro programa.
-La interoperabilidad, la extensibilidad y la disponibilidad del código fuente son propiedades complementarias que amplían sus posibilidades de adopción, pero no se emplean como significados alternativos de la reutilización ni como condiciones necesarias para demostrarla en este proyecto.
+En el prototipo la interoperabilidad, la extensibilidad y la disponibilidad del código fuente son propiedades complementarias que amplían sus posibilidades de adopción y se alinean con normativa relevante, pero no se emplean como significados alternativos de la reutilización ni como condiciones necesarias para demostrarla en este proyecto.
 
 La denominación de las piezas modulares depende de la organización o persona que la emplee.
-Ingeno @ingenoSoftwareArchitectsHandbook2018 las clasifica en seis categorías: una *estructura* es la agrupación e interrelación entre elementos; *elemento* es el término genérico para cualquiera de estas piezas; *sistema* representa el proyecto completo y el mayor nivel de abstracción; *subsistema* es un sistema que forma parte de otro mayor con cierto nivel de independencia y que puede contener otros subsistemas; *módulo* es una parte de un sistema enfocada en un área lógica específica de responsabilidad; y *componente* es el nivel más pequeño de agrupación y de menor abstracción.
-Estos términos pueden ser intercambiables ante la falta de definiciones universales.
+Ingeno @ingenoSoftwareArchitectsHandbook2018 las clasifica en seis categorías: una *estructura* es la agrupación e interrelación entre elementos; *elemento* es el término genérico para cualquiera de estas piezas; *sistema* representa el proyecto completo y el mayor nivel de abstracción; *subsistema* es en sí mismo un sistema que forma parte de otro mayor con cierto nivel de independencia y que puede contener otros subsistemas; *módulo* es una parte de un sistema enfocada en un área lógica específica de responsabilidad; y *componente* es el nivel más pequeño de agrupación y de menor abstracción.
+Estos términos pueden ser intercambiables ante la falta de definiciones universales. El sistema propuesto cumple con esta definición de subsistema, ya que es un sistema en sí mismo, pero busca formar parte de un sistema mayor que es el sistema de gobierno electrónico de Bolivia.
 
 Un antecedente para la elección del término es el Sistema Integrado Nacional del Espectro Radioeléctrico (SINER), licitado para la Autoridad de Regulación y Fiscalización de Telecomunicaciones y Transportes @GobiernoLanzaSegunda2023.
 Su documento base de contratación define dos componentes de software como subsistemas por formar parte de un sistema mayor, aunque pueden utilizarse parcialmente de forma independiente.
 Este uso inspira la categorización del producto propuesto como subsistema.
 
-En este sentido, es menester precisar que Tunkunia no constituye la implementación de un trámite institucional concreto, sino el sistema sobre el cual pueden definirse y ejecutarse distintos trámites.
-El prototipo se aplicará a casos representativos y permitirá recorrerlos de principio a fin en un entorno controlado, sin afirmar que estos se encuentran listos para su operación real en producción.
+Ahora bien, es menester precisar que el prototipo no constituye la implementación de un trámite institucional concreto, sino el sistema sobre el cual pueden definirse y ejecutarse distintos trámites.
+Aún así, el prototipo se aplicará a casos representativos y permitirá definirlos en un entorno controlado, sin afirmar que estos se encuentran listos para su operación real en producción.
 Adicionalmente, si bien se espera promocionar el uso de este sistema en instancias públicas, no se garantiza su uso efectivo en ninguna de estas durante el transcurso de este proyecto, debido a la carga burocrática que eso representaría.
 
-La adopción prevista consiste principalmente en desplegar y configurar una instancia del subsistema según las necesidades de cada institución.
-Los usuarios administrativos podrán definir trámites comunes mediante una interfaz gráfica (GUI); los comportamientos particulares que excedan las opciones disponibles podrán requerir programación como mecanismo complementario de extensión.
-El alcance comprende dos niveles: el *diseño arquitectónico del producto* y la *implementación del prototipo funcional*.
-La arquitectura contempla las capacidades necesarias para la evolución del subsistema como una solución reutilizable, mientras que el prototipo materializará y permitirá validar un subconjunto representativo de ellas.
-Por tanto, la inclusión de una funcionalidad en la arquitectura no implica necesariamente su implementación completa durante el proyecto; las capacidades no implementadas quedarán representadas mediante componentes, interfaces, contratos o puntos de extensión claramente definidos.
+Las pruebas al prototipo deben cumplir con los requerimientos desarrollados y con la definición de distintos trámites como procesos en un sistema de gestión de flujos de trabajo. Es decir, la digitalización de un trámite dentro del prototipo abarcará su dimensión como un proceso y el entorno básico que un trámite digitalizado suele tener en un sistema de trámites:
+
+- Autenticación
+- Notificaciones
+- Historial y Seguimiento
+
+La adopción prevista consiste principalmente en desplegar y configurar una instancia del subsistema según las necesidades de cada institución, el prototipo considerará esto en su diseño, pero no será desplegado para ninguna institución real.
+
+El diseño del sistema podrá contemplar capacidades necesarias de un subsistema totalmente finalizado y listo para desplegarse en una institución real, pero esto no entra dentro de los alcances de este proyecto como tal y, tanto el diseño como la implementación, estarán orientados principalmente hacia el prototipo.
 
 En el nivel del producto diseñado, la arquitectura contemplará:
 
 + *Núcleo de gestión de flujos:* modelado, definición y ejecución de procesos; creación de casos; registro de acciones; y consulta de su estado e historial.
 + *Servicios comunes:* gestión de actores y responsabilidades, auditoría, autenticación mediante servicios de identidad, notificaciones e interoperabilidad con otros sistemas.
-+ *Capacidades extensibles:* incorporación de acciones y comportamientos particulares de un trámite o institución sin sustituir el núcleo de procesos.
 
 En el nivel de implementación, las capacidades se delimitan de la siguiente manera:
 

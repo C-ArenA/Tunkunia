@@ -14,12 +14,6 @@ tasks:
       - mkdir -p build
       - typst compile {{.TYPST_FLAGS}} memoria/memoria.typ build/memoria.pdf
 
-  build:research:
-    desc: Build the standalone IEEE research paper
-    cmds:
-      - mkdir -p build
-      - typst compile {{.TYPST_FLAGS}} supporting/tram-research.typ build/tram-research.pdf
-
   build:report:
     desc: Build the first project report
     cmds:
@@ -36,19 +30,18 @@ tasks:
     desc: Build every supported Typst entrypoint
     cmds:
       - task: build:memoria
-      - task: build:research
       - task: build:report
       - task: build:lean
 
   fmt:
     desc: Format active Typst documents and the shared theme
     cmds:
-      - typstyle --inplace memoria/memoria.typ memoria/02-foundations-research/03-tram-research.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/theme/*.typ
+      - typstyle --inplace memoria/memoria.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/theme/*.typ
 
   fmt:check:
     desc: Check formatting of active Typst documents and the shared theme
     cmds:
-      - typstyle --check memoria/memoria.typ memoria/02-foundations-research/03-tram-research.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/theme/*.typ
+      - typstyle --check memoria/memoria.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/theme/*.typ
 
   check:
     desc: Check formatting and compile every supported document

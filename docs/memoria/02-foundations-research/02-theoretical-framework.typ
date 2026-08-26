@@ -1,10 +1,17 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
-#import "/shared/theme/lib.typ": img-fig, mmd-fig
+#import "/shared/theme/lib.typ": img-fig, mmd-fig, typ-fig
 
 == Marco Teórico
 
 === Flujos de Trabajo
 
+Es importante definir para entender la naturaleza de este trabajo lo que es un flujo de trabajo. Al ser un concepto elemental en el proyecto se extrae su definición como una traducción del glosario del grupo WFMC@WorkflowManagementCoalition:
+
+#quote()[
+  Un flujo de trabajo es la secuencia de tareas, pasos y decisiones que deben seguirse para completar un proceso específico. Puede entenderse como un conjunto de instrucciones que describen cómo debe llevarse a cabo un proceso, incluyendo el orden en que deben completarse las tareas, quién es responsable de realizar cada una de ellas y qué debe suceder a continuación en función del resultado de cada tarea.
+
+  Los flujos de trabajo pueden utilizarse para automatizar una amplia variedad de procesos de negocio, como la facturación, el procesamiento de pedidos, la gestión de recursos humanos y la gestión de proyectos. El objetivo de un flujo de trabajo es garantizar que las tareas se completen en el orden correcto y por las personas adecuadas, así como asegurar que el proceso sea eficiente y preciso.
+]
 === Sistemas de gestión de flujos de trabajo y procesos<section:wfms>
 
 Un @WFMS contempla, de forma general, el manejo de flujos de trabajo.
@@ -94,23 +101,91 @@ Además, existen otros lenguajes de modelado de sistemas menos comunes para desc
 Aunque no suelen mencionarse como lenguaje para modelar gráficamente procesos administrativos, pueden cumplir este propósito (ver @fig:statediagramex).
 Una máquina de estados es un conjunto de cinco elementos $M=(S,I,O,v,w)$, donde $S$ representa la colección de estados de $M$; $I$, el alfabeto de entradas; $O$, el alfabeto de salidas; $v:S x I->S$, la función del siguiente estado; y $w:S x I->O$, la función de salida @grimaldiDiscreteCombinatorialMathematics1998.
 
-- *Redes de Petri:* una de las técnicas de modelado más antiguas en las ciencias de la computación.
-  Inspiró aspectos del lenguaje UML, tiene diversas variantes y está definida formal y matemáticamente, lo que permite analizar los sistemas modelados @reisigUnderstandingPetriNets2013.
-  También se denominan _place/transition nets_ porque están formadas por lugares, representados por círculos, y transiciones, representadas por rectángulos, constituyendo un lenguaje matemático y una forma de representar sistemas distribuidos discretos @simonStateMachinesPetri.
-  Algunos autores defienden que esta técnica es capaz de modelar procesos @vanderaalstAPPLICATIONPETRINETS1998, como en la @fig:petricomplaints.
 
 Existe una gran cantidad de lenguajes, herramientas y técnicas para modelar sistemas de software y procesos.
 La elección depende de la naturaleza del sistema y de los beneficios de cada alternativa, aunque un mismo sistema puede modelarse mediante distintos lenguajes.
 
 === Redes de Petri
-==== Fundamentos
+Aunque son también un lenguaje útil para modelar procesos, se presentan en una sección independiente dada la importancia que acaban teniendo en el desarrollo de este proyecto.
+
+Las Redes de Petri una de las técnicas de modelado más antiguas en las ciencias de la computación.
+Inspiró aspectos del lenguaje UML, tiene diversas variantes y está definida formal y matemáticamente, lo que permite analizar los sistemas modelados @reisigUnderstandingPetriNets2013.
+También se denominan _place/transition nets_ porque están formadas por lugares, representados por círculos, y transiciones, representadas por rectángulos, constituyendo un lenguaje matemático y una forma de representar sistemas distribuidos discretos @simonStateMachinesPetri.
+==== Definición
+
+Existen varias formas de definir formalmente una Red de Petri estándar. Algunas definiciones usan un enfoque más de matrices y otras un enfoque de funciones. Las diferencias son mínimas, pero pueden ofrecer variedad a la hora de traducir el modelo matemático en código.
+
+Una *Red de Petri* (red $P\/T$) se define@giraultPetriNetsSystems2001 mediante la tupla
+
+$cal(N) = chevron P, T, bold("Pre"), bold("Post") chevron.r$
+
+donde:
+
+- $P$ es un conjunto finito de *lugares*.
+- $T$ es un conjunto finito de *transiciones*, disjunto de $P$ ($P inter T = nothing$).
+- $bold("Pre"), bold("Post") in NN^(abs(P) times abs(T))$ son,
+  respectivamente, las matrices de *preincidencia* y *postincidencia*
+  de $cal(N)$.
+
+La matriz
+
+$bold(C) = bold("Post") - bold("Pre")$
+
+se denomina *matriz de incidencia* de $cal(N)$.
+
+Un *marcado* de una red $P\/T$
+
+$cal(N) = chevron.l P, T, bold("Pre"), bold("Post") chevron.r$
+
+es un vector $bold(m) in NN^(abs(P))$.
+
+La red $cal(N)$ junto con un marcado $bold(m)_0$, denominado
+*marcado inicial*, constituye un *sistema de red $P\/T$*,
+
+$cal(S) = chevron.l cal(N), bold(m)_0 chevron.r$
+
+o, equivalentemente,
+
+$cal(S) = chevron.l P, T, bold("Pre"), bold("Post"), bold(m)_0 chevron.r$.
+
+Una transición $t in T$ está *habilitada* en un marcado $bold(m)$ si
+
 ==== Redes de Petri con Colores
+Una extensión a las redes de petri son los colores, que son atributos asignados a los tokens de una red para poder distinguir entre ellos. En otras palabras, son tokens con tipo.
+
 ==== Redes de Petri con Tiempo
-
+Las redes de Petri convencionales no tienen una idea del tiempo. Esta extensión permite aplicar duración a los distintos elementos de una red, como pueden ser las transiciones, los lugares o incluso los tokens.
 === Aplicación de Redes de Petri al Modelado de Procesos
+Algunos autores defienden que esta técnica es capaz de modelar procesos @vanderaalstAPPLICATIONPETRINETS1998, como en la @fig:petricomplaints. Aunque otros presentan críticas importantes.
 
+Las Redes de Petri fueron ampliamente exploradas en cuanto a sus posibles aplicaciones, una de ellas es su aplicación en sistemas de gestión de flujos de trabajo. El autor que mejor definió esta aplicación es Van Der Aalst, cuyo trabajo es quizás el que más influenció la solución de este proyecto.
+
+Van Der Aalst define a los flujos de trabajo en 3 dimensiones (@fig:vanderaals3dwf) y a partir de ello presenta una relación de elementos de un flujo de trabajo con los elementos de una Red de Petri.
+
+#typ-fig(
+  include "/assets/figures/vanderaals3dwf.typ",
+  [Abstracción en tres dimensiones de los flujos de trabajo según Van der Aalst],
+  <fig:vanderaals3dwf>,
+)
+
+No se pretende describir todo el trabajo de Van Der Aalst en este documento, pero es importante destacar algunas de sus definiciones más importantes:
+
+- Un caso es una ejecución o instancia de un proceso. Es decir, un proceso definido puede tener varios casos asociados.
+- Los recursos son los participantes del flujo de trabajo, aunque él evita asociarlos con las Redes de Petri, pero no niega la posibilidad.
+- Las Redes de Petri de un flujo de trabajo deben comenzar y terminar en una sola plaza o lugar, a esta Red se la define como WorkFlow net: Una red de Petri $P\N = (P,T,F)$ es una red WF si y sólo si:
+  + $P\N$ tiene dos lugares especiales: $i$ y $o$, El lugar $i$ es un lugar fuente: $bullet i = nothing$. El lugar $o$ es un lugar sumidero: $o bullet = nothing$.
+  + Si añadimos una transición $t*$ a $P\N$ conectando $o$ con $i$, la red resultante es fuertemente conectada. Es decir, hay un camino dirigido entre cualquier par de nodos.
+- Un caso puede mapearse a un color en una red de petri de color.Esto permite que una misma red tenga a todos los casos evolucionando dentro de su estructura.
+- Extensión de Redes de Petri con jerarquías: Una red puede contener sub-redes. Esto es especialmente útil más adelante cuando se busque compactar una parte de un proceso en una sola transición.
 === El Proceso de la Ingeniería de Software
 ==== Ingeniería de Requerimientos
+
+La ingeniería de requerimientos es un paso fundamental no sólo por ser de los primeros en el ciclo de vida del software en distintas concepciones del proceso del software, sino también porque ayuda a definir los aspectos sólidos e inmutables de un sistema en tanto el propósito del mismo no cambie.
+
+Es importante en un proyecto de software poder definir de forma correcta elementos que guíen las etapas posteriores. Los requerimientos garantizan que se puedan dar cambios en el diseño sin comprometer el propósito del sistema, en tanto se respeten los requerimientos.
+
+La ingeniería de requerimientos nos ayuda a manipular los requerimientos de forma sistematizada. Los requerimientos, por su lado son condiciones necesarias para resolver un problema o lograr un objetivo y las condiciones que debe tener un sistema para satisfacer un contrato o definición. También le llamamos requerimiento a la representación documentada de un requerimiento@ingenoSoftwareArchitectsHandbook2018.
+
 ==== Arquitectura de software y modularidad
 
 Una ingeniería de software efectiva requiere diseñar la arquitectura del software, práctica que siempre se lleva a cabo de forma implícita al desarrollar, pero que conviene aplicar de forma fundamentada.
@@ -155,9 +230,26 @@ Cada estilo tiene características, ventajas y desventajas propias, pero todos b
   Se volvió popular en muchas aplicaciones relacionadas con empresas.
 
 ==== Diseño de Software
-==== Construcción del Software
-===== Breve repaso de Tecnologías y Técnicas
 
+El diseño de software, que muchas veces se confunde con la arquitectura del software es una disciplina, un proceso y una etapa dentro del ciclo de vida del software que se puede ver en términos generales como aquella en la que se resuelven los problemas que presenta el software.
+
+Su diferencia con arquitectura es algo compleja de definir, ya que existen distintos puntos de vista al respecto, pero aquí se emplea el SWEBOK que expone al diseño como una disciplina que engloba a la arquitectura en una de sus tres etapas que son:
+
+- Diseño de la arquitectura
+- Diseño de alto nivel
+- Diseño interno detallado
+
+Aún así, incluso en la fuente antes mencionada, se suele distinguir en la práctica por darle mayor prioridad a las dos últimas etapas, dejando a la arquitectura como un elemento por sí mismo, ya que esta abarca mucho.
+
+La mentalidad en el diseño es importante para poder llegar a soluciones y puede definirse en cinco pasos:
+
++ Cristalizar un propósito u objetivo
++ Formular un concepto de cómo se puede lograr el propósito
++ Visualizar un mecanismo que implemente la estructura conceptual
++ Introducir una notación que exprese las capacidades del mecanismo y que invoque su uso
++ Describir el uso de esta notación en un contexto de problema específico para invocar el mecanismo y que el propósito sea logrado.
+
+En resumen, entender un problema y plantear una solución @ingenoSoftwareArchitectsHandbook2018.
 
 === Metodologías en Gestión de Proyectos y Desarrollo de Software
 
@@ -233,9 +325,36 @@ El proceso también define disciplinas y roles.
 
 === Interoperabilidad
 ==== OAuth2
+
+OAuth 2.0 es un marco de autorización que permite a una aplicación obtener acceso limitado a un servicio HTTP sin recibir las credenciales del propietario del recurso.
+Para ello separa los roles de propietario del recurso, cliente, servidor de autorización y servidor de recursos; el cliente obtiene un _access token_ con un alcance y una duración determinados y lo presenta al servidor de recursos.
+La especificación define distintos tipos de concesión y un mecanismo de extensión, de modo que el acceso delegado puede adaptarse a diferentes clases de cliente @hardtOAuth20Authorization2012.
+
 ==== OIDC
+
+OpenID Connect (OIDC) es una capa de identidad construida sobre OAuth 2.0 que permite a un cliente verificar la identidad del usuario y obtener información básica de su perfil.
+Introduce el _ID Token_, expresado como un JSON Web Token (JWT), y estandariza flujos, alcances, declaraciones y puntos de acceso para que proveedores y clientes de identidad interoperen @openidFoundationOpenIDConnectCore2023.
+La @fig:oidc_sequence resume un flujo típico: el cliente redirige al usuario al proveedor, recibe un código de autorización, lo intercambia por tokens y emplea el token de acceso para consultar la información del usuario.
+
+#img-fig(
+  "/assets/figures/OIDC_sequence_diagram.png",
+  [Secuencia de autenticación mediante OpenID Connect],
+  <fig:oidc_sequence>,
+  source: [Mozilla, _Web Security Guidelines_ @mozillaOIDCSequenceDiagram],
+  width: 90%,
+  placement: auto,
+)
+
 ==== REST API
+
+REST (_Representational State Transfer_) es un estilo arquitectónico para sistemas distribuidos basado en recursos identificables y representaciones transferidas mediante una interfaz uniforme.
+Sus restricciones incluyen cliente-servidor, ausencia de estado entre solicitudes, capacidad de caché, sistema por capas, interfaz uniforme y, opcionalmente, código bajo demanda.
+Una API REST aplica estas restricciones para desacoplar clientes y servidores, favorecer la evolución independiente de sus componentes y aprovechar la semántica de HTTP @fieldingArchitecturalStylesDesign2000.
+
 ==== OpenAPI
+
+OpenAPI define un formato independiente del lenguaje para describir interfaces de API HTTP de modo que personas y herramientas puedan comprender sus capacidades sin inspeccionar el código fuente.
+Un documento OpenAPI expresa, entre otros elementos, rutas, operaciones, parámetros, cuerpos, respuestas, esquemas de datos y mecanismos de seguridad; por ello puede servir como contrato para documentación, validación y generación de clientes o servidores @openapi310.
 
 === Reutilización de software
 

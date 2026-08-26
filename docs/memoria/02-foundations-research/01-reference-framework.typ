@@ -32,6 +32,236 @@ Para efectos de este documento, se entiende por trámite al conjunto de requisit
   36].
 En su forma tradicional se realiza presencialmente en una oficina pública, donde el ciudadano presenta documentos y cumple requisitos que pueden involucrar otros trámites.
 
+==== Trámites de referencia
+
+#set list(spacing: 1em)
+
+El diseño de un subsistema reutilizable para trámites requiere conocer
+procedimientos reales sin confundir su descripción administrativa con las
+decisiones posteriores de software. Por ello se reúne un conjunto reducido de
+trámites bolivianos que sirve como referencia común para el diseño y para la
+validación del proyecto. La selección es intencional: no busca representar
+estadísticamente todos los trámites del país, sino aportar situaciones variadas
+y suficientemente documentadas.
+
+Los casos considerados cumplen los siguientes criterios:
+
+- corresponden a instituciones públicas bolivianas;
+- cuentan con normativa o información institucional accesible al público;
+- permiten reconstruir, al menos, su propósito, participantes, información,
+  pasos y resultados; y
+- aportan comportamientos útiles para evaluar un prototipo reutilizable sin
+  depender de una especialización sectorial completa.
+
+La selección también toma como referencia la clasificación de Roseth et al.
+@rosethFinTramiteEterno2018[pág. 36], que distingue cuatro propósitos generales:
+
+- *registro, certificaciones y constancias:* incorporar información a un
+  registro estatal o producir un comprobante;
+- *cumplimiento de obligaciones:* atender deberes establecidos por ley cuyo
+  incumplimiento puede generar consecuencias negativas;
+- *acceso a servicios:* obtener un beneficio provisto por una institución
+  pública; y
+- *obtención de permisos:* recibir autorización para realizar una actividad.
+
+Esta clasificación orienta la diversidad de la muestra, pero no obliga a que
+cada procedimiento pertenezca de manera exclusiva a una categoría. Un trámite
+puede combinar varios propósitos y se clasifica aquí según el que predomina en
+el recorrido estudiado.
+
+Para mantener comparables las descripciones se utiliza una ficha común. Cada
+ficha registra nombre, tipo, propósito, institución competente, fundamento,
+iniciador, desencadenante, participantes, dependencias, precondiciones,
+información intercambiada, procedimiento básico, decisiones, plazos y
+resultados. La ficha describe el trámite con independencia de la técnica que se
+elija posteriormente para modelarlo en el software.
+
+===== Registro Ambiental Industrial
+
+- *Nombre:* Registro Ambiental Industrial (RAI).
+- *Tipo:* trámite para cumplir una obligación.
+- *Propósito:* registrar y categorizar unidades del sector industrial
+  manufacturero para determinar las obligaciones ambientales que les
+  corresponden.
+- *Institución competente:* instancia ambiental del Gobierno Autónomo Municipal
+  en cuya jurisdicción se encuentra o se proyecta la unidad industrial.
+- *Fundamento:* artículos 20 a 27 y anexos 1 y 2 del Reglamento Ambiental para
+  el Sector Industrial Manufacturero, aprobado mediante el Decreto Supremo Nº
+  26736 @DecretoSupremo26736RASIM2002.
+- *Iniciador:* representante legal de una unidad industrial en proyecto o en
+  operación.
+- *Desencadenante:* intención de instalar una unidad industrial, obligación de
+  registrar una unidad en operación o necesidad de actualizar el registro por
+  cambios relevantes.
+- *Participantes:* representante legal y personal de la instancia ambiental
+  municipal.
+- *Dependencias:* la categoría obtenida puede originar instrumentos posteriores
+  sometidos a otras autoridades ambientales, aunque esos procedimientos no
+  forman parte del recorrido básico del RAI.
+- *Precondiciones e información:* formulario RAI del anexo 2, presentado como
+  declaración jurada, con datos de identificación, ubicación, actividad
+  productiva, materias primas, productos, consumo de recursos y aspectos
+  ambientales.
+- *Procedimiento básico:*
+  1. El representante completa y presenta el formulario.
+  2. La instancia ambiental registra la recepción y revisa la información.
+  3. La autoridad aplica la clasificación prevista en el anexo 1.
+  4. Se notifica la categoría y las obligaciones correspondientes.
+- *Decisiones:* la categoría depende del rubro, el riesgo de contaminación y la
+  situación de proyecto u operación. Si existen varios rubros, se considera la
+  subclase de mayor riesgo.
+- *Plazos:* la revisión dispone de cinco días para una industria en proyecto y
+  diez para una industria en operación. El registro tiene una vigencia de cinco
+  años y debe renovarse treinta días antes de vencer.
+- *Resultados:* asignación de una categoría que determina los instrumentos
+  ambientales posteriores o la exención correspondiente.
+
+Este caso aporta una declaración jurada, una decisión de categorización, plazos
+de revisión y vigencia, y un resultado que condiciona obligaciones posteriores.
+
+===== Cédula de identidad por primera vez
+
+- *Nombre:* emisión de cédula de identidad por primera vez.
+- *Tipo:* trámite de registro, certificación y constancia.
+- *Propósito:* registrar los datos de una persona en el Registro Único de
+  Identificación y otorgarle por primera vez un número y un documento de
+  identidad.
+- *Institución competente:* Servicio General de Identificación Personal
+  (SEGIP).
+- *Fundamento:* Ley Nº 145 y reglamento emitido en el marco del Decreto Supremo
+  Nº 4861, especialmente sus artículos 17 a 20
+  @SEGIPReglamentoCedulaIdentidad2023.
+- *Iniciador:* persona boliviana que todavía no cuenta con un registro
+  consolidado; para una persona menor de edad interviene además su responsable.
+- *Desencadenante:* solicitud voluntaria de obtención del documento por primera
+  vez.
+- *Participantes:* solicitante, servidor del SEGIP y, cuando corresponde,
+  responsable de una persona menor de edad.
+- *Dependencias:* el Servicio de Registro Cívico (SERECI) permite contrastar el
+  certificado de nacimiento. Para personas naturalizadas también se requiere
+  información emitida por la Dirección General de Migración.
+- *Precondiciones e información:* certificado de nacimiento original,
+  computarizado y vigente; datos de identidad; documentación migratoria cuando
+  corresponda; y pago del costo establecido.
+- *Procedimiento básico:*
+  1. La persona presenta la solicitud y la documentación requerida.
+  2. SEGIP verifica el certificado y contrasta la información con SERECI.
+  3. Se registran los datos de identidad.
+  4. Se asigna el número de cédula.
+  5. Se emite y entrega el documento.
+- *Decisiones:* el recorrido presenta variantes para menores, personas
+  naturalizadas y bolivianos nacidos en el exterior. Una inconsistencia en los
+  datos requiere un procedimiento de saneamiento o corrección distinto del
+  recorrido ordinario.
+- *Plazos:* la fuente consultada no establece un plazo general para completar el
+  recorrido ordinario.
+- *Resultado:* registro de identidad consolidado, número de cédula asignado y
+  documento físico emitido.
+
+Este caso aporta un recorrido principalmente secuencial, variantes según la
+situación de la persona y una verificación de información con otra entidad.
+
+===== Adscripción al Sistema Único de Salud
+
+- *Nombre:* adscripción al Sistema Único de Salud (SUS).
+- *Tipo:* trámite para acceder a servicios.
+- *Propósito:* registrar a una persona beneficiaria y vincularla con el
+  establecimiento público de primer nivel que constituye su puerta de ingreso
+  al sistema de salud.
+- *Institución competente:* establecimiento público de salud de primer nivel
+  correspondiente al lugar de residencia de la persona, bajo el marco del
+  Ministerio de Salud y Deportes.
+- *Fundamento:* artículo 10 del Reglamento para la Aplicación Técnica,
+  Administrativa y Financiera de la Ley Nº 1152
+  @MinisterioSaludReglamento1152SUS2019.
+- *Iniciador:* persona que no se encuentra cubierta por la Seguridad Social de
+  Corto Plazo y solicita su adscripción; para menores interviene su responsable.
+- *Desencadenante:* intención de acceder regularmente a las prestaciones del SUS
+  o necesidad de formalizar la adscripción al momento de una atención.
+- *Participantes:* persona beneficiaria o responsable y personal del
+  establecimiento de salud.
+- *Dependencias:* la plataforma de adscripción verifica si la persona se
+  encuentra afiliada a un ente gestor de la Seguridad Social de Corto Plazo.
+- *Precondiciones e información:* identificación de la persona y datos del
+  formulario MS/SUS-001. El establecimiento debe corresponder al primer nivel de
+  atención más cercano al domicilio.
+- *Procedimiento básico:*
+  1. La persona solicita la adscripción en el establecimiento correspondiente.
+  2. El personal verifica su identidad y la ausencia de afiliación a un ente
+    gestor de corto plazo.
+  3. Se registran los datos directamente en la plataforma o, en el procedimiento
+    manual, se completa el formulario MS/SUS-001.
+  4. Si el registro fue manual, la información se incorpora posteriormente a la
+    plataforma.
+  5. Se confirma la adscripción al establecimiento de primer nivel.
+- *Decisiones:* el registro puede ser manual o informatizado. La afiliación a un
+  ente gestor impide seguir el recorrido ordinario del SUS; las urgencias y
+  determinadas situaciones sin identificación reciben un tratamiento
+  excepcional.
+- *Plazos:* la adscripción es un proceso continuo y permanente; la normativa
+  consultada no fija un plazo individual de resolución.
+- *Resultado:* persona registrada como beneficiaria y asociada a su
+  establecimiento de primer nivel para acceder a las prestaciones aplicables.
+
+Este caso aporta dos canales de registro, una verificación contra otro sistema y
+excepciones en las que la atención no debe quedar subordinada al recorrido
+ordinario.
+
+===== Solicitud de patente de invención
+
+- *Nombre:* solicitud de patente de invención.
+- *Tipo:* trámite para obtener un permiso o protección administrativa. Esta
+  correspondencia es aproximada: el resultado no es una licencia operativa,
+  sino un derecho exclusivo reconocido por el Estado.
+- *Propósito:* obtener protección sobre una invención que cumpla novedad, nivel
+  inventivo y aplicación industrial.
+- *Institución competente:* Servicio Nacional de Propiedad Intelectual
+  (SENAPI).
+- *Fundamento:* Decisión 486 de la Comisión de la Comunidad Andina
+  @ComunidadAndinaDecision4862000 y requisitos operativos publicados por SENAPI
+  @SENAPIPatentesDisenosIndustriales.
+- *Iniciador:* persona natural o jurídica solicitante, directamente o mediante
+  representación.
+- *Desencadenante:* presentación voluntaria de una solicitud de protección.
+- *Participantes:* solicitante o representante, personal receptor, examinadores
+  de forma y patentabilidad, autoridad que resuelve y terceros que pueden
+  presentar oposiciones.
+- *Dependencias:* pueden intervenir expertos, otras oficinas y documentos sobre
+  prioridad, recursos genéticos o conocimientos tradicionales.
+- *Precondiciones e información:* indicación de que se solicita una patente,
+  identificación o medio de contacto, descripción, dibujos cuando correspondan
+  y comprobante de pago. El expediente puede incorporar petitorio,
+  reivindicaciones, resumen, poderes y otros documentos aplicables.
+- *Procedimiento básico:*
+  1. Presentación y recepción de la solicitud.
+  2. Examen de forma y, cuando corresponda, subsanación.
+  3. Publicación y periodo para oposiciones.
+  4. Solicitud y realización del examen de patentabilidad.
+  5. Respuesta a observaciones de fondo cuando existan.
+  6. Resolución de concesión o denegación.
+- *Decisiones:* la solicitud puede no ser admitida, abandonarse, recibir
+  oposiciones, superar los exámenes, ser modificada dentro de ciertos límites o
+  concluir por desistimiento.
+- *Plazos:* existen plazos distintos para el examen de forma, la subsanación, la
+  publicación, las oposiciones, la solicitud del examen de patentabilidad y la
+  respuesta a observaciones; algunos admiten una prórroga.
+- *Resultados:* título de patente o resolución de denegación, abandono o
+  desistimiento.
+
+La patente aporta conceptos valiosos, como expediente, requisitos condicionales,
+subsanaciones, plazos prorrogables, participación de terceros y exámenes
+sucesivos. Sin embargo, su complejidad y la falta de detalle público sobre parte
+de la operación interna impedirían representarla sin introducir demasiadas
+interpretaciones. Por ello se conserva como referencia para el diseño, pero se
+descarta de la validación conceptual del prototipo.
+
+Los tres casos no descartados —RAI, cédula de identidad y adscripción al SUS— se
+retomarán en la validación. La síntesis de los mecanismos que influyen en el
+software y la elección de una técnica formal de modelado se realizan en la etapa
+de diseño, donde corresponde justificar esas decisiones.
+
+#set list(spacing: auto)
+
 === Gobierno electrónico y contexto institucional boliviano
 
 #let governmentFootNote = [

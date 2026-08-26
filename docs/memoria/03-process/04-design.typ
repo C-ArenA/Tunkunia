@@ -1,6 +1,64 @@
 #import "/shared/theme/lib.typ": img-fig
 
-// Continuación del capítulo «Arquitectura y diseño del software».
+== #text(size: 0.8em)[Descripción del diseño de software]
+
+=== Del trámite referencial al modelo de software
+
+Las fichas del marco referencial describen procedimientos administrativos sin
+presuponer una solución técnica. Al compararlas desde la perspectiva del
+software aparecen mecanismos que pueden formar parte del núcleo reutilizable y
+otros que solo se necesitan en determinados trámites.
+
+#figure(
+  table(
+    columns: (1.2fr, 2fr, 2fr),
+    align: (left + horizon, left, left),
+    fill: (x, y) => if y == 0 { rgb(230, 230, 230) },
+    inset: (.35em, .5em),
+    table.header([Alcance], [Mecanismos observados], [Respuesta de diseño]),
+    [Comunes],
+    [Iniciador, participantes, información, actividades, estado del caso y resultado],
+    [Definición versionada, recursos, expediente, proceso ejecutable, caso e historial],
+
+    [Recurrentes],
+    [Decisiones, documentos, plazos, correcciones, consultas externas y caminos alternativos],
+    [Configuración opcional de transiciones, datos, vencimientos e integraciones],
+
+    [Sectoriales],
+    [Categorización ambiental, saneamiento de identidad, elegibilidad sanitaria y examen de patentabilidad],
+    [Datos y reglas de cada trámite, sin incorporarlos al motor general],
+  ),
+  caption: [Relación entre los trámites referenciales y las decisiones de diseño],
+  placement: auto,
+)<table:reference-cases-design>
+
+La @table:reference-cases-design no pretende construir un modelo universal de
+todo procedimiento administrativo. Delimita los conceptos que Tunkunia necesita
+para definir y ejecutar trámites distintos mediante configuración. Las reglas
+sectoriales permanecen en la definición de cada trámite; el subsistema comparte
+la infraestructura que permite aplicarlas, registrar sus efectos y conocer el
+estado alcanzado.
+
+==== Elección del modelo de procesos
+
+Los requerimientos exigen definir procesos, ejecutar casos y conservar su
+estado, pero no imponen una técnica de modelado. Los diagramas de flujo y de
+actividad ofrecen una representación accesible de actividades y decisiones;
+BPMN añade eventos, participantes y una notación amplia para procesos de
+negocio; las máquinas de estado describen con precisión los estados y cambios
+de una entidad. Estas alternativas resultan útiles para documentación, pero no
+proporcionan con la misma sencillez una semántica formal ejecutable para el
+estado distribuido y las acciones concurrentes que puede presentar un flujo.
+
+Se eligen redes de Petri como fundamento del motor porque permiten representar
+el estado mediante un marcado, determinar formalmente qué acciones están
+habilitadas, expresar decisiones y concurrencia, y calcular el estado resultante
+de cada ejecución. Su aplicación a sistemas de gestión de flujos de trabajo se
+encuentra desarrollada por Van der Aalst
+@vanderaalstAPPLICATIONPETRINETS1998. La elección se realiza en diseño y no
+transforma la notación en un requerimiento del dominio: una implementación
+posterior podría sustituir el motor si conserva las capacidades y contratos que
+el sistema necesita.
 
 === Diseño de trámites y casos
 
@@ -169,3 +227,20 @@ podría adquirir versionado independiente mientras conserve su contrato puro de
 red y marcado. Estas posibilidades son direcciones de evolución, no compromisos
 funcionales del prototipo ni una segunda definición de la reutilización del
 producto.
+
+La @fig:petri-applied-to-tramite representa de forma abstracta esta interfaz para
+un trámite genérico. La red permite reconocer el estado y las acciones del caso;
+al seleccionar sus elementos se abren ventanas con la información del expediente
+o con el formulario necesario para ejecutar una transición. Cada acción muestra
+además el participante autorizado, de modo que la disponibilidad de una
+transición no se confunda con el permiso para dispararla. Esta vista complementa
+la @fig:tunkunia-case-action-sequence: el diagrama de secuencia explica las
+comprobaciones internas de una acción, mientras la interfaz muestra cómo el
+participante inicia esa interacción.
+
+#page(flipped: true, margin: 1.5cm)[
+  #figure(
+    image("/assets/figures/petriAppliedToTramite-rendered.png", width: 100%),
+    caption: [Interfaz conceptual de ejecución de un trámite basado en una red de Petri],
+  )<fig:petri-applied-to-tramite>
+]

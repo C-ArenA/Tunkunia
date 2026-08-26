@@ -1,5 +1,7 @@
 #import "/shared/theme/lib.typ": memoria
-#import "/shared/metadata.typ": projectTitle, rightsNotice, studentName, tutorName
+#import "/shared/metadata.typ": (
+  projectTitle, rightsNotice, studentName, tutorName,
+)
 #import "/shared/acronyms.typ": acronyms
 #import "/shared/glossary.typ": glossary
 
@@ -13,8 +15,6 @@
   acronyms: acronyms,
   bibliography: bibliography("/shared/references.bib"),
   glossary: glossary,
-  appendices: [
-  ],
   font: "New Computer Modern",
 )
 
@@ -30,13 +30,6 @@
 #include "02-foundations-research/01-reference-framework.typ"
 #include "02-foundations-research/02-theoretical-framework.typ"
 
-== Investigación sobre el modelado de trámites
-
-#[
-  #set heading(offset: 2)
-  #include "02-foundations-research/03-tram-research.typ"
-]
-
 = Proceso de Ingeniería de Software
 #include "03-process/01-development-methodology.typ"
 #include "03-process/02-requirements.typ"
@@ -45,5 +38,5 @@
 #include "03-process/05-prototype-implementation.typ"
 
 = Etapa Conclusiva
-//#include "04-conclusion/01-validation-results.typ"
+#include "04-conclusion/01-validation-results.typ"
 #include "04-conclusion/02-conclusions-recommendations.typ"
