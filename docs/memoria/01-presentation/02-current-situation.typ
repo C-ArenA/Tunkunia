@@ -1,10 +1,10 @@
 #import "/shared/theme/lib.typ": img-fig
 
-== Situación Actual<section:current_situation>
+=== Situación Actual<section:current_situation>
 
 En relación con el recorrido planteado en los antecedentes, esta sección presenta el estado contemporáneo del área mediante la adopción de plataformas digitales, los sistemas y soluciones existentes, las tendencias tecnológicas, los trabajos académicos relacionados y las brechas que permanecen.
 
-=== Adopción de plataformas y servicios públicos digitales<section:adoption>
+==== Adopción de plataformas y servicios públicos digitales<section:adoption>
 
 Desde la aparición de Internet, la forma en que las personas se comunican, trabajan y realizan transacciones ha evolucionado aceleradamente.
 De acuerdo con estimaciones de la @UIT, el uso de Internet pasó del 53% de la población mundial en 2019 al 68% en 2024 (@fig:internet_use).
@@ -71,9 +71,9 @@ Se observa una mayor adopción de trámites digitales, pero muchos todavía se r
 Los servicios electrónicos son una de las áreas más relevantes del gobierno electrónico @naserGobiernoElectronicoGestion2011 y se espera que más trámites se digitalicen.
 Durante la pandemia hubo un aumento considerable de canales digitales, que llegaron a reemplazar alrededor del 20% de los trámites presenciales en distintos países de América Latina @rosethServiciosPublicosGobierno2021.
 
-=== Sistemas y soluciones existentes
+==== Sistemas y soluciones existentes
 
-==== Sistema de Información Ambiental Industrial
+===== Sistema de Información Ambiental Industrial
 
 El @SIAI, antecedente directo de este proyecto, fue construido como una aplicación web con arquitectura cliente-servidor, un _backend_ monolítico y un _frontend_ elaborado como una @SPA.
 Para responder a futuras necesidades de integración e interoperabilidad se eligió una comunicación entre ambos mediante una @API @REST abierta y bien documentada.
@@ -92,7 +92,7 @@ La capa de negocio, sin embargo, interopera con otros sistemas mediante servicio
 
 El _backend_ fue desarrollado en PHP con Laravel; el _frontend_, con Vue.js, que permite crear aplicaciones web interactivas y dinámicas; y se utilizó el sistema de gestión de bases de datos relacional PostgreSQL.
 
-==== Soluciones de gestión y modelado de procesos
+===== Soluciones de gestión y modelado de procesos
 
 No se encontraron módulos especializados en gestión de trámites que pudieran integrarse en sistemas mayores con un enfoque de reutilización, pero sí sistemas con características similares o capaces de gestionar procesos administrativos.
 También existen casos de instancias públicas que pueden inspirar la solución propuesta.
@@ -194,13 +194,13 @@ También existen casos de instancias públicas que pueden inspirar la solución 
 - *Temporal:* plataforma de ejecución durable orientada a desarrolladores; los flujos se implementan en código y conservan su estado para continuar después de fallos, mientras su interfaz permite observar cada ejecución y sus eventos (@fig:temporal_timeline).
 - *n8n:* herramienta de automatización visual que conecta aplicaciones y transforma datos mediante nodos, bifurcaciones y bucles; resulta útil para integrar servicios y automatizar tareas alrededor de un trámite (@fig:n8n_workflow).
 
-=== Tendencias tecnológicas y enfoques actuales
+==== Tendencias tecnológicas y enfoques actuales
 
 Las necesidades alrededor de la digitalización de trámites son diversas.
 Para resolverlas se han vuelto comunes distintas prácticas, sistemas y enfoques.
 Algunas tendencias generales proceden de entidades privadas con necesidades similares, pero pueden aplicarse también a trámites de entidades públicas.
 
-==== Reutilización de software
+===== Reutilización de software
 
 La reutilización de software se ha popularizado, particularmente con el auge de los sistemas de código abierto y las plataformas digitales.
 Esta tendencia responde a la demanda de reducir costos de producción y mantenimiento, entregar sistemas con mayor rapidez y mejorar su calidad @sommervilleSoftwareEngineering2016.
@@ -218,11 +218,11 @@ La @fig:mobile_reuse, procedente de un estudio de 2014 sobre aplicaciones móvil
 En el desarrollo web, @NPM facilitó la reutilización de código: registraba más de un millón de paquetes en 2022 y creció un 60% entre enero de 2019 y enero de 2022 @mujahidWhatAreCharacteristics2023.
 Una búsqueda realizada en 2025 en el sitio oficial mostraba más de dos millones de paquetes y contribuciones de más de 17 millones de desarrolladores @NpmHome.
 
-===== Sistemas configurables
+====== Sistemas configurables
 
 Uno de los tipos de sistemas reutilizables descritos por Somerville son los sistemas configurables. Estos sistemas se especializan en un dominio específico y permiten a los usuarios implementar funcionalidad con simple configuración. El ejemplo más popular de este tipo de sistemas es WordPress, el cual permitió que usuarios sin conocimientos técnicos puedan desplegar sitios web completos que antes requerirían la escritura de código. Otro ejemplo que vale la pena mencionar es Pocketbase, un sistema para generar backends mediante una interfaz de usuario amigable que no requiere la escritura de código. Es importante mencionar que en ambos casos, estas herramientas exponen una serie de interfaces de código reutilizables para usuarios técnicos con necesidades más específicas.
 
-==== Gestión de flujos de trabajo y arquitectura
+===== Gestión de flujos de trabajo y arquitectura
 
 Los @WFMS y BPM constituyen enfoques actuales relevantes porque las organizaciones, incluido el aparato gubernamental, gestionan procesos y los trámites son ejemplos típicos @dumasFundamentalsBusinessProcess2013.
 Su definición, capacidades y fundamentos se desarrollan en la @section:wfms.
@@ -230,7 +230,7 @@ Su definición, capacidades y fundamentos se desarrollan en la @section:wfms.
 En arquitectura de software, los estilos por capas, de microservicios y @SOA se han consolidado entre los más utilizados o han incrementado su popularidad.
 Sus diferencias y fundamentos se presentan en el Marco teórico; en este proyecto son relevantes como enfoques para organizar sistemas modulares, mantenibles y evolutivos.
 
-==== Software libre y colaboración
+===== Software libre y colaboración
 
 En años recientes, los proyectos de software libre sentaron las bases de muchos avances tecnológicos disponibles y grandes empresas tecnológicas, que antes daban preferencia exclusiva al software propietario, ahora los utilizan masivamente y contribuyen a su desarrollo @vonkroghCarrotsRainbowsMotivation2012.
 
@@ -262,12 +262,12 @@ El Plan de Implementación de Software Libre y Estándares Abiertos también pre
 - El 59% de las empresas no desarrolla con herramientas libres, el 19% las usa en desarrollos internos y sólo el 22% las usa para clientes.
 - Las entidades públicas cuentan con buenas condiciones para iniciar la implementación de software libre y estándares abiertos.
 
-==== Modelado de procesos
+===== Modelado de procesos
 
 Actualmente existe una amplia variedad de lenguajes, herramientas y técnicas para modelar sistemas y procesos: diagramas de flujo, diagramas de actividad UML, EPC, IDEF, @BPMN, máquinas de estados y redes de Petri.
 Un mismo proceso puede representarse mediante diferentes alternativas; su definición y fundamentos se desarrollan en la @section:modeling.
 
-==== Inteligencia artificial
+===== Inteligencia artificial
 
 La inteligencia artificial ha tenido un crecimiento exponencial en los últimos años y su uso se ha vuelto común en muchos ámbitos, aunque el concepto existe desde hace décadas.
 Lo que ha cambiado es la forma de aplicación y la cantidad de datos disponibles para entrenar modelos.
@@ -281,7 +281,7 @@ Este análisis se asemeja al realizado por funcionarios públicos al revisar for
 Sin embargo, actualmente se siguen empleando servidores fuera de Bolivia para usar estos modelos, por lo que su utilización podría estar limitada por la normativa vigente.
 Aun así, constituye una posible aplicación dentro de la digitalización de trámites.
 
-=== Trabajos académicos relacionados<section:related_work>
+==== Trabajos académicos relacionados<section:related_work>
 
 Los trabajos se buscaron en torno al trámite digital y distintos procesos administrativos, tanto en el sector público como en el privado.
 Esto permite abarcar relaciones directas e indirectas.
@@ -311,7 +311,7 @@ Entre los más relevantes se encuentran:
 - *Implementación de un sistema de trámite documentario para la Agencia de Compras de las Fuerzas Armadas* @yrupailladiazImplementacionSistemaTramite2019: proyecto de 2019 que integra firma digital, característica que, aunque no se contempla de la misma forma en este proyecto, es importante.
   Los trámites manejan documentos para decisiones relevantes, por lo que su veracidad debe considerarse.
 
-=== Brechas identificadas
+==== Brechas identificadas
 
 La situación revisada muestra una adopción creciente de Internet, plataformas digitales y servicios de gobierno electrónico; además, existen sistemas de gestión de procesos, soluciones institucionales, técnicas de modelado y numerosos trabajos académicos.
 Sin embargo, una parte de la población boliviana todavía no tiene acceso a Internet y muchos trámites permanecen total o parcialmente presenciales, por lo que la transición debe mantener un puente entre ambos canales.
