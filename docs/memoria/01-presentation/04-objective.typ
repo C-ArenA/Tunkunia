@@ -1,7 +1,7 @@
 === Objetivo
 
 #quote()[
-  #par()[*Implementar*, como prototipo funcional, un *subsistema reutilizable de software libre* especializado en la gestión de flujos de *trámite* que, mediante el uso de técnicas de modelado de sistemas y procesos, represente e implemente los aspectos *comunes* del trámite y pueda ser adoptado por *distintas instituciones públicas* del estado *boliviano* mediante configuración y siguiendo los lineamientos establecidos por la normativa nacional sobre gobierno electrónico.]
+  #par()[*Implementar*, como producto mínimo viable (MVP), un *subsistema reutilizable de software libre* especializado en la gestión de flujos de *trámite* que, mediante el uso de técnicas de modelado de sistemas y procesos, represente e implemente los aspectos *comunes* del trámite y pueda ser adoptado por *distintas instituciones públicas* del estado *boliviano* mediante adaptación o configuración mínima y siguiendo los lineamientos establecidos por la normativa nacional sobre gobierno electrónico.]
 ]
 
 Para alcanzar este objetivo se plantean los siguientes objetivos específicos:

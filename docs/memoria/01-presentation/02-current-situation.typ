@@ -153,7 +153,9 @@ También existen casos de instancias públicas que pueden inspirar la solución 
   "/assets/figures/camunda_modeler.png",
   [Modelado de un proceso BPMN ejecutable en Camunda Web Modeler],
   <fig:camunda_modeler>,
-  source: [#link("https://docs.camunda.io/docs/components/modeler/web-modeler/")[Documentación oficial de Camunda]],
+  source: [#link(
+    "https://docs.camunda.io/docs/components/modeler/web-modeler/",
+  )[Documentación oficial de Camunda]],
   width: 75%,
 )
 
@@ -161,7 +163,9 @@ También existen casos de instancias públicas que pueden inspirar la solución 
   "/assets/figures/temporal_timeline.png",
   [Línea de tiempo de la ejecución de un workflow en Temporal],
   <fig:temporal_timeline>,
-  source: [#link("https://temporal.io/blog/lets-visualize-a-workflow")[Temporal]],
+  source: [#link(
+    "https://temporal.io/blog/lets-visualize-a-workflow",
+  )[Temporal]],
   width: 80%,
 )
 
@@ -220,7 +224,11 @@ Una búsqueda realizada en 2025 en el sitio oficial mostraba más de dos millone
 
 ====== Sistemas configurables
 
-Uno de los tipos de sistemas reutilizables descritos por Somerville son los sistemas configurables. Estos sistemas se especializan en un dominio específico y permiten a los usuarios implementar funcionalidad con simple configuración. El ejemplo más popular de este tipo de sistemas es WordPress, el cual permitió que usuarios sin conocimientos técnicos puedan desplegar sitios web completos que antes requerirían la escritura de código. Otro ejemplo que vale la pena mencionar es Pocketbase, un sistema para generar backends mediante una interfaz de usuario amigable que no requiere la escritura de código. Es importante mencionar que en ambos casos, estas herramientas exponen una serie de interfaces de código reutilizables para usuarios técnicos con necesidades más específicas.
+Uno de los tipos de sistemas reutilizables descritos por Somerville son los sistemas configurables.
+Estos sistemas se especializan en un dominio específico y permiten a los usuarios implementar funcionalidad con simple configuración.
+El ejemplo más popular de este tipo de sistemas es WordPress, el cual permitió que usuarios sin conocimientos técnicos puedan desplegar sitios web completos que antes requerirían la escritura de código.
+Otro ejemplo que vale la pena mencionar es Pocketbase, un sistema para generar backends mediante una interfaz de usuario amigable que no requiere la escritura de código.
+Es importante mencionar que en ambos casos, estas herramientas exponen una serie de interfaces de código reutilizables para usuarios técnicos con necesidades más específicas.
 
 ===== Gestión de flujos de trabajo y arquitectura
 

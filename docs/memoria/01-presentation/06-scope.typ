@@ -1,6 +1,7 @@
 === Alcance
 
 Para comprender el alcance de este proyecto se debe considerar que, cuando se habla de un _subsistema reutilizable_, se habla de capacidad de integración en sistemas más grandes, pero a la vez de cierto funcionamiento independiente, en este caso como un sistema de gestión de trámites en sí mismo.
+En este proyecto se entiende como producto mínimo viable (MVP) a un prototipo funcional de carácter académico y demostrativo.
 Para delimitar el proyecto, su reutilización se entiende según el enfoque de las aplicaciones configurables descrito por Sommerville @sommervilleSoftwareEngineering2016: una misma aplicación se diseña para ser adoptada por distintos clientes y ajustada a sus necesidades mediante configuración.
 Por tanto, una institución reutiliza Tunkunia cuando adopta el subsistema y configura en él sus propios flujos de trámite, sin requerir un desarrollo independiente para cada procedimiento.
 Tunkunia no se plantea como una librería que deba incorporarse a otro programa.
@@ -8,7 +9,8 @@ En el prototipo la interoperabilidad, la extensibilidad y la disponibilidad del 
 
 La denominación de las piezas modulares depende de la organización o persona que la emplee.
 Ingeno @ingenoSoftwareArchitectsHandbook2018 las clasifica en seis categorías: una *estructura* es la agrupación e interrelación entre elementos; *elemento* es el término genérico para cualquiera de estas piezas; *sistema* representa el proyecto completo y el mayor nivel de abstracción; *subsistema* es en sí mismo un sistema que forma parte de otro mayor con cierto nivel de independencia y que puede contener otros subsistemas; *módulo* es una parte de un sistema enfocada en un área lógica específica de responsabilidad; y *componente* es el nivel más pequeño de agrupación y de menor abstracción.
-Estos términos pueden ser intercambiables ante la falta de definiciones universales. El sistema propuesto cumple con esta definición de subsistema, ya que es un sistema en sí mismo, pero busca formar parte de un sistema mayor que es el sistema de gobierno electrónico de Bolivia.
+Estos términos pueden ser intercambiables ante la falta de definiciones universales.
+El sistema propuesto cumple con esta definición de subsistema, ya que es un sistema en sí mismo, pero busca formar parte de un sistema mayor que es el sistema de gobierno electrónico de Bolivia.
 
 Un antecedente para la elección del término es el Sistema Integrado Nacional del Espectro Radioeléctrico (SINER), licitado para la Autoridad de Regulación y Fiscalización de Telecomunicaciones y Transportes @GobiernoLanzaSegunda2023.
 Su documento base de contratación define dos componentes de software como subsistemas por formar parte de un sistema mayor, aunque pueden utilizarse parcialmente de forma independiente.
@@ -18,7 +20,8 @@ Ahora bien, es menester precisar que el prototipo no constituye la implementaci�
 Aún así, el prototipo se aplicará a casos representativos y permitirá definirlos en un entorno controlado, sin afirmar que estos se encuentran listos para su operación real en producción.
 Adicionalmente, si bien se espera promocionar el uso de este sistema en instancias públicas, no se garantiza su uso efectivo en ninguna de estas durante el transcurso de este proyecto, debido a la carga burocrática que eso representaría.
 
-Las pruebas al prototipo deben cumplir con los requerimientos desarrollados y con la definición de distintos trámites como procesos en un sistema de gestión de flujos de trabajo. Es decir, la digitalización de un trámite dentro del prototipo abarcará su dimensión como un proceso y el entorno básico que un trámite digitalizado suele tener en un sistema de trámites:
+Las pruebas al prototipo deben cumplir con los requerimientos desarrollados y con la definición de distintos trámites como procesos en un sistema de gestión de flujos de trabajo.
+Es decir, la digitalización de un trámite dentro del prototipo abarcará su dimensión como un proceso y el entorno básico que un trámite digitalizado suele tener en un sistema de trámites:
 
 - Autenticación
 - Notificaciones
@@ -43,9 +46,11 @@ En el nivel de implementación, las capacidades se delimitan de la siguiente man
 La edición interactiva de formularios en el prototipo será mínima y demostrativa: permitirá describir formularios sencillos compuestos por un conjunto reducido de campos de entrada y una acción de envío.
 No se desarrollará un constructor visual de formularios de propósito general; las necesidades específicas podrán resolverse posteriormente mediante la extensión del producto o la adaptación de su código fuente.
 
-Para modelar el proceso se emplearán casos representativos de diferentes tipos de trámite seleccionados en la investigación correspondiente. Entre ellos se incluyen procedimientos derivados del @RASIM, como antecedente directo del proyecto, y trámites pertenecientes a otros dominios, con el propósito de identificar estructuras comunes sin suponer que el modelo abarcará todas las particularidades posibles.
+Para modelar el proceso se emplearán casos representativos de diferentes tipos de trámite seleccionados en la investigación correspondiente.
+Entre ellos se incluyen procedimientos derivados del @RASIM, como antecedente directo del proyecto, y trámites pertenecientes a otros dominios, con el propósito de identificar estructuras comunes sin suponer que el modelo abarcará todas las particularidades posibles.
 
-El trámite se formalizará como un proceso mediante técnicas de modelado apropiadas para representar estados, acciones, participantes y decisiones. La selección y aplicación detallada de dichas técnicas se desarrolla en los capítulos de fundamentos, investigación y diseño.
+El trámite se formalizará como un proceso mediante técnicas de modelado apropiadas para representar estados, acciones, participantes y decisiones.
+La selección y aplicación detallada de dichas técnicas se desarrolla en los capítulos de fundamentos, investigación y diseño.
 
 Se elegirán tecnologías web modernas de desarrollo con documentación adecuada para que los usuarios finales puedan emplear el sistema fácilmente y que futuros contribuidores no tengan problemas en modificarlo, tanto en apariencia como en funcionalidad.
 El código fuente se distribuirá mediante un repositorio público y el producto contará con artefactos desplegables que permitan su uso autónomo.
