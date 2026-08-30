@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "tunkunia",
+      "path": ".",
+    },
+    {
+      "name": "docs",
+      "path": "./docs",
+    },
+  ],
+  "settings": {
+    "tinymist.rootPath": "${workspaceFolder}/docs",
+    "tinymist.fontPaths": ["${workspaceFolder}/docs/shared/fonts"],
+    "tinymist.systemFonts": false,
+  },
+}
