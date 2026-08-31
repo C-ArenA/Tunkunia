@@ -1,0 +1,15 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.6
+links:
+- TRS058: FSm16zVkHc4xYA3GxuP1st_G7xxaLj05U_6QVlVKSjQ=
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: 7XvwZ1mtZG6W7kZlnqDFcaXSZSxi7rHgwZUq8cJZONE=
+text: |
+  Tunkunia deberá generar una notificación para el administrador institucional responsable cuando registre un error de ejecución o aplique una consecuencia por vencimiento configurada como sujeta a atención administrativa.
+type: functional

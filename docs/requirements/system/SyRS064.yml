@@ -1,0 +1,15 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.2
+links:
+- TRS061: H2-qO6OkMaVhiXslRnf9-vGsSFc-mTBLkLRYxPTxsfs=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: xIjBobseZpXw-Z3C3sE3UXTITneo-me6nfDHGH4gg3M=
+text: |
+  Tunkunia deberá generar un reporte de los trámites publicados que contenga los campos obligatorios del contrato de gob.bo seleccionado y los valores registrados para cada trámite.
+type: functional

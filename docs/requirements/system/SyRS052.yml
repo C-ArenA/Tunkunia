@@ -1,0 +1,15 @@
+active: true
+category: identity
+derived: false
+header: ''
+level: 8.3
+links:
+- TRS052: RIzzY-cnubGD9tHHbRf9HHwPjz4eAdmdsLvwTUH0OgA=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: APccP9-JVrUU5u8cvSN1MOOrN8r5CjI6IzM-mv6szRg=
+text: |
+  Antes de permitir el acceso a datos protegidos de un trámite o caso, Tunkunia deberá comprobar la identidad del usuario, sus roles, sus permisos y su relación con el caso según corresponda.
+type: security

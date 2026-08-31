@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.8
+links:
+- TRS042: kB41LtapHtxEcNVaXS20yE2KUcCRQvsTIOr7taaxksE=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: xbPWS2bSm_S79OfvgTWkWCWiBoci3YzMbTiKFXOOqDw=
+text: |
+  Cuando se complete una acción válida, Tunkunia deberá actualizar el caso al estado de destino que la definición aplicable establezca para el resultado obtenido.
+type: functional

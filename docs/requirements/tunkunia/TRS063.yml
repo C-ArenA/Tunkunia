@@ -1,0 +1,14 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.5
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: xNnZ6zH9ZIfR4-mGSKSUiNwFErKVuu3wtvVpe6Hb8tU=
+text: |
+  La entidad externa autorizada deberá poder consultar mediante una interfaz los datos de trámite incluidos en su alcance de acceso.
+type: capability

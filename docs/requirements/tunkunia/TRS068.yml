@@ -1,0 +1,14 @@
+active: true
+category: access-extension
+derived: false
+header: ''
+level: 11.1
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: pCvfyP02NS4pcuaUiwivCarVjy3Rr8uEU_5pznsKvds=
+text: |
+  La entidad pública, el ciudadano o la entidad externa que participe en un trámite deberá poder utilizar las funciones que le correspondan mediante un navegador web compatible, sin instalar una aplicación cliente adicional.
+type: usability

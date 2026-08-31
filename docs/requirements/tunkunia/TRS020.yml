@@ -1,0 +1,14 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.4
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: A7bbFHd_8_N4y4TudB8jobZ8tijbCCn61sV62D2fqKU=
+text: |
+  La entidad pública deberá poder registrar una cuenta inicial para administrar la instancia durante la configuración inicial.
+type: capability

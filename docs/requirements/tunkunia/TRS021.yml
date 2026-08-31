@@ -1,0 +1,14 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.5
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: zlAuCj5q-V3DumU3nhTe-aMLSnhvyam4xjRDTdIZ9ZI=
+text: |
+  La entidad pública deberá poder definir procedimientos comunes mediante configuración, sin escribir código.
+type: capability

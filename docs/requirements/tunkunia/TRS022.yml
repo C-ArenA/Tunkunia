@@ -1,0 +1,14 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.6
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: cCL540oxt66HQHhGu2TmUhw7OKevZvfmUVpficSdpSE=
+text: |
+  La entidad pública deberá poder definir las etapas, los estados, las acciones y el orden de ejecución de un procedimiento.
+type: capability

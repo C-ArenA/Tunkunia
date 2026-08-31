@@ -1,0 +1,14 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.7
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: DE-p7eNqpFYC2CmsHNjXoJ7oUWKCg4hPAX1XFVOreuA=
+text: |
+  La entidad externa que integre Tunkunia deberá disponer de una especificación de cada interfaz pública que describa sus operaciones, datos, autorizaciones, respuestas y errores.
+type: documentation

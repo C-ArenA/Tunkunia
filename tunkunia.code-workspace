@@ -13,5 +13,9 @@
     "tinymist.rootPath": "${workspaceFolder}/docs",
     "tinymist.fontPaths": ["${workspaceFolder}/docs/shared/fonts"],
     "tinymist.systemFonts": false,
+    "material-icon-theme.folders.associations": {
+      "requirements": "rules",
+      "memoria": "docs",
+    },
   },
 }

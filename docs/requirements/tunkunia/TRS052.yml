@@ -1,0 +1,14 @@
+active: true
+category: identity
+derived: false
+header: ''
+level: 8.3
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: RIzzY-cnubGD9tHHbRf9HHwPjz4eAdmdsLvwTUH0OgA=
+text: |
+  La entidad pública deberá poder limitar el acceso a los datos de trámite a las entidades públicas, los ciudadanos o las entidades externas autorizados según corresponda al caso.
+type: security

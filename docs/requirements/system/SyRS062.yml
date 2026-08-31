@@ -1,0 +1,15 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.7
+links:
+- TRS059: QR02MjY_mjhQLuT9jnA5DJ9w6ie8_oZ9t3TLBYQcGxE=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: Z_TzmArcfSWjxnXZ_9oHkU3WZ5zvus1xnov1ETnJW0g=
+text: |
+  Para cada notificación generada, Tunkunia deberá registrar el evento de origen, el caso, la fecha y hora, los destinatarios, los canales intentados y el resultado de entrega conocido de cada canal.
+type: audit

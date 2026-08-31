@@ -1,0 +1,14 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.4
+links: []
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: Xv57l8Lu_VGIz7Qacf6ol6GEg2WNcyO0mbV40HRmdgk=
+text: |
+  AGETIC deberá poder obtener mediante una interfaz autorizada los datos de trámites publicados requeridos para actualizar gob.bo.
+type: capability

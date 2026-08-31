@@ -1,0 +1,14 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.3
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: y4gHsA1QvsU0jmUokgTFPPjurQDLVUW9GrdtgzOS3YU=
+text: |
+  La entidad pública deberá disponer de una guía que describa los prerrequisitos, la instalación, la configuración inicial y la comprobación del despliegue.
+type: capability

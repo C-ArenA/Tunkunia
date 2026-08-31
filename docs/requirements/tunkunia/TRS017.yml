@@ -1,0 +1,14 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.5
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: L8vLTr4AwXKNEQcwydoKv4u9y2Jy9TyKOwMzKNs4XXo=
+text: |
+  La entidad pública o entidad externa que desarrolle o modifique Tunkunia deberá disponer de documentación que describa la arquitectura de Tunkunia y los puntos de extensión publicados.
+type: capability

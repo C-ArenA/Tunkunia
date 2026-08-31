@@ -1,0 +1,15 @@
+active: true
+category: versioning
+derived: false
+header: ''
+level: 5.2
+links:
+- TRS035: gne_6iiaWXqk8JDo_U7PHd7CzrEf2e-aVX6uBQCKGDQ=
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: Cd_LgAoFJmaY72owCuuNAA0Oxd2QJ4OOfneikrJ6LtM=
+text: |
+  Tunkunia deberá mantener sin cambios la versión de la definición asociada a un caso durante toda su ejecución.
+type: data-integrity

@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.12
+links:
+- TRS044: EEoPgfVjgvOtWGNCfJBwPvHk_i9RoH34Mht9_BOulJs=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: 0QDblP3VLHe7V3K-dviuV0yYvDskwfPYFSpMI7HHaR4=
+text: |
+  Para cada intervención excepcional, Tunkunia deberá conservar dentro del caso la identidad del actor, la fecha y hora, el motivo y la actuación registrada.
+type: audit

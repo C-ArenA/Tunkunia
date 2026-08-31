@@ -1,0 +1,15 @@
+active: true
+category: sovereignty
+derived: false
+header: ''
+level: 2.1
+links:
+- TRS012: DNR--wbZipdo7vbS2Gi7RqxSnfBSHJKGUSA5hFFvoXQ=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: X4AFXMiW9EGsB0z0C7vr-n43r0sR7t6-OT8_Modej5A=
+text: |
+  Tunkunia deberá distribuirse con su código fuente completo bajo una licencia de software libre que permita usar, copiar, estudiar, modificar y redistribuir el producto y sus versiones modificadas sin exigir que las obras derivadas usen la misma licencia.
+type: policy

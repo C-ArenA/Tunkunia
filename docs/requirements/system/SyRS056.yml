@@ -1,0 +1,15 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.1
+links:
+- TRS055: fq-sCs6rsn8PwBMepqSAWb-HE7rxGdoeaVayaUdUFXQ=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: ayGWs28sNUD4Uly_RskPTjCZ6K960fgZGlMuJZC-xZ8=
+text: |
+  Al procesar un evento documentado como notificable, Tunkunia deberá generar una notificación que identifique el caso, el tipo de evento, la fecha y hora y sus destinatarios autorizados.
+type: functional

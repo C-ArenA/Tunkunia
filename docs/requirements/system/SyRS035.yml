@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.7
+links:
+- TRS040: rpiPMaCzVv6-TLNknj9EQR3L-Pf7aiPyC0Q7xm_ds2o=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: O7Qxo0o4EoeqA4kv1Z3h7rTMKx1F2SkiDemnkGkJQjI=
+text: |
+  Tunkunia deberá mostrar a cada servidor público una bandeja con las tareas pendientes asignadas directamente a él o a uno de sus roles en los casos de trámite.
+type: interface

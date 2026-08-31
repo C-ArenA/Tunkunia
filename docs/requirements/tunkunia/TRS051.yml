@@ -1,0 +1,14 @@
+active: true
+category: identity
+derived: false
+header: ''
+level: 8.2
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: sksXyHDCk7NQ17RJG-wmKW7La121F4DlOA6OmH802aU=
+text: |
+  El ciudadano deberá poder autenticarse mediante Ciudadanía Digital para acceder a los casos en los que participa.
+type: capability

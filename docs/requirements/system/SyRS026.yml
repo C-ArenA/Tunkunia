@@ -1,0 +1,15 @@
+active: true
+category: publication
+derived: false
+header: ''
+level: 4.6
+links:
+- TRS034: 00Uc7bR4Iiw5-Yne6TfI49aoeR2G-pv8Vl38LpZ0bWA=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: hh0SQC0CtLCD6EiOieP6axoQYmMndV_KHriPnQnUY2Q=
+text: |
+  Tunkunia deberá restringir la consulta y modificación de definiciones en borrador o archivadas a usuarios con permiso de edición sobre esas definiciones.
+type: security

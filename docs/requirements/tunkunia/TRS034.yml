@@ -1,0 +1,14 @@
+active: true
+category: publication
+derived: false
+header: ''
+level: 4.6
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: 00Uc7bR4Iiw5-Yne6TfI49aoeR2G-pv8Vl38LpZ0bWA=
+text: |
+  La entidad pública deberá poder consultar y modificar las definiciones no públicas para las cuales tenga permiso de edición.
+type: security

@@ -1,0 +1,15 @@
+active: true
+category: records
+derived: false
+header: ''
+level: 7.6
+links:
+- TRS048: Vfxw4ym1f3RXUsKKcakPo8VARK4vCJeABDyTFZIuGIw=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: 2zwmIwi1SmotJysElSvM3XPg3QflJE0mwB-Xi5M3Huw=
+text: |
+  Para cada actuación del caso, Tunkunia deberá registrar cronológicamente la fecha y hora, el actor, el tipo de actuación y su resultado.
+type: audit

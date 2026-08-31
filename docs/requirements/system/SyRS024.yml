@@ -1,0 +1,15 @@
+active: true
+category: publication
+derived: false
+header: ''
+level: 4.4
+links:
+- TRS032: WzF8BZcLIq-npROsU9EA6m5l1kE_ZKbMzauLBTczoic=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: BKY7WotXQWwjUVV8thrvFntVM2s1iR2hV8ZJNyPP_zo=
+text: |
+  Para cada trámite publicado, Tunkunia deberá mostrar sus datos descriptivos y una representación del procedimiento que identifique sus etapas, acciones y puntos de decisión.
+type: interface

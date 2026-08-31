@@ -1,0 +1,14 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.6
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: p6VqjHDnvybC7pDG8ZgLvl9s918uxU_xJduMkIEAMo0=
+text: |
+  Las entidades públicas, los ciudadanos y las entidades externas que utilicen, desarrollen o modifiquen Tunkunia deberán poder consultar mediante un navegador web la documentación que les corresponda.
+type: quality

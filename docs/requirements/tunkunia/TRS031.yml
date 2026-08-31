@@ -1,0 +1,14 @@
+active: true
+category: publication
+derived: false
+header: ''
+level: 4.3
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: Oui9dH-zVO9LCfshzo6TYsd8nbYfdfGNRmoNHvE-SFk=
+text: |
+  El ciudadano deberá poder consultar los trámites publicados por una entidad pública sin autenticarse.
+type: capability

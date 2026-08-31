@@ -1,0 +1,15 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.5
+links:
+- TRS018: p6VqjHDnvybC7pDG8ZgLvl9s918uxU_xJduMkIEAMo0=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: 4J5kjcf3J-SsTCO3tpMZkQfmryLhg01BVpLig5pXmZk=
+text: |
+  Tunkunia deberá publicar en formato web la documentación destinada a operadores, usuarios directos y desarrolladores.
+type: interface

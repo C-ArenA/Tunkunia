@@ -1,0 +1,14 @@
+active: true
+category: versioning
+derived: false
+header: ''
+level: 5.2
+links: []
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: gne_6iiaWXqk8JDo_U7PHd7CzrEf2e-aVX6uBQCKGDQ=
+text: |
+  La entidad pública deberá poder publicar cambios a un procedimiento sin modificar la definición aplicada a casos que ya estén en ejecución.
+type: capability

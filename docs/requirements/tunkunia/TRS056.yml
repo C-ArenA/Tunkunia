@@ -1,0 +1,14 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.3
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: BmOjaitw_nuSgKsZFfaDUqlPtsxISGqALEvH43U-kFM=
+text: |
+  El ciudadano deberá recibir dentro de Tunkunia una notificación cuando una entidad pública inicie un caso en el que sea directamente involucrado.
+type: capability

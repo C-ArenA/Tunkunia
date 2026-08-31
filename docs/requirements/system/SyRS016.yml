@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.8
+links:
+- TRS025: T23SY-TSNDhpVnOwkXfKRp27yl8bDKvE4_W6CJm1Iuo=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: ZcFgaBxoqweu4wI8oYxUZgSBX6aQULsnsKeH2707FAA=
+text: |
+  Tunkunia deberá permitir configurar acciones que generen documentos durante la ejecución de un caso.
+type: functional

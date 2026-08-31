@@ -1,0 +1,15 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.5
+links:
+- TRS057: 0VVfks1PcAzDVNE9TzzXho-wyzpcMsIjpV2582pfCfs=
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: hNSZKfiiNRkh4gAngU6g3iYcut19oXfrybDdXG_oNxQ=
+text: |
+  Tunkunia deberá poder enviar una notificación relevante mediante correo electrónico o el servicio de notificaciones de Ciudadanía Digital cuando el canal esté habilitado para el destinatario.
+type: external-interface

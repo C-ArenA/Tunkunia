@@ -1,0 +1,15 @@
+active: true
+category: identity
+derived: false
+header: ''
+level: 8.6
+links:
+- TRS054: R4yFZWsUA1sbQ88ShNALQbaO_x6ADJODfnQ2hTB8nvw=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: U0zYHCgMR72kL-WetR6cuFXynLSqqo5vvIXfHrV_UAQ=
+text: |
+  Cuando Ciudadanía Digital proporcione datos de identificación válidos para el propósito del trámite, Tunkunia deberá reutilizarlos en el caso y no exigir al participante que proporcione nuevamente esos mismos datos para ese propósito.
+type: data-minimization

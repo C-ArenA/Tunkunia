@@ -1,0 +1,15 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.4
+links:
+- TRS056: BmOjaitw_nuSgKsZFfaDUqlPtsxISGqALEvH43U-kFM=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: l7FrMj8nRLXTysymPRhjgf1yFkVzwx1OJmDy3kYK_So=
+text: |
+  Cuando un servidor público cree un caso para un ciudadano, Tunkunia deberá generar para ese ciudadano una notificación interna que identifique el trámite, el caso y al iniciador.
+type: functional

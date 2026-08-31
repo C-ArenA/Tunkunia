@@ -1,0 +1,14 @@
+active: true
+category: identity
+derived: false
+header: ''
+level: 8.5
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: R4yFZWsUA1sbQ88ShNALQbaO_x6ADJODfnQ2hTB8nvw=
+text: |
+  El ciudadano no deberá tener que proporcionar nuevamente datos de identificación que Tunkunia haya obtenido válidamente de Ciudadanía Digital para el mismo propósito.
+type: data-minimization

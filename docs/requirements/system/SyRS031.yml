@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.3
+links:
+- TRS037: hNndQbapqFMA_F4fxXLGTMDyEN9hVrneSxfpP68UEm8=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: fuRSkcixrHfgId760ZmZc_XHB_F3e3SMEXaNkPBjU-Q=
+text: |
+  Tunkunia deberá permitir que un servidor público con autorización para el trámite cree un caso e identifique al ciudadano directamente involucrado.
+type: security

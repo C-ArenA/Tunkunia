@@ -1,0 +1,16 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.4
+links:
+- TRS063: xNnZ6zH9ZIfR4-mGSKSUiNwFErKVuu3wtvVpe6Hb8tU=
+- TRS064: zPbeXlNPEIt8I3ff4G-aT4Z5aicUhP_2e89iSwr7Y38=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: pL6Mhjkec5wUsIdONqv36JbPHNPZWu_0EyhhI3Ad_4s=
+text: |
+  Para cada solicitud externa, Tunkunia deberá autenticar al sistema solicitante y permitir únicamente las operaciones y datos incluidos en su autorización vigente.
+type: security

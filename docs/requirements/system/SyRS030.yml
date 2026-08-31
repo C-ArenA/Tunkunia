@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.2
+links:
+- TRS036: 2krV88fCFX_SW_NqynyFHl7QIVlN1zqFlsQ0G6-TkGw=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: Ew9stqC21iDDkz41Qb4TJXV19UKzuyJx3dY9FHRa42g=
+text: |
+  A petición del ciudadano autenticado directamente involucrado, Tunkunia deberá crear un caso usando la versión publicada vigente de la definición seleccionada y registrarlo como participante.
+type: functional

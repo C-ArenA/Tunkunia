@@ -1,0 +1,14 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.6
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: QR02MjY_mjhQLuT9jnA5DJ9w6ie8_oZ9t3TLBYQcGxE=
+text: |
+  La entidad pública autorizada deberá poder consultar el historial de las notificaciones generadas para un caso.
+type: audit

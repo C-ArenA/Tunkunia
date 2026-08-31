@@ -1,0 +1,14 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.2
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: aYNYYBpEBQEm_VJgr7xgBCZqOKJY5oDFBJR4I_6qLLI=
+text: |
+  La entidad pública deberá poder definir en Tunkunia procedimientos de trámite propios mediante un modelo común que no esté limitado a un trámite específico.
+type: capability

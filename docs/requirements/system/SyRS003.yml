@@ -1,0 +1,15 @@
+active: true
+category: sovereignty
+derived: false
+header: ''
+level: 2.2
+links:
+- TRS012: DNR--wbZipdo7vbS2Gi7RqxSnfBSHJKGUSA5hFFvoXQ=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: Xc0-KLmZmekASDzD_N0hG2gMsTiJpGgRkhc7DQhKQj4=
+text: |
+  Tunkunia deberá distribuirse mediante un repositorio públicamente accesible que incluya su código fuente y las instrucciones para obtenerlo.
+type: distribution

@@ -1,0 +1,15 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.3
+links:
+- TRS016: HdpLhz4oL9LECDJob1LOt0PEtBwFXWFI3PhzHe6tcXU=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: 5t_Vi0OvnlWQndIjB7h8dtaYPA6RNwi84qCtcr0uQEw=
+text: |
+  Tunkunia deberá incluir instrucciones de uso para cada rol de usuario directo.
+type: documentation

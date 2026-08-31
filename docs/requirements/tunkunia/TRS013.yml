@@ -1,0 +1,14 @@
+active: true
+category: sovereignty
+derived: false
+header: ''
+level: 2.3
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: IJOq6Lveb-zzrl5PGwTZrrJXH0jYwxCwh7xnNYd_Ad8=
+text: |
+  La entidad pública deberá poder desplegar y operar Tunkunia en infraestructura bajo su administración sin depender de un servicio de alojamiento exclusivo de una entidad externa.
+type: constraint

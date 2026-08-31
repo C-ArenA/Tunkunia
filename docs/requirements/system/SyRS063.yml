@@ -1,0 +1,15 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.1
+links:
+- TRS060: _RK5B4xU-3F0kGTt3z8HYiEKU9AwOLfe6Ke5q3xkn9E=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: jMGc68sP7Q0ajCVnAgfGrZaPQhsZN-qc2PrX2y-Q2vk=
+text: |
+  Tunkunia deberá permitir registrar para cada trámite todos los campos obligatorios del contrato de información de gob.bo seleccionado para el despliegue.
+type: data

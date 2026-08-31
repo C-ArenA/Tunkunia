@@ -1,0 +1,15 @@
+active: true
+category: identity
+derived: false
+header: ''
+level: 8.4
+links:
+- TRS053: AWfTbk1J46Mj0j-_UlHKJsK2Uek2MzGFA1qgPbZDfww=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: _5ruXi5RvO0AsJcwkFCBUTNibwK4fnqknEmqBh-H-ks=
+text: |
+  Tunkunia deberá permitir configurar, para cada acción humana, si requiere validación de identidad mediante Ciudadanía Digital antes de completarse.
+type: functional

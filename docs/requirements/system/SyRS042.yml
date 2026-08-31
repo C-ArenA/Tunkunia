@@ -1,0 +1,15 @@
+active: true
+category: records
+derived: false
+header: ''
+level: 7.2
+links:
+- TRS045: 2krfPLPcGm-rpttue3-DwBzAQ7kVAnlPvnghc86ZZMw=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: wC67XZ2ZYtDa-lz6EVUfUawS9pcMFW_ZyuhLYf5M29o=
+text: |
+  Durante la ejecución de un caso, Tunkunia deberá incorporar a su expediente los datos, documentos y actuaciones que produzcan las acciones del procedimiento.
+type: data-integrity

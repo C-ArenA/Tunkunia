@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.5
+links:
+- TRS039: L680PyJaQt-YL-dypYVgykppyZEPlpkrqr4agAlMV_o=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: 96emzFoUyKegn83bErwLloDanzOGtLAlhdoHauaoD3s=
+text: |
+  Para cada participante, Tunkunia deberá determinar las acciones pendientes habilitadas por el estado vigente del caso, la definición aplicable y los permisos asignados.
+type: functional

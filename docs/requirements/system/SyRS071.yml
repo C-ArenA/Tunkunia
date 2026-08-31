@@ -1,0 +1,15 @@
+active: true
+category: access-extension
+derived: false
+header: ''
+level: 11.1
+links:
+- TRS068: pCvfyP02NS4pcuaUiwivCarVjy3Rr8uEU_5pznsKvds=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: _doRgVHtCfNHrRoE44Qb7opJKp7E00MoPqqd-L4s2WQ=
+text: |
+  Tunkunia deberá proporcionar mediante navegadores web compatibles todas las funciones destinadas a participantes, sin requerir la instalación de una aplicación cliente de Tunkunia.
+type: usability

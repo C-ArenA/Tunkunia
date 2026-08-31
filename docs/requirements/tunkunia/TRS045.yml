@@ -1,0 +1,14 @@
+active: true
+category: records
+derived: false
+header: ''
+level: 7.2
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: 2krfPLPcGm-rpttue3-DwBzAQ7kVAnlPvnghc86ZZMw=
+text: |
+  La entidad pública, el ciudadano o la entidad externa autorizados deberán poder consultar el expediente del caso con los datos, documentos y actuaciones incorporados durante su ejecución.
+type: capability

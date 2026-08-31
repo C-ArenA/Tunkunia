@@ -1,0 +1,14 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: '6.10'
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: EEoPgfVjgvOtWGNCfJBwPvHk_i9RoH34Mht9_BOulJs=
+text: |
+  La entidad pública deberá poder registrar y atender una intervención excepcional sobre un caso sin sacarlo de Tunkunia.
+type: capability

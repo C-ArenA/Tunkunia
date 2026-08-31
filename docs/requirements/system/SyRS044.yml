@@ -1,0 +1,15 @@
+active: true
+category: records
+derived: false
+header: ''
+level: 7.4
+links:
+- TRS046: a-Vub5xlgJXm9CykJKSmtKhpgVUytYEeqMdjprQp0KI=
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: xRszolG6y4T0Epoz7E_GAa13zeXca5BcTGgs0Ib7jco=
+text: |
+  Tunkunia deberá mostrar al ciudadano autenticado una lista de los casos en los que participa, indicando como mínimo el trámite y el estado vigente o resultado final de cada caso.
+type: interface

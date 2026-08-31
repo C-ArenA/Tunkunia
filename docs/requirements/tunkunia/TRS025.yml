@@ -1,0 +1,14 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.9
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: T23SY-TSNDhpVnOwkXfKRp27yl8bDKvE4_W6CJm1Iuo=
+text: |
+  La entidad pública deberá poder configurar acciones para generar documentos durante la ejecución del procedimiento.
+type: capability

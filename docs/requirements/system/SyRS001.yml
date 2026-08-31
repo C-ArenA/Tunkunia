@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.1
+links:
+- TRS011: aYNYYBpEBQEm_VJgr7xgBCZqOKJY5oDFBJR4I_6qLLI=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: lqwxlI5swZPSNXTq1FS8oqjdP3Gip5fUtlze4jetSQA=
+text: |
+  Tunkunia deberá proporcionar un modelo común para representar procedimientos de trámite de distintas instituciones sin incorporar reglas exclusivas de un procedimiento concreto.
+type: functional

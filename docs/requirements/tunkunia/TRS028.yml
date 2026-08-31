@@ -1,0 +1,14 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.12
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: R-97fpXkKbE6qBcmDuyIbN3WsBjUPzhnc4rnOcjoC0U=
+text: |
+  La entidad pública deberá poder establecer un límite de tiempo para cada etapa que lo requiera.
+type: capability
