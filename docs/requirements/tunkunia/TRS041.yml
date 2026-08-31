@@ -1,8 +1,8 @@
 active: true
-category: execution
+category: ''
 derived: false
 header: ''
-level: 6.7
+level: 6.5
 links: []
 normative: true
 priority: Must
@@ -10,5 +10,5 @@ prototype: ''
 ref: ''
 reviewed: pvPT6P51GBWh3X0PckEfNoMuYdPskdBeTGEdBOXbEvQ=
 text: |
-  El ciudadano deberá poder consultar el estado vigente de cada caso en el que participe.
+  El ciudadano deberá poder consultar el estado de cada caso en el que participe.
 type: capability

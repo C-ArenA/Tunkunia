@@ -1,8 +1,8 @@
 active: true
-category: identity
+category: ''
 derived: false
 header: ''
-level: 8.2
+level: 8.1
 links: []
 normative: true
 priority: Should
@@ -10,5 +10,5 @@ prototype: ''
 ref: ''
 reviewed: sksXyHDCk7NQ17RJG-wmKW7La121F4DlOA6OmH802aU=
 text: |
-  El ciudadano deberá poder autenticarse mediante Ciudadanía Digital para acceder a los casos en los que participa.
+  El ciudadano o cualquier otro usuario deberá autenticarse necesariamente mediante Ciudadanía Digital para participar en trámites.
 type: capability

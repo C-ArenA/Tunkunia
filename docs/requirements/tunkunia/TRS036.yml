@@ -1,8 +1,8 @@
 active: true
-category: execution
+category: ''
 derived: false
 header: ''
-level: 6.2
+level: 6.1
 links: []
 normative: true
 priority: Must
@@ -10,5 +10,5 @@ prototype: ''
 ref: ''
 reviewed: 2krV88fCFX_SW_NqynyFHl7QIVlN1zqFlsQ0G6-TkGw=
 text: |
-  El ciudadano directamente involucrado deberá poder iniciar un caso a partir de un trámite publicado.
+  El ciudadano deberá poder iniciar un caso de trámite a partir de un trámite publicado.
 type: capability

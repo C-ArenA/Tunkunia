@@ -1,0 +1,480 @@
+TRS019:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.1
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: cXHfE342AAw76QuwQYYatDT9-yOghgSUbvIZ-XUDpMM=
+  text: |
+    La entidad pública deberá poder registrar y modificar la identidad institucional asociada a la instancia.
+  type: capability
+
+TRS011:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.2
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: aYNYYBpEBQEm_VJgr7xgBCZqOKJY5oDFBJR4I_6qLLI=
+  text: |
+    La entidad pública deberá poder definir en Tunkunia procedimientos de trámite propios mediante un modelo común que no esté limitado a un trámite específico.
+  type: capability
+
+TRS021:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.3
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: zlAuCj5q-V3DumU3nhTe-aMLSnhvyam4xjRDTdIZ9ZI=
+  text: |
+    La entidad pública deberá poder definir procedimientos comunes mediante configuración, sin escribir código.
+  type: capability
+
+TRS029:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 1.4
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 9vmoQVkTljeQxF2yNO0w4IYoTLX_5KDGQtLStO0gVxQ=
+  text: |
+    La entidad pública deberá configurar trámites mediante una interfaz gráfica.
+  type: interface
+
+TRS012:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 2.1
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: DNR--wbZipdo7vbS2Gi7RqxSnfBSHJKGUSA5hFFvoXQ=
+  text: |
+    La entidad pública deberá poder usar, copiar, estudiar, modificar y redistribuir Tunkunia, incluidas versiones modificadas
+  type: constraint
+
+TRS013:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 2.2
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: IJOq6Lveb-zzrl5PGwTZrrJXH0jYwxCwh7xnNYd_Ad8=
+  text: |
+    La entidad pública deberá poder desplegar y operar Tunkunia en infraestructura bajo su administración sin depender de un servicio de alojamiento exclusivo de una entidad externa.
+  type: constraint
+
+TRS014:
+  active: true
+  category: deployment
+  derived: false
+  header: ''
+  level: 3.1
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: VAMNE56wEAd1CoH2Ox6Kq3cuuxC5it19xDGu-V02bWI=
+  text: |
+    La entidad pública deberá poder desplegar una instancia operativa de Tunkunia, siguiendo la guía de instalación y en infraestructura que cumpla sus prerrequisitos, en no más de un día hábil.
+  type: quality
+
+TRS015:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 3.2
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: y4gHsA1QvsU0jmUokgTFPPjurQDLVUW9GrdtgzOS3YU=
+  text: |
+    La entidad pública deberá disponer de una guía que describa los prerrequisitos, la instalación, la configuración inicial y la comprobación del despliegue.
+  type: capability
+
+TRS016:
+  active: true
+  category: deployment
+  derived: false
+  header: ''
+  level: 3.3
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: HdpLhz4oL9LECDJob1LOt0PEtBwFXWFI3PhzHe6tcXU=
+  text: |
+    Cada entidad pública, ciudadano o entidad externa que utilice Tunkunia deberá disponer de instrucciones de uso correspondientes a las funciones que utilice.
+  type: capability
+
+TRS031:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 4.1
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: Oui9dH-zVO9LCfshzo6TYsd8nbYfdfGNRmoNHvE-SFk=
+  text: |
+    El ciudadano deberá poder consultar los trámites publicados por una entidad pública de manera abierta.
+  type: capability
+
+TRS035:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 5.1
+  links: []
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: gne_6iiaWXqk8JDo_U7PHd7CzrEf2e-aVX6uBQCKGDQ=
+  text: |
+    La entidad pública deberá poder publicar cambios a un trámite sin modificar la definición de procecdimiento aplicada a casos que ya estén en ejecución.
+  type: capability
+
+TRS036:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 6.1
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 2krV88fCFX_SW_NqynyFHl7QIVlN1zqFlsQ0G6-TkGw=
+  text: |
+    El ciudadano deberá poder iniciar un caso de trámite a partir de un trámite publicado.
+  type: capability
+
+TRS038:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.2
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: Re8cc_Bdj_eQy_TqZn8_ldWuSK02BYGRLcXZ2GlTdrQ=
+  text: |
+    La entidad pública deberá poder identificar quién inició cada caso.
+  type: audit
+
+TRS039:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 6.3
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: L680PyJaQt-YL-dypYVgykppyZEPlpkrqr4agAlMV_o=
+  text: |
+    La entidad pública y el ciudadano que participen en un caso de trámite deberán poder ejecutar las acciones pendientes que el estado del caso y sus permisos le habiliten.
+  type: capability
+
+TRS040:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.4
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: rpiPMaCzVv6-TLNknj9EQR3L-Pf7aiPyC0Q7xm_ds2o=
+  text: |
+    La entidad pública deberá poder consultar las tareas pendientes que le correspondan en los casos de trámite.
+  type: capability
+
+TRS041:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 6.5
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: pvPT6P51GBWh3X0PckEfNoMuYdPskdBeTGEdBOXbEvQ=
+  text: |
+    El ciudadano deberá poder consultar el estado de cada caso en el que participe.
+  type: capability
+
+TRS044:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 6.6
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: EEoPgfVjgvOtWGNCfJBwPvHk_i9RoH34Mht9_BOulJs=
+  text: |
+    La entidad pública deberá poder hacer intervenciones excepcionales y registradas sobre un caso dentro del sistema
+  type: capability
+
+TRS046:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.1
+  links: []
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: a-Vub5xlgJXm9CykJKSmtKhpgVUytYEeqMdjprQp0KI=
+  text: |
+    El ciudadano deberá poder consultar el historial de los casos de trámite en los que haya participado.
+  type: capability
+
+TRS047:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 7.2
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: fwhhDaO7RDy2-65Qb_cHe5qVi9M3tqW78cZ0O8zV4eU=
+  text: |
+    La entidad pública deberá poder consultar los casos de trámite llevados a cabo
+  type: capability
+
+TRS049:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 7.3
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: mRhKJ5OJGktQJ7mKg-4yws9JI2S0x43TJEASpVoi2eo=
+  text: |
+    La entidad pública deberá conservar el acceso a los casos y sus historiales cuando la definición del trámite sea archivada.
+  type: retention
+
+TRS051:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 8.1
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: sksXyHDCk7NQ17RJG-wmKW7La121F4DlOA6OmH802aU=
+  text: |
+    El ciudadano o cualquier otro usuario deberá autenticarse necesariamente mediante Ciudadanía Digital para participar en trámites.
+  type: capability
+
+TRS054:
+  active: true
+  category: identity
+  derived: false
+  header: ''
+  level: 8.2
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: R4yFZWsUA1sbQ88ShNALQbaO_x6ADJODfnQ2hTB8nvw=
+  text: |
+    El ciudadano no deberá tener que proporcionar nuevamente datos de identificación que Tunkunia haya obtenido válidamente de Ciudadanía Digital para el mismo propósito.
+  type: data-minimization
+
+TRS055:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 9.1
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: fq-sCs6rsn8PwBMepqSAWb-HE7rxGdoeaVayaUdUFXQ=
+  text: |
+    La entidad pública o el ciudadano que participe en un caso deberá recibir notificaciones de acciones requeridas.
+  type: capability
+
+TRS057:
+  active: true
+  category: notifications
+  derived: false
+  header: ''
+  level: 9.2
+  links: []
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: 0VVfks1PcAzDVNE9TzzXho-wyzpcMsIjpV2582pfCfs=
+  text: |
+    La entidad pública, el ciudadano o la entidad externa que participe en un caso deberá poder recibir las notificaciones relevantes también mediante un canal externo habilitado por la entidad pública.
+  type: capability
+
+TRS060:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.1
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: _RK5B4xU-3F0kGTt3z8HYiEKU9AwOLfe6Ke5q3xkn9E=
+  text: |
+    La entidad pública deberá poder registrar para cada trámite los datos exigidos por el contrato de información de gob.bo aplicable a su despliegue.
+  type: capability
+
+TRS061:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.2
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: H2-qO6OkMaVhiXslRnf9-vGsSFc-mTBLkLRYxPTxsfs=
+  text: |
+    La entidad pública deberá poder obtener un reporte de los trámites publicados con los datos requeridos para actualizar gob.bo.
+  type: capability
+
+TRS062:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.3
+  links: []
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: Xv57l8Lu_VGIz7Qacf6ol6GEg2WNcyO0mbV40HRmdgk=
+  text: |
+    AGETIC deberá poder obtener mediante una interfaz autorizada los datos de trámites publicados requeridos para actualizar gob.bo.
+  type: capability
+
+TRS063:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 10.4
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: xNnZ6zH9ZIfR4-mGSKSUiNwFErKVuu3wtvVpe6Hb8tU=
+  text: |
+    La entidad externa autorizada deberá poder consultar datos de definición de trámites.
+  type: capability
+
+TRS065:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.5
+  links: []
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: DE-p7eNqpFYC2CmsHNjXoJ7oUWKCg4hPAX1XFVOreuA=
+  text: |
+    La entidad externa que integre Tunkunia deberá disponer de una especificación de cada interfaz pública que describa sus operaciones, datos, autorizaciones, respuestas y errores.
+  type: documentation
+
+TRS068:
+  active: true
+  category: ''
+  derived: false
+  header: ''
+  level: 11.1
+  links: []
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: pCvfyP02NS4pcuaUiwivCarVjy3Rr8uEU_5pznsKvds=
+  text: |
+    La entidad pública o el ciudadano que participe en un trámite deberá poder utilizar las funciones que le correspondan mediante un navegador web, sin instalar una aplicación cliente adicional.
+  type: usability
+

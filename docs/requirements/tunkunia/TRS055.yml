@@ -1,8 +1,8 @@
 active: true
-category: notifications
+category: ''
 derived: false
 header: ''
-level: 9.2
+level: 9.1
 links: []
 normative: true
 priority: Must
@@ -10,5 +10,5 @@ prototype: ''
 ref: ''
 reviewed: fq-sCs6rsn8PwBMepqSAWb-HE7rxGdoeaVayaUdUFXQ=
 text: |
-  La entidad pública, el ciudadano o la entidad externa que participe en un caso deberá recibir dentro de Tunkunia una notificación cuando se le asigne una tarea o cuando ocurra otro evento del caso documentado como relevante.
+  La entidad pública o el ciudadano que participe en un caso deberá recibir notificaciones de acciones requeridas.
 type: capability

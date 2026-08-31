@@ -1,8 +1,8 @@
 active: true
-category: records
+category: ''
 derived: false
 header: ''
-level: 7.6
+level: 7.3
 links: []
 normative: true
 priority: Must
@@ -10,5 +10,5 @@ prototype: ''
 ref: ''
 reviewed: mRhKJ5OJGktQJ7mKg-4yws9JI2S0x43TJEASpVoi2eo=
 text: |
-  La entidad pública deberá conservar el acceso a los casos y sus historiales cuando la definición del trámite sea archivada o retirada de publicación.
+  La entidad pública deberá conservar el acceso a los casos y sus historiales cuando la definición del trámite sea archivada.
 type: retention

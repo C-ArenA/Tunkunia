@@ -20,6 +20,33 @@ El atributo `category` agrupa los requisitos por tema (por ejemplo, `reuse`,
 `execution`, `records` o `interoperability`). Sustituye los archivos no
 normativos que antes se usaban únicamente para crear encabezados.
 
+## Uso desde Typst
+
+Las exportaciones consolidadas y versionadas de ambos documentos se encuentran
+en `requirements/export/`. Después de modificar los elementos Doorstop, se deben
+actualizar con:
+
+```sh
+go tool task docs:requirements:export
+```
+
+La función `requirements` permite insertar el documento completo o filtrarlo por
+tipo y categoría. Ambos filtros pueden combinarse y, en ese caso, se aplican de
+forma conjunta:
+
+```typst
+#import "/shared/requirements.typ": requirements
+
+#requirements("TRS")
+#requirements("SyRS", type: "security")
+#requirements("SyRS", category: "interoperability")
+#requirements("SyRS", type: "security", category: "identity")
+```
+
+Solo se muestran requisitos activos, normativos y con texto. Un grupo sin
+coincidencias no produce contenido. `go tool task docs:requirements:check`
+comprueba que las exportaciones versionadas estén actualizadas.
+
 El documento TRS conserva 59 requisitos de interesados numerados `TRS011`–`TRS069`.
 Los objetivos de negocio que iniciaban con «La iniciativa Tunkunia deberá» se
 eliminaron del nivel TRS; SyRS enlaza directamente con los requisitos TRS

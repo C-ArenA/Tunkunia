@@ -1,0 +1,1236 @@
+SyRS001:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.1
+  links:
+  - TRS011: aYNYYBpEBQEm_VJgr7xgBCZqOKJY5oDFBJR4I_6qLLI=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: lqwxlI5swZPSNXTq1FS8oqjdP3Gip5fUtlze4jetSQA=
+  text: |
+    Tunkunia deberá proporcionar un modelo común para representar procedimientos de trámite de distintas instituciones sin incorporar reglas exclusivas de un procedimiento concreto.
+  type: functional
+
+SyRS010:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.2
+  links:
+  - TRS019: cXHfE342AAw76QuwQYYatDT9-yOghgSUbvIZ-XUDpMM=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: E1US2-wgu7-ubPjgDDY7gaIWOFK1T9A9-SG4-Evq81s=
+  text: |
+    Tunkunia deberá permitir configurar el nombre de la institución, su descripción, la descripción de la instancia y el enlace al sitio institucional principal.
+  type: functional
+
+SyRS011:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.3
+  links:
+  - TRS020: A7bbFHd_8_N4y4TudB8jobZ8tijbCCn61sV62D2fqKU=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: 2lSZqmyLH7Z_yclRDtAYdi9QjGi4pEUajrFUx4f3yk4=
+  text: |
+    Tunkunia deberá permitir registrar una cuenta inicial de administrador institucional durante la configuración inicial de una instancia.
+  type: functional
+
+SyRS012:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.4
+  links:
+  - TRS021: zlAuCj5q-V3DumU3nhTe-aMLSnhvyam4xjRDTdIZ9ZI=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: EnPZWk0IUNyLXv_iGgjmRV1-nmf8VKxXK2zk7YBrqT0=
+  text: |
+    Tunkunia deberá permitir definir procedimientos mediante la configuración de los elementos y acciones provistos por el modelo común, sin modificar el código fuente del producto.
+  type: functional
+
+SyRS013:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.5
+  links:
+  - TRS022: cCL540oxt66HQHhGu2TmUhw7OKevZvfmUVpficSdpSE=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: vPoYFdA5mmoGrueWSuU82IJc_370439dGIju4PAgZcg=
+  text: |
+    Tunkunia deberá permitir representar las etapas, los estados, las acciones y el orden de ejecución de cada procedimiento de trámite.
+  type: functional
+
+SyRS014:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.6
+  links:
+  - TRS023: 30h5x8J-J1h8cfRah99cfhnJNEFCk1ItJu_eKX7LBV0=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: IL5rJg5hWKuHT6fH4CYRHOH7v3lO7tZ3uwk35zladdk=
+  text: |
+    Tunkunia deberá permitir configurar acciones de formulario que recopilen datos de los participantes en los pasos donde sean incorporadas.
+  type: functional
+
+SyRS015:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.7
+  links:
+  - TRS024: uiLuZyl6t_-8GSZwrBshbmfUh6C7C9WjxImCnDwdrKE=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: ewy7jWwwJT8sCbL4RPJ38bfRgqIU_a6336DFitMWFYs=
+  text: |
+    Tunkunia deberá permitir configurar acciones de decisión con las opciones admitidas por el procedimiento.
+  type: functional
+
+SyRS016:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.8
+  links:
+  - TRS025: T23SY-TSNDhpVnOwkXfKRp27yl8bDKvE4_W6CJm1Iuo=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: ZcFgaBxoqweu4wI8oYxUZgSBX6aQULsnsKeH2707FAA=
+  text: |
+    Tunkunia deberá permitir configurar acciones que generen documentos durante la ejecución de un caso.
+  type: functional
+
+SyRS017:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.9
+  links:
+  - TRS026: WRNLrZus--nMKimj_IPmVwmxjw9JOc2b7OZYaQw_yG0=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: 4mf8HtVHnz3QqPYxa6sUJeRKVJtlgWqOfcq1CLqQ9Rk=
+  text: |
+    Tunkunia deberá permitir definir roles de participante dentro de cada procedimiento.
+  type: functional
+
+SyRS018:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: '1.10'
+  links:
+  - TRS027: AM8SHjLhq6q807hamobinkQaClTOvC8kbiiqUFyJYKo=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: i_khdn7OAY36zMuNsXpcjdo-zaxIONRAcWt1YlftFhk=
+  text: |
+    Tunkunia deberá permitir asociar a cada acción los roles autorizados para ejecutarla.
+  type: security
+
+SyRS019:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.11
+  links:
+  - TRS028: R-97fpXkKbE6qBcmDuyIbN3WsBjUPzhnc4rnOcjoC0U=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: 1GbS2IdTTyl19XvqWrSiSojBS7hcswq_PM1Q9188AxM=
+  text: |
+    Tunkunia deberá permitir configurar un límite de tiempo para cada etapa del procedimiento.
+  type: functional
+
+SyRS020:
+  active: true
+  category: reuse
+  derived: false
+  header: ''
+  level: 1.12
+  links:
+  - TRS029: 9vmoQVkTljeQxF2yNO0w4IYoTLX_5KDGQtLStO0gVxQ=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 4ZH5DRm6aoC66yoQRe9iwHz0_GmgqMngRcPM5itbqa4=
+  text: |
+    Tunkunia deberá proporcionar al administrador institucional una interfaz gráfica para crear y modificar las definiciones de trámite y sus elementos de proceso.
+  type: interface
+
+SyRS002:
+  active: true
+  category: sovereignty
+  derived: false
+  header: ''
+  level: 2.1
+  links:
+  - TRS012: DNR--wbZipdo7vbS2Gi7RqxSnfBSHJKGUSA5hFFvoXQ=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: X4AFXMiW9EGsB0z0C7vr-n43r0sR7t6-OT8_Modej5A=
+  text: |
+    Tunkunia deberá distribuirse con su código fuente completo bajo una licencia de software libre que permita usar, copiar, estudiar, modificar y redistribuir el producto y sus versiones modificadas sin exigir que las obras derivadas usen la misma licencia.
+  type: policy
+
+SyRS003:
+  active: true
+  category: sovereignty
+  derived: false
+  header: ''
+  level: 2.2
+  links:
+  - TRS012: DNR--wbZipdo7vbS2Gi7RqxSnfBSHJKGUSA5hFFvoXQ=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: Xc0-KLmZmekASDzD_N0hG2gMsTiJpGgRkhc7DQhKQj4=
+  text: |
+    Tunkunia deberá distribuirse mediante un repositorio públicamente accesible que incluya su código fuente y las instrucciones para obtenerlo.
+  type: distribution
+
+SyRS004:
+  active: true
+  category: sovereignty
+  derived: false
+  header: ''
+  level: 2.3
+  links:
+  - TRS013: IJOq6Lveb-zzrl5PGwTZrrJXH0jYwxCwh7xnNYd_Ad8=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: cPIB_bTI-ciimcvq3uZzcODm7fidaX6zZoqL2eJiB4o=
+  text: |
+    Tunkunia deberá poder desplegarse y operar en infraestructura administrada por la institución adoptante sin depender de un servicio de alojamiento exclusivo del proveedor.
+  type: operational
+
+SyRS005:
+  active: true
+  category: deployment
+  derived: false
+  header: ''
+  level: 3.1
+  links:
+  - TRS014: VAMNE56wEAd1CoH2Ox6Kq3cuuxC5it19xDGu-V02bWI=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: DyMmC2FTLAMe9SrKr02nbxgz-tTFMkv-uJGHwdmJXcw=
+  text: |
+    Tunkunia deberá poder desplegarse como una instancia operativa, siguiendo su guía de instalación y en infraestructura que cumpla los prerrequisitos documentados, en no más de un día hábil.
+  type: quality
+
+SyRS006:
+  active: true
+  category: deployment
+  derived: false
+  header: ''
+  level: 3.2
+  links:
+  - TRS015: y4gHsA1QvsU0jmUokgTFPPjurQDLVUW9GrdtgzOS3YU=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: s1RZhWlI7_Uz24SItNrYnv928cacwSstutp3ltCxRRE=
+  text: |
+    Tunkunia deberá incluir una guía de instalación que identifique los prerrequisitos, los pasos de instalación, la configuración inicial y el procedimiento para comprobar un despliegue correcto.
+  type: documentation
+
+SyRS007:
+  active: true
+  category: deployment
+  derived: false
+  header: ''
+  level: 3.3
+  links:
+  - TRS016: HdpLhz4oL9LECDJob1LOt0PEtBwFXWFI3PhzHe6tcXU=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: 5t_Vi0OvnlWQndIjB7h8dtaYPA6RNwi84qCtcr0uQEw=
+  text: |
+    Tunkunia deberá incluir instrucciones de uso para cada rol de usuario directo.
+  type: documentation
+
+SyRS008:
+  active: true
+  category: deployment
+  derived: false
+  header: ''
+  level: 3.4
+  links:
+  - TRS017: L8vLTr4AwXKNEQcwydoKv4u9y2Jy9TyKOwMzKNs4XXo=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: JWLAqTFtL5FjvNlDm-C6uR6IEF2NwWIKZ2SZlwzqLe8=
+  text: |
+    Tunkunia deberá incluir documentación técnica que describa su arquitectura y los puntos de extensión publicados.
+  type: documentation
+
+SyRS009:
+  active: true
+  category: deployment
+  derived: false
+  header: ''
+  level: 3.5
+  links:
+  - TRS018: p6VqjHDnvybC7pDG8ZgLvl9s918uxU_xJduMkIEAMo0=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 4J5kjcf3J-SsTCO3tpMZkQfmryLhg01BVpLig5pXmZk=
+  text: |
+    Tunkunia deberá publicar en formato web la documentación destinada a operadores, usuarios directos y desarrolladores.
+  type: interface
+
+SyRS021:
+  active: true
+  category: publication
+  derived: false
+  header: ''
+  level: 4.1
+  links:
+  - TRS030: iNDNIvikmjO-UkPsPpr6W6B-NAE879MIzOnqOoeqc2s=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: 8SKlLAaxoDrnHSzPgIrWy6Y5bUjJv8jS5a5nDjVwRio=
+  text: |
+    Tunkunia deberá mantener un catálogo de las definiciones de trámite registradas en la instancia.
+  type: functional
+
+SyRS022:
+  active: true
+  category: publication
+  derived: false
+  header: ''
+  level: 4.2
+  links:
+  - TRS030: iNDNIvikmjO-UkPsPpr6W6B-NAE879MIzOnqOoeqc2s=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: 66P6OOAZ8ctcr48YhHSGGJW4VVpz5OjfdYQzYn2u9Fg=
+  text: |
+    Tunkunia deberá permitir que cada definición de trámite tenga uno de los estados borrador, publicado o archivado.
+  type: functional
+
+SyRS023:
+  active: true
+  category: publication
+  derived: false
+  header: ''
+  level: 4.3
+  links:
+  - TRS031: Oui9dH-zVO9LCfshzo6TYsd8nbYfdfGNRmoNHvE-SFk=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: R5W5dGLJ3vscuJ4WqPQHfkhtMSzZPOF1eBFdYjoBcvY=
+  text: |
+    Tunkunia deberá permitir que cualquier visitante consulte, sin autenticarse, el catálogo de trámites publicados de la instancia.
+  type: interface
+
+SyRS024:
+  active: true
+  category: publication
+  derived: false
+  header: ''
+  level: 4.4
+  links:
+  - TRS032: WzF8BZcLIq-npROsU9EA6m5l1kE_ZKbMzauLBTczoic=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: BKY7WotXQWwjUVV8thrvFntVM2s1iR2hV8ZJNyPP_zo=
+  text: |
+    Para cada trámite publicado, Tunkunia deberá mostrar sus datos descriptivos y una representación del procedimiento que identifique sus etapas, acciones y puntos de decisión.
+  type: interface
+
+SyRS025:
+  active: true
+  category: publication
+  derived: false
+  header: ''
+  level: 4.5
+  links:
+  - TRS033: P6dXK7CWTISqCwnkVmL_N9K688Noiz34GZUgLd84IbY=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: DkXiSBA1n6DPIMn-lbfMfJ0WJ5gp6ekmuk2GzFA5PGY=
+  text: |
+    Tunkunia deberá impedir la publicación de una definición que incumpla las reglas estructurales documentadas del modelo e identificar cada incumplimiento detectado.
+  type: quality
+
+SyRS026:
+  active: true
+  category: publication
+  derived: false
+  header: ''
+  level: 4.6
+  links:
+  - TRS034: 00Uc7bR4Iiw5-Yne6TfI49aoeR2G-pv8Vl38LpZ0bWA=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: hh0SQC0CtLCD6EiOieP6axoQYmMndV_KHriPnQnUY2Q=
+  text: |
+    Tunkunia deberá restringir la consulta y modificación de definiciones en borrador o archivadas a usuarios con permiso de edición sobre esas definiciones.
+  type: security
+
+SyRS027:
+  active: true
+  category: versioning
+  derived: false
+  header: ''
+  level: 5.1
+  links:
+  - TRS035: gne_6iiaWXqk8JDo_U7PHd7CzrEf2e-aVX6uBQCKGDQ=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: BRvqpDnzPVgYzov4B1R9unJYIGSRqNsBfXHMQf0lZFY=
+  text: |
+    Cuando se modifique una definición publicada, Tunkunia deberá conservar la versión anterior y registrar los cambios en una versión nueva.
+  type: functional
+
+SyRS028:
+  active: true
+  category: versioning
+  derived: false
+  header: ''
+  level: 5.2
+  links:
+  - TRS035: gne_6iiaWXqk8JDo_U7PHd7CzrEf2e-aVX6uBQCKGDQ=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: Cd_LgAoFJmaY72owCuuNAA0Oxd2QJ4OOfneikrJ6LtM=
+  text: |
+    Tunkunia deberá mantener sin cambios la versión de la definición asociada a un caso durante toda su ejecución.
+  type: data-integrity
+
+SyRS029:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.1
+  links:
+  - TRS036: 2krV88fCFX_SW_NqynyFHl7QIVlN1zqFlsQ0G6-TkGw=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: oSATD2e6h1h0hZyuLihEBJYroNsCcjVg8lILqBnCGbA=
+  text: |
+    Tunkunia deberá ofrecer, desde cada trámite publicado que pueda iniciarse digitalmente, una acción que dirija al ciudadano al inicio de un caso de ese trámite.
+  type: interface
+
+SyRS030:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.2
+  links:
+  - TRS036: 2krV88fCFX_SW_NqynyFHl7QIVlN1zqFlsQ0G6-TkGw=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: Ew9stqC21iDDkz41Qb4TJXV19UKzuyJx3dY9FHRa42g=
+  text: |
+    A petición del ciudadano autenticado directamente involucrado, Tunkunia deberá crear un caso usando la versión publicada vigente de la definición seleccionada y registrarlo como participante.
+  type: functional
+
+SyRS031:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.3
+  links:
+  - TRS037: hNndQbapqFMA_F4fxXLGTMDyEN9hVrneSxfpP68UEm8=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: fuRSkcixrHfgId760ZmZc_XHB_F3e3SMEXaNkPBjU-Q=
+  text: |
+    Tunkunia deberá permitir que un servidor público con autorización para el trámite cree un caso e identifique al ciudadano directamente involucrado.
+  type: security
+
+SyRS032:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.4
+  links:
+  - TRS038: Re8cc_Bdj_eQy_TqZn8_ldWuSK02BYGRLcXZ2GlTdrQ=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: hwgVNqeDWdjMaj1YVgbHD-mt4Xhftcs6EiMkp3XVtoo=
+  text: |
+    Al crear un caso, Tunkunia deberá registrar la identidad del actor que lo inició y la fecha y hora del inicio, distinguiéndolo del ciudadano directamente involucrado.
+  type: audit
+
+SyRS033:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.5
+  links:
+  - TRS039: L680PyJaQt-YL-dypYVgykppyZEPlpkrqr4agAlMV_o=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 96emzFoUyKegn83bErwLloDanzOGtLAlhdoHauaoD3s=
+  text: |
+    Para cada participante, Tunkunia deberá determinar las acciones pendientes habilitadas por el estado vigente del caso, la definición aplicable y los permisos asignados.
+  type: functional
+
+SyRS034:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.6
+  links:
+  - TRS040: rpiPMaCzVv6-TLNknj9EQR3L-Pf7aiPyC0Q7xm_ds2o=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 9qGMpYEncyePy2jcC7Yk1ldjyw0_klB3bPCdYxVjugE=
+  text: |
+    Tunkunia deberá representar cada acción humana pendiente como una tarea asociada al caso y a los participantes o roles responsables.
+  type: functional
+
+SyRS035:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.7
+  links:
+  - TRS040: rpiPMaCzVv6-TLNknj9EQR3L-Pf7aiPyC0Q7xm_ds2o=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: O7Qxo0o4EoeqA4kv1Z3h7rTMKx1F2SkiDemnkGkJQjI=
+  text: |
+    Tunkunia deberá mostrar a cada servidor público una bandeja con las tareas pendientes asignadas directamente a él o a uno de sus roles en los casos de trámite.
+  type: interface
+
+SyRS036:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.8
+  links:
+  - TRS042: kB41LtapHtxEcNVaXS20yE2KUcCRQvsTIOr7taaxksE=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: xbPWS2bSm_S79OfvgTWkWCWiBoci3YzMbTiKFXOOqDw=
+  text: |
+    Cuando se complete una acción válida, Tunkunia deberá actualizar el caso al estado de destino que la definición aplicable establezca para el resultado obtenido.
+  type: functional
+
+SyRS037:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.9
+  links:
+  - TRS041: pvPT6P51GBWh3X0PckEfNoMuYdPskdBeTGEdBOXbEvQ=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 5_XjEmGQAejF3c1nIprtPr4WpoeS2FulVRrgy_1ZQck=
+  text: |
+    Tunkunia deberá mostrar al ciudadano participante el estado vigente de cada uno de sus casos.
+  type: interface
+
+SyRS038:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: '6.10'
+  links:
+  - TRS043: fruaYoCehllk-2zBW9BR0NKEHxhv2HAvDIztbXire9U=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: e3bVkQbI5xwCWWPMY12Oj2TLOIYo4ZPeWtOBxX_AsVk=
+  text: |
+    Tunkunia deberá mostrar la consecuencia configurada para el vencimiento del plazo de una etapa y aplicarla cuando el plazo venza sin que se complete la actuación requerida.
+  type: functional
+
+SyRS039:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.11
+  links:
+  - TRS044: EEoPgfVjgvOtWGNCfJBwPvHk_i9RoH34Mht9_BOulJs=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: hG0NMIRRA65gJJQo6d0ZxaB2J10ASZjOmnkPjS_LshY=
+  text: |
+    Tunkunia deberá permitir que un administrador institucional autorizado registre una intervención excepcional vinculada a un caso, indicando su motivo y la actuación realizada.
+  type: audit
+
+SyRS040:
+  active: true
+  category: execution
+  derived: false
+  header: ''
+  level: 6.12
+  links:
+  - TRS044: EEoPgfVjgvOtWGNCfJBwPvHk_i9RoH34Mht9_BOulJs=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: 0QDblP3VLHe7V3K-dviuV0yYvDskwfPYFSpMI7HHaR4=
+  text: |
+    Para cada intervención excepcional, Tunkunia deberá conservar dentro del caso la identidad del actor, la fecha y hora, el motivo y la actuación registrada.
+  type: audit
+
+SyRS041:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.1
+  links:
+  - TRS045: 2krfPLPcGm-rpttue3-DwBzAQ7kVAnlPvnghc86ZZMw=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: URFIMmIGbLwQD4UTQMXC-3OFA2H5MPfXrsGph9KlomQ=
+  text: |
+    Tunkunia deberá mantener un expediente para cada caso de trámite desde su inicio.
+  type: functional
+
+SyRS042:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.2
+  links:
+  - TRS045: 2krfPLPcGm-rpttue3-DwBzAQ7kVAnlPvnghc86ZZMw=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: wC67XZ2ZYtDa-lz6EVUfUawS9pcMFW_ZyuhLYf5M29o=
+  text: |
+    Durante la ejecución de un caso, Tunkunia deberá incorporar a su expediente los datos, documentos y actuaciones que produzcan las acciones del procedimiento.
+  type: data-integrity
+
+SyRS043:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.3
+  links:
+  - TRS045: 2krfPLPcGm-rpttue3-DwBzAQ7kVAnlPvnghc86ZZMw=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: OoEuXCtdcdCpWpQiMOWcV9f27oOdUtE7mfCplQlLtQg=
+  text: |
+    Tunkunia deberá mostrar el expediente de un caso a sus participantes autorizados.
+  type: interface
+
+SyRS044:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.4
+  links:
+  - TRS046: a-Vub5xlgJXm9CykJKSmtKhpgVUytYEeqMdjprQp0KI=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: xRszolG6y4T0Epoz7E_GAa13zeXca5BcTGgs0Ib7jco=
+  text: |
+    Tunkunia deberá mostrar al ciudadano autenticado una lista de los casos en los que participa, indicando como mínimo el trámite y el estado vigente o resultado final de cada caso.
+  type: interface
+
+SyRS045:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.5
+  links:
+  - TRS047: fwhhDaO7RDy2-65Qb_cHe5qVi9M3tqW78cZ0O8zV4eU=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: j75Bh0IfqnIyi7qH6t37QioPeVVe7EM8k8rKomskJgA=
+  text: |
+    Tunkunia deberá permitir que un auditor autorizado consulte los casos dentro de su alcance, sin excluirlos por estar en curso, haber concluido exitosamente o haber concluido sin éxito.
+  type: interface
+
+SyRS046:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.6
+  links:
+  - TRS048: Vfxw4ym1f3RXUsKKcakPo8VARK4vCJeABDyTFZIuGIw=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 2zwmIwi1SmotJysElSvM3XPg3QflJE0mwB-Xi5M3Huw=
+  text: |
+    Para cada actuación del caso, Tunkunia deberá registrar cronológicamente la fecha y hora, el actor, el tipo de actuación y su resultado.
+  type: audit
+
+SyRS047:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.7
+  links:
+  - TRS048: Vfxw4ym1f3RXUsKKcakPo8VARK4vCJeABDyTFZIuGIw=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 220V1lvGXB2zF02Z2VhClxbCOQXGfL795Y__gzj94IY=
+  text: |
+    Tunkunia deberá impedir que una actuación registrada en el historial de un caso sea modificada o eliminada mediante operaciones ordinarias de gestión del caso.
+  type: data-integrity
+
+SyRS048:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.8
+  links:
+  - TRS049: mRhKJ5OJGktQJ7mKg-4yws9JI2S0x43TJEASpVoi2eo=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: 51HFiZ0eSuKvmtrgZ7hMiSlfjjekpmwxAagSN05XTew=
+  text: |
+    Tunkunia deberá conservar los casos y sus historiales cuando la definición asociada sea archivada o retirada de publicación.
+  type: retention
+
+SyRS049:
+  active: true
+  category: records
+  derived: false
+  header: ''
+  level: 7.9
+  links:
+  - TRS050: rPuCNvPJ90hO-xAOvAviDbpRIQNTuAfuUbxoUmuQ_fw=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: uuxfXofUeuHRrkuv5u0Vyi_RSDBIRXGt5clBA9YBnDc=
+  text: |
+    Antes de mostrar un expediente o historial, Tunkunia deberá comprobar que el usuario esté autorizado por su relación con el caso o por un permiso de auditoría cuyo alcance incluya el caso.
+  type: security
+
+SyRS050:
+  active: true
+  category: identity
+  derived: false
+  header: ''
+  level: 8.1
+  links:
+  - TRS051: sksXyHDCk7NQ17RJG-wmKW7La121F4DlOA6OmH802aU=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: LnRC1DpUv6mhzqsI-_-dDVcXV1KzWoOZrg8lIoKq3vk=
+  text: |
+    Tunkunia deberá integrarse con Ciudadanía Digital para solicitar y recibir resultados de autenticación de usuarios.
+  type: external-interface
+
+SyRS051:
+  active: true
+  category: identity
+  derived: false
+  header: ''
+  level: 8.2
+  links:
+  - TRS051: sksXyHDCk7NQ17RJG-wmKW7La121F4DlOA6OmH802aU=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: pK1W1misPw6invb-dHw3RcaQhfdPcfJ-rACvxXOmwL8=
+  text: |
+    Tunkunia deberá conceder acceso como usuario autenticado mediante Ciudadanía Digital únicamente después de recibir una confirmación válida de identidad para la solicitud de autenticación vigente.
+  type: security
+
+SyRS052:
+  active: true
+  category: identity
+  derived: false
+  header: ''
+  level: 8.3
+  links:
+  - TRS052: RIzzY-cnubGD9tHHbRf9HHwPjz4eAdmdsLvwTUH0OgA=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: APccP9-JVrUU5u8cvSN1MOOrN8r5CjI6IzM-mv6szRg=
+  text: |
+    Antes de permitir el acceso a datos protegidos de un trámite o caso, Tunkunia deberá comprobar la identidad del usuario, sus roles, sus permisos y su relación con el caso según corresponda.
+  type: security
+
+SyRS053:
+  active: true
+  category: identity
+  derived: false
+  header: ''
+  level: 8.4
+  links:
+  - TRS053: AWfTbk1J46Mj0j-_UlHKJsK2Uek2MzGFA1qgPbZDfww=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: _5ruXi5RvO0AsJcwkFCBUTNibwK4fnqknEmqBh-H-ks=
+  text: |
+    Tunkunia deberá permitir configurar, para cada acción humana, si requiere validación de identidad mediante Ciudadanía Digital antes de completarse.
+  type: functional
+
+SyRS054:
+  active: true
+  category: identity
+  derived: false
+  header: ''
+  level: 8.5
+  links:
+  - TRS053: AWfTbk1J46Mj0j-_UlHKJsK2Uek2MzGFA1qgPbZDfww=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: sbY3fUdyHrC6GnyL9JXaacO9yQXAQ3wYWXN3tVzM-tk=
+  text: |
+    Para una acción configurada con validación de identidad, Tunkunia deberá impedir su finalización hasta recibir de Ciudadanía Digital una validación vigente correspondiente al participante que la ejecuta.
+  type: security
+
+SyRS055:
+  active: true
+  category: identity
+  derived: false
+  header: ''
+  level: 8.6
+  links:
+  - TRS054: R4yFZWsUA1sbQ88ShNALQbaO_x6ADJODfnQ2hTB8nvw=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: U0zYHCgMR72kL-WetR6cuFXynLSqqo5vvIXfHrV_UAQ=
+  text: |
+    Cuando Ciudadanía Digital proporcione datos de identificación válidos para el propósito del trámite, Tunkunia deberá reutilizarlos en el caso y no exigir al participante que proporcione nuevamente esos mismos datos para ese propósito.
+  type: data-minimization
+
+SyRS056:
+  active: true
+  category: notifications
+  derived: false
+  header: ''
+  level: 9.1
+  links:
+  - TRS055: fq-sCs6rsn8PwBMepqSAWb-HE7rxGdoeaVayaUdUFXQ=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: ayGWs28sNUD4Uly_RskPTjCZ6K960fgZGlMuJZC-xZ8=
+  text: |
+    Al procesar un evento documentado como notificable, Tunkunia deberá generar una notificación que identifique el caso, el tipo de evento, la fecha y hora y sus destinatarios autorizados.
+  type: functional
+
+SyRS057:
+  active: true
+  category: notifications
+  derived: false
+  header: ''
+  level: 9.2
+  links:
+  - TRS055: fq-sCs6rsn8PwBMepqSAWb-HE7rxGdoeaVayaUdUFXQ=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: DleEfGtPRB7_vN24gaVCyFgo9T3mrW7LJul2Ye_NBYk=
+  text: |
+    Cuando una tarea quede pendiente, Tunkunia deberá generar una notificación interna para cada participante al que esté asignada directamente o mediante uno de sus roles.
+  type: functional
+
+SyRS058:
+  active: true
+  category: notifications
+  derived: false
+  header: ''
+  level: 9.3
+  links:
+  - TRS055: fq-sCs6rsn8PwBMepqSAWb-HE7rxGdoeaVayaUdUFXQ=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: LazTtBLonWWTkogjeou5AQieJrSo1FfRtDTocCy3Bps=
+  text: |
+    Cuando cambie el estado de un caso, Tunkunia deberá generar una notificación interna para cada ciudadano participante que identifique el estado resultante.
+  type: functional
+
+SyRS059:
+  active: true
+  category: notifications
+  derived: false
+  header: ''
+  level: 9.4
+  links:
+  - TRS056: BmOjaitw_nuSgKsZFfaDUqlPtsxISGqALEvH43U-kFM=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: l7FrMj8nRLXTysymPRhjgf1yFkVzwx1OJmDy3kYK_So=
+  text: |
+    Cuando un servidor público cree un caso para un ciudadano, Tunkunia deberá generar para ese ciudadano una notificación interna que identifique el trámite, el caso y al iniciador.
+  type: functional
+
+SyRS060:
+  active: true
+  category: notifications
+  derived: false
+  header: ''
+  level: 9.5
+  links:
+  - TRS057: 0VVfks1PcAzDVNE9TzzXho-wyzpcMsIjpV2582pfCfs=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: hNSZKfiiNRkh4gAngU6g3iYcut19oXfrybDdXG_oNxQ=
+  text: |
+    Tunkunia deberá poder enviar una notificación relevante mediante correo electrónico o el servicio de notificaciones de Ciudadanía Digital cuando el canal esté habilitado para el destinatario.
+  type: external-interface
+
+SyRS061:
+  active: true
+  category: notifications
+  derived: false
+  header: ''
+  level: 9.6
+  links:
+  - TRS058: FSm16zVkHc4xYA3GxuP1st_G7xxaLj05U_6QVlVKSjQ=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: 7XvwZ1mtZG6W7kZlnqDFcaXSZSxi7rHgwZUq8cJZONE=
+  text: |
+    Tunkunia deberá generar una notificación para el administrador institucional responsable cuando registre un error de ejecución o aplique una consecuencia por vencimiento configurada como sujeta a atención administrativa.
+  type: functional
+
+SyRS062:
+  active: true
+  category: notifications
+  derived: false
+  header: ''
+  level: 9.7
+  links:
+  - TRS059: QR02MjY_mjhQLuT9jnA5DJ9w6ie8_oZ9t3TLBYQcGxE=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: Z_TzmArcfSWjxnXZ_9oHkU3WZ5zvus1xnov1ETnJW0g=
+  text: |
+    Para cada notificación generada, Tunkunia deberá registrar el evento de origen, el caso, la fecha y hora, los destinatarios, los canales intentados y el resultado de entrega conocido de cada canal.
+  type: audit
+
+SyRS063:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.1
+  links:
+  - TRS060: _RK5B4xU-3F0kGTt3z8HYiEKU9AwOLfe6Ke5q3xkn9E=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: jMGc68sP7Q0ajCVnAgfGrZaPQhsZN-qc2PrX2y-Q2vk=
+  text: |
+    Tunkunia deberá permitir registrar para cada trámite todos los campos obligatorios del contrato de información de gob.bo seleccionado para el despliegue.
+  type: data
+
+SyRS064:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.2
+  links:
+  - TRS061: H2-qO6OkMaVhiXslRnf9-vGsSFc-mTBLkLRYxPTxsfs=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: xIjBobseZpXw-Z3C3sE3UXTITneo-me6nfDHGH4gg3M=
+  text: |
+    Tunkunia deberá generar un reporte de los trámites publicados que contenga los campos obligatorios del contrato de gob.bo seleccionado y los valores registrados para cada trámite.
+  type: functional
+
+SyRS065:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.3
+  links:
+  - TRS062: Xv57l8Lu_VGIz7Qacf6ol6GEg2WNcyO0mbV40HRmdgk=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: DmQ0Q0awwEm0IfX8mQSp-m7YkekuwuEeaIhzP5h1vLI=
+  text: |
+    Tunkunia deberá exponer a una identidad autorizada de AGETIC una interfaz que entregue los datos de los trámites publicados incluidos en el contrato aplicable de gob.bo.
+  type: external-interface
+
+SyRS066:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.4
+  links:
+  - TRS063: xNnZ6zH9ZIfR4-mGSKSUiNwFErKVuu3wtvVpe6Hb8tU=
+  - TRS064: zPbeXlNPEIt8I3ff4G-aT4Z5aicUhP_2e89iSwr7Y38=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: pL6Mhjkec5wUsIdONqv36JbPHNPZWu_0EyhhI3Ad_4s=
+  text: |
+    Para cada solicitud externa, Tunkunia deberá autenticar al sistema solicitante y permitir únicamente las operaciones y datos incluidos en su autorización vigente.
+  type: security
+
+SyRS067:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.5
+  links:
+  - TRS065: DE-p7eNqpFYC2CmsHNjXoJ7oUWKCg4hPAX1XFVOreuA=
+  normative: true
+  priority: Should
+  prototype: ''
+  ref: ''
+  reviewed: ZzjX1zp-DPemENpwLlz4T-76oZy-xbwYZP4REWGIdfM=
+  text: |
+    Tunkunia deberá publicar una especificación actualizada de sus interfaces externas que describa operaciones, datos de entrada y salida, autorización, respuestas y errores.
+  type: documentation
+
+SyRS068:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.6
+  links:
+  - TRS066: JK5lzF_vr9xdRtGoKAfQCoSfuq8PpM9p7l93oiPP5mY=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: wFHy1fu33PLFF6VQj6FYhF-wSG61n6ybvHzAWGTTm6o=
+  text: |
+    A petición de un sistema externo autorizado, Tunkunia deberá crear un caso únicamente para un trámite incluido en el alcance vigente de ese sistema.
+  type: external-interface
+
+SyRS069:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.7
+  links:
+  - TRS066: JK5lzF_vr9xdRtGoKAfQCoSfuq8PpM9p7l93oiPP5mY=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: hiaMFOZPqyn2JX0QdhVQ3rE0343_10Gd1qC241tFNUQ=
+  text: |
+    Cuando un sistema externo inicie un caso, Tunkunia deberá registrar como iniciador la identidad técnica autenticada de ese sistema.
+  type: audit
+
+SyRS070:
+  active: true
+  category: interoperability
+  derived: false
+  header: ''
+  level: 10.8
+  links:
+  - TRS067: NmTeYA50NumhLZotTk9A91Dco8OeSIFLNjWjWkTv7oA=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: XsZqkhNNcxo7_uG8L7JTrw8pzcwB-gkorKBSNRWGOD8=
+  text: |
+    Al ejecutar una acción de integración, Tunkunia deberá intercambiar con la contraparte configurada únicamente los datos de entrada y salida definidos en el contrato asociado a esa acción.
+  type: external-interface
+
+SyRS071:
+  active: true
+  category: access-extension
+  derived: false
+  header: ''
+  level: 11.1
+  links:
+  - TRS068: pCvfyP02NS4pcuaUiwivCarVjy3Rr8uEU_5pznsKvds=
+  normative: true
+  priority: Must
+  prototype: ''
+  ref: ''
+  reviewed: _doRgVHtCfNHrRoE44Qb7opJKp7E00MoPqqd-L4s2WQ=
+  text: |
+    Tunkunia deberá proporcionar mediante navegadores web compatibles todas las funciones destinadas a participantes, sin requerir la instalación de una aplicación cliente de Tunkunia.
+  type: usability
+
+SyRS072:
+  active: true
+  category: access-extension
+  derived: false
+  header: ''
+  level: 11.2
+  links:
+  - TRS069: QBeLcUMeN4atDw2NsHJi1uWLIdRnNfvLnlwIwtHL0b0=
+  normative: true
+  priority: Could
+  prototype: ''
+  ref: ''
+  reviewed: 1-7H_L2cvWikfZtnjx8j9zMUmXFi0_nbVUBylurSBwI=
+  text: |
+    Tunkunia deberá proporcionar puntos de extensión documentados para incorporar nuevos tipos de acción o integración sin modificar los contratos publicados del comportamiento común existente.
+  type: extensibility
+
+SyRS073:
+  active: true
+  derived: false
+  header: ''
+  level: 11.3
+  links: []
+  normative: true
+  ref: ''
+  reviewed: RZScE-40pLg5ZQld7inVZXUPVP-YNMvyL4IhIGVChdI=
+  text: ''
+

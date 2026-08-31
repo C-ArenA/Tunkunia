@@ -1,8 +1,8 @@
 active: true
-category: reuse
+category: ''
 derived: false
 header: ''
-level: 1.13
+level: 1.4
 links: []
 normative: true
 priority: Must
@@ -10,5 +10,5 @@ prototype: ''
 ref: ''
 reviewed: 9vmoQVkTljeQxF2yNO0w4IYoTLX_5KDGQtLStO0gVxQ=
 text: |
-  La entidad pública deberá poder crear y modificar definiciones de trámite mediante una interfaz gráfica.
+  La entidad pública deberá configurar trámites mediante una interfaz gráfica.
 type: interface

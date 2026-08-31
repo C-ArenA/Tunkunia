@@ -1,8 +1,8 @@
 active: true
-category: publication
+category: ''
 derived: false
 header: ''
-level: 4.3
+level: 4.1
 links: []
 normative: true
 priority: Must
@@ -10,5 +10,5 @@ prototype: ''
 ref: ''
 reviewed: Oui9dH-zVO9LCfshzo6TYsd8nbYfdfGNRmoNHvE-SFk=
 text: |
-  El ciudadano deberá poder consultar los trámites publicados por una entidad pública sin autenticarse.
+  El ciudadano deberá poder consultar los trámites publicados por una entidad pública de manera abierta.
 type: capability

@@ -1,4 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "/shared/requirements.typ": requirements
 #import "/shared/theme/lib.typ": img-fig, mmd-fig, typ-fig
 
 == Ingeniería de Requerimientos
@@ -18,13 +19,15 @@ De acuerdo al ISO 29148, un proyecto podría producir cuatro elementos de inform
 + Especificación de requerimientos del sistema (SyRS).
 + Especificación de requerimientos del software (SRS).
 
-Cada elemento de información tiene un propósito específico y responde a distintos niveles de abstracción.
-La visión global de este proyecto se define en la introducción (@chap:intro), por lo que se omite la especificación de requerimientos del negocio (@BRS) y la especificación de requerimientos de los interesados (@StRS).
-Por su lado, la especificación de requerimientos del sistema y la especificación de requerimientos del software responden a un nivel más técnico y aunque pueden atacar elementos similares, en especial en un proyecto puramente de software, conviene considerar aspectos de ambos de forma separada.
+Cada elemento de información tiene un propósito específico y responde a distintos niveles de abstracción, pero algunos pueden ser omitidos o combinados dependiendo de la naturaleza del proyecto.
 
-=== Especificación de Requerimientos de Negocio
+A continuación se describen las especificaciones de requerimientos definidas para Tunkunia.
 
-De acuerdo al estándar ISO 29148, la especificación de negocio puede tener cierto contenido que principalmente se encarga de delinear el sistema desde el punto de vista de la organización o la misión que está detrás de la misma. Sin embargo, en un sistema reutilizable como el que se propone la definición de lo que es en primer lugar la organización o el negocio, o incluso la misión no es tan fácil de obtener. En este sentido, se prefiere adoptar un enfoque que permita capturar las necesidades reales del artefacto principal de este proyecto y que evite excesivo solapamiento con la definición misma del proyecto, tomando al gobierno boliviano como negocio u organización.
+=== Especificación de Requerimientos de Negocio e Interesados
+
+De acuerdo al estándar ISO 29148, la especificación de negocio puede tener cierto contenido que principalmente se encarga de delinear el sistema desde el punto de vista de la organización o la misión que está detrás de la misma. Sin embargo, en un sistema reutilizable como el que se propone la definición de lo que es en primer lugar la organización o el negocio, o incluso la misión no es tan fácil de obtener. En este sentido, se prefiere adoptar un enfoque que permita capturar las necesidades reales del artefacto principal de este proyecto y que evite excesivo solapamiento con la definición misma del proyecto, tomando al gobierno electrónico como negocio, organización o misión.
+
+Adicionalmente, como indica el estándar mencionado, la especificación de negocio y la de interesados tienen muchas similitudes, por lo que se decidió incluir aspectos de ambos a continuación.
 
 ==== Introducción
 
@@ -114,31 +117,9 @@ El sistema que se plantea afectará el proceso mediante el cual se digitalizan t
 
 ==== Requerimientos de Usuario
 
+A continuación se presentan los requerimientos desde el punto de vista de los principales interesados o stakeholders identificados anteriormente. No se dan detalles sobre los usuarios involucrados ya que en esta especificación el nivel de abstracción es aún elevado.
 
-
-=== Elicitación, descubrimiento y gestión
-
-// TODO: MY: Describir técnicas empleadas: Ingeno lista algunas que sí use como Observación, Análisis de documentos y brainstorming.
-
-Antes de describir las especificaciones mencionadas conviene presentar, de manera superficial, el trabajo realizado para elaborarlas mediante la elicitación, que forma parte de las actividades iniciales de desarrollo de los requerimientos @washizakiGuideSoftwareEngineering2025.
-
-Las distintas especificaciones de requerimientos nacieron a partir de esta actividad y en atención a la definición del proyecto. La elicitación inicial realizada reúne necesidades expresadas en forma de historias de usuario, descripciones simples, requerimientos formales, entre otros, que permiten capturar las cualidades deseadas del sistema a partir de sus fuentes que
-incluyen los objetivos, los alcances, los trámites de referencia, la normativa y los planes de
-gobierno electrónico considerados en el marco de referencia, así como la experiencia que
-dio origen al proyecto.
-
-Para registrar los elementos de la elicitación inicial, se creó una tabla simple con los siguientes elementos:
-
-- Identificador
-- Enunciado del requerimiento
-- Nivel de prioridad: Usando la técnica MoSCoW de priorización
-
-Se debe tomar en cuenta que no todos los elementos de la elicitación inicial se consideran en las especificaciones de requerimientos finales. Cada elemento pudo haber generado varios requerimientos. Las necesidades descartadas no se borraron de la tabla de elicitación.
-
-// Aclaración editorial: se omiten los subtítulos de propósito y alcance de ambas
-// especificaciones porque esa información ya se desarrolla en la introducción del
-// proyecto. Los demás subtítulos del índice adaptado de ISO/IEC/IEEE 29148 se
-// conservan para que su pertinencia pueda evaluarse durante la redacción.
+#requirements("TRS")
 
 === Especificación de Requerimientos del Sistema
 
