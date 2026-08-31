@@ -1,5 +1,0 @@
-@startuml C4_Elements
-!include <C4/C4_Container>
-
-Person(personAlias, "Ciudadano", "Participante del trámite")
-@enduml

@@ -11,9 +11,9 @@ La ingeniería de requerimientos de Tunkunia toma como referencia
 ISO/IEC/IEEE 29148:2018 #cite(label("iso/iec/ieeeSystemsSoftwareEngineering2018")) #footnote[La aplicación del estándar es parcial y no de conformidad completa.] y las
 prácticas descritas por el SWEBOK @washizakiGuideSoftwareEngineering2025.
 
-De acuerdo al ISO 29148, un proyecto debería producir cuatro elementos de información:
+De acuerdo al ISO 29148, un proyecto podría producir cuatro elementos de información:
 
-+ Especificación de requerimientos del negocio (BRS)
++ Especificación de requerimientos del negocio, de la organización o de la misión (BRS)
 + Especificación de requerimientos de los interesados (StRS).
 + Especificación de requerimientos del sistema (SyRS).
 + Especificación de requerimientos del software (SRS).
@@ -21,6 +21,100 @@ De acuerdo al ISO 29148, un proyecto debería producir cuatro elementos de infor
 Cada elemento de información tiene un propósito específico y responde a distintos niveles de abstracción.
 La visión global de este proyecto se define en la introducción (@chap:intro), por lo que se omite la especificación de requerimientos del negocio (@BRS) y la especificación de requerimientos de los interesados (@StRS).
 Por su lado, la especificación de requerimientos del sistema y la especificación de requerimientos del software responden a un nivel más técnico y aunque pueden atacar elementos similares, en especial en un proyecto puramente de software, conviene considerar aspectos de ambos de forma separada.
+
+=== Especificación de Requerimientos de Negocio
+
+De acuerdo al estándar ISO 29148, la especificación de negocio puede tener cierto contenido que principalmente se encarga de delinear el sistema desde el punto de vista de la organización o la misión que está detrás de la misma. Sin embargo, en un sistema reutilizable como el que se propone la definición de lo que es en primer lugar la organización o el negocio, o incluso la misión no es tan fácil de obtener. En este sentido, se prefiere adoptar un enfoque que permita capturar las necesidades reales del artefacto principal de este proyecto y que evite excesivo solapamiento con la definición misma del proyecto, tomando al gobierno boliviano como negocio u organización.
+
+==== Introducción
+
+Se detallan aspectos generales del negocio y su relación con el sistema que se desea desarrollar. Mucha de esta información es paralela a la definición del proyecto que alberga esta especificación, por lo que se presentan de forma resumida en esta sección.
+
+===== Propósito del Negocio
+
+Un objetivo claro del gobierno boliviano como puede inferirse de la normativa actual y los lineamientos y planes existentes, además de recientes esfuerzos en cuanto a "Acabar con el estado tranca", es la digitalización de servicios, entre los cuales los trámites son muy importantes.
+
+Para la digitalización de trámites es muy común que el negocio (el gobierno boliviano) licite desarrollos o solicite servicios de desarrollo de software en general para poder tener sistemas de trámites en sus distintas instituciones. Esto se hace de manera descentralizada en función a las necesidades específicas de cada elemento perteneciente al gobierno.
+
+En este sentido, el sistema propuesto en el proyecto que contiene a esta especificación puede reducir la fricción en el proceso de digitalización de trámites, contribuyendo a la reducción del estado tranca y en función con los planes y lineamientos del gobierno electrónico derivados de la normativa vigente.
+
+===== Alcance del Negocio
+
+En esta especificación se llama negocio al estado boliviano en proceso de digitalización o, de forma práctica, gobierno electrónico boliviano, que persigue la digitalización de sus procesos. El gobierno boliviano alberga un elevado número de instituciones burocráticas que lo conforman y asumen responsabilidades específicas dentro del estado. Una actividad común en estos elementos del gobierno es el trámite y el sistema propuesto busca atender este problema transversal. Entonces se asume que el sistema podrá facilitar la transición de las actividades de trámite dentro de las instituciones hacia lo digital, considerando los aspectos comunes de los mismos:
+
+- Pueden describirse como procesos o flujos de trabajo.
+- Requieren elementos comunes como la ciudadanía digital, la validación de documentos, etc.
+- Involucran acciones similares como entrega de información, revisión de datos, etc.
+- Deben responder a una misma base normativa
+
+===== Panorama General del Negocio
+
+Si bien se suele hablar de gobierno electrónico y en muchos casos se usa el término gobierno de forma práctica para referirse a todo el aparato administrativo y de poder del estado boliviano, conviene ver que el negocio no sólo contempla al ejecutivo, sino a todos los poderes del estado. De este modo podríamos delinear el contexto del negocio como se ve en la @fig:bolivianInstitutions.
+
+#img-fig(
+  "../../assets/figures/bolivianInstitutions.svg",
+  [Panorama del Negocio],
+  <fig:bolivianInstitutions>,
+  placement: top,
+)
+
+===== Principales interesados
+
+- *Unidades, Entidades o Instituciones:* Son los elementos que administran algún trámite y requieren digitalizar sus procesos.
+- *Ejecutivo mediante la AGETIC:* Impulsa la implementación de Gobierno Electrónico.
+- *Ciudadanía:* Requiere realizar trámites de forma más sencilla y se ve beneficiada cuando estos se realizan de forma digital.
+
+==== Requerimientos de Gestión
+===== Entorno
+El entorno se describe de forma detallada en otras secciones del documento:
+
+- Normativa: Marco de Referencia
+- Estado Actual: Situación Actual
+
+===== Misión, Metas y Objetivos del Negocio
+
+Se puede inferir de la definición de la AGETIC sobre Gobierno Electrónico que la misión del negocio es aplicar las tecnologías de la información y la comunicación al funcionamiento del sector público. El objetivo es el de incrementar la eficiencia, transparencia y la participación ciudadana.
+
+El sistema propuesto sintoniza perfectamente con estas premisas, ya que aplica la tecnología al funcionamiento del sector público y que incrementa la eficiencia de los trámites reeduciendo la fricción en su digitalización.
+
+===== Modelo del Negocio
+
+Es importante hacer una precisión respecto a lo que el estándar trata de decir con "modelo del negocio". Según el estándar se presentan los métodos mediante los cuales se pretende lograr el objetivo.
+
+Se espera lograr el objetivo de negocio con la solución propuesta mediante la reutilización inteligente de software. Se desarrollará un sistema que contenga características transversales a muchos trámites, de modo tal que este sistema pueda ser distribuido a distintas unidades o entidades públicas para su adaptación o configuración a los trámites específicos de cada una.
+
+Al no requerirse un desarrollo desde cero, se logrará que la digitalización de trámites en estas entidades se pueda realizar de forma sencilla y dentro de un marco bien establecido, considerando las necesidades actuales del gobierno electrónico.
+
+El modelo del negocio es en síntesis la centralización del desarrollo e ideas y la descentralización de esfuerzos como puede verse de forma aproximada en la @fig:tunkunia_dist.
+
+#img-fig(
+  "/assets/figures/tunkunia_dist.excalidraw.png",
+  [Modelo del negocio con reutilización de software],
+  <fig:tunkunia_dist>,
+  width: 80%,
+)
+
+==== Requerimientos Operacionales del Negocio
+===== Proceso del Negocio
+
+El sistema que se plantea afectará el proceso mediante el cual se digitalizan trámites de manera dramática. En líneas generales, el proceso actual empieza con la identificación del trámite a digitalizar y pasa necesariamente por la realización de un desarrollo propio para dicho trámite (@fig:business_process_old). La manera en que se hace el desarrollo puede variar desde licitaciones públicas hasta desarrollos in-house. Sin embargo, con Tunkunia, se pasa de una etapa de desarrollo a una de configuración (@fig:business_process_new), simplificando totalmente el proceso.
+
+#img-fig(
+  "/assets/figures/business_process_old.svg",
+  [Proceso de digitalización de trámites actual],
+  <fig:business_process_old>,
+  width: 60%,
+)
+#img-fig(
+  "/assets/figures/business_process_new.svg",
+  [Proceso de digitalización con Tunkunia],
+  <fig:business_process_new>,
+  width: 60%,
+)
+
+==== Requerimientos de Usuario
+
+
 
 === Elicitación, descubrimiento y gestión
 
