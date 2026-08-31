@@ -15,6 +15,8 @@ type Repo interface {
 	GetUserById(ctx context.Context, id UserId) (*User, error)
 	IsRoleInUse(ctx context.Context, role RoleName) (bool, error)
 	AssignRoleToUser(ctx context.Context, userId UserId, role RoleName) error
+	ListUsers(ctx context.Context) ([]User, error)
+	ReplaceRoles(ctx context.Context, userId UserId, roles []RoleName) (*User, error)
 }
 
 type Service struct {
@@ -37,6 +39,27 @@ func (s *Service) GetUserByEmail(ctx context.Context, email Email) (*User, error
 
 func (s *Service) GetUserById(ctx context.Context, id UserId) (*User, error) {
 	return s.r.GetUserById(ctx, id)
+}
+
+func (s *Service) ListUsers(ctx context.Context) ([]User, error) {
+	return s.r.ListUsers(ctx)
+}
+
+func (s *Service) ReplaceRoles(ctx context.Context, id UserId, roles []RoleName) (*User, error) {
+	return s.r.ReplaceRoles(ctx, id, roles)
+}
+
+func (s *Service) HasRole(ctx context.Context, id UserId, role RoleName) bool {
+	u, err := s.r.GetUserById(ctx, id)
+	if err != nil {
+		return false
+	}
+	for _, current := range u.Roles {
+		if current == role {
+			return true
+		}
+	}
+	return false
 }
 
 func (s *Service) CreateFirstAdmin(ctx context.Context, email Email) (*User, error) {

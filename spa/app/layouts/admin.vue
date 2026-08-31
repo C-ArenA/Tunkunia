@@ -20,12 +20,6 @@ const items: NavigationMenuItem[] = [
       <UNavigationMenu :items="items" orientation="vertical" />
       <template #footer="{ collapsed }">
         <div class="space-y-2">
-          <UBadge
-            v-if="!collapsed"
-            color="warning"
-            variant="subtle"
-            label="Datos de demostración"
-          />
           <UButton
             to="/app"
             icon="i-lucide-arrow-left-right"
@@ -36,7 +30,7 @@ const items: NavigationMenuItem[] = [
           />
           <UButton
             icon="i-lucide-refresh-cw"
-            :label="collapsed ? undefined : 'Restablecer demo'"
+            :label="collapsed ? undefined : 'Restablecer institución'"
             color="neutral"
             variant="ghost"
             class="w-full"

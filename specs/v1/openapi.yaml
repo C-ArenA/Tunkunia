@@ -22,6 +22,10 @@ tags:
     description: Identidad del usuario autenticado.
   - name: Health
     description: Estado operativo del servicio.
+  - name: Workflows
+    description: Definiciones ejecutables, casos, tareas y notificaciones.
+  - name: Users
+    description: Gestión institucional de usuarios.
 paths:
   /health:
     $ref: health.yaml#/components/pathItems/Health
@@ -31,6 +35,34 @@ paths:
     $ref: catalog.yaml#/components/pathItems/TramiteById
   /me:
     $ref: authn.yaml#/components/pathItems/CurrentUser
+  /users:
+    $ref: authn.yaml#/components/pathItems/Users
+  /users/{id}/roles:
+    $ref: authn.yaml#/components/pathItems/UserRoles
+  /tramites/{id}/procedure:
+    $ref: workflow.yaml#/components/pathItems/PublishedProcedure
+  /tramites/{id}/procedure/draft:
+    $ref: workflow.yaml#/components/pathItems/DraftProcedure
+  /tramites/{id}/procedure/draft/publish:
+    $ref: workflow.yaml#/components/pathItems/PublishProcedure
+  /tramites/{id}/archive:
+    $ref: workflow.yaml#/components/pathItems/ArchiveTramite
+  /tramites/{id}/cases:
+    $ref: workflow.yaml#/components/pathItems/StartCase
+  /cases:
+    $ref: workflow.yaml#/components/pathItems/Cases
+  /cases/{id}:
+    $ref: workflow.yaml#/components/pathItems/CaseById
+  /cases/{id}/claim:
+    $ref: workflow.yaml#/components/pathItems/ClaimCase
+  /cases/{id}/transitions/{transitionId}/fire:
+    $ref: workflow.yaml#/components/pathItems/FireTransition
+  /tasks:
+    $ref: workflow.yaml#/components/pathItems/Tasks
+  /notifications:
+    $ref: workflow.yaml#/components/pathItems/Notifications
+  /notifications/{id}/read:
+    $ref: workflow.yaml#/components/pathItems/ReadNotification
 components:
   securitySchemes:
     BearerAuth:

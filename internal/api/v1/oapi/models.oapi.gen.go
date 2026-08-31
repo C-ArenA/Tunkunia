@@ -17,6 +17,42 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Defines values for CaseStatus.
+const (
+	CaseStatusActive    CaseStatus = "active"
+	CaseStatusCompleted CaseStatus = "completed"
+)
+
+// Valid indicates whether the value is a known member of the CaseStatus enum.
+func (e CaseStatus) Valid() bool {
+	switch e {
+	case CaseStatusActive:
+		return true
+	case CaseStatusCompleted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CaseSummaryStatus.
+const (
+	CaseSummaryStatusActive    CaseSummaryStatus = "active"
+	CaseSummaryStatusCompleted CaseSummaryStatus = "completed"
+)
+
+// Valid indicates whether the value is a known member of the CaseSummaryStatus enum.
+func (e CaseSummaryStatus) Valid() bool {
+	switch e {
+	case CaseSummaryStatusActive:
+		return true
+	case CaseSummaryStatusCompleted:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for HealthStatus.
 const (
 	DEGRADED HealthStatus = "DEGRADED"
@@ -38,21 +74,111 @@ func (e HealthStatus) Valid() bool {
 	}
 }
 
+// Defines values for NotificationType.
+const (
+	ActionEnabled NotificationType = "action_enabled"
+)
+
+// Valid indicates whether the value is a known member of the NotificationType enum.
+func (e NotificationType) Valid() bool {
+	switch e {
+	case ActionEnabled:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProcedureNodeKind.
+const (
+	Place      ProcedureNodeKind = "place"
+	Transition ProcedureNodeKind = "transition"
+)
+
+// Valid indicates whether the value is a known member of the ProcedureNodeKind enum.
+func (e ProcedureNodeKind) Valid() bool {
+	switch e {
+	case Place:
+		return true
+	case Transition:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProcedureRole.
+const (
+	ProcedureRoleCitizen ProcedureRole = "citizen"
+	ProcedureRoleServant ProcedureRole = "servant"
+)
+
+// Valid indicates whether the value is a known member of the ProcedureRole enum.
+func (e ProcedureRole) Valid() bool {
+	switch e {
+	case ProcedureRoleCitizen:
+		return true
+	case ProcedureRoleServant:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProcedureVersionStatus.
+const (
+	ProcedureVersionStatusDraft     ProcedureVersionStatus = "draft"
+	ProcedureVersionStatusPublished ProcedureVersionStatus = "published"
+)
+
+// Valid indicates whether the value is a known member of the ProcedureVersionStatus enum.
+func (e ProcedureVersionStatus) Valid() bool {
+	switch e {
+	case ProcedureVersionStatusDraft:
+		return true
+	case ProcedureVersionStatusPublished:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TaskStatus.
+const (
+	TaskStatusCancelled TaskStatus = "cancelled"
+	TaskStatusCompleted TaskStatus = "completed"
+	TaskStatusPending   TaskStatus = "pending"
+)
+
+// Valid indicates whether the value is a known member of the TaskStatus enum.
+func (e TaskStatus) Valid() bool {
+	switch e {
+	case TaskStatusCancelled:
+		return true
+	case TaskStatusCompleted:
+		return true
+	case TaskStatusPending:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for TramiteStatus.
 const (
-	Archived  TramiteStatus = "archived"
-	Draft     TramiteStatus = "draft"
-	Published TramiteStatus = "published"
+	TramiteStatusArchived  TramiteStatus = "archived"
+	TramiteStatusDraft     TramiteStatus = "draft"
+	TramiteStatusPublished TramiteStatus = "published"
 )
 
 // Valid indicates whether the value is a known member of the TramiteStatus enum.
 func (e TramiteStatus) Valid() bool {
 	switch e {
-	case Archived:
+	case TramiteStatusArchived:
 		return true
-	case Draft:
+	case TramiteStatusDraft:
 		return true
-	case Published:
+	case TramiteStatusPublished:
 		return true
 	default:
 		return false
@@ -92,11 +218,112 @@ func (e TramiteType) Valid() bool {
 	}
 }
 
+// Defines values for ListCasesParamsScope.
+const (
+	Mine       ListCasesParamsScope = "mine"
+	Unassigned ListCasesParamsScope = "unassigned"
+)
+
+// Valid indicates whether the value is a known member of the ListCasesParamsScope enum.
+func (e ListCasesParamsScope) Valid() bool {
+	switch e {
+	case Mine:
+		return true
+	case Unassigned:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListTasksParamsStatus.
+const (
+	ListTasksParamsStatusCompleted ListTasksParamsStatus = "completed"
+	ListTasksParamsStatusPending   ListTasksParamsStatus = "pending"
+)
+
+// Valid indicates whether the value is a known member of the ListTasksParamsStatus enum.
+func (e ListTasksParamsStatus) Valid() bool {
+	switch e {
+	case ListTasksParamsStatusCompleted:
+		return true
+	case ListTasksParamsStatusPending:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UpdateUserRolesJSONBodyRoles.
+const (
+	UpdateUserRolesJSONBodyRolesAdmin   UpdateUserRolesJSONBodyRoles = "admin"
+	UpdateUserRolesJSONBodyRolesServant UpdateUserRolesJSONBodyRoles = "servant"
+)
+
+// Valid indicates whether the value is a known member of the UpdateUserRolesJSONBodyRoles enum.
+func (e UpdateUserRolesJSONBodyRoles) Valid() bool {
+	switch e {
+	case UpdateUserRolesJSONBodyRolesAdmin:
+		return true
+	case UpdateUserRolesJSONBodyRolesServant:
+		return true
+	default:
+		return false
+	}
+}
+
 // AuditMetadata defines model for AuditMetadata.
 type AuditMetadata struct {
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
+
+// Case defines model for Case.
+type Case struct {
+	AvailableTasks     []Task              `json:"availableTasks"`
+	CompletedAt        *time.Time          `json:"completedAt,omitempty"`
+	Definition         ProcedureDefinition `json:"definition"`
+	EnabledTransitions []string            `json:"enabledTransitions"`
+	History            []CaseAction        `json:"history"`
+	Id                 int64               `json:"id"`
+	Marking            map[string]int      `json:"marking"`
+	Participants       []Participant       `json:"participants"`
+	ProcedureVersion   int                 `json:"procedureVersion"`
+	ProcedureVersionId int64               `json:"procedureVersionId"`
+	Revision           int64               `json:"revision"`
+	StartedAt          time.Time           `json:"startedAt"`
+	Status             CaseStatus          `json:"status"`
+	TramiteId          int64               `json:"tramiteId"`
+	TramiteName        string              `json:"tramiteName"`
+	UpdatedAt          time.Time           `json:"updatedAt"`
+}
+
+// CaseStatus defines model for Case.Status.
+type CaseStatus string
+
+// CaseAction defines model for CaseAction.
+type CaseAction struct {
+	ActorId         int64     `json:"actorId"`
+	ActorName       string    `json:"actorName"`
+	Id              int64     `json:"id"`
+	OccurredAt      time.Time `json:"occurredAt"`
+	TransitionId    string    `json:"transitionId"`
+	TransitionLabel string    `json:"transitionLabel"`
+}
+
+// CaseSummary defines model for CaseSummary.
+type CaseSummary struct {
+	Id          int64             `json:"id"`
+	Revision    int64             `json:"revision"`
+	StartedAt   time.Time         `json:"startedAt"`
+	Status      CaseSummaryStatus `json:"status"`
+	TramiteId   int64             `json:"tramiteId"`
+	TramiteName string            `json:"tramiteName"`
+	UpdatedAt   time.Time         `json:"updatedAt"`
+}
+
+// CaseSummaryStatus defines model for CaseSummary.Status.
+type CaseSummaryStatus string
 
 // CollectionBase defines model for CollectionBase.
 type CollectionBase struct {
@@ -119,6 +346,28 @@ type Health struct {
 // HealthStatus defines model for Health.Status.
 type HealthStatus string
 
+// Notification defines model for Notification.
+type Notification struct {
+	CaseId    int64            `json:"caseId"`
+	CreatedAt time.Time        `json:"createdAt"`
+	Id        int64            `json:"id"`
+	ReadAt    *time.Time       `json:"readAt,omitempty"`
+	TaskId    int64            `json:"taskId"`
+	Title     string           `json:"title"`
+	Type      NotificationType `json:"type"`
+}
+
+// NotificationType defines model for Notification.Type.
+type NotificationType string
+
+// Participant defines model for Participant.
+type Participant struct {
+	AssignedAt time.Time     `json:"assignedAt"`
+	Name       string        `json:"name"`
+	Role       ProcedureRole `json:"role"`
+	UserId     int64         `json:"userId"`
+}
+
 // ProblemDetails Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type ProblemDetails struct {
 	// Detail Explicación de esta ocurrencia orientada a corregir el problema.
@@ -136,6 +385,70 @@ type ProblemDetails struct {
 	// Type Referencia URI que identifica el tipo de problema.
 	Type *string `json:"type,omitempty"`
 }
+
+// ProcedureArc defines model for ProcedureArc.
+type ProcedureArc struct {
+	From string `json:"from"`
+	Id   string `json:"id"`
+	To   string `json:"to"`
+}
+
+// ProcedureDefinition defines model for ProcedureDefinition.
+type ProcedureDefinition struct {
+	Arcs           []ProcedureArc  `json:"arcs"`
+	FinalPlaceId   string          `json:"finalPlaceId"`
+	InitialPlaceId string          `json:"initialPlaceId"`
+	Nodes          []ProcedureNode `json:"nodes"`
+}
+
+// ProcedureNode defines model for ProcedureNode.
+type ProcedureNode struct {
+	Id    string            `json:"id"`
+	Kind  ProcedureNodeKind `json:"kind"`
+	Label string            `json:"label"`
+	Role  *ProcedureRole    `json:"role,omitempty"`
+	X     int               `json:"x"`
+	Y     int               `json:"y"`
+}
+
+// ProcedureNodeKind defines model for ProcedureNode.Kind.
+type ProcedureNodeKind string
+
+// ProcedureRole defines model for ProcedureRole.
+type ProcedureRole string
+
+// ProcedureVersion defines model for ProcedureVersion.
+type ProcedureVersion struct {
+	Definition    ProcedureDefinition    `json:"definition"`
+	Id            int64                  `json:"id"`
+	Status        ProcedureVersionStatus `json:"status"`
+	TramiteId     int64                  `json:"tramiteId"`
+	VersionNumber *int                   `json:"versionNumber,omitempty"`
+}
+
+// ProcedureVersionStatus defines model for ProcedureVersion.Status.
+type ProcedureVersionStatus string
+
+// ProcedureViolation defines model for ProcedureViolation.
+type ProcedureViolation struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+}
+
+// Task defines model for Task.
+type Task struct {
+	AssigneeId      *int64        `json:"assigneeId,omitempty"`
+	CaseId          int64         `json:"caseId"`
+	CreatedAt       time.Time     `json:"createdAt"`
+	Id              int64         `json:"id"`
+	Role            ProcedureRole `json:"role"`
+	Status          TaskStatus    `json:"status"`
+	TransitionId    string        `json:"transitionId"`
+	TransitionLabel string        `json:"transitionLabel"`
+}
+
+// TaskStatus defines model for Task.Status.
+type TaskStatus string
 
 // Tramite defines model for Tramite.
 type Tramite struct {
@@ -207,8 +520,17 @@ type User struct {
 	Sub           string              `json:"sub"`
 }
 
+// CaseId defines model for CaseId.
+type CaseId = int64
+
+// WorkflowTramiteId defines model for WorkflowTramiteId.
+type WorkflowTramiteId = TramiteId
+
 // BadRequest Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type BadRequest = ProblemDetails
+
+// Conflict Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
+type Conflict = ProblemDetails
 
 // Forbidden Objeto estricto de detalles de problema de Tunkunia, basado en RFC 9457. Se serializa con el tipo de medio "application/problem+json" y admite miembros adicionales de extensión.
 type Forbidden = ProblemDetails
@@ -243,6 +565,27 @@ type ValidationError struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// ListCasesParams defines parameters for ListCases.
+type ListCasesParams struct {
+	Scope ListCasesParamsScope `form:"scope" json:"scope"`
+}
+
+// ListCasesParamsScope defines parameters for ListCases.
+type ListCasesParamsScope string
+
+// FireTransitionJSONBody defines parameters for FireTransition.
+type FireTransitionJSONBody struct {
+	ExpectedRevision int64 `json:"expectedRevision"`
+}
+
+// ListTasksParams defines parameters for ListTasks.
+type ListTasksParams struct {
+	Status *ListTasksParamsStatus `form:"status,omitempty" json:"status,omitempty"`
+}
+
+// ListTasksParamsStatus defines parameters for ListTasks.
+type ListTasksParamsStatus string
+
 // ListTramitesParams defines parameters for ListTramites.
 type ListTramitesParams struct {
 	// Status Filtra los trámites por estado.
@@ -251,70 +594,113 @@ type ListTramitesParams struct {
 	Limit  *int           `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
+// UpdateUserRolesJSONBody defines parameters for UpdateUserRoles.
+type UpdateUserRolesJSONBody struct {
+	Roles []UpdateUserRolesJSONBodyRoles `json:"roles"`
+}
+
+// UpdateUserRolesJSONBodyRoles defines parameters for UpdateUserRoles.
+type UpdateUserRolesJSONBodyRoles string
+
+// FireTransitionJSONRequestBody defines body for FireTransition for application/json ContentType.
+type FireTransitionJSONRequestBody FireTransitionJSONBody
+
 // CreateTramiteJSONRequestBody defines body for CreateTramite for application/json ContentType.
 type CreateTramiteJSONRequestBody = TramiteCreate
 
 // UpdateTramiteJSONRequestBody defines body for UpdateTramite for application/json ContentType.
 type UpdateTramiteJSONRequestBody = TramiteUpdate
 
+// SaveDraftProcedureJSONRequestBody defines body for SaveDraftProcedure for application/json ContentType.
+type SaveDraftProcedureJSONRequestBody = ProcedureDefinition
+
+// UpdateUserRolesJSONRequestBody defines body for UpdateUserRoles for application/json ContentType.
+type UpdateUserRolesJSONRequestBody UpdateUserRolesJSONBody
+
 // Base64 encoded, compressed with deflate, json marshaled OpenAPI spec.
 // Stored as a slice of fixed-width chunks rather than one concatenated
 // const string: with thousands of chunks the chained `+` fold is several
 // times slower for the Go compiler than parsing a slice literal.
 var swaggerSpec = []string{
-	"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",
-	"/w==",
+	"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",
+	"0KJVYfxqC3mmLt8t/3cA",
 }
 
 // decodeSpec returns the embedded OpenAPI spec as raw JSON bytes,

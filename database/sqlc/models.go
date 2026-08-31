@@ -4,6 +4,77 @@
 
 package sqlc
 
+import (
+	"database/sql"
+)
+
+type Case struct {
+	ID                 int64
+	TramiteID          int64
+	ProcedureVersionID int64
+	Status             string
+	Revision           int64
+	Marking            string
+	InitiatedBy        int64
+	StartedAt          string
+	UpdatedAt          string
+	CompletedAt        sql.NullString
+}
+
+type CaseAction struct {
+	ID              int64
+	CaseID          int64
+	TaskID          int64
+	TransitionID    string
+	TransitionLabel string
+	ActorID         int64
+	RevisionBefore  int64
+	MarkingBefore   string
+	MarkingAfter    string
+	OccurredAt      string
+}
+
+type CaseParticipant struct {
+	CaseID     int64
+	Role       string
+	UserID     int64
+	AssignedAt string
+}
+
+type CaseTask struct {
+	ID              int64
+	CaseID          int64
+	TransitionID    string
+	TransitionLabel string
+	Role            string
+	AssigneeID      sql.NullInt64
+	Status          string
+	CreatedAt       string
+	FinishedAt      sql.NullString
+}
+
+type Notification struct {
+	ID        int64
+	UserID    int64
+	CaseID    int64
+	TaskID    int64
+	Type      string
+	Title     string
+	CreatedAt string
+	ReadAt    sql.NullString
+}
+
+type ProcedureVersion struct {
+	ID            int64
+	TramiteID     int64
+	VersionNumber sql.NullInt64
+	Status        string
+	Definition    string
+	CreatedAt     string
+	UpdatedAt     string
+	PublishedAt   sql.NullString
+}
+
 type Tramite struct {
 	ID                   int64
 	Name                 string
@@ -13,6 +84,7 @@ type Tramite struct {
 	Status               string
 	CreatedAt            string
 	UpdatedAt            string
+	CurrentVersionID     sql.NullInt64
 }
 
 type User struct {

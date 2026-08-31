@@ -16,6 +16,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/api"
 	apiv1 "github.com/C-ArenA/Tunkunia/internal/api/v1"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
+	"github.com/C-ArenA/Tunkunia/internal/cases"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
 	"github.com/C-ArenA/Tunkunia/internal/public"
@@ -52,10 +53,11 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	// modules wiring
 	userService := user.NewService(db, q)
 	catalogService := catalog.NewService(catalog.NewRepo(db, q))
+	caseService := cases.NewService(db, catalogService)
 	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
 
 	// Handlers
-	strictHandlerV1 := apiv1.NewStrictHandler(catalogService, userService)
+	strictHandlerV1 := apiv1.NewStrictHandler(catalogService, userService, caseService)
 
 	oidcHandler, err := authn.NewOIDCHandler(ctx, cfg, userService, jwtAuthn)
 	if err != nil {

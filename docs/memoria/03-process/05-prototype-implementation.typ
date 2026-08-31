@@ -119,9 +119,13 @@ recuperación de la identidad antes de montar las rutas OIDC, la API versionada 
 los recursos públicos.
 
 El módulo `catalog` implementa la creación, consulta, modificación, publicación,
-archivo y eliminación de definiciones de trámite. Su servicio depende de una
+archivo y versionado inmutable de definiciones de trámite. Su servicio depende de una
 interfaz de repositorio, mientras que el adaptador SQLite traduce entre los
-tipos del dominio y los modelos de persistencia. El módulo `user` mantiene la
+tipos del dominio y los modelos de persistencia. El módulo `cases` inicia y
+ejecuta casos, conserva el marcado y coordina participantes, tareas, actuaciones
+y notificaciones dentro de una transacción. El paquete público `petrunia`
+implementa la habilitación, el disparo y la verificación acotada de las WF-nets,
+sin depender de usuarios ni persistencia. El módulo `user` mantiene la
 identidad local, los roles y la asignación inicial de administración. El módulo
 `authn` integra el proveedor OIDC, establece la sesión y construye el principal
 que utilizan los demás manejadores. El módulo `health` aporta una comprobación
@@ -129,7 +133,8 @@ operativa independiente de las capacidades de negocio.
 
 ==== Persistencia y contrato HTTP
 
-SQLite contiene las tablas de usuarios, roles y trámites. Goose aplica las
+SQLite contiene las tablas de usuarios, roles, trámites, versiones de
+procedimiento, casos, participantes, tareas, actuaciones y notificaciones. Goose aplica las
 migraciones en el arranque y carga datos demostrativos durante el desarrollo.
 Las restricciones de unicidad, claves foráneas e índices complementan las
 validaciones del dominio. SQLC genera consultas tipadas para las operaciones
@@ -144,8 +149,8 @@ convierte los fallos en respuestas HTTP uniformes. Los manejadores sólo realiza
 la adaptación entre los objetos de transporte y los tipos pertenecientes a cada
 módulo.
 
-La versión implementada expone los recursos `/health`, `/me`, `/tramites` y
-`/tramites/{id}` bajo `/api/v1`. Esta organización mantiene explícito el
+La versión implementada expone, bajo `/api/v1`, recursos para salud, identidad,
+usuarios, catálogo, procedimientos, casos, tareas y notificaciones. Esta organización mantiene explícito el
 versionado y permite generar el cliente de la SPA desde la misma fuente que
 define al servidor.
 
@@ -187,11 +192,13 @@ de datos sin duplicar manualmente el contrato.
 
 Los procedimientos se representan mediante lugares, transiciones y arcos
 dirigidos. `ProcedureEditor` permite incorporar y retirar elementos, modificar
-sus etiquetas y posiciones y validar las conexiones; `ProcedureDiagram` genera
-una representación SVG reutilizada en la edición, la consulta pública y el
-seguimiento del caso. Los casos, tareas y datos institucionales del recorrido
-demostrativo se conservan en el estado reactivo y en el almacenamiento local del
-navegador, lo que mantiene los cambios entre sesiones del prototipo.
+sus etiquetas y posiciones, seleccionar los lugares inicial y final y asignar
+el rol ciudadano o servidor a cada transición. `ProcedureDiagram` genera una
+representación SVG reutilizada en la edición, la consulta pública y el
+seguimiento del caso; durante la ejecución, las transiciones autorizadas y
+habilitadas actúan como botones. Definiciones, casos, tareas y notificaciones se
+conservan en SQLite. Solo la información institucional visual, aún fuera del
+nuevo núcleo de flujos, permanece local en el navegador.
 
 Las páginas contemplan estados de espera, error y ausencia de resultados. La
 navegación se adapta a pantallas pequeñas mediante paneles y cuadrículas

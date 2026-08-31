@@ -17,12 +17,33 @@ import (
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
+	// ListCases Listar casos propios o no asignados
+	// (GET /cases)
+	ListCases(w http.ResponseWriter, r *http.Request, params ListCasesParams)
+	// GetCase Obtener caso
+	// (GET /cases/{id})
+	GetCase(w http.ResponseWriter, r *http.Request, id CaseId)
+	// ClaimCase Autoasignarse un caso
+	// (POST /cases/{id}/claim)
+	ClaimCase(w http.ResponseWriter, r *http.Request, id CaseId)
+	// FireTransition Ejecutar transición habilitada
+	// (POST /cases/{id}/transitions/{transitionId}/fire)
+	FireTransition(w http.ResponseWriter, r *http.Request, id CaseId, transitionId string)
 	// GetHealth Salud Módulo
 	// (GET /health)
 	GetHealth(w http.ResponseWriter, r *http.Request)
 	// GetMe Obtener información del usuario
 	// (GET /me)
 	GetMe(w http.ResponseWriter, r *http.Request)
+	// ListNotifications Listar notificaciones personales
+	// (GET /notifications)
+	ListNotifications(w http.ResponseWriter, r *http.Request)
+	// MarkNotificationRead Marcar notificación como leída
+	// (POST /notifications/{id}/read)
+	MarkNotificationRead(w http.ResponseWriter, r *http.Request, id int64)
+	// ListTasks Listar tareas personales
+	// (GET /tasks)
+	ListTasks(w http.ResponseWriter, r *http.Request, params ListTasksParams)
 	// ListTramites Listar Trámites
 	// (GET /tramites)
 	ListTramites(w http.ResponseWriter, r *http.Request, params ListTramitesParams)
@@ -38,11 +59,59 @@ type ServerInterface interface {
 	// UpdateTramite Modificar Trámite
 	// (PATCH /tramites/{id})
 	UpdateTramite(w http.ResponseWriter, r *http.Request, id TramiteId)
+	// ArchiveTramite Archivar trámite
+	// (POST /tramites/{id}/archive)
+	ArchiveTramite(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId)
+	// StartCase Iniciar caso como ciudadano
+	// (POST /tramites/{id}/cases)
+	StartCase(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId)
+	// GetPublishedProcedure Obtener procedimiento publicado
+	// (GET /tramites/{id}/procedure)
+	GetPublishedProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId)
+	// GetDraftProcedure Obtener borrador del procedimiento
+	// (GET /tramites/{id}/procedure/draft)
+	GetDraftProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId)
+	// SaveDraftProcedure Guardar borrador del procedimiento
+	// (PUT /tramites/{id}/procedure/draft)
+	SaveDraftProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId)
+	// PublishProcedure Validar y publicar procedimiento
+	// (POST /tramites/{id}/procedure/draft/publish)
+	PublishProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId)
+	// ListUsers Listar usuarios de la instancia
+	// (GET /users)
+	ListUsers(w http.ResponseWriter, r *http.Request)
+	// UpdateUserRoles Actualizar roles globales de un usuario
+	// (PATCH /users/{id}/roles)
+	UpdateUserRoles(w http.ResponseWriter, r *http.Request, id int64)
 }
 
 // Unimplemented server implementation that returns http.StatusNotImplemented for each endpoint.
 
 type Unimplemented struct{}
+
+// ListCases Listar casos propios o no asignados
+// (GET /cases)
+func (_ Unimplemented) ListCases(w http.ResponseWriter, r *http.Request, params ListCasesParams) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// GetCase Obtener caso
+// (GET /cases/{id})
+func (_ Unimplemented) GetCase(w http.ResponseWriter, r *http.Request, id CaseId) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// ClaimCase Autoasignarse un caso
+// (POST /cases/{id}/claim)
+func (_ Unimplemented) ClaimCase(w http.ResponseWriter, r *http.Request, id CaseId) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// FireTransition Ejecutar transición habilitada
+// (POST /cases/{id}/transitions/{transitionId}/fire)
+func (_ Unimplemented) FireTransition(w http.ResponseWriter, r *http.Request, id CaseId, transitionId string) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
 
 // GetHealth Salud Módulo
 // (GET /health)
@@ -53,6 +122,24 @@ func (_ Unimplemented) GetHealth(w http.ResponseWriter, r *http.Request) {
 // GetMe Obtener información del usuario
 // (GET /me)
 func (_ Unimplemented) GetMe(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// ListNotifications Listar notificaciones personales
+// (GET /notifications)
+func (_ Unimplemented) ListNotifications(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// MarkNotificationRead Marcar notificación como leída
+// (POST /notifications/{id}/read)
+func (_ Unimplemented) MarkNotificationRead(w http.ResponseWriter, r *http.Request, id int64) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// ListTasks Listar tareas personales
+// (GET /tasks)
+func (_ Unimplemented) ListTasks(w http.ResponseWriter, r *http.Request, params ListTasksParams) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -86,6 +173,54 @@ func (_ Unimplemented) UpdateTramite(w http.ResponseWriter, r *http.Request, id 
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
+// ArchiveTramite Archivar trámite
+// (POST /tramites/{id}/archive)
+func (_ Unimplemented) ArchiveTramite(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// StartCase Iniciar caso como ciudadano
+// (POST /tramites/{id}/cases)
+func (_ Unimplemented) StartCase(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// GetPublishedProcedure Obtener procedimiento publicado
+// (GET /tramites/{id}/procedure)
+func (_ Unimplemented) GetPublishedProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// GetDraftProcedure Obtener borrador del procedimiento
+// (GET /tramites/{id}/procedure/draft)
+func (_ Unimplemented) GetDraftProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// SaveDraftProcedure Guardar borrador del procedimiento
+// (PUT /tramites/{id}/procedure/draft)
+func (_ Unimplemented) SaveDraftProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// PublishProcedure Validar y publicar procedimiento
+// (POST /tramites/{id}/procedure/draft/publish)
+func (_ Unimplemented) PublishProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// ListUsers Listar usuarios de la instancia
+// (GET /users)
+func (_ Unimplemented) ListUsers(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// UpdateUserRoles Actualizar roles globales de un usuario
+// (PATCH /users/{id}/roles)
+func (_ Unimplemented) UpdateUserRoles(w http.ResponseWriter, r *http.Request, id int64) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
 // ServerInterfaceWrapper converts contexts to parameters.
 type ServerInterfaceWrapper struct {
 	Handler            ServerInterface
@@ -94,6 +229,126 @@ type ServerInterfaceWrapper struct {
 }
 
 type MiddlewareFunc func(http.Handler) http.Handler
+
+// ListCases operation middleware
+func (siw *ServerInterfaceWrapper) ListCases(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListCasesParams
+
+	// ------------- Required query parameter "scope" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, true, "scope", r.URL.Query(), &params.Scope, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "scope"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "scope", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListCases(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetCase operation middleware
+func (siw *ServerInterfaceWrapper) GetCase(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id CaseId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetCase(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ClaimCase operation middleware
+func (siw *ServerInterfaceWrapper) ClaimCase(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id CaseId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ClaimCase(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// FireTransition operation middleware
+func (siw *ServerInterfaceWrapper) FireTransition(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id CaseId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "transitionId" -------------
+	var transitionId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "transitionId", chi.URLParam(r, "transitionId"), &transitionId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "transitionId", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.FireTransition(w, r, id, transitionId)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
 
 // GetHealth operation middleware
 func (siw *ServerInterfaceWrapper) GetHealth(w http.ResponseWriter, r *http.Request) {
@@ -114,6 +369,79 @@ func (siw *ServerInterfaceWrapper) GetMe(w http.ResponseWriter, r *http.Request)
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.GetMe(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListNotifications operation middleware
+func (siw *ServerInterfaceWrapper) ListNotifications(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListNotifications(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// MarkNotificationRead operation middleware
+func (siw *ServerInterfaceWrapper) MarkNotificationRead(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id int64
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.MarkNotificationRead(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListTasks operation middleware
+func (siw *ServerInterfaceWrapper) ListTasks(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListTasksParams
+
+	// ------------- Optional query parameter "status" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "status", r.URL.Query(), &params.Status, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "status"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "status", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListTasks(w, r, params)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -274,6 +602,202 @@ func (siw *ServerInterfaceWrapper) UpdateTramite(w http.ResponseWriter, r *http.
 	handler.ServeHTTP(w, r)
 }
 
+// ArchiveTramite operation middleware
+func (siw *ServerInterfaceWrapper) ArchiveTramite(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id WorkflowTramiteId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ArchiveTramite(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// StartCase operation middleware
+func (siw *ServerInterfaceWrapper) StartCase(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id WorkflowTramiteId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.StartCase(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetPublishedProcedure operation middleware
+func (siw *ServerInterfaceWrapper) GetPublishedProcedure(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id WorkflowTramiteId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetPublishedProcedure(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetDraftProcedure operation middleware
+func (siw *ServerInterfaceWrapper) GetDraftProcedure(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id WorkflowTramiteId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetDraftProcedure(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// SaveDraftProcedure operation middleware
+func (siw *ServerInterfaceWrapper) SaveDraftProcedure(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id WorkflowTramiteId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.SaveDraftProcedure(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// PublishProcedure operation middleware
+func (siw *ServerInterfaceWrapper) PublishProcedure(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id WorkflowTramiteId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.PublishProcedure(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListUsers operation middleware
+func (siw *ServerInterfaceWrapper) ListUsers(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListUsers(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// UpdateUserRoles operation middleware
+func (siw *ServerInterfaceWrapper) UpdateUserRoles(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id int64
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", chi.URLParam(r, "id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "int64", ValueIsUnescaped: r.URL.RawPath == ""})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.UpdateUserRoles(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
 type UnescapedCookieParamError struct {
 	ParamName string
 	Err       error
@@ -408,17 +932,66 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/me", wrapper.GetMe)
 	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/users", wrapper.ListUsers)
+	})
+	r.Group(func(r chi.Router) {
+		r.Patch(options.BaseURL+"/users/{id}/roles", wrapper.UpdateUserRoles)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/tramites/{id}/procedure", wrapper.GetPublishedProcedure)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/tramites/{id}/procedure/draft", wrapper.GetDraftProcedure)
+	})
+	r.Group(func(r chi.Router) {
+		r.Put(options.BaseURL+"/tramites/{id}/procedure/draft", wrapper.SaveDraftProcedure)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/tramites/{id}/procedure/draft/publish", wrapper.PublishProcedure)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/tramites/{id}/archive", wrapper.ArchiveTramite)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/tramites/{id}/cases", wrapper.StartCase)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/cases", wrapper.ListCases)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/cases/{id}", wrapper.GetCase)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/cases/{id}/claim", wrapper.ClaimCase)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/cases/{id}/transitions/{transitionId}/fire", wrapper.FireTransition)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/tasks", wrapper.ListTasks)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/notifications", wrapper.ListNotifications)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/notifications/{id}/read", wrapper.MarkNotificationRead)
+	})
 
 	return r
 }
 
 type BadRequestApplicationProblemPlusJSONResponse ProblemDetails
 
+type ConflictApplicationProblemPlusJSONResponse ProblemDetails
+
 type ForbiddenApplicationProblemPlusJSONResponse ProblemDetails
 
 type InternalErrorApplicationProblemPlusJSONResponse ProblemDetails
 
 type NotFoundApplicationProblemPlusJSONResponse ProblemDetails
+
+type ProcedureVersionJSONResponse ProcedureVersion
 
 type UnauthorizedApplicationProblemPlusJSONResponse ProblemDetails
 
@@ -440,6 +1013,192 @@ type ValidationErrorApplicationProblemPlusJSONResponse struct {
 
 	// Type Referencia URI que identifica el tipo de problema.
 	Type *string `json:"type,omitempty"`
+}
+
+type ListCasesRequestObject struct {
+	Params ListCasesParams
+}
+
+type ListCasesResponseObject interface {
+	VisitListCasesResponse(w http.ResponseWriter) error
+}
+
+type ListCases200JSONResponse []CaseSummary
+
+func (response ListCases200JSONResponse) VisitListCasesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListCases403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response ListCases403ApplicationProblemPlusJSONResponse) VisitListCasesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetCaseRequestObject struct {
+	Id CaseId `json:"id"`
+}
+
+type GetCaseResponseObject interface {
+	VisitGetCaseResponse(w http.ResponseWriter) error
+}
+
+type GetCase200JSONResponse Case
+
+func (response GetCase200JSONResponse) VisitGetCaseResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetCase404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response GetCase404ApplicationProblemPlusJSONResponse) VisitGetCaseResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ClaimCaseRequestObject struct {
+	Id CaseId `json:"id"`
+}
+
+type ClaimCaseResponseObject interface {
+	VisitClaimCaseResponse(w http.ResponseWriter) error
+}
+
+type ClaimCase200JSONResponse Case
+
+func (response ClaimCase200JSONResponse) VisitClaimCaseResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ClaimCase403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response ClaimCase403ApplicationProblemPlusJSONResponse) VisitClaimCaseResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ClaimCase409ApplicationProblemPlusJSONResponse struct {
+	ConflictApplicationProblemPlusJSONResponse
+}
+
+func (response ClaimCase409ApplicationProblemPlusJSONResponse) VisitClaimCaseResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(409)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type FireTransitionRequestObject struct {
+	Id           CaseId `json:"id"`
+	TransitionId string `json:"transitionId"`
+	Body         *FireTransitionJSONRequestBody
+}
+
+type FireTransitionResponseObject interface {
+	VisitFireTransitionResponse(w http.ResponseWriter) error
+}
+
+type FireTransition200JSONResponse Case
+
+func (response FireTransition200JSONResponse) VisitFireTransitionResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type FireTransition403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response FireTransition403ApplicationProblemPlusJSONResponse) VisitFireTransitionResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type FireTransition409ApplicationProblemPlusJSONResponse struct {
+	ConflictApplicationProblemPlusJSONResponse
+}
+
+func (response FireTransition409ApplicationProblemPlusJSONResponse) VisitFireTransitionResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(409)
+	_, err := buf.WriteTo(w)
+	return err
 }
 
 type GetHealthRequestObject struct {
@@ -558,6 +1317,113 @@ func (response GetMe500ApplicationProblemPlusJSONResponse) VisitGetMeResponse(w 
 	}
 	w.Header().Set("Content-Type", "application/problem+json")
 	w.WriteHeader(500)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListNotificationsRequestObject struct {
+}
+
+type ListNotificationsResponseObject interface {
+	VisitListNotificationsResponse(w http.ResponseWriter) error
+}
+
+type ListNotifications200JSONResponse []Notification
+
+func (response ListNotifications200JSONResponse) VisitListNotificationsResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListNotifications401ApplicationProblemPlusJSONResponse struct {
+	UnauthorizedApplicationProblemPlusJSONResponse
+}
+
+func (response ListNotifications401ApplicationProblemPlusJSONResponse) VisitListNotificationsResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type MarkNotificationReadRequestObject struct {
+	Id int64 `json:"id"`
+}
+
+type MarkNotificationReadResponseObject interface {
+	VisitMarkNotificationReadResponse(w http.ResponseWriter) error
+}
+
+type MarkNotificationRead204Response struct {
+}
+
+func (response MarkNotificationRead204Response) VisitMarkNotificationReadResponse(w http.ResponseWriter) error {
+	w.WriteHeader(204)
+	return nil
+}
+
+type MarkNotificationRead404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response MarkNotificationRead404ApplicationProblemPlusJSONResponse) VisitMarkNotificationReadResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListTasksRequestObject struct {
+	Params ListTasksParams
+}
+
+type ListTasksResponseObject interface {
+	VisitListTasksResponse(w http.ResponseWriter) error
+}
+
+type ListTasks200JSONResponse []Task
+
+func (response ListTasks200JSONResponse) VisitListTasksResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListTasks401ApplicationProblemPlusJSONResponse struct {
+	UnauthorizedApplicationProblemPlusJSONResponse
+}
+
+func (response ListTasks401ApplicationProblemPlusJSONResponse) VisitListTasksResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(401)
 	_, err := buf.WriteTo(w)
 	return err
 }
@@ -923,14 +1789,462 @@ func (response UpdateTramite422ApplicationProblemPlusJSONResponse) VisitUpdateTr
 	return err
 }
 
+type ArchiveTramiteRequestObject struct {
+	Id WorkflowTramiteId `json:"id"`
+}
+
+type ArchiveTramiteResponseObject interface {
+	VisitArchiveTramiteResponse(w http.ResponseWriter) error
+}
+
+type ArchiveTramite204Response struct {
+}
+
+func (response ArchiveTramite204Response) VisitArchiveTramiteResponse(w http.ResponseWriter) error {
+	w.WriteHeader(204)
+	return nil
+}
+
+type ArchiveTramite403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response ArchiveTramite403ApplicationProblemPlusJSONResponse) VisitArchiveTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ArchiveTramite404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response ArchiveTramite404ApplicationProblemPlusJSONResponse) VisitArchiveTramiteResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type StartCaseRequestObject struct {
+	Id WorkflowTramiteId `json:"id"`
+}
+
+type StartCaseResponseObject interface {
+	VisitStartCaseResponse(w http.ResponseWriter) error
+}
+
+type StartCase201JSONResponse Case
+
+func (response StartCase201JSONResponse) VisitStartCaseResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(201)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type StartCase409ApplicationProblemPlusJSONResponse struct {
+	ConflictApplicationProblemPlusJSONResponse
+}
+
+func (response StartCase409ApplicationProblemPlusJSONResponse) VisitStartCaseResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(409)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetPublishedProcedureRequestObject struct {
+	Id WorkflowTramiteId `json:"id"`
+}
+
+type GetPublishedProcedureResponseObject interface {
+	VisitGetPublishedProcedureResponse(w http.ResponseWriter) error
+}
+
+type GetPublishedProcedure200JSONResponse struct{ ProcedureVersionJSONResponse }
+
+func (response GetPublishedProcedure200JSONResponse) VisitGetPublishedProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetPublishedProcedure404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response GetPublishedProcedure404ApplicationProblemPlusJSONResponse) VisitGetPublishedProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetDraftProcedureRequestObject struct {
+	Id WorkflowTramiteId `json:"id"`
+}
+
+type GetDraftProcedureResponseObject interface {
+	VisitGetDraftProcedureResponse(w http.ResponseWriter) error
+}
+
+type GetDraftProcedure200JSONResponse struct{ ProcedureVersionJSONResponse }
+
+func (response GetDraftProcedure200JSONResponse) VisitGetDraftProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetDraftProcedure403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response GetDraftProcedure403ApplicationProblemPlusJSONResponse) VisitGetDraftProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetDraftProcedure404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response GetDraftProcedure404ApplicationProblemPlusJSONResponse) VisitGetDraftProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type SaveDraftProcedureRequestObject struct {
+	Id   WorkflowTramiteId `json:"id"`
+	Body *SaveDraftProcedureJSONRequestBody
+}
+
+type SaveDraftProcedureResponseObject interface {
+	VisitSaveDraftProcedureResponse(w http.ResponseWriter) error
+}
+
+type SaveDraftProcedure200JSONResponse struct{ ProcedureVersionJSONResponse }
+
+func (response SaveDraftProcedure200JSONResponse) VisitSaveDraftProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type SaveDraftProcedure403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response SaveDraftProcedure403ApplicationProblemPlusJSONResponse) VisitSaveDraftProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type SaveDraftProcedure404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response SaveDraftProcedure404ApplicationProblemPlusJSONResponse) VisitSaveDraftProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type PublishProcedureRequestObject struct {
+	Id WorkflowTramiteId `json:"id"`
+}
+
+type PublishProcedureResponseObject interface {
+	VisitPublishProcedureResponse(w http.ResponseWriter) error
+}
+
+type PublishProcedure200JSONResponse struct{ ProcedureVersionJSONResponse }
+
+func (response PublishProcedure200JSONResponse) VisitPublishProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type PublishProcedure403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response PublishProcedure403ApplicationProblemPlusJSONResponse) VisitPublishProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type PublishProcedure404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response PublishProcedure404ApplicationProblemPlusJSONResponse) VisitPublishProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type PublishProcedure422JSONResponse struct {
+	Violations []ProcedureViolation `json:"violations"`
+}
+
+func (response PublishProcedure422JSONResponse) VisitPublishProcedureResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(422)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListUsersRequestObject struct {
+}
+
+type ListUsersResponseObject interface {
+	VisitListUsersResponse(w http.ResponseWriter) error
+}
+
+type ListUsers200JSONResponse []User
+
+func (response ListUsers200JSONResponse) VisitListUsersResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListUsers401ApplicationProblemPlusJSONResponse struct {
+	UnauthorizedApplicationProblemPlusJSONResponse
+}
+
+func (response ListUsers401ApplicationProblemPlusJSONResponse) VisitListUsersResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListUsers403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response ListUsers403ApplicationProblemPlusJSONResponse) VisitListUsersResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateUserRolesRequestObject struct {
+	Id   int64 `json:"id"`
+	Body *UpdateUserRolesJSONRequestBody
+}
+
+type UpdateUserRolesResponseObject interface {
+	VisitUpdateUserRolesResponse(w http.ResponseWriter) error
+}
+
+type UpdateUserRoles200JSONResponse User
+
+func (response UpdateUserRoles200JSONResponse) VisitUpdateUserRolesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateUserRoles401ApplicationProblemPlusJSONResponse struct {
+	UnauthorizedApplicationProblemPlusJSONResponse
+}
+
+func (response UpdateUserRoles401ApplicationProblemPlusJSONResponse) VisitUpdateUserRolesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateUserRoles403ApplicationProblemPlusJSONResponse struct {
+	ForbiddenApplicationProblemPlusJSONResponse
+}
+
+func (response UpdateUserRoles403ApplicationProblemPlusJSONResponse) VisitUpdateUserRolesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(403)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateUserRoles404ApplicationProblemPlusJSONResponse struct {
+	NotFoundApplicationProblemPlusJSONResponse
+}
+
+func (response UpdateUserRoles404ApplicationProblemPlusJSONResponse) VisitUpdateUserRolesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/problem+json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
+	// ListCases Listar casos propios o no asignados
+	// (GET /cases)
+	ListCases(ctx context.Context, request ListCasesRequestObject) (ListCasesResponseObject, error)
+	// GetCase Obtener caso
+	// (GET /cases/{id})
+	GetCase(ctx context.Context, request GetCaseRequestObject) (GetCaseResponseObject, error)
+	// ClaimCase Autoasignarse un caso
+	// (POST /cases/{id}/claim)
+	ClaimCase(ctx context.Context, request ClaimCaseRequestObject) (ClaimCaseResponseObject, error)
+	// FireTransition Ejecutar transición habilitada
+	// (POST /cases/{id}/transitions/{transitionId}/fire)
+	FireTransition(ctx context.Context, request FireTransitionRequestObject) (FireTransitionResponseObject, error)
 	// GetHealth Salud Módulo
 	// (GET /health)
 	GetHealth(ctx context.Context, request GetHealthRequestObject) (GetHealthResponseObject, error)
 	// GetMe Obtener información del usuario
 	// (GET /me)
 	GetMe(ctx context.Context, request GetMeRequestObject) (GetMeResponseObject, error)
+	// ListNotifications Listar notificaciones personales
+	// (GET /notifications)
+	ListNotifications(ctx context.Context, request ListNotificationsRequestObject) (ListNotificationsResponseObject, error)
+	// MarkNotificationRead Marcar notificación como leída
+	// (POST /notifications/{id}/read)
+	MarkNotificationRead(ctx context.Context, request MarkNotificationReadRequestObject) (MarkNotificationReadResponseObject, error)
+	// ListTasks Listar tareas personales
+	// (GET /tasks)
+	ListTasks(ctx context.Context, request ListTasksRequestObject) (ListTasksResponseObject, error)
 	// ListTramites Listar Trámites
 	// (GET /tramites)
 	ListTramites(ctx context.Context, request ListTramitesRequestObject) (ListTramitesResponseObject, error)
@@ -946,6 +2260,30 @@ type StrictServerInterface interface {
 	// UpdateTramite Modificar Trámite
 	// (PATCH /tramites/{id})
 	UpdateTramite(ctx context.Context, request UpdateTramiteRequestObject) (UpdateTramiteResponseObject, error)
+	// ArchiveTramite Archivar trámite
+	// (POST /tramites/{id}/archive)
+	ArchiveTramite(ctx context.Context, request ArchiveTramiteRequestObject) (ArchiveTramiteResponseObject, error)
+	// StartCase Iniciar caso como ciudadano
+	// (POST /tramites/{id}/cases)
+	StartCase(ctx context.Context, request StartCaseRequestObject) (StartCaseResponseObject, error)
+	// GetPublishedProcedure Obtener procedimiento publicado
+	// (GET /tramites/{id}/procedure)
+	GetPublishedProcedure(ctx context.Context, request GetPublishedProcedureRequestObject) (GetPublishedProcedureResponseObject, error)
+	// GetDraftProcedure Obtener borrador del procedimiento
+	// (GET /tramites/{id}/procedure/draft)
+	GetDraftProcedure(ctx context.Context, request GetDraftProcedureRequestObject) (GetDraftProcedureResponseObject, error)
+	// SaveDraftProcedure Guardar borrador del procedimiento
+	// (PUT /tramites/{id}/procedure/draft)
+	SaveDraftProcedure(ctx context.Context, request SaveDraftProcedureRequestObject) (SaveDraftProcedureResponseObject, error)
+	// PublishProcedure Validar y publicar procedimiento
+	// (POST /tramites/{id}/procedure/draft/publish)
+	PublishProcedure(ctx context.Context, request PublishProcedureRequestObject) (PublishProcedureResponseObject, error)
+	// ListUsers Listar usuarios de la instancia
+	// (GET /users)
+	ListUsers(ctx context.Context, request ListUsersRequestObject) (ListUsersResponseObject, error)
+	// UpdateUserRoles Actualizar roles globales de un usuario
+	// (PATCH /users/{id}/roles)
+	UpdateUserRoles(ctx context.Context, request UpdateUserRolesRequestObject) (UpdateUserRolesResponseObject, error)
 }
 
 type StrictHandlerFunc func(ctx context.Context, w http.ResponseWriter, r *http.Request, request any) (any, error)
@@ -985,6 +2323,118 @@ type strictHandler struct {
 	ssi         StrictServerInterface
 	middlewares []StrictMiddlewareFunc
 	options     StrictHTTPServerOptions
+}
+
+// ListCases operation middleware
+func (sh *strictHandler) ListCases(w http.ResponseWriter, r *http.Request, params ListCasesParams) {
+	var request ListCasesRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListCases(ctx, request.(ListCasesRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListCases")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListCasesResponseObject); ok {
+		if err := validResponse.VisitListCasesResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetCase operation middleware
+func (sh *strictHandler) GetCase(w http.ResponseWriter, r *http.Request, id CaseId) {
+	var request GetCaseRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetCase(ctx, request.(GetCaseRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetCase")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetCaseResponseObject); ok {
+		if err := validResponse.VisitGetCaseResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ClaimCase operation middleware
+func (sh *strictHandler) ClaimCase(w http.ResponseWriter, r *http.Request, id CaseId) {
+	var request ClaimCaseRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ClaimCase(ctx, request.(ClaimCaseRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ClaimCase")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ClaimCaseResponseObject); ok {
+		if err := validResponse.VisitClaimCaseResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// FireTransition operation middleware
+func (sh *strictHandler) FireTransition(w http.ResponseWriter, r *http.Request, id CaseId, transitionId string) {
+	var request FireTransitionRequestObject
+
+	request.Id = id
+	request.TransitionId = transitionId
+
+	var body FireTransitionJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.FireTransition(ctx, request.(FireTransitionRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "FireTransition")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(FireTransitionResponseObject); ok {
+		if err := validResponse.VisitFireTransitionResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
 }
 
 // GetHealth operation middleware
@@ -1028,6 +2478,82 @@ func (sh *strictHandler) GetMe(w http.ResponseWriter, r *http.Request) {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(GetMeResponseObject); ok {
 		if err := validResponse.VisitGetMeResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListNotifications operation middleware
+func (sh *strictHandler) ListNotifications(w http.ResponseWriter, r *http.Request) {
+	var request ListNotificationsRequestObject
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListNotifications(ctx, request.(ListNotificationsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListNotifications")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListNotificationsResponseObject); ok {
+		if err := validResponse.VisitListNotificationsResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// MarkNotificationRead operation middleware
+func (sh *strictHandler) MarkNotificationRead(w http.ResponseWriter, r *http.Request, id int64) {
+	var request MarkNotificationReadRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.MarkNotificationRead(ctx, request.(MarkNotificationReadRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "MarkNotificationRead")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(MarkNotificationReadResponseObject); ok {
+		if err := validResponse.VisitMarkNotificationReadResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListTasks operation middleware
+func (sh *strictHandler) ListTasks(w http.ResponseWriter, r *http.Request, params ListTasksParams) {
+	var request ListTasksRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListTasks(ctx, request.(ListTasksRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListTasks")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListTasksResponseObject); ok {
+		if err := validResponse.VisitListTasksResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {
@@ -1170,6 +2696,226 @@ func (sh *strictHandler) UpdateTramite(w http.ResponseWriter, r *http.Request, i
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(UpdateTramiteResponseObject); ok {
 		if err := validResponse.VisitUpdateTramiteResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ArchiveTramite operation middleware
+func (sh *strictHandler) ArchiveTramite(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	var request ArchiveTramiteRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ArchiveTramite(ctx, request.(ArchiveTramiteRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ArchiveTramite")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ArchiveTramiteResponseObject); ok {
+		if err := validResponse.VisitArchiveTramiteResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// StartCase operation middleware
+func (sh *strictHandler) StartCase(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	var request StartCaseRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.StartCase(ctx, request.(StartCaseRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "StartCase")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(StartCaseResponseObject); ok {
+		if err := validResponse.VisitStartCaseResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetPublishedProcedure operation middleware
+func (sh *strictHandler) GetPublishedProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	var request GetPublishedProcedureRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetPublishedProcedure(ctx, request.(GetPublishedProcedureRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetPublishedProcedure")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetPublishedProcedureResponseObject); ok {
+		if err := validResponse.VisitGetPublishedProcedureResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetDraftProcedure operation middleware
+func (sh *strictHandler) GetDraftProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	var request GetDraftProcedureRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetDraftProcedure(ctx, request.(GetDraftProcedureRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetDraftProcedure")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetDraftProcedureResponseObject); ok {
+		if err := validResponse.VisitGetDraftProcedureResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// SaveDraftProcedure operation middleware
+func (sh *strictHandler) SaveDraftProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	var request SaveDraftProcedureRequestObject
+
+	request.Id = id
+
+	var body SaveDraftProcedureJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.SaveDraftProcedure(ctx, request.(SaveDraftProcedureRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "SaveDraftProcedure")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(SaveDraftProcedureResponseObject); ok {
+		if err := validResponse.VisitSaveDraftProcedureResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// PublishProcedure operation middleware
+func (sh *strictHandler) PublishProcedure(w http.ResponseWriter, r *http.Request, id WorkflowTramiteId) {
+	var request PublishProcedureRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.PublishProcedure(ctx, request.(PublishProcedureRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "PublishProcedure")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(PublishProcedureResponseObject); ok {
+		if err := validResponse.VisitPublishProcedureResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListUsers operation middleware
+func (sh *strictHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
+	var request ListUsersRequestObject
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListUsers(ctx, request.(ListUsersRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListUsers")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListUsersResponseObject); ok {
+		if err := validResponse.VisitListUsersResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// UpdateUserRoles operation middleware
+func (sh *strictHandler) UpdateUserRoles(w http.ResponseWriter, r *http.Request, id int64) {
+	var request UpdateUserRolesRequestObject
+
+	request.Id = id
+
+	var body UpdateUserRolesJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.UpdateUserRoles(ctx, request.(UpdateUserRolesRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "UpdateUserRoles")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(UpdateUserRolesResponseObject); ok {
+		if err := validResponse.VisitUpdateUserRolesResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

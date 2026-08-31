@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { getTramiteQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { getPublishedProcedureQuery, getTramiteQuery } from "#shared/clientV1/@pinia/colada.gen";
 const route = useRoute();
 const id = Number(route.params.id);
-const { getGraph } = useTunkuniaDemo();
 const { data: tramite, status, error } = useQuery(getTramiteQuery({ path: { id } }));
-const graph = computed(() => getGraph(id));
+const { data: procedure } = useQuery(getPublishedProcedureQuery({ path: { id } }));
 </script>
 <template>
   <UContainer class="py-10 md:py-16"
@@ -51,6 +50,10 @@ const graph = computed(() => getGraph(id));
             "El procedimiento se encuentra representado en el siguiente diagrama."
           }}
         </p>
-        <ProcedureDiagram class="mt-7" :graph="graph" /></section></template
+        <ProcedureDiagram
+          v-if="procedure"
+          class="mt-7"
+          :graph="procedure.definition"
+        /></section></template
   ></UContainer>
 </template>
