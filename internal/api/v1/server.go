@@ -8,6 +8,7 @@ import (
 
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
+	"github.com/C-ArenA/Tunkunia/internal/cases"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/health"
 	"github.com/C-ArenA/Tunkunia/internal/user"
@@ -20,11 +21,12 @@ var errRequiresAuthenticatedUser = errors.New("Requires authenticated user")
 
 var _ oapi.StrictServerInterface = (*StrictHandler)(nil)
 
-func NewStrictHandler(catalogService *catalog.Service, userService *user.Service) *StrictHandler {
+func NewStrictHandler(catalogService *catalog.Service, userService *user.Service, caseService *cases.Service) *StrictHandler {
 	return &StrictHandler{
 		health.NewStrictApiHandler(),
-		catalog.NewStrictApiHandler(catalogService),
+		catalog.NewStrictApiHandler(catalogService, userService),
 		authn.NewStrictHandler(userService),
+		NewWorkflowHandler(catalogService, caseService, userService),
 	}
 }
 
@@ -32,6 +34,7 @@ type StrictHandler struct {
 	*health.StrictApiHandler
 	*catalog.StrictCatalogHandlerV1
 	*authn.StrictHandler
+	*WorkflowHandler
 }
 
 func (h *StrictHandler) RegisterRoutes(r *chi.Mux, baseURL string) {

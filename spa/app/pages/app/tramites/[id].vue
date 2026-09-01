@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { getMeQuery, getTramiteQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { getPublishedProcedureQuery, getTramiteQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { startCase } from "#shared/clientV1/sdk.gen";
 const route = useRoute();
 const id = Number(route.params.id);
 const { data: tramite, status, error } = useQuery(getTramiteQuery({ path: { id } }));
-const { data: me } = useQuery(getMeQuery);
-const { getGraph, startCase } = useTunkuniaDemo();
+const { data: procedure } = useQuery(getPublishedProcedureQuery({ path: { id } }));
 const starting = ref(false);
 async function begin() {
-  if (!tramite.value || !me.value) return;
+  if (!tramite.value) return;
   starting.value = true;
-  const item = startCase(id, tramite.value.name, me.value.id);
-  await navigateTo(`/app/casos/${item.id}`);
+  const response = await startCase({ path: { id } });
+  starting.value = false;
+  if (response.data) await navigateTo(`/app/casos/${response.data.id}`);
 }
 </script>
 <template>
@@ -51,6 +52,10 @@ async function begin() {
         <section class="surface mt-8 p-6">
           <h2 class="text-xl font-semibold">Procedimiento</h2>
           <p class="mt-3 text-slate-600">{{ tramite.procedureDescription }}</p>
-          <ProcedureDiagram class="mt-6" :graph="getGraph(id)" /></section></template></template
+          <ProcedureDiagram
+            v-if="procedure"
+            class="mt-6"
+            :graph="procedure.definition"
+          /></section></template></template
   ></UDashboardPanel>
 </template>

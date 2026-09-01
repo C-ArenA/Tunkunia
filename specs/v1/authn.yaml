@@ -21,6 +21,54 @@ components:
             $ref: common.yaml#/components/responses/NotFound
           "500":
             $ref: common.yaml#/components/responses/InternalError
+    Users:
+      get:
+        tags: [Users]
+        operationId: listUsers
+        summary: Listar usuarios de la instancia
+        security: [{ BearerAuth: [] }]
+        responses:
+          "200":
+            description: Usuarios registrados
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items: { $ref: "#/components/schemas/User" }
+          "401": { $ref: common.yaml#/components/responses/Unauthorized }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+    UserRoles:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer, format: int64, minimum: 1 }
+      patch:
+        tags: [Users]
+        operationId: updateUserRoles
+        summary: Actualizar roles globales de un usuario
+        security: [{ BearerAuth: [] }]
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [roles]
+                properties:
+                  roles:
+                    type: array
+                    uniqueItems: true
+                    items: { type: string, enum: [admin, servant] }
+        responses:
+          "200":
+            description: Usuario actualizado
+            content:
+              application/json:
+                schema: { $ref: "#/components/schemas/User" }
+          "401": { $ref: common.yaml#/components/responses/Unauthorized }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
   
   schemas:
     User:

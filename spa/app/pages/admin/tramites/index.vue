@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { deleteTramite, listTramites } from "#shared/clientV1/sdk.gen";
+import { archiveTramite, listTramites } from "#shared/clientV1/sdk.gen";
 import type { TramiteStatus } from "#shared/clientV1/types.gen";
 const statusFilter = ref<"all" | TramiteStatus>("all");
 const search = ref("");
-const deleting = ref<number>();
+const archiving = ref<number>();
 const {
   data: collection,
   status,
@@ -25,11 +25,11 @@ const visible = computed(() =>
     t.name.toLowerCase().includes(search.value.toLowerCase()),
   ),
 );
-async function remove(id: number) {
-  if (!confirm("¿Eliminar este trámite? Esta acción no se puede deshacer.")) return;
-  deleting.value = id;
-  const response = await deleteTramite({ path: { id } });
-  deleting.value = undefined;
+async function archive(id: number) {
+  if (!confirm("¿Archivar este trámite? Sus casos e historial se conservarán.")) return;
+  archiving.value = id;
+  const response = await archiveTramite({ path: { id } });
+  archiving.value = undefined;
   if (!response.error) await refresh();
 }
 </script>
@@ -94,12 +94,13 @@ async function remove(id: number) {
             color="neutral"
             variant="soft"
           /><UButton
-            icon="i-lucide-trash-2"
-            aria-label="Eliminar trámite"
-            color="error"
+            v-if="item.status !== 'archived'"
+            icon="i-lucide-archive"
+            aria-label="Archivar trámite"
+            color="neutral"
             variant="ghost"
-            :loading="deleting === item.id"
-            @click="remove(item.id)"
+            :loading="archiving === item.id"
+            @click="archive(item.id)"
           />
         </div></div></template
   ></UDashboardPanel>

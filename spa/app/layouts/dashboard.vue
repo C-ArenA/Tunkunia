@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
-import { getMeQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { getMeQuery, listTasksQuery } from "#shared/clientV1/@pinia/colada.gen";
 const { data: me } = useQuery(getMeQuery);
-const { state } = useTunkuniaDemo();
-const pending = computed(
-  () => state.value.tasks.filter((task) => task.status === "pending").length,
-);
+const { data: pendingTasks } = useQuery(listTasksQuery({ query: { status: "pending" } }));
+const pending = computed(() => pendingTasks.value?.length ?? 0);
 const items = computed<NavigationMenuItem[]>(() => [
   { label: "Trámites", icon: "i-lucide-layout-grid", to: "/app" },
   { label: "Mis casos", icon: "i-lucide-folder-clock", to: "/app/casos" },

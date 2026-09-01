@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { listTramitesQuery } from "#shared/clientV1/@pinia/colada.gen";
-const { state } = useTunkuniaDemo();
+import { listTramitesQuery, listUsersQuery } from "#shared/clientV1/@pinia/colada.gen";
 const { data: tramites } = useQuery(listTramitesQuery({ query: { limit: 100 } }));
+const { data: users } = useQuery(listUsersQuery());
 const cards = computed(() => [
   {
     label: "Trámites",
@@ -11,33 +11,15 @@ const cards = computed(() => [
   },
   {
     label: "Usuarios",
-    value: state.value.users.length,
+    value: users.value?.length ?? 0,
     icon: "i-lucide-users",
     to: "/admin/usuarios",
-  },
-  {
-    label: "Casos activos",
-    value: state.value.cases.filter((c) => c.status === "active").length,
-    icon: "i-lucide-folder-clock",
-    to: "/admin/usuarios",
-  },
-  {
-    label: "Tareas pendientes",
-    value: state.value.tasks.filter((t) => t.status === "pending").length,
-    icon: "i-lucide-inbox",
-    to: "/app/bandeja",
   },
 ]);
 </script>
 <template>
   <UDashboardPanel
-    ><template #header
-      ><UDashboardNavbar title="Administración"
-        ><template #right
-          ><UBadge
-            color="warning"
-            variant="subtle"
-            label="Datos de demostración" /></template></UDashboardNavbar></template
+    ><template #header><UDashboardNavbar title="Administración" /></template
     ><template #body
       ><div>
         <p class="eyebrow">Panel institucional</p>
@@ -46,7 +28,7 @@ const cards = computed(() => [
           Gestiona el catálogo, los participantes y la identidad de la institución.
         </p>
       </div>
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="mt-8 grid gap-5 sm:grid-cols-2">
         <NuxtLink
           v-for="card in cards"
           :key="card.label"

@@ -2,9 +2,21 @@
 import type { ProcedureGraph } from "~/types/tunkunia";
 
 const props = withDefaults(
-  defineProps<{ graph: ProcedureGraph; activeNodeIds?: string[]; title?: string }>(),
-  { activeNodeIds: () => [], title: "Diagrama del procedimiento" },
+  defineProps<{
+    graph: ProcedureGraph;
+    activeNodeIds?: string[];
+    enabledTransitionIds?: string[];
+    actionableTransitionIds?: string[];
+    title?: string;
+  }>(),
+  {
+    activeNodeIds: () => [],
+    enabledTransitionIds: () => [],
+    actionableTransitionIds: () => [],
+    title: "Diagrama del procedimiento",
+  },
 );
+const emit = defineEmits<{ transition: [id: string] }>();
 
 const nodes = computed(() => new Map(props.graph.nodes.map((node) => [node.id, node])));
 const width = computed(() => Math.max(760, ...props.graph.nodes.map((node) => node.x + 90)));
@@ -39,7 +51,23 @@ const height = computed(() => Math.max(230, ...props.graph.nodes.map((node) => n
           marker-end="url(#procedure-arrow)"
         />
       </g>
-      <g v-for="node in graph.nodes" :key="node.id">
+      <g
+        v-for="node in graph.nodes"
+        :key="node.id"
+        :role="node.kind === 'transition' ? 'button' : undefined"
+        :tabindex="
+          node.kind === 'transition' && actionableTransitionIds.includes(node.id) ? 0 : undefined
+        "
+        :aria-disabled="
+          node.kind === 'transition' ? !actionableTransitionIds.includes(node.id) : undefined
+        "
+        :class="actionableTransitionIds.includes(node.id) ? 'cursor-pointer' : ''"
+        @click="actionableTransitionIds.includes(node.id) && emit('transition', node.id)"
+        @keydown.enter="actionableTransitionIds.includes(node.id) && emit('transition', node.id)"
+        @keydown.space.prevent="
+          actionableTransitionIds.includes(node.id) && emit('transition', node.id)
+        "
+      >
         <circle
           v-if="node.kind === 'place'"
           :cx="node.x"
@@ -60,9 +88,11 @@ const height = computed(() => Math.max(230, ...props.graph.nodes.map((node) => n
           height="70"
           rx="3"
           :class="
-            activeNodeIds.includes(node.id)
-              ? 'fill-amber-300 stroke-amber-700'
-              : 'fill-slate-700 stroke-slate-900'
+            actionableTransitionIds.includes(node.id)
+              ? 'fill-emerald-400 stroke-emerald-800'
+              : enabledTransitionIds.includes(node.id)
+                ? 'fill-amber-300 stroke-amber-700'
+                : 'fill-slate-700 stroke-slate-900'
           "
           stroke-width="2"
         />
