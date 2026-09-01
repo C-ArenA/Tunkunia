@@ -1,7 +1,7 @@
 === Alcance
 
 Para comprender el alcance de este proyecto se debe considerar que, cuando se habla de un _subsistema reutilizable_, se habla de capacidad de integración en sistemas más grandes, pero a la vez de cierto funcionamiento independiente, en este caso como un sistema de gestión de trámites en sí mismo.
-En este proyecto se entiende como producto mínimo viable (MVP) a un prototipo funcional de carácter académico y demostrativo.
+En este proyecto se entiende como producto mínimo viable (MVP) a un prototipo funcional y evolutivo de carácter académico y demostrativo.
 Para delimitar el proyecto, su reutilización se entiende según el enfoque de las aplicaciones configurables descrito por Sommerville @sommervilleSoftwareEngineering2016: una misma aplicación se diseña para ser adoptada por distintos clientes y ajustada a sus necesidades mediante configuración.
 Por tanto, una institución reutiliza Tunkunia cuando adopta el subsistema y configura en él sus propios flujos de trámite, sin requerir un desarrollo independiente para cada procedimiento.
 Tunkunia no se plantea como una librería que deba incorporarse a otro programa.

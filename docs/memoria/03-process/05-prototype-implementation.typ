@@ -85,6 +85,8 @@ La
 
 El repositorio reúne en una sola unidad versionada el servidor, el cliente, las
 especificaciones y la documentación.
+El código fuente se encuentra disponible públicamente en el
+#link("https://github.com/C-ArenA/Tunkunia")[repositorio de Tunkunia en GitHub].
 Su organización relevante se resume a
 continuación; se omiten dependencias descargadas, cachés y archivos de
 compilación.

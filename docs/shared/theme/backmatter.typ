@@ -32,7 +32,7 @@
 }
 
 #let render-appendices(appendices) = {
-  heading(level: 1, numbering: none)[Anexos]
+  align(center + horizon)[#heading(level: 1, numbering: none)[#text(size: 40pt)[Anexos]]]
   counter(heading).update(0)
   set heading(offset: 1, numbering: appendix-numbering)
   show heading.where(level: 2): appendix-heading

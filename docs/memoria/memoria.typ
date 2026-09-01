@@ -15,6 +15,10 @@
   acronyms: acronyms,
   bibliography: bibliography("/shared/references.bib"),
   glossary: glossary,
+  appendices: [
+    #include "appendices/repository-readme.typ"
+    #include "appendices/repository-license.typ"
+  ],
   font: "New Computer Modern",
 )
 
