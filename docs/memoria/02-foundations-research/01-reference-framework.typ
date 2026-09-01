@@ -38,9 +38,11 @@ En su forma tradicional se realiza presencialmente en una oficina pública, dond
 
 El diseño de un subsistema reutilizable para trámites requiere conocer
 procedimientos reales sin confundir su descripción administrativa con las
-decisiones posteriores de software. Por ello se reúne un conjunto reducido de
+decisiones posteriores de software.
+Por ello se reúne un conjunto reducido de
 trámites bolivianos que sirve como referencia común para el diseño y para la
-validación del proyecto. La selección es intencional: no busca representar
+validación del proyecto.
+La selección es intencional: no busca representar
 estadísticamente todos los trámites del país, sino aportar situaciones variadas
 y suficientemente documentadas.
 
@@ -54,7 +56,8 @@ Los casos considerados cumplen los siguientes criterios:
   depender de una especialización sectorial completa.
 
 La selección también toma como referencia la clasificación de Roseth et al.
-@rosethFinTramiteEterno2018[pág. 36], que distingue cuatro propósitos generales:
+@rosethFinTramiteEterno2018[pág.
+  36], que distingue cuatro propósitos generales:
 
 - *registro, certificaciones y constancias:* incorporar información a un
   registro estatal o producir un comprobante;
@@ -65,15 +68,18 @@ La selección también toma como referencia la clasificación de Roseth et al.
 - *obtención de permisos:* recibir autorización para realizar una actividad.
 
 Esta clasificación orienta la diversidad de la muestra, pero no obliga a que
-cada procedimiento pertenezca de manera exclusiva a una categoría. Un trámite
+cada procedimiento pertenezca de manera exclusiva a una categoría.
+Un trámite
 puede combinar varios propósitos y se clasifica aquí según el que predomina en
 el recorrido estudiado.
 
-Para mantener comparables las descripciones se utiliza una ficha común. Cada
+Para mantener comparables las descripciones se utiliza una ficha común.
+Cada
 ficha registra nombre, tipo, propósito, institución competente, fundamento,
 iniciador, desencadenante, participantes, dependencias, precondiciones,
 información intercambiada, procedimiento básico, decisiones, plazos y
-resultados. La ficha describe el trámite con independencia de la técnica que se
+resultados.
+La ficha describe el trámite con independencia de la técnica que se
 elija posteriormente para modelarlo en el software.
 
 ===== Registro Ambiental Industrial
@@ -108,10 +114,12 @@ elija posteriormente para modelarlo en el software.
   3. La autoridad aplica la clasificación prevista en el anexo 1.
   4. Se notifica la categoría y las obligaciones correspondientes.
 - *Decisiones:* la categoría depende del rubro, el riesgo de contaminación y la
-  situación de proyecto u operación. Si existen varios rubros, se considera la
+  situación de proyecto u operación.
+  Si existen varios rubros, se considera la
   subclase de mayor riesgo.
 - *Plazos:* la revisión dispone de cinco días para una industria en proyecto y
-  diez para una industria en operación. El registro tiene una vigencia de cinco
+  diez para una industria en operación.
+  El registro tiene una vigencia de cinco
   años y debe renovarse treinta días antes de vencer.
 - *Resultados:* asignación de una categoría que determina los instrumentos
   ambientales posteriores o la exención correspondiente.
@@ -138,7 +146,8 @@ de revisión y vigencia, y un resultado que condiciona obligaciones posteriores.
 - *Participantes:* solicitante, servidor del SEGIP y, cuando corresponde,
   responsable de una persona menor de edad.
 - *Dependencias:* el Servicio de Registro Cívico (SERECI) permite contrastar el
-  certificado de nacimiento. Para personas naturalizadas también se requiere
+  certificado de nacimiento.
+  Para personas naturalizadas también se requiere
   información emitida por la Dirección General de Migración.
 - *Precondiciones e información:* certificado de nacimiento original,
   computarizado y vigente; datos de identidad; documentación migratoria cuando
@@ -150,7 +159,8 @@ de revisión y vigencia, y un resultado que condiciona obligaciones posteriores.
   4. Se asigna el número de cédula.
   5. Se emite y entrega el documento.
 - *Decisiones:* el recorrido presenta variantes para menores, personas
-  naturalizadas y bolivianos nacidos en el exterior. Una inconsistencia en los
+  naturalizadas y bolivianos nacidos en el exterior.
+  Una inconsistencia en los
   datos requiere un procedimiento de saneamiento o corrección distinto del
   recorrido ordinario.
 - *Plazos:* la fuente consultada no establece un plazo general para completar el
@@ -183,7 +193,8 @@ situación de la persona y una verificación de información con otra entidad.
 - *Dependencias:* la plataforma de adscripción verifica si la persona se
   encuentra afiliada a un ente gestor de la Seguridad Social de Corto Plazo.
 - *Precondiciones e información:* identificación de la persona y datos del
-  formulario MS/SUS-001. El establecimiento debe corresponder al primer nivel de
+  formulario MS/SUS-001.
+  El establecimiento debe corresponder al primer nivel de
   atención más cercano al domicilio.
 - *Procedimiento básico:*
   1. La persona solicita la adscripción en el establecimiento correspondiente.
@@ -194,7 +205,8 @@ situación de la persona y una verificación de información con otra entidad.
   4. Si el registro fue manual, la información se incorpora posteriormente a la
     plataforma.
   5. Se confirma la adscripción al establecimiento de primer nivel.
-- *Decisiones:* el registro puede ser manual o informatizado. La afiliación a un
+- *Decisiones:* el registro puede ser manual o informatizado.
+  La afiliación a un
   ente gestor impide seguir el recorrido ordinario del SUS; las urgencias y
   determinadas situaciones sin identificación reciben un tratamiento
   excepcional.
@@ -210,7 +222,8 @@ ordinario.
 ===== Solicitud de patente de invención
 
 - *Nombre:* solicitud de patente de invención.
-- *Tipo:* trámite para obtener un permiso o protección administrativa. Esta
+- *Tipo:* trámite para obtener un permiso o protección administrativa.
+  Esta
   correspondencia es aproximada: el resultado no es una licencia operativa,
   sino un derecho exclusivo reconocido por el Estado.
 - *Propósito:* obtener protección sobre una invención que cumpla novedad, nivel
@@ -230,7 +243,8 @@ ordinario.
   prioridad, recursos genéticos o conocimientos tradicionales.
 - *Precondiciones e información:* indicación de que se solicita una patente,
   identificación o medio de contacto, descripción, dibujos cuando correspondan
-  y comprobante de pago. El expediente puede incorporar petitorio,
+  y comprobante de pago.
+  El expediente puede incorporar petitorio,
   reivindicaciones, resumen, poderes y otros documentos aplicables.
 - *Procedimiento básico:*
   1. Presentación y recepción de la solicitud.
@@ -250,13 +264,16 @@ ordinario.
 
 La patente aporta conceptos valiosos, como expediente, requisitos condicionales,
 subsanaciones, plazos prorrogables, participación de terceros y exámenes
-sucesivos. Sin embargo, su complejidad y la falta de detalle público sobre parte
+sucesivos.
+Sin embargo, su complejidad y la falta de detalle público sobre parte
 de la operación interna impedirían representarla sin introducir demasiadas
-interpretaciones. Por ello se conserva como referencia para el diseño, pero se
+interpretaciones.
+Por ello se conserva como referencia para el diseño, pero se
 descarta de la validación conceptual del prototipo.
 
 Los tres casos no descartados —RAI, cédula de identidad y adscripción al SUS— se
-retomarán en la validación. La síntesis de los mecanismos que influyen en el
+retomarán en la validación.
+La síntesis de los mecanismos que influyen en el
 software y la elección de una técnica formal de modelado se realizan en la etapa
 de diseño, donde corresponde justificar esas decisiones.
 
@@ -270,7 +287,9 @@ de diseño, donde corresponde justificar esas decisiones.
   En este documento se prefiere el uso del primero.
 ]
 
-En una entrevista del año 2015 a Carlos Jiménez @digitalGobiernoInteligenteEntrevista2015, responsable mundial de _IEEE e-government_, este señaló que el *gobierno electrónico #footnote(governmentFootNote)* es una fase para llegar a tener gobiernos inteligentes y abiertos y que:
+En una entrevista del año 2015 a Carlos Jiménez @digitalGobiernoInteligenteEntrevista2015, responsable mundial de _IEEE e-government_, este señaló que el *gobierno electrónico #footnote(
+  governmentFootNote,
+)* es una fase para llegar a tener gobiernos inteligentes y abiertos y que:
 
 #quote(attribution: "Carlos Jiménez")[
   ...consiste en implantar la tecnología para *mejorar procesos administrativos y permitir la interacción con los ciudadanos*
@@ -284,7 +303,8 @@ Los esfuerzos por digitalizar los trámites se enmarcan dentro de este concepto.
 La Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación
 (AGETIC) es una institución pública descentralizada de derecho público, bajo
 tuición del Ministerio de la Presidencia, con personalidad jurídica, patrimonio
-propio y autonomía de gestión administrativa, financiera, legal y técnica. Fue
+propio y autonomía de gestión administrativa, financiera, legal y técnica.
+Fue
 creada mediante el Decreto Supremo Nº 2514, de 9 de septiembre de 2015
 @AGETICPlanEstrategicoInstitucional.
 
@@ -293,9 +313,11 @@ estrategias de gobierno electrónico y tecnologías de información y comunicaci
 para el sector público; coordinar su ejecución; proponer lineamientos técnicos
 para servicios e infraestructura informática; establecer lineamientos de
 seguridad de la información; coordinar la gestión de incidentes; y evaluar la
-calidad y eficiencia de los servicios de gobierno electrónico. También articula
+calidad y eficiencia de los servicios de gobierno electrónico.
+También articula
 y actualiza los planes nacionales de gobierno electrónico y de software libre y
-estándares abiertos @AGETICPlanEstrategicoInstitucional. Por tanto, constituye un
+estándares abiertos @AGETICPlanEstrategicoInstitucional.
+Por tanto, constituye un
 actor técnico central del contexto institucional en el que Tunkunia pretende ser
 adoptado, aunque cada institución pública conserva la responsabilidad sobre sus
 competencias y procedimientos.
@@ -305,7 +327,8 @@ competencias y procedimientos.
 La ciudadanía digital consiste en el ejercicio de derechos y deberes mediante el
 uso de tecnologías de información y comunicación en la interacción de las
 personas con entidades públicas y con entidades privadas que prestan servicios
-públicos delegados por el Estado. El servicio de Ciudadanía Digital reúne los
+públicos delegados por el Estado.
+El servicio de Ciudadanía Digital reúne los
 mecanismos que, al integrarse con los servicios digitales de estas entidades,
 permiten una interacción eficiente, transparente y segura, y pueden evitar la
 presencia física y la presentación de documentación en papel durante un trámite
@@ -313,27 +336,33 @@ presencia física y la presentación de documentación en papel durante un trám
 
 Entre sus mecanismos se encuentran la autenticación de la persona mediante
 credenciales únicas, la aprobación digital de documentos, las notificaciones
-electrónicas y la autorización de acceso a servicios o información. Estos
+electrónicas y la autorización de acceso a servicios o información.
+Estos
 mecanismos no constituyen por sí mismos un sistema de gestión de trámites, sino
 servicios comunes que las plataformas institucionales pueden integrar
-@CiudadaniaDigitalTerminos. En Tunkunia resultan especialmente relevantes como
+@CiudadaniaDigitalTerminos.
+En Tunkunia resultan especialmente relevantes como
 proveedor externo de identidad y como referencia para futuras integraciones de
 aprobación y notificación.
 
 ==== Plataforma GOB.BO
 
 La plataforma gob.bo es el portal que centraliza y facilita el acceso a
-información del Estado Plurinacional de Bolivia. Gestiona información sobre
+información del Estado Plurinacional de Bolivia.
+Gestiona información sobre
 trámites y servicios, entidades y páginas institucionales, datos abiertos y
-observatorios para la ciudadanía @GobBoAcerca. En el caso de los trámites,
+observatorios para la ciudadanía @GobBoAcerca.
+En el caso de los trámites,
 funciona como catálogo oficial: permite conocer sus requisitos y características
-y acceder o iniciar aquellos que ya fueron virtualizados. Esto no implica que la
+y acceder o iniciar aquellos que ya fueron virtualizados.
+Esto no implica que la
 plataforma implemente por sí misma los procesos internos de cada institución,
 pero la información que publica constituye una fuente relevante para modelarlos.
 
 Al 24 de agosto de 2026, las estadísticas visibles en la plataforma registraban
 1.195 trámites publicados, de los cuales 286 estaban digitalizados, equivalentes
-a aproximadamente 23,9 %, además de 662 entidades registradas @PortalGobbo. Estas
+a aproximadamente 23,9 %, además de 662 entidades registradas @PortalGobbo.
+Estas
 cifras describen el estado del portal en la fecha de consulta y pueden variar a
 medida que las instituciones publiquen, actualicen o retiren información.
 
@@ -349,9 +378,11 @@ medida que las instituciones publiquen, actualicen o retiren información.
 
 Además de operar servicios transversales como Ciudadanía Digital, la AGETIC
 facilita la adopción de soluciones comunes por parte de las instituciones
-públicas. Un ejemplo son las Plantillas de Portales Web Institucionales,
+públicas.
+Un ejemplo son las Plantillas de Portales Web Institucionales,
 desarrolladas sobre los sistemas de gestión de contenidos Drupal y WordPress,
-ambos de código abierto y uso gratuito. Las plantillas buscan uniformar el
+ambos de código abierto y uso gratuito.
+Las plantillas buscan uniformar el
 contenido y la estructura de los portales públicos, mejorar la experiencia de
 las personas usuarias y simplificar la gestión y actualización de la información
 institucional @AGETICPlantillasPortalesInstitucionales.
@@ -359,7 +390,8 @@ institucional @AGETICPlantillasPortalesInstitucionales.
 La AGETIC proporciona plantillas demostrativas y en blanco, especificaciones
 técnicas y manuales de instalación y configuración, y prevé su publicación en el
 Repositorio Estatal de Software Libre para que estén disponibles a las entidades
-del sector público @AGETICPlantillasPortalesInstitucionales. Este mecanismo
+del sector público @AGETICPlantillasPortalesInstitucionales.
+Este mecanismo
 constituye un antecedente directo para la forma de reutilización propuesta por
 Tunkunia: distribuir una base tecnológica común y configurable sin centralizar
 en ella las competencias ni la lógica particular de todas las instituciones.

@@ -134,9 +134,12 @@ Se pueden realizar iteraciones cortas si su duración es motivada por el princip
 
 === Artefactos
 
-Para este proyecto se adaptó el conjunto de artefactos propuesto por RUP a su alcance, duración y composición del equipo. Se conservaron aquellos que apoyan la planificación, la comunicación de decisiones y la trazabilidad entre los objetivos, los requisitos, el diseño, la implementación y la validación; los que duplicaban información o no aportaban directamente al desarrollo fueron omitidos o simplificados.
+Para este proyecto se adaptó el conjunto de artefactos propuesto por RUP a su alcance, duración y composición del equipo.
+Se conservaron aquellos que apoyan la planificación, la comunicación de decisiones y la trazabilidad entre los objetivos, los requisitos, el diseño, la implementación y la validación; los que duplicaban información o no aportaban directamente al desarrollo fueron omitidos o simplificados.
 
-Los artefactos se elaboran de manera evolutiva y con el nivel de detalle requerido en cada iteración. Su utilización no implica que todos deban reproducirse en la memoria o en sus anexos: podrán integrarse en el cuerpo del documento, mantenerse en el repositorio o registrarse mediante las herramientas de gestión del proyecto. Solo se incorporarán a la memoria aquellos que resulten necesarios para sustentar o comprender el trabajo realizado.
+Los artefactos se elaboran de manera evolutiva y con el nivel de detalle requerido en cada iteración.
+Su utilización no implica que todos deban reproducirse en la memoria o en sus anexos: podrán integrarse en el cuerpo del documento, mantenerse en el repositorio o registrarse mediante las herramientas de gestión del proyecto.
+Solo se incorporarán a la memoria aquellos que resulten necesarios para sustentar o comprender el trabajo realizado.
 
 === Método de Trabajo
 
@@ -156,9 +159,11 @@ Los artefactos se elaboran de manera evolutiva y con el nivel de detalle requeri
 ==== Software de Gestión de Proyectos
 
 La gestión se apoyó en el repositorio público de GitHub, un backlog y un tablero
-Kanban. El trabajo se dividió en tareas breves relacionadas con los objetivos del
+Kanban.
+El trabajo se dividió en tareas breves relacionadas con los objetivos del
 proyecto y con las disciplinas de RUP; cada tarea avanzó entre estados pendientes,
-en curso y concluidos. El cronograma conservó los hitos generales, mientras el
+en curso y concluidos.
+El cronograma conservó los hitos generales, mientras el
 tablero permitió ordenar el trabajo de cada iteración sin mantener artefactos de
 gestión duplicados.
 
@@ -199,16 +204,19 @@ En este sentido, para la redacción de documentos el uso de modelos de lenguaje 
 ==== Pareja de Programación
 
 La programación en pareja de XP busca que dos personas trabajen sobre el mismo
-problema y revisen continuamente las decisiones tomadas. Debido a que el equipo
+problema y revisen continuamente las decisiones tomadas.
+Debido a que el equipo
 de desarrollo de Tunkunia estuvo compuesto por una sola persona, se utilizó la
 inteligencia artificial como una pareja de programación con matices importantes:
 su intervención no sustituyó el criterio ni la responsabilidad del autor.
 
 La asistencia se concentró en la escritura de código repetitivo de soporte
 (_boilerplate_), la revisión de código y la generación de elementos no críticos,
-como operaciones CRUD e interfaces de usuario previamente definidas. Las
+como operaciones CRUD e interfaces de usuario previamente definidas.
+Las
 decisiones de dominio, arquitectura, seguridad y funcionamiento del motor de
-procesos permanecieron bajo control del desarrollador. Toda propuesta generada
+procesos permanecieron bajo control del desarrollador.
+Toda propuesta generada
 por inteligencia artificial fue tratada como un borrador sujeto a revisión,
 pruebas y adaptación antes de incorporarse al proyecto.
 
@@ -218,19 +226,24 @@ pruebas y adaptación antes de incorporarse al proyecto.
 
 Al inicio de cada iteración se definió un objetivo acorde con la fase vigente y
 se seleccionaron del backlog las tareas de mayor prioridad, considerando sus
-dependencias y riesgos. Durante la iteración, el tablero Kanban permitió observar
-el trabajo en curso y ajustar tareas sin perder el objetivo acordado. Al cierre
+dependencias y riesgos.
+Durante la iteración, el tablero Kanban permitió observar
+el trabajo en curso y ajustar tareas sin perder el objetivo acordado.
+Al cierre
 se revisaron el incremento y los artefactos producidos; las tareas pendientes se
-reformularon o devolvieron al backlog. Las observaciones del tutor y las
+reformularon o devolvieron al backlog.
+Las observaciones del tutor y las
 evaluaciones académicas alimentaron las iteraciones posteriores y, cuando fue
 necesario, la actualización del cronograma.
 
 === Gestión de riesgos y recursos
 
 La gestión de riesgos fue continua y ligera, adecuada a un proyecto dirigido y
-desarrollado por una sola persona. Se prestó especial atención a los riesgos de
+desarrollado por una sola persona.
+Se prestó especial atención a los riesgos de
 plazo, decisiones técnicas inciertas, cambios de alcance y dependencia de
-servicios externos. Las respuestas principales fueron priorizar temprano los
+servicios externos.
+Las respuestas principales fueron priorizar temprano los
 prototipos de mayor incertidumbre, limitar el trabajo de cada iteración, mantener
 versionado el código y la documentación, automatizar compilaciones y pruebas, y
 emplear adaptadores o servicios simulados cuando una integración real no estaba
@@ -238,6 +251,7 @@ disponible.
 
 Los recursos principales fueron el tiempo y trabajo del autor, la orientación
 del tutor y del docente evaluador, el equipo local de desarrollo y herramientas
-de software libre. Como el tiempo constituyó el recurso más restrictivo, las
+de software libre.
+Como el tiempo constituyó el recurso más restrictivo, las
 capacidades del prototipo se priorizaron por su relación con los objetivos y los
 requerimientos, dejando las ampliaciones no esenciales para trabajo futuro.

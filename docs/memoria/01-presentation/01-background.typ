@@ -64,7 +64,7 @@ Esta evolución normativa, desarrollada sistemáticamente en el @section:referen
   [Convenio con presencia de Autoridades del Estado y Universidades],
   <fig:convenio_umsa_agetic>,
   source: [Notas de Prensa - AGETIC],
-  width: 70%
+  width: 70%,
 )
 
 Durante el desarrollo de este proyecto, el 11 de febrero de 2026, la Universidad Mayor de San Andrés junto con otras universidades, firmó un convenio con la @AGETIC (@fig:convenio_umsa_agetic) que busca, entre otras cosas, eliminar el uso excesivo de papel y *optimizar tiempos en trámites administrativos*, contribuyendo a la modernización del estado@agenciadegobiernoelectronicoytecnologiasdeinformacionycomunicacionAGETICFirmaConvenio2026.

@@ -5,12 +5,15 @@
 
 === Flujos de Trabajo
 
-Es importante definir para entender la naturaleza de este trabajo lo que es un flujo de trabajo. Al ser un concepto elemental en el proyecto se extrae su definición como una traducción del glosario del grupo WFMC@WorkflowManagementCoalition:
+Es importante definir para entender la naturaleza de este trabajo lo que es un flujo de trabajo.
+Al ser un concepto elemental en el proyecto se extrae su definición como una traducción del glosario del grupo WFMC@WorkflowManagementCoalition:
 
 #quote()[
-  Un flujo de trabajo es la secuencia de tareas, pasos y decisiones que deben seguirse para completar un proceso específico. Puede entenderse como un conjunto de instrucciones que describen cómo debe llevarse a cabo un proceso, incluyendo el orden en que deben completarse las tareas, quién es responsable de realizar cada una de ellas y qué debe suceder a continuación en función del resultado de cada tarea.
+  Un flujo de trabajo es la secuencia de tareas, pasos y decisiones que deben seguirse para completar un proceso específico.
+  Puede entenderse como un conjunto de instrucciones que describen cómo debe llevarse a cabo un proceso, incluyendo el orden en que deben completarse las tareas, quién es responsable de realizar cada una de ellas y qué debe suceder a continuación en función del resultado de cada tarea.
 
-  Los flujos de trabajo pueden utilizarse para automatizar una amplia variedad de procesos de negocio, como la facturación, el procesamiento de pedidos, la gestión de recursos humanos y la gestión de proyectos. El objetivo de un flujo de trabajo es garantizar que las tareas se completen en el orden correcto y por las personas adecuadas, así como asegurar que el proceso sea eficiente y preciso.
+  Los flujos de trabajo pueden utilizarse para automatizar una amplia variedad de procesos de negocio, como la facturación, el procesamiento de pedidos, la gestión de recursos humanos y la gestión de proyectos.
+  El objetivo de un flujo de trabajo es garantizar que las tareas se completen en el orden correcto y por las personas adecuadas, así como asegurar que el proceso sea eficiente y preciso.
 ]
 === Sistemas de gestión de flujos de trabajo y procesos<section:wfms>
 
@@ -113,7 +116,9 @@ Inspiró aspectos del lenguaje UML, tiene diversas variantes y está definida fo
 También se denominan _place/transition nets_ porque están formadas por lugares, representados por círculos, y transiciones, representadas por rectángulos, constituyendo un lenguaje matemático y una forma de representar sistemas distribuidos discretos @simonStateMachinesPetri.
 ==== Definición
 
-Existen varias formas de definir formalmente una Red de Petri estándar. Algunas definiciones usan un enfoque más de matrices y otras un enfoque de funciones. Las diferencias son mínimas, pero pueden ofrecer variedad a la hora de traducir el modelo matemático en código.
+Existen varias formas de definir formalmente una Red de Petri estándar.
+Algunas definiciones usan un enfoque más de matrices y otras un enfoque de funciones.
+Las diferencias son mínimas, pero pueden ofrecer variedad a la hora de traducir el modelo matemático en código.
 
 Una *Red de Petri* (red $P\/T$) se define@giraultPetriNetsSystems2001 mediante la tupla
 
@@ -151,14 +156,18 @@ $cal(S) = chevron.l P, T, bold("Pre"), bold("Post"), bold(m)_0 chevron.r$.
 Una transición $t in T$ está *habilitada* en un marcado $bold(m)$ si
 
 ==== Redes de Petri con Colores
-Una extensión a las redes de petri son los colores, que son atributos asignados a los tokens de una red para poder distinguir entre ellos. En otras palabras, son tokens con tipo.
+Una extensión a las redes de petri son los colores, que son atributos asignados a los tokens de una red para poder distinguir entre ellos.
+En otras palabras, son tokens con tipo.
 
 ==== Redes de Petri con Tiempo
-Las redes de Petri convencionales no tienen una idea del tiempo. Esta extensión permite aplicar duración a los distintos elementos de una red, como pueden ser las transiciones, los lugares o incluso los tokens.
+Las redes de Petri convencionales no tienen una idea del tiempo.
+Esta extensión permite aplicar duración a los distintos elementos de una red, como pueden ser las transiciones, los lugares o incluso los tokens.
 === Aplicación de Redes de Petri al Modelado de Procesos
-Algunos autores defienden que esta técnica es capaz de modelar procesos @vanderaalstAPPLICATIONPETRINETS1998, como en la @fig:petricomplaints. Aunque otros presentan críticas importantes.
+Algunos autores defienden que esta técnica es capaz de modelar procesos @vanderaalstAPPLICATIONPETRINETS1998, como en la @fig:petricomplaints.
+Aunque otros presentan críticas importantes.
 
-Las Redes de Petri fueron ampliamente exploradas en cuanto a sus posibles aplicaciones, una de ellas es su aplicación en sistemas de gestión de flujos de trabajo. El autor que mejor definió esta aplicación es Van Der Aalst, cuyo trabajo es quizás el que más influenció la solución de este proyecto.
+Las Redes de Petri fueron ampliamente exploradas en cuanto a sus posibles aplicaciones, una de ellas es su aplicación en sistemas de gestión de flujos de trabajo.
+El autor que mejor definió esta aplicación es Van Der Aalst, cuyo trabajo es quizás el que más influenció la solución de este proyecto.
 
 Van Der Aalst define a los flujos de trabajo en 3 dimensiones (@fig:vanderaals3dwf) y a partir de ello presenta una relación de elementos de un flujo de trabajo con los elementos de una Red de Petri.
 
@@ -170,21 +179,28 @@ Van Der Aalst define a los flujos de trabajo en 3 dimensiones (@fig:vanderaals3d
 
 No se pretende describir todo el trabajo de Van Der Aalst en este documento, pero es importante destacar algunas de sus definiciones más importantes:
 
-- Un caso es una ejecución o instancia de un proceso. Es decir, un proceso definido puede tener varios casos asociados.
+- Un caso es una ejecución o instancia de un proceso.
+  Es decir, un proceso definido puede tener varios casos asociados.
 - Los recursos son los participantes del flujo de trabajo, aunque él evita asociarlos con las Redes de Petri, pero no niega la posibilidad.
 - Las Redes de Petri de un flujo de trabajo deben comenzar y terminar en una sola plaza o lugar, a esta Red se la define como WorkFlow net: Una red de Petri $P\N = (P,T,F)$ es una red WF si y sólo si:
-  + $P\N$ tiene dos lugares especiales: $i$ y $o$, El lugar $i$ es un lugar fuente: $bullet i = nothing$. El lugar $o$ es un lugar sumidero: $o bullet = nothing$.
-  + Si añadimos una transición $t*$ a $P\N$ conectando $o$ con $i$, la red resultante es fuertemente conectada. Es decir, hay un camino dirigido entre cualquier par de nodos.
+  + $P\N$ tiene dos lugares especiales: $i$ y $o$, El lugar $i$ es un lugar fuente: $bullet i = nothing$.
+    El lugar $o$ es un lugar sumidero: $o bullet = nothing$.
+  + Si añadimos una transición $t*$ a $P\N$ conectando $o$ con $i$, la red resultante es fuertemente conectada.
+    Es decir, hay un camino dirigido entre cualquier par de nodos.
 - Un caso puede mapearse a un color en una red de petri de color.Esto permite que una misma red tenga a todos los casos evolucionando dentro de su estructura.
-- Extensión de Redes de Petri con jerarquías: Una red puede contener sub-redes. Esto es especialmente útil más adelante cuando se busque compactar una parte de un proceso en una sola transición.
+- Extensión de Redes de Petri con jerarquías: Una red puede contener sub-redes.
+  Esto es especialmente útil más adelante cuando se busque compactar una parte de un proceso en una sola transición.
 === El Proceso de la Ingeniería de Software
 ==== Ingeniería de Requerimientos
 
 La ingeniería de requerimientos es un paso fundamental no sólo por ser de los primeros en el ciclo de vida del software en distintas concepciones del proceso del software, sino también porque ayuda a definir los aspectos sólidos e inmutables de un sistema en tanto el propósito del mismo no cambie.
 
-Es importante en un proyecto de software poder definir de forma correcta elementos que guíen las etapas posteriores. Los requerimientos garantizan que se puedan dar cambios en el diseño sin comprometer el propósito del sistema, en tanto se respeten los requerimientos.
+Es importante en un proyecto de software poder definir de forma correcta elementos que guíen las etapas posteriores.
+Los requerimientos garantizan que se puedan dar cambios en el diseño sin comprometer el propósito del sistema, en tanto se respeten los requerimientos.
 
-La ingeniería de requerimientos nos ayuda a manipular los requerimientos de forma sistematizada. Los requerimientos, por su lado son condiciones necesarias para resolver un problema o lograr un objetivo y las condiciones que debe tener un sistema para satisfacer un contrato o definición. También le llamamos requerimiento a la representación documentada de un requerimiento@ingenoSoftwareArchitectsHandbook2018.
+La ingeniería de requerimientos nos ayuda a manipular los requerimientos de forma sistematizada.
+Los requerimientos, por su lado son condiciones necesarias para resolver un problema o lograr un objetivo y las condiciones que debe tener un sistema para satisfacer un contrato o definición.
+También le llamamos requerimiento a la representación documentada de un requerimiento@ingenoSoftwareArchitectsHandbook2018.
 
 ==== Arquitectura de software y modularidad
 
@@ -236,7 +252,9 @@ Cada estilo tiene características, ventajas y desventajas propias, pero todos b
   source: [Hexagonal architecture the original 2005 article by Alistair Cockburn@cockburn2005hexagonal],
 )
 
-Existen muchos más patrones y estilos de arquitectura ampliamente reconocidos que ayudan a describir el sistema de forma global. Asimismo, existen patrones que describen el sistema en un nivel inferior y que se popularizaron por inducir a un código más sencillo de mantener y son las arquitecturas con inversión de dependencias. Una de las primeras estructuras con esta naturaleza fue la arquitectura hexagonal@cockburn2005hexagonal o de puertos y adaptadores, que aísla la capa de aplicación y la vuelve ignorante de su entorno, viviendo en el centro del sistema como puede verse en la @fig:hex_original.
+Existen muchos más patrones y estilos de arquitectura ampliamente reconocidos que ayudan a describir el sistema de forma global.
+Asimismo, existen patrones que describen el sistema en un nivel inferior y que se popularizaron por inducir a un código más sencillo de mantener y son las arquitecturas con inversión de dependencias.
+Una de las primeras estructuras con esta naturaleza fue la arquitectura hexagonal@cockburn2005hexagonal o de puertos y adaptadores, que aísla la capa de aplicación y la vuelve ignorante de su entorno, viviendo en el centro del sistema como puede verse en la @fig:hex_original.
 
 ==== Diseño de Software
 

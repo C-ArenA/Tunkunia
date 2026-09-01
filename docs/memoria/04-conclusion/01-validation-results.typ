@@ -5,20 +5,26 @@
 
 === Alcance de la validación
 
-El prototipo implementa una sola acción de prueba que consiste en la simple ejecución de transiciones habilitadas. No existen transiciones de interoperabilidad en el prototipo y se remplazan con transiciones ejecutadas de forma automatizada. Se valida la capacidad de aplicar el modelado del trámite diseñado en Tunkunia para distintos trámites.
+El prototipo implementa una sola acción de prueba que consiste en la simple ejecución de transiciones habilitadas.
+No existen transiciones de interoperabilidad en el prototipo y se remplazan con transiciones ejecutadas de forma automatizada.
+Se valida la capacidad de aplicar el modelado del trámite diseñado en Tunkunia para distintos trámites.
 
 Se consideran el Registro Ambiental Industrial, la cédula de identidad por
-primera vez y la adscripción al Sistema Único de Salud. La solicitud de patente
+primera vez y la adscripción al Sistema Único de Salud.
+La solicitud de patente
 de invención se conserva como referencia para el diseño, pero se excluye de esta
 etapa porque su representación exigiría interpretar aspectos operativos no
 descritos con suficiente detalle y abarcar una cantidad de excepciones que
 excede el alcance del prototipo.
 
 Cada caso se expresa mediante una red de flujo de trabajo (WFNet) con un único lugar de
-inicio y uno de terminación. Los círculos representan lugares o situaciones; los
-rectángulos, transiciones ejecutables; y las flechas, la relación de flujo. El
+inicio y uno de terminación.
+Los círculos representan lugares o situaciones; los
+rectángulos, transiciones ejecutables; y las flechas, la relación de flujo.
+El
 recorrido satisfactorio indica la secuencia de disparos y el lugar que conserva
-el token después de cada acción. Los datos y documentos producidos se mantienen
+el token después de cada acción.
+Los datos y documentos producidos se mantienen
 en el expediente y no se codifican dentro del token.
 
 === Casos preparados para validación
@@ -27,10 +33,15 @@ en el expediente y no se codifican dentro del token.
 
 El modelo de la @fig:rai_pnet representa el recorrido ordinario de una
 unidad industrial cuya información es suficiente para que la instancia
-ambiental municipal determine una categoría. Las reglas técnicas de
+ambiental municipal determine una categoría.
+Las reglas técnicas de
 clasificación se registran como transiciones, aunque esto podría hacerse de otra manera, se considera que esta representación es más informativa para el ciudadano.
 
-#img-fig("../../assets/figures/rai_pnet.png", [Trámite RAI Modelado], <fig:rai_pnet>)
+#img-fig(
+  "../../assets/figures/rai_pnet.png",
+  [Trámite RAI Modelado],
+  <fig:rai_pnet>,
+)
 
 El recorrido satisfactorio previsto es el siguiente:
 
@@ -58,11 +69,16 @@ actuaciones de cada participante.
 ==== Cédula de identidad por primera vez
 
 La @fig:ci_pnet limita el caso satisfactorio a una persona cuyos
-datos coinciden con SERECI. Las variantes para menores, personas naturalizadas,
+datos coinciden con SERECI.
+Las variantes para menores, personas naturalizadas,
 nacidos en el exterior y saneamiento de datos deberán configurarse como caminos
 adicionales cuando se cuente con suficiente información operativa.
 
-#img-fig("/assets/figures/ci_pnet.png", [Trámite de Cédula de Identidad Modelado], <fig:ci_pnet>)
+#img-fig(
+  "/assets/figures/ci_pnet.png",
+  [Trámite de Cédula de Identidad Modelado],
+  <fig:ci_pnet>,
+)
 
 
 El recorrido satisfactorio previsto es el siguiente:
@@ -92,11 +108,16 @@ asignado y la constancia de entrega.
 
 La @fig:sus_pnet representa a una persona identificada, no afiliada a un
 ente gestor de la Seguridad Social de Corto Plazo y atendida por el
-establecimiento de primer nivel que le corresponde. El modelo admite que la
+establecimiento de primer nivel que le corresponde.
+El modelo admite que la
 captura sea manual o informatizada sin convertir cada canal en un trámite
 diferente.
 
-#img-fig("../../assets/figures/sus_pnet.png", [Trámite adscripción al SUS Modelado], <fig:sus_pnet>)
+#img-fig(
+  "../../assets/figures/sus_pnet.png",
+  [Trámite adscripción al SUS Modelado],
+  <fig:sus_pnet>,
+)
 
 El recorrido satisfactorio previsto es el siguiente:
 
@@ -122,8 +143,10 @@ la persona quedó adscrita.
 
 === Resultados de la Validación
 
-Se pudo demostrar que distintos trámites pueden ser modelados en Redes de Petri y configurados en un sistema reutilizable. La manera en que se modelan estos procesos es variada, pero el conjunto de posibles acciones y los elementos añadidos a las redes de Petri como asociación de recursos a transiciones permite contar con las herramientas necesarias para modelar distintos trámites.
+Se pudo demostrar que distintos trámites pueden ser modelados en Redes de Petri y configurados en un sistema reutilizable.
+La manera en que se modelan estos procesos es variada, pero el conjunto de posibles acciones y los elementos añadidos a las redes de Petri como asociación de recursos a transiciones permite contar con las herramientas necesarias para modelar distintos trámites.
 
-Es cierto que las redes de Petri por si solas no son amigables al usuario, pero su ejecución de forma interactiva es sencilla y transmite al ciudadano la información necesaria sobre el proceso. Las capturas de pantalla presentadas en este documento no demuestran el potencial en experiencia de usuario de las Redes de Petri que resulta de su simplicidad.
+Es cierto que las redes de Petri por si solas no son amigables al usuario, pero su ejecución de forma interactiva es sencilla y transmite al ciudadano la información necesaria sobre el proceso.
+Las capturas de pantalla presentadas en este documento no demuestran el potencial en experiencia de usuario de las Redes de Petri que resulta de su simplicidad.
 
 Si bien el prototipo no implementa todos los tipos de acciones necesarios en un trámite, en su estado actual ya permite validar su proceso y el cómo interactúan los distintos actores con el subsistema reutilizable.
