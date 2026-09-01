@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.7
+links:
+- TRS024: uiLuZyl6t_-8GSZwrBshbmfUh6C7C9WjxImCnDwdrKE=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: ewy7jWwwJT8sCbL4RPJ38bfRgqIU_a6336DFitMWFYs=
+text: |
+  Tunkunia deberá permitir configurar acciones de decisión con las opciones admitidas por el procedimiento.
+type: functional

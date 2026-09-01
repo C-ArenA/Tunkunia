@@ -1,0 +1,14 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.2
+links: []
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: 0VVfks1PcAzDVNE9TzzXho-wyzpcMsIjpV2582pfCfs=
+text: |
+  La entidad pública, el ciudadano o la entidad externa que participe en un caso deberá poder recibir las notificaciones relevantes también mediante un canal externo habilitado por la entidad pública.
+type: capability

@@ -1,0 +1,15 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.2
+links:
+- TRS055: fq-sCs6rsn8PwBMepqSAWb-HE7rxGdoeaVayaUdUFXQ=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: DleEfGtPRB7_vN24gaVCyFgo9T3mrW7LJul2Ye_NBYk=
+text: |
+  Cuando una tarea quede pendiente, Tunkunia deberá generar una notificación interna para cada participante al que esté asignada directamente o mediante uno de sus roles.
+type: functional

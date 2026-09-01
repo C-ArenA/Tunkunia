@@ -1,0 +1,15 @@
+active: true
+category: identity
+derived: false
+header: ''
+level: 8.1
+links:
+- TRS051: sksXyHDCk7NQ17RJG-wmKW7La121F4DlOA6OmH802aU=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: LnRC1DpUv6mhzqsI-_-dDVcXV1KzWoOZrg8lIoKq3vk=
+text: |
+  Tunkunia deberá integrarse con Ciudadanía Digital para solicitar y recibir resultados de autenticación de usuarios.
+type: external-interface

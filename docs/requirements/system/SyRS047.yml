@@ -1,0 +1,15 @@
+active: true
+category: records
+derived: false
+header: ''
+level: 7.7
+links:
+- TRS048: Vfxw4ym1f3RXUsKKcakPo8VARK4vCJeABDyTFZIuGIw=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: 220V1lvGXB2zF02Z2VhClxbCOQXGfL795Y__gzj94IY=
+text: |
+  Tunkunia deberá impedir que una actuación registrada en el historial de un caso sea modificada o eliminada mediante operaciones ordinarias de gestión del caso.
+type: data-integrity

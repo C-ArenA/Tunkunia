@@ -1,0 +1,15 @@
+active: true
+category: access-extension
+derived: false
+header: ''
+level: 11.2
+links:
+- TRS069: QBeLcUMeN4atDw2NsHJi1uWLIdRnNfvLnlwIwtHL0b0=
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: 1-7H_L2cvWikfZtnjx8j9zMUmXFi0_nbVUBylurSBwI=
+text: |
+  Tunkunia deberá proporcionar puntos de extensión documentados para incorporar nuevos tipos de acción o integración sin modificar los contratos publicados del comportamiento común existente.
+type: extensibility

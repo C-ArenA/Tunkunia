@@ -1,0 +1,15 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.6
+links:
+- TRS066: JK5lzF_vr9xdRtGoKAfQCoSfuq8PpM9p7l93oiPP5mY=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: wFHy1fu33PLFF6VQj6FYhF-wSG61n6ybvHzAWGTTm6o=
+text: |
+  A petición de un sistema externo autorizado, Tunkunia deberá crear un caso únicamente para un trámite incluido en el alcance vigente de ese sistema.
+type: external-interface

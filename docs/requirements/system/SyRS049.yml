@@ -1,0 +1,15 @@
+active: true
+category: records
+derived: false
+header: ''
+level: 7.9
+links:
+- TRS050: rPuCNvPJ90hO-xAOvAviDbpRIQNTuAfuUbxoUmuQ_fw=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: uuxfXofUeuHRrkuv5u0Vyi_RSDBIRXGt5clBA9YBnDc=
+text: |
+  Antes de mostrar un expediente o historial, Tunkunia deberá comprobar que el usuario esté autorizado por su relación con el caso o por un permiso de auditoría cuyo alcance incluya el caso.
+type: security

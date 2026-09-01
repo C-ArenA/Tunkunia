@@ -25,6 +25,7 @@ type tramitesTable struct {
 	Status               sqlite.ColumnString
 	CreatedAt            sqlite.ColumnString
 	UpdatedAt            sqlite.ColumnString
+	CurrentVersionID     sqlite.ColumnInteger
 
 	AllColumns     sqlite.ColumnList
 	MutableColumns sqlite.ColumnList
@@ -74,8 +75,9 @@ func newTramitesTableImpl(schemaName, tableName, alias string) tramitesTable {
 		StatusColumn               = sqlite.StringColumn("status")
 		CreatedAtColumn            = sqlite.StringColumn("created_at")
 		UpdatedAtColumn            = sqlite.StringColumn("updated_at")
-		allColumns                 = sqlite.ColumnList{IDColumn, NameColumn, DescriptionColumn, ProcedureDescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn}
-		mutableColumns             = sqlite.ColumnList{NameColumn, DescriptionColumn, ProcedureDescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn}
+		CurrentVersionIDColumn     = sqlite.IntegerColumn("current_version_id")
+		allColumns                 = sqlite.ColumnList{IDColumn, NameColumn, DescriptionColumn, ProcedureDescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn, CurrentVersionIDColumn}
+		mutableColumns             = sqlite.ColumnList{NameColumn, DescriptionColumn, ProcedureDescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn, CurrentVersionIDColumn}
 		defaultColumns             = sqlite.ColumnList{DescriptionColumn, ProcedureDescriptionColumn, TypeColumn, StatusColumn, CreatedAtColumn, UpdatedAtColumn}
 	)
 
@@ -91,6 +93,7 @@ func newTramitesTableImpl(schemaName, tableName, alias string) tramitesTable {
 		Status:               StatusColumn,
 		CreatedAt:            CreatedAtColumn,
 		UpdatedAt:            UpdatedAtColumn,
+		CurrentVersionID:     CurrentVersionIDColumn,
 
 		AllColumns:     allColumns,
 		MutableColumns: mutableColumns,

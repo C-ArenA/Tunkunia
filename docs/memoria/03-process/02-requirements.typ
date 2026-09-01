@@ -1,4 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "/shared/requirements.typ": requirements
 #import "/shared/theme/lib.typ": img-fig, mmd-fig, typ-fig
 
 == Ingeniería de Requerimientos
@@ -8,43 +9,134 @@
 // la adaptación realizada respecto del estándar elegido.
 
 La ingeniería de requerimientos de Tunkunia toma como referencia
-ISO/IEC/IEEE 29148:2018 #cite(label("iso/iec/ieeeSystemsSoftwareEngineering2018")) #footnote[La aplicación del estándar es parcial y no de conformidad completa.] y las
+ISO/IEC/IEEE 29148:2018 #cite(
+  label("iso/iec/ieeeSystemsSoftwareEngineering2018"),
+) #footnote[La aplicación del estándar es parcial y no de conformidad completa.] y las
 prácticas descritas por el SWEBOK @washizakiGuideSoftwareEngineering2025.
 
-De acuerdo al ISO 29148, un proyecto debería producir cuatro elementos de información:
+De acuerdo al ISO 29148, un proyecto podría producir cuatro elementos de información:
 
-+ Especificación de requerimientos del negocio (BRS)
++ Especificación de requerimientos del negocio, de la organización o de la misión (BRS)
 + Especificación de requerimientos de los interesados (StRS).
 + Especificación de requerimientos del sistema (SyRS).
 + Especificación de requerimientos del software (SRS).
 
-Cada elemento de información tiene un propósito específico y responde a distintos niveles de abstracción.
-La visión global de este proyecto se define en la introducción (@chap:intro), por lo que se omite la especificación de requerimientos del negocio (@BRS) y la especificación de requerimientos de los interesados (@StRS).
-Por su lado, la especificación de requerimientos del sistema y la especificación de requerimientos del software responden a un nivel más técnico y aunque pueden atacar elementos similares, en especial en un proyecto puramente de software, conviene considerar aspectos de ambos de forma separada.
+Cada elemento de información tiene un propósito específico y responde a distintos niveles de abstracción, pero algunos pueden ser omitidos o combinados dependiendo de la naturaleza del proyecto.
 
-=== Elicitación, descubrimiento y gestión
+A continuación se describen las especificaciones de requerimientos definidas para Tunkunia.
 
-// TODO: MY: Describir técnicas empleadas: Ingeno lista algunas que sí use como Observación, Análisis de documentos y brainstorming.
+=== Especificación de Requerimientos de Negocio e Interesados
 
-Antes de describir las especificaciones mencionadas conviene presentar, de manera superficial, el trabajo realizado para elaborarlas mediante la elicitación, que forma parte de las actividades iniciales de desarrollo de los requerimientos @washizakiGuideSoftwareEngineering2025.
+De acuerdo al estándar ISO 29148, la especificación de negocio puede tener cierto contenido que principalmente se encarga de delinear el sistema desde el punto de vista de la organización o la misión que está detrás de la misma.
+Sin embargo, en un sistema reutilizable como el que se propone la definición de lo que es en primer lugar la organización o el negocio, o incluso la misión no es tan fácil de obtener.
+En este sentido, se prefiere adoptar un enfoque que permita capturar las necesidades reales del artefacto principal de este proyecto y que evite excesivo solapamiento con la definición misma del proyecto, tomando al gobierno electrónico como negocio, organización o misión.
 
-Las distintas especificaciones de requerimientos nacieron a partir de esta actividad y en atención a la definición del proyecto. La elicitación inicial realizada reúne necesidades expresadas en forma de historias de usuario, descripciones simples, requerimientos formales, entre otros, que permiten capturar las cualidades deseadas del sistema a partir de sus fuentes que
-incluyen los objetivos, los alcances, los trámites de referencia, la normativa y los planes de
-gobierno electrónico considerados en el marco de referencia, así como la experiencia que
-dio origen al proyecto.
+Adicionalmente, como indica el estándar mencionado, la especificación de negocio y la de interesados tienen muchas similitudes, por lo que se decidió incluir aspectos de ambos a continuación.
 
-Para registrar los elementos de la elicitación inicial, se creó una tabla simple con los siguientes elementos:
+==== Introducción
 
-- Identificador
-- Enunciado del requerimiento
-- Nivel de prioridad: Usando la técnica MoSCoW de priorización
+Se detallan aspectos generales del negocio y su relación con el sistema que se desea desarrollar.
+Mucha de esta información es paralela a la definición del proyecto que alberga esta especificación, por lo que se presentan de forma resumida en esta sección.
 
-Se debe tomar en cuenta que no todos los elementos de la elicitación inicial se consideran en las especificaciones de requerimientos finales. Cada elemento pudo haber generado varios requerimientos. Las necesidades descartadas no se borraron de la tabla de elicitación.
+===== Propósito del Negocio
 
-// Aclaración editorial: se omiten los subtítulos de propósito y alcance de ambas
-// especificaciones porque esa información ya se desarrolla en la introducción del
-// proyecto. Los demás subtítulos del índice adaptado de ISO/IEC/IEEE 29148 se
-// conservan para que su pertinencia pueda evaluarse durante la redacción.
+Un objetivo claro del gobierno boliviano como puede inferirse de la normativa actual y los lineamientos y planes existentes, además de recientes esfuerzos en cuanto a "Acabar con el estado tranca", es la digitalización de servicios, entre los cuales los trámites son muy importantes.
+
+Para la digitalización de trámites es muy común que el negocio (el gobierno boliviano) licite desarrollos o solicite servicios de desarrollo de software en general para poder tener sistemas de trámites en sus distintas instituciones.
+Esto se hace de manera descentralizada en función a las necesidades específicas de cada elemento perteneciente al gobierno.
+
+En este sentido, el sistema propuesto en el proyecto que contiene a esta especificación puede reducir la fricción en el proceso de digitalización de trámites, contribuyendo a la reducción del estado tranca y en función con los planes y lineamientos del gobierno electrónico derivados de la normativa vigente.
+
+===== Alcance del Negocio
+
+En esta especificación se llama negocio al estado boliviano en proceso de digitalización o, de forma práctica, gobierno electrónico boliviano, que persigue la digitalización de sus procesos.
+El gobierno boliviano alberga un elevado número de instituciones burocráticas que lo conforman y asumen responsabilidades específicas dentro del estado.
+Una actividad común en estos elementos del gobierno es el trámite y el sistema propuesto busca atender este problema transversal.
+Entonces se asume que el sistema podrá facilitar la transición de las actividades de trámite dentro de las instituciones hacia lo digital, considerando los aspectos comunes de los mismos:
+
+- Pueden describirse como procesos o flujos de trabajo.
+- Requieren elementos comunes como la ciudadanía digital, la validación de documentos, etc.
+- Involucran acciones similares como entrega de información, revisión de datos, etc.
+- Deben responder a una misma base normativa
+
+===== Panorama General del Negocio
+
+Si bien se suele hablar de gobierno electrónico y en muchos casos se usa el término gobierno de forma práctica para referirse a todo el aparato administrativo y de poder del estado boliviano, conviene ver que el negocio no sólo contempla al ejecutivo, sino a todos los poderes del estado.
+De este modo podríamos delinear el contexto del negocio como se ve en la @fig:bolivianInstitutions.
+
+#img-fig(
+  "../../assets/figures/bolivianInstitutions.svg",
+  [Panorama del Negocio],
+  <fig:bolivianInstitutions>,
+  placement: top,
+)
+
+===== Principales interesados
+
+- *Unidades, Entidades o Instituciones:* Son los elementos que administran algún trámite y requieren digitalizar sus procesos.
+- *Ejecutivo mediante la AGETIC:* Impulsa la implementación de Gobierno Electrónico.
+- *Ciudadanía:* Requiere realizar trámites de forma más sencilla y se ve beneficiada cuando estos se realizan de forma digital.
+
+==== Requerimientos de Gestión
+===== Entorno
+El entorno se describe de forma detallada en otras secciones del documento:
+
+- Normativa: Marco de Referencia
+- Estado Actual: Situación Actual
+
+===== Misión, Metas y Objetivos del Negocio
+
+Se puede inferir de la definición de la AGETIC sobre Gobierno Electrónico que la misión del negocio es aplicar las tecnologías de la información y la comunicación al funcionamiento del sector público.
+El objetivo es el de incrementar la eficiencia, transparencia y la participación ciudadana.
+
+El sistema propuesto sintoniza perfectamente con estas premisas, ya que aplica la tecnología al funcionamiento del sector público y que incrementa la eficiencia de los trámites reeduciendo la fricción en su digitalización.
+
+===== Modelo del Negocio
+
+Es importante hacer una precisión respecto a lo que el estándar trata de decir con "modelo del negocio".
+Según el estándar se presentan los métodos mediante los cuales se pretende lograr el objetivo.
+
+Se espera lograr el objetivo de negocio con la solución propuesta mediante la reutilización inteligente de software.
+Se desarrollará un sistema que contenga características transversales a muchos trámites, de modo tal que este sistema pueda ser distribuido a distintas unidades o entidades públicas para su adaptación o configuración a los trámites específicos de cada una.
+
+Al no requerirse un desarrollo desde cero, se logrará que la digitalización de trámites en estas entidades se pueda realizar de forma sencilla y dentro de un marco bien establecido, considerando las necesidades actuales del gobierno electrónico.
+
+El modelo del negocio es en síntesis la centralización del desarrollo e ideas y la descentralización de esfuerzos como puede verse de forma aproximada en la @fig:tunkunia_dist.
+
+#img-fig(
+  "/assets/figures/tunkunia_dist.excalidraw.png",
+  [Modelo del negocio con reutilización de software],
+  <fig:tunkunia_dist>,
+  width: 80%,
+)
+
+==== Requerimientos Operacionales del Negocio
+===== Proceso del Negocio
+
+El sistema que se plantea afectará el proceso mediante el cual se digitalizan trámites de manera dramática.
+En líneas generales, el proceso actual empieza con la identificación del trámite a digitalizar y pasa necesariamente por la realización de un desarrollo propio para dicho trámite (@fig:business_process_old).
+La manera en que se hace el desarrollo puede variar desde licitaciones públicas hasta desarrollos in-house.
+Sin embargo, con Tunkunia, se pasa de una etapa de desarrollo a una de configuración (@fig:business_process_new), simplificando totalmente el proceso.
+
+#img-fig(
+  "/assets/figures/business_process_old.svg",
+  [Proceso de digitalización de trámites actual],
+  <fig:business_process_old>,
+  width: 60%,
+)
+#img-fig(
+  "/assets/figures/business_process_new.svg",
+  [Proceso de digitalización con Tunkunia],
+  <fig:business_process_new>,
+  width: 60%,
+)
+
+==== Requerimientos de Usuario
+
+A continuación se presentan los requerimientos desde el punto de vista de los principales interesados o stakeholders identificados anteriormente.
+No se dan detalles sobre los usuarios involucrados ya que en esta especificación el nivel de abstracción es aún elevado.
+
+#requirements("TRS")
 
 === Especificación de Requerimientos del Sistema
 
@@ -70,7 +162,13 @@ Se debe tomar en cuenta que no todos los elementos de la elicitación inicial se
   width: 90%,
 )
 
-El contexto del sistema se formula dentro de instituciones públicas del gobierno boliviano (@fig:tunkunia-system-context). Es decir, debe contemplar la normativa sobre gobierno electrónico, así como interactuar con sistemas y plataformas actualmente vigentes. Estas plataformas se encuentran bajo autoridad de la AGETIC. Adicionalmente, pueden existir otros sistemas dentro de la institución donde se emplee este proyecto, pero también sistemas externos de los cuales se requiera recabar información. El sistema será desplegado e instanciado por instituciones públicas específicas, quienes definirán procedimientos de trámite para ser digitalizados dentro del mismo. Los procedimientos definidos tendrán como participantes tanto a ciudadanos, protagonistas del trámite, como a servidores públicos. De este modo, podríamos sintetizar a los siguientes elementos del sistema:
+El contexto del sistema se formula dentro de instituciones públicas del gobierno boliviano (@fig:tunkunia-system-context).
+Es decir, debe contemplar la normativa sobre gobierno electrónico, así como interactuar con sistemas y plataformas actualmente vigentes.
+Estas plataformas se encuentran bajo autoridad de la AGETIC.
+Adicionalmente, pueden existir otros sistemas dentro de la institución donde se emplee este proyecto, pero también sistemas externos de los cuales se requiera recabar información.
+El sistema será desplegado e instanciado por instituciones públicas específicas, quienes definirán procedimientos de trámite para ser digitalizados dentro del mismo.
+Los procedimientos definidos tendrán como participantes tanto a ciudadanos, protagonistas del trámite, como a servidores públicos.
+De este modo, podríamos sintetizar a los siguientes elementos del sistema:
 
 - *Tunkunia:* Sistema reutilizable de gestión de flujos de trabajo especializado en trámites
 - *Institución Pública:* Entidad que requiere digializar trámites con Tunkunia
@@ -117,7 +215,8 @@ Las principales funciones del sistema prototipado comprenden la de un @WFMS (@fi
   y permitir la consulta del estado, las tareas, el expediente y el historial.
 - *Proveer servicios comunes:* autenticar y autorizar actores, conservar la
   trazabilidad, generar eventos de notificación e interoperar mediante interfaces
-  documentadas. Es decir, implementar aspectos comunes en los distintos sistemas de digitalización de trámites
+  documentadas.
+  Es decir, implementar aspectos comunes en los distintos sistemas de digitalización de trámites
 
 Las principales condicionantes y restricciones son:
 
@@ -149,25 +248,31 @@ Las personas relacionadas con Tunkunia se organizan en dos categorías
 - *Personal técnico:* interviene en la adopción y evolución del sistema, pero no
   necesariamente participa en los trámites.
   - *Operador de la instancia:* despliega, configura inicialmente y mantiene la
-    aplicación y su infraestructura. Debe poseer conocimientos técnicos y acceso
+    aplicación y su infraestructura.
+    Debe poseer conocimientos técnicos y acceso
     autorizado a los servidores de la institución.
   - *Desarrollador o modificador:* extiende los módulos y puntos de integración
     publicados, o adapta el código fuente cuando las necesidades institucionales
-    exceden la configuración disponible. Debe respetar los contratos y
+    exceden la configuración disponible.
+    Debe respetar los contratos y
     lineamientos técnicos del producto.
 - *Usuarios directos:* acceden a Tunkunia mediante la aplicación web y desempeñan
   funciones institucionales o participan en casos de trámite.
   - *Administrador institucional:* configura los datos de la institución, define
-    y publica trámites, y asigna responsabilidades. Se prevé que sea personal
+    y publica trámites, y asigna responsabilidades.
+    Se prevé que sea personal
     capacitado y que la cantidad de administradores por instancia sea reducida.
   - *Participantes del trámite:* realizan acciones conforme a los permisos que la
-    definición del proceso y el caso les concedan. Esta categoría comprende:
+    definición del proceso y el caso les concedan.
+    Esta categoría comprende:
     - *Ciudadano:* consulta la oferta de trámites, inicia o participa en casos,
-      proporciona información y realiza seguimiento. Puede utilizar el sistema de
+      proporciona información y realiza seguimiento.
+      Puede utilizar el sistema de
       manera ocasional, tener distintos niveles de alfabetización digital y
       requerir asistencia.
     - *Servidor público:* atiende tareas, revisiones y decisiones en representación
-      de la institución. Se prevé que conozca los procedimientos bajo su
+      de la institución.
+      Se prevé que conozca los procedimientos bajo su
       responsabilidad y reciba capacitación para utilizar el sistema.
   - *Visitante:* Un ciudadano no autenticado en el sistema, pero que es capaz de acceder al registro de trámites de modo informativo sin tener que participar en alguno.
 
@@ -180,17 +285,20 @@ Las personas relacionadas con Tunkunia se organizan en dos categorías
 )
 
 Los usuarios directos podrán acceder desde un navegador, siempre que dispongan de
-conectividad y credenciales válidas del proveedor de identidad habilitado. Cuando
+conectividad y credenciales válidas del proveedor de identidad habilitado.
+Cuando
 un ciudadano enfrente barreras de acceso o de uso, un servidor público podrá
 asistirlo mediante la misma aplicación web, sin sustituir su identidad ni omitir
-el registro de las actuaciones. Así, la atención digital puede complementarse con
+el registro de las actuaciones.
+Así, la atención digital puede complementarse con
 la asistencia presencial.
 
 Ciudadanos y servidores públicos comparten el tratamiento general de
 participantes; sus facultades concretas no dependen únicamente de la categoría,
 sino de los permisos asignados a cada acción dentro de la definición del proceso y del caso.
 La cantidad de participantes depende de la institución y de cada trámite, por lo
-que no se establece un máximo general para el sistema. Las estimaciones iniciales
+que no se establece un máximo general para el sistema.
+Las estimaciones iniciales
 de pocos administradores y decenas de servidores públicos por instancia son referenciales, pero cada trámite y cada institución son distintos.
 
 // TODO: La descripcion de usuarios del SRS debe hacer referencia a este apartado y no desarrollarse ahí
@@ -289,7 +397,8 @@ de pocos administradores y decenas de servidores públicos por instancia son ref
 // documentadas, versionadas y basadas en formatos abiertos; su acceso no concede
 // autorización general sobre los expedientes.
 
-- El sistema deberá exponer una interfaz de tipo REST API mediante protocolo http para consumo de recursos por sistemas externos autorizados. El mismo deberá contar con una especificación OpenAPI.
+- El sistema deberá exponer una interfaz de tipo REST API mediante protocolo http para consumo de recursos por sistemas externos autorizados.
+  El mismo deberá contar con una especificación OpenAPI.
 - El sistema deberá exponer interfaces para la autenticación conforme a la tecnología utilizada por el servicio de identificación de ciudadanía digital.
 - El sistema deberá contar con un CLI básico para el despliegue de la aplicación, con configuraciones específicas usando variables de entorno.
 - El sistema deberá proporcionar una interfaz gráfica para el administrador institucional.
@@ -370,12 +479,15 @@ Condicionan a los requerimientos del sistema:
 // lugar la distribución digital, integridad, autenticidad y documentación de los
 // artefactos instalables, sin imponer aquí un formato tecnológico específico.
 
-El transporte físico no aplica a este sistema. Sin embargo, si se considera que el sistema
-deberá ser distribuido minimamente mediante un repositorio público de GitHub. Formas adicionales de distribución dependerán de las tecnologías seleccionadas en la etapa de diseño y/o construcción.
+El transporte físico no aplica a este sistema.
+Sin embargo, si se considera que el sistema
+deberá ser distribuido minimamente mediante un repositorio público de GitHub.
+Formas adicionales de distribución dependerán de las tecnologías seleccionadas en la etapa de diseño y/o construcción.
 
 === Especificación de Requerimientos del Software
 
-Como se mencionó anteriormente, la especificación de requerimientos del software y la especificación de requerimientos del sistema pueden solaparse en muchos aspectos cuando el sistema es únicamente compuesto por un producto de software. Sin embargo, existen algunos apartados recomendados en el @SRS que pueden aportar riqueza a la descripción de requerimientos del proyecto.
+Como se mencionó anteriormente, la especificación de requerimientos del software y la especificación de requerimientos del sistema pueden solaparse en muchos aspectos cuando el sistema es únicamente compuesto por un producto de software.
+Sin embargo, existen algunos apartados recomendados en el @SRS que pueden aportar riqueza a la descripción de requerimientos del proyecto.
 // Guía de redacción: especificar Tunkunia como producto software y asignar al
 // software los requerimientos derivados de la SyRS. El servidor y la aplicación
 // web son componentes lógicos con responsabilidades y entornos de ejecución
@@ -389,7 +501,8 @@ Como se mencionó anteriormente, la especificación de requerimientos del softwa
 // la institución conserva la potestad de definir procedimientos, competencias y
 // políticas, y los proveedores externos conservan sus propias obligaciones.
 
-- El sistema deberá exponer una interfaz de tipo REST API: El software deberá implementar una capa http con sus funciones principales. Además, deberá brindar una vista con las especificaciones de la API.
+- El sistema deberá exponer una interfaz de tipo REST API: El software deberá implementar una capa http con sus funciones principales.
+  Además, deberá brindar una vista con las especificaciones de la API.
 - Interfaces para la autenticación: El software deberá tener un módulo de autenticación conectado al servicio externo de identidad.
 - CLI básico: El software deberá envolver sus distintas funcionalidades en un selector de funciones y deberá tener un módulo de configuración con lectura de variables de entorno.
 - Interfaz gráfica para el administrador institucional y los participantes del trámite: El software deberá exponer una interfaz gráfica GUI, es decir, un frontend.
@@ -433,7 +546,8 @@ Como se mencionó anteriormente, la especificación de requerimientos del softwa
 // autorizados. Distinguir una dependencia necesaria de la tecnología concreta
 // elegida por la implementación actual.
 
-- En el servidor, el software deberá ejecutarse en el sistema operativo Linux. Este es el sistema operativo que suelen tener los servidores del gobierno boliviano.
+- En el servidor, el software deberá ejecutarse en el sistema operativo Linux.
+  Este es el sistema operativo que suelen tener los servidores del gobierno boliviano.
 - La interfaz de usuario deberá ejecutarse en un navegador web para garantizar mayor accesibilidad.
 - El software empleará un sistema de gestión de bases de datos.
 - El software podrá hacer uso de librerías y herramientas que faciliten el desarrollo.
@@ -463,7 +577,8 @@ Estos deben ser los datos y opciones que permiten adaptar Tunkunia a institucion
 - Catálogo de Trámites
 - Usuarios Registrados
 
-Cada instancia del sistema deberá servir para una institución. No podrán usar la misma instancia dos instituciones y no se contempla en el prototipo que puedan ejecutarse múltiples instancias para una sola institución con el mismo grupo de trámites.
+Cada instancia del sistema deberá servir para una institución.
+No podrán usar la misma instancia dos instituciones y no se contempla en el prototipo que puedan ejecutarse múltiples instancias para una sola institución con el mismo grupo de trámites.
 // canales, políticas y otros parámetros justificados.
 
 ===== Interfaces con servicios
@@ -484,7 +599,8 @@ Cada instancia del sistema deberá servir para una institución. No podrán usar
 // como software libre. No se define por un lenguaje, base de datos, interfaz
 // visual, topología o mecanismo único de instalación.
 
-- El acceso al servicio de identidad de ciudadanía digital está restringido solo a instituciones públicas. Es decir, en el prototipo desarrollado en este proyecto, no se podrá acceder al mismo.
+- El acceso al servicio de identidad de ciudadanía digital está restringido solo a instituciones públicas.
+  Es decir, en el prototipo desarrollado en este proyecto, no se podrá acceder al mismo.
 
 //===== Base de datos lógica
 

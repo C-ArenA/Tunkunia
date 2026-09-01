@@ -8,6 +8,22 @@ vars:
   TYPST_FLAGS: --root . --font-path shared/fonts --ignore-system-fonts
 
 tasks:
+  requirements:export:
+    desc: Export Doorstop requirements for use in Typst
+    cmds:
+      - mkdir -p requirements/export
+      - doorstop -F -j requirements export TRS requirements/export/TRS.yml
+      - doorstop -F -j requirements export SyRS requirements/export/SyRS.yml
+
+  requirements:check:
+    desc: Check that the versioned Doorstop exports are current
+    cmds:
+      - mkdir -p build/requirements-check
+      - doorstop -F -j requirements export TRS build/requirements-check/TRS.yml
+      - doorstop -F -j requirements export SyRS build/requirements-check/SyRS.yml
+      - diff -u requirements/export/TRS.yml build/requirements-check/TRS.yml
+      - diff -u requirements/export/SyRS.yml build/requirements-check/SyRS.yml
+
   build:memoria:
     desc: Build the thesis PDF
     cmds:
@@ -36,16 +52,17 @@ tasks:
   fmt:
     desc: Format active Typst documents and the shared theme
     cmds:
-      - typstyle --inplace memoria/memoria.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/theme/*.typ
+      - typstyle --inplace memoria/memoria.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/requirements.typ shared/theme/*.typ
 
   fmt:check:
     desc: Check formatting of active Typst documents and the shared theme
     cmds:
-      - typstyle --check memoria/memoria.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/theme/*.typ
+      - typstyle --check memoria/memoria.typ supporting/*.typ shared/acronyms.typ shared/glossary.typ shared/requirements.typ shared/theme/*.typ
 
   check:
     desc: Check formatting and compile every supported document
     cmds:
+      - task: requirements:check
       - task: fmt:check
       - task: build:all
 

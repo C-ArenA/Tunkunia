@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.9
+links:
+- TRS026: WRNLrZus--nMKimj_IPmVwmxjw9JOc2b7OZYaQw_yG0=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: 4mf8HtVHnz3QqPYxa6sUJeRKVJtlgWqOfcq1CLqQ9Rk=
+text: |
+  Tunkunia deberá permitir definir roles de participante dentro de cada procedimiento.
+type: functional

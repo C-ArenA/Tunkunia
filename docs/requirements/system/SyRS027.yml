@@ -1,0 +1,15 @@
+active: true
+category: versioning
+derived: false
+header: ''
+level: 5.1
+links:
+- TRS035: gne_6iiaWXqk8JDo_U7PHd7CzrEf2e-aVX6uBQCKGDQ=
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: BRvqpDnzPVgYzov4B1R9unJYIGSRqNsBfXHMQf0lZFY=
+text: |
+  Cuando se modifique una definición publicada, Tunkunia deberá conservar la versión anterior y registrar los cambios en una versión nueva.
+type: functional

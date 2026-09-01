@@ -1,0 +1,15 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.8
+links:
+- TRS067: NmTeYA50NumhLZotTk9A91Dco8OeSIFLNjWjWkTv7oA=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: XsZqkhNNcxo7_uG8L7JTrw8pzcwB-gkorKBSNRWGOD8=
+text: |
+  Al ejecutar una acción de integración, Tunkunia deberá intercambiar con la contraparte configurada únicamente los datos de entrada y salida definidos en el contrato asociado a esa acción.
+type: external-interface

@@ -1,0 +1,14 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.1
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: VAMNE56wEAd1CoH2Ox6Kq3cuuxC5it19xDGu-V02bWI=
+text: |
+  La entidad pública deberá poder desplegar una instancia operativa de Tunkunia, siguiendo la guía de instalación y en infraestructura que cumpla sus prerrequisitos, en no más de un día hábil.
+type: quality

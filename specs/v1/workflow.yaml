@@ -1,0 +1,277 @@
+components:
+  pathItems:
+    PublishedProcedure:
+      parameters: [{ $ref: "#/components/parameters/WorkflowTramiteId" }]
+      get:
+        tags: [Workflows]
+        operationId: getPublishedProcedure
+        summary: Obtener procedimiento publicado
+        security: [{}]
+        responses:
+          "200": { $ref: "#/components/responses/ProcedureVersion" }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
+    DraftProcedure:
+      parameters: [{ $ref: "#/components/parameters/WorkflowTramiteId" }]
+      get:
+        tags: [Workflows]
+        operationId: getDraftProcedure
+        summary: Obtener borrador del procedimiento
+        security: [{ BearerAuth: [] }]
+        responses:
+          "200": { $ref: "#/components/responses/ProcedureVersion" }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
+      put:
+        tags: [Workflows]
+        operationId: saveDraftProcedure
+        summary: Guardar borrador del procedimiento
+        security: [{ BearerAuth: [] }]
+        requestBody:
+          required: true
+          content: { application/json: { schema: { $ref: "#/components/schemas/ProcedureDefinition" } } }
+        responses:
+          "200": { $ref: "#/components/responses/ProcedureVersion" }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
+    PublishProcedure:
+      parameters: [{ $ref: "#/components/parameters/WorkflowTramiteId" }]
+      post:
+        tags: [Workflows]
+        operationId: publishProcedure
+        summary: Validar y publicar procedimiento
+        security: [{ BearerAuth: [] }]
+        responses:
+          "200": { $ref: "#/components/responses/ProcedureVersion" }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
+          "422":
+            description: La red no es una WF-net válida para el MVP
+            content:
+              application/json:
+                schema:
+                  type: object
+                  required: [violations]
+                  properties:
+                    violations: { type: array, items: { $ref: "#/components/schemas/ProcedureViolation" } }
+    ArchiveTramite:
+      parameters: [{ $ref: "#/components/parameters/WorkflowTramiteId" }]
+      post:
+        tags: [Workflows]
+        operationId: archiveTramite
+        summary: Archivar trámite
+        security: [{ BearerAuth: [] }]
+        responses:
+          "204": { description: Trámite archivado }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
+    StartCase:
+      parameters: [{ $ref: "#/components/parameters/WorkflowTramiteId" }]
+      post:
+        tags: [Workflows]
+        operationId: startCase
+        summary: Iniciar caso como ciudadano
+        security: [{ BearerAuth: [] }]
+        responses:
+          "201": { description: Caso iniciado, content: { application/json: { schema: { $ref: "#/components/schemas/Case" } } } }
+          "409": { $ref: common.yaml#/components/responses/Conflict }
+    Cases:
+      get:
+        tags: [Workflows]
+        operationId: listCases
+        summary: Listar casos propios o no asignados
+        security: [{ BearerAuth: [] }]
+        parameters:
+          - name: scope
+            in: query
+            required: true
+            schema: { type: string, enum: [mine, unassigned] }
+        responses:
+          "200": { description: Casos visibles, content: { application/json: { schema: { type: array, items: { $ref: "#/components/schemas/CaseSummary" } } } } }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+    CaseById:
+      parameters: [{ $ref: "#/components/parameters/CaseId" }]
+      get:
+        tags: [Workflows]
+        operationId: getCase
+        summary: Obtener caso
+        security: [{ BearerAuth: [] }]
+        responses:
+          "200": { description: Detalle del caso, content: { application/json: { schema: { $ref: "#/components/schemas/Case" } } } }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
+    ClaimCase:
+      parameters: [{ $ref: "#/components/parameters/CaseId" }]
+      post:
+        tags: [Workflows]
+        operationId: claimCase
+        summary: Autoasignarse un caso
+        security: [{ BearerAuth: [] }]
+        responses:
+          "200": { description: Caso asignado, content: { application/json: { schema: { $ref: "#/components/schemas/Case" } } } }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "409": { $ref: common.yaml#/components/responses/Conflict }
+    FireTransition:
+      parameters:
+        - { $ref: "#/components/parameters/CaseId" }
+        - { name: transitionId, in: path, required: true, schema: { type: string, minLength: 1 } }
+      post:
+        tags: [Workflows]
+        operationId: fireTransition
+        summary: Ejecutar transición habilitada
+        security: [{ BearerAuth: [] }]
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [expectedRevision]
+                properties: { expectedRevision: { type: integer, format: int64, minimum: 1 } }
+        responses:
+          "200": { description: Transición ejecutada, content: { application/json: { schema: { $ref: "#/components/schemas/Case" } } } }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "409": { $ref: common.yaml#/components/responses/Conflict }
+    Tasks:
+      get:
+        tags: [Workflows]
+        operationId: listTasks
+        summary: Listar tareas personales
+        security: [{ BearerAuth: [] }]
+        parameters:
+          - { name: status, in: query, schema: { type: string, enum: [pending, completed], default: pending } }
+        responses:
+          "200": { description: Tareas personales, content: { application/json: { schema: { type: array, items: { $ref: "#/components/schemas/Task" } } } } }
+          "401": { $ref: common.yaml#/components/responses/Unauthorized }
+    Notifications:
+      get:
+        tags: [Workflows]
+        operationId: listNotifications
+        summary: Listar notificaciones personales
+        security: [{ BearerAuth: [] }]
+        responses:
+          "200": { description: Notificaciones personales, content: { application/json: { schema: { type: array, items: { $ref: "#/components/schemas/Notification" } } } } }
+          "401": { $ref: common.yaml#/components/responses/Unauthorized }
+    ReadNotification:
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer, format: int64, minimum: 1 } }
+      post:
+        tags: [Workflows]
+        operationId: markNotificationRead
+        summary: Marcar notificación como leída
+        security: [{ BearerAuth: [] }]
+        responses:
+          "204": { description: Notificación leída }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
+  parameters:
+    WorkflowTramiteId: { name: id, in: path, required: true, schema: { $ref: catalog.yaml#/components/schemas/TramiteId } }
+    CaseId: { name: id, in: path, required: true, schema: { type: integer, format: int64, minimum: 1 } }
+  responses:
+    ProcedureVersion:
+      description: Versión de procedimiento
+      content: { application/json: { schema: { $ref: "#/components/schemas/ProcedureVersion" } } }
+  schemas:
+    ProcedureRole: { type: string, enum: [citizen, servant] }
+    ProcedureNode:
+      type: object
+      required: [id, kind, label, x, y]
+      properties:
+        id: { type: string, minLength: 1 }
+        kind: { type: string, enum: [place, transition] }
+        label: { type: string }
+        role: { $ref: "#/components/schemas/ProcedureRole" }
+        x: { type: integer }
+        y: { type: integer }
+    ProcedureArc:
+      type: object
+      required: [id, from, to]
+      properties:
+        id: { type: string, minLength: 1 }
+        from: { type: string, minLength: 1 }
+        to: { type: string, minLength: 1 }
+    ProcedureDefinition:
+      type: object
+      required: [nodes, arcs, initialPlaceId, finalPlaceId]
+      properties:
+        nodes: { type: array, items: { $ref: "#/components/schemas/ProcedureNode" } }
+        arcs: { type: array, items: { $ref: "#/components/schemas/ProcedureArc" } }
+        initialPlaceId: { type: string }
+        finalPlaceId: { type: string }
+    ProcedureVersion:
+      type: object
+      required: [id, tramiteId, status, definition]
+      properties:
+        id: { type: integer, format: int64 }
+        tramiteId: { type: integer, format: int64 }
+        versionNumber: { type: integer }
+        status: { type: string, enum: [draft, published] }
+        definition: { $ref: "#/components/schemas/ProcedureDefinition" }
+    ProcedureViolation:
+      type: object
+      required: [code, message]
+      properties: { code: { type: string }, message: { type: string } }
+    Participant:
+      type: object
+      required: [role, userId, name, assignedAt]
+      properties:
+        role: { $ref: "#/components/schemas/ProcedureRole" }
+        userId: { type: integer, format: int64 }
+        name: { type: string }
+        assignedAt: { type: string, format: date-time }
+    Task:
+      type: object
+      required: [id, caseId, transitionId, transitionLabel, role, status, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        caseId: { type: integer, format: int64 }
+        transitionId: { type: string }
+        transitionLabel: { type: string }
+        role: { $ref: "#/components/schemas/ProcedureRole" }
+        assigneeId: { type: integer, format: int64 }
+        status: { type: string, enum: [pending, completed, cancelled] }
+        createdAt: { type: string, format: date-time }
+    CaseAction:
+      type: object
+      required: [id, transitionId, transitionLabel, actorId, actorName, occurredAt]
+      properties:
+        id: { type: integer, format: int64 }
+        transitionId: { type: string }
+        transitionLabel: { type: string }
+        actorId: { type: integer, format: int64 }
+        actorName: { type: string }
+        occurredAt: { type: string, format: date-time }
+    CaseSummary:
+      type: object
+      required: [id, tramiteId, tramiteName, status, revision, startedAt, updatedAt]
+      properties:
+        id: { type: integer, format: int64 }
+        tramiteId: { type: integer, format: int64 }
+        tramiteName: { type: string }
+        status: { type: string, enum: [active, completed] }
+        revision: { type: integer, format: int64 }
+        startedAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    Case:
+      allOf:
+        - { $ref: "#/components/schemas/CaseSummary" }
+        - type: object
+          required: [procedureVersionId, procedureVersion, marking, definition, participants, enabledTransitions, availableTasks, history]
+          properties:
+            procedureVersionId: { type: integer, format: int64 }
+            procedureVersion: { type: integer }
+            marking: { type: object, additionalProperties: { type: integer, minimum: 0 } }
+            definition: { $ref: "#/components/schemas/ProcedureDefinition" }
+            participants: { type: array, items: { $ref: "#/components/schemas/Participant" } }
+            enabledTransitions: { type: array, items: { type: string } }
+            availableTasks: { type: array, items: { $ref: "#/components/schemas/Task" } }
+            history: { type: array, items: { $ref: "#/components/schemas/CaseAction" } }
+            completedAt: { type: string, format: date-time }
+    Notification:
+      type: object
+      required: [id, caseId, taskId, type, title, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        caseId: { type: integer, format: int64 }
+        taskId: { type: integer, format: int64 }
+        type: { type: string, enum: [action_enabled] }
+        title: { type: string }
+        createdAt: { type: string, format: date-time }
+        readAt: { type: string, format: date-time }

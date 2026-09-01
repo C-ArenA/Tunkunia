@@ -1,0 +1,15 @@
+active: true
+category: publication
+derived: false
+header: ''
+level: 4.2
+links:
+- TRS030: iNDNIvikmjO-UkPsPpr6W6B-NAE879MIzOnqOoeqc2s=
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: 66P6OOAZ8ctcr48YhHSGGJW4VVpz5OjfdYQzYn2u9Fg=
+text: |
+  Tunkunia deberá permitir que cada definición de trámite tenga uno de los estados borrador, publicado o archivado.
+type: functional

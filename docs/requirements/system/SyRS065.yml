@@ -1,0 +1,15 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.3
+links:
+- TRS062: Xv57l8Lu_VGIz7Qacf6ol6GEg2WNcyO0mbV40HRmdgk=
+normative: true
+priority: Could
+prototype: ''
+ref: ''
+reviewed: DmQ0Q0awwEm0IfX8mQSp-m7YkekuwuEeaIhzP5h1vLI=
+text: |
+  Tunkunia deberá exponer a una identidad autorizada de AGETIC una interfaz que entregue los datos de los trámites publicados incluidos en el contrato aplicable de gob.bo.
+type: external-interface

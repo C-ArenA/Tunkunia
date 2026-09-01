@@ -1,0 +1,15 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.5
+links:
+- TRS065: DE-p7eNqpFYC2CmsHNjXoJ7oUWKCg4hPAX1XFVOreuA=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: ZzjX1zp-DPemENpwLlz4T-76oZy-xbwYZP4REWGIdfM=
+text: |
+  Tunkunia deberá publicar una especificación actualizada de sus interfaces externas que describa operaciones, datos de entrada y salida, autorización, respuestas y errores.
+type: documentation

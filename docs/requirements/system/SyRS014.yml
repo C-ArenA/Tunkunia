@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.6
+links:
+- TRS023: 30h5x8J-J1h8cfRah99cfhnJNEFCk1ItJu_eKX7LBV0=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: IL5rJg5hWKuHT6fH4CYRHOH7v3lO7tZ3uwk35zladdk=
+text: |
+  Tunkunia deberá permitir configurar acciones de formulario que recopilen datos de los participantes en los pasos donde sean incorporadas.
+type: functional

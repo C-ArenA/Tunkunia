@@ -1,0 +1,14 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.4
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: rpiPMaCzVv6-TLNknj9EQR3L-Pf7aiPyC0Q7xm_ds2o=
+text: |
+  La entidad pública deberá poder consultar las tareas pendientes que le correspondan en los casos de trámite.
+type: capability

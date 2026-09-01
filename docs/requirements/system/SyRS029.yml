@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.1
+links:
+- TRS036: 2krV88fCFX_SW_NqynyFHl7QIVlN1zqFlsQ0G6-TkGw=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: oSATD2e6h1h0hZyuLihEBJYroNsCcjVg8lILqBnCGbA=
+text: |
+  Tunkunia deberá ofrecer, desde cada trámite publicado que pueda iniciarse digitalmente, una acción que dirija al ciudadano al inicio de un caso de ese trámite.
+type: interface

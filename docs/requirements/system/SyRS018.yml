@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: '1.10'
+links:
+- TRS027: AM8SHjLhq6q807hamobinkQaClTOvC8kbiiqUFyJYKo=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: i_khdn7OAY36zMuNsXpcjdo-zaxIONRAcWt1YlftFhk=
+text: |
+  Tunkunia deberá permitir asociar a cada acción los roles autorizados para ejecutarla.
+type: security

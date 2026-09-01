@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.2
+links:
+- TRS019: cXHfE342AAw76QuwQYYatDT9-yOghgSUbvIZ-XUDpMM=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: E1US2-wgu7-ubPjgDDY7gaIWOFK1T9A9-SG4-Evq81s=
+text: |
+  Tunkunia deberá permitir configurar el nombre de la institución, su descripción, la descripción de la instancia y el enlace al sitio institucional principal.
+type: functional

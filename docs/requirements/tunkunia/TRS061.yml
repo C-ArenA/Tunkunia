@@ -1,0 +1,14 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.2
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: H2-qO6OkMaVhiXslRnf9-vGsSFc-mTBLkLRYxPTxsfs=
+text: |
+  La entidad pública deberá poder obtener un reporte de los trámites publicados con los datos requeridos para actualizar gob.bo.
+type: capability

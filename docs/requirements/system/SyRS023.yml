@@ -1,0 +1,15 @@
+active: true
+category: publication
+derived: false
+header: ''
+level: 4.3
+links:
+- TRS031: Oui9dH-zVO9LCfshzo6TYsd8nbYfdfGNRmoNHvE-SFk=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: R5W5dGLJ3vscuJ4WqPQHfkhtMSzZPOF1eBFdYjoBcvY=
+text: |
+  Tunkunia deberá permitir que cualquier visitante consulte, sin autenticarse, el catálogo de trámites publicados de la instancia.
+type: interface

@@ -10,7 +10,13 @@ package table
 // UseSchema sets a new schema name for all generated table SQL builder types. It is recommended to invoke
 // this method only once at the beginning of the program.
 func UseSchema(schema string) {
+	CaseActions = CaseActions.FromSchema(schema)
+	CaseParticipants = CaseParticipants.FromSchema(schema)
+	CaseTasks = CaseTasks.FromSchema(schema)
+	Cases = Cases.FromSchema(schema)
 	GooseDbVersion = GooseDbVersion.FromSchema(schema)
+	Notifications = Notifications.FromSchema(schema)
+	ProcedureVersions = ProcedureVersions.FromSchema(schema)
 	Tramites = Tramites.FromSchema(schema)
 	UserRoles = UserRoles.FromSchema(schema)
 	Users = Users.FromSchema(schema)

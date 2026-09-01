@@ -29,7 +29,7 @@ func (q *Queries) AssignRoleToUser(ctx context.Context, db DBTX, arg AssignRoleT
 const createTramite = `-- name: CreateTramite :one
 INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
 VALUES (?, ?, ?, ?)
-RETURNING id, name, description, procedure_description, type, status, created_at, updated_at
+RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
 `
 
 type CreateTramiteParams struct {
@@ -43,7 +43,7 @@ type CreateTramiteParams struct {
 //
 //	INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
 //	VALUES (?, ?, ?, ?)
-//	RETURNING id, name, description, procedure_description, type, status, created_at, updated_at
+//	RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
 func (q *Queries) CreateTramite(ctx context.Context, db DBTX, arg CreateTramiteParams) (Tramite, error) {
 	row := db.QueryRowContext(ctx, createTramite,
 		arg.Name,
@@ -61,6 +61,7 @@ func (q *Queries) CreateTramite(ctx context.Context, db DBTX, arg CreateTramiteP
 		&i.Status,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.CurrentVersionID,
 	)
 	return i, err
 }
@@ -83,7 +84,7 @@ func (q *Queries) DeleteTramite(ctx context.Context, db DBTX, id int64) (int64, 
 }
 
 const getTramite = `-- name: GetTramite :one
-SELECT id, name, description, procedure_description, type, status, created_at, updated_at
+SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
 FROM tramites
 WHERE id = ?
 LIMIT 1
@@ -91,7 +92,7 @@ LIMIT 1
 
 // GetTramite
 //
-//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at
+//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
 //	FROM tramites
 //	WHERE id = ?
 //	LIMIT 1
@@ -107,6 +108,7 @@ func (q *Queries) GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, e
 		&i.Status,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.CurrentVersionID,
 	)
 	return i, err
 }

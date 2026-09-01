@@ -1,0 +1,15 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.2
+links:
+- TRS015: y4gHsA1QvsU0jmUokgTFPPjurQDLVUW9GrdtgzOS3YU=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: s1RZhWlI7_Uz24SItNrYnv928cacwSstutp3ltCxRRE=
+text: |
+  Tunkunia deberá incluir una guía de instalación que identifique los prerrequisitos, los pasos de instalación, la configuración inicial y el procedimiento para comprobar un despliegue correcto.
+type: documentation

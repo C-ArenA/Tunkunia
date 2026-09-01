@@ -1,0 +1,14 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.1
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: _RK5B4xU-3F0kGTt3z8HYiEKU9AwOLfe6Ke5q3xkn9E=
+text: |
+  La entidad pública deberá poder registrar para cada trámite los datos exigidos por el contrato de información de gob.bo aplicable a su despliegue.
+type: capability

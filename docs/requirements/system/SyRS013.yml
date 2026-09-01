@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.5
+links:
+- TRS022: cCL540oxt66HQHhGu2TmUhw7OKevZvfmUVpficSdpSE=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: vPoYFdA5mmoGrueWSuU82IJc_370439dGIju4PAgZcg=
+text: |
+  Tunkunia deberá permitir representar las etapas, los estados, las acciones y el orden de ejecución de cada procedimiento de trámite.
+type: functional

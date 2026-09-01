@@ -1,0 +1,14 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.2
+links: []
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: Re8cc_Bdj_eQy_TqZn8_ldWuSK02BYGRLcXZ2GlTdrQ=
+text: |
+  La entidad pública deberá poder identificar quién inició cada caso.
+type: audit

@@ -1,0 +1,15 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.1
+links:
+- TRS014: VAMNE56wEAd1CoH2Ox6Kq3cuuxC5it19xDGu-V02bWI=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: DyMmC2FTLAMe9SrKr02nbxgz-tTFMkv-uJGHwdmJXcw=
+text: |
+  Tunkunia deberá poder desplegarse como una instancia operativa, siguiendo su guía de instalación y en infraestructura que cumpla los prerrequisitos documentados, en no más de un día hábil.
+type: quality

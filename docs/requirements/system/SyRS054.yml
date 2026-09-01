@@ -1,0 +1,15 @@
+active: true
+category: identity
+derived: false
+header: ''
+level: 8.5
+links:
+- TRS053: AWfTbk1J46Mj0j-_UlHKJsK2Uek2MzGFA1qgPbZDfww=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: sbY3fUdyHrC6GnyL9JXaacO9yQXAQ3wYWXN3tVzM-tk=
+text: |
+  Para una acción configurada con validación de identidad, Tunkunia deberá impedir su finalización hasta recibir de Ciudadanía Digital una validación vigente correspondiente al participante que la ejecuta.
+type: security

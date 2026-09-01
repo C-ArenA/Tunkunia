@@ -1,0 +1,11 @@
+settings:
+  digits: 3
+  itemformat: yaml
+  prefix: TRS
+  sep: ''
+attributes:
+  reviewed:
+  - priority
+  - type
+  - category
+  - prototype

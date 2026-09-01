@@ -1,0 +1,15 @@
+active: true
+category: deployment
+derived: false
+header: ''
+level: 3.4
+links:
+- TRS017: L8vLTr4AwXKNEQcwydoKv4u9y2Jy9TyKOwMzKNs4XXo=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: JWLAqTFtL5FjvNlDm-C6uR6IEF2NwWIKZ2SZlwzqLe8=
+text: |
+  Tunkunia deberá incluir documentación técnica que describa su arquitectura y los puntos de extensión publicados.
+type: documentation

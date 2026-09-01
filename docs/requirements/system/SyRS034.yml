@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.6
+links:
+- TRS040: rpiPMaCzVv6-TLNknj9EQR3L-Pf7aiPyC0Q7xm_ds2o=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: 9qGMpYEncyePy2jcC7Yk1ldjyw0_klB3bPCdYxVjugE=
+text: |
+  Tunkunia deberá representar cada acción humana pendiente como una tarea asociada al caso y a los participantes o roles responsables.
+type: functional

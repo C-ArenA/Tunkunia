@@ -32,6 +32,7 @@ function addNode(kind: ProcedureNodeKind) {
         label: kind === "place" ? "Nuevo estado" : "Nueva actividad",
         x: 100 + graph.value.nodes.length * 90,
         y: 110,
+        ...(kind === "transition" ? { role: "citizen" as const } : {}),
       },
     ],
   };
@@ -122,7 +123,44 @@ function addArc() {
                 @update:model-value="updateNode(node.id, { y: Number($event) })"
               />
             </div>
+            <USelect
+              v-if="node.kind === 'transition'"
+              :model-value="node.role || 'citizen'"
+              class="mt-2 w-full"
+              :items="[
+                { label: 'Ciudadano', value: 'citizen' },
+                { label: 'Servidor público', value: 'servant' },
+              ]"
+              @update:model-value="updateNode(node.id, { role: $event as 'citizen' | 'servant' })"
+            />
           </div>
+        </div>
+      </div>
+      <div class="surface p-5">
+        <h3 class="font-semibold">Inicio y final</h3>
+        <div class="mt-4 grid gap-3">
+          <UFormField label="Lugar inicial">
+            <USelect
+              :model-value="graph.initialPlaceId"
+              :items="
+                graph.nodes
+                  .filter((n) => n.kind === 'place')
+                  .map((n) => ({ label: n.label, value: n.id }))
+              "
+              @update:model-value="graph = { ...graph, initialPlaceId: String($event) }"
+            />
+          </UFormField>
+          <UFormField label="Lugar final">
+            <USelect
+              :model-value="graph.finalPlaceId"
+              :items="
+                graph.nodes
+                  .filter((n) => n.kind === 'place')
+                  .map((n) => ({ label: n.label, value: n.id }))
+              "
+              @update:model-value="graph = { ...graph, finalPlaceId: String($event) }"
+            />
+          </UFormField>
         </div>
       </div>
       <div class="surface p-5">

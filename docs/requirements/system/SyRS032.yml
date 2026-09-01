@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.4
+links:
+- TRS038: Re8cc_Bdj_eQy_TqZn8_ldWuSK02BYGRLcXZ2GlTdrQ=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: hwgVNqeDWdjMaj1YVgbHD-mt4Xhftcs6EiMkp3XVtoo=
+text: |
+  Al crear un caso, Tunkunia deberá registrar la identidad del actor que lo inició y la fecha y hora del inicio, distinguiéndolo del ciudadano directamente involucrado.
+type: audit

@@ -16,4 +16,5 @@ type Tramites struct {
 	Status               string
 	CreatedAt            string
 	UpdatedAt            string
+	CurrentVersionID     *int64
 }

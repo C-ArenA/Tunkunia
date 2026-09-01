@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.12
+links:
+- TRS029: 9vmoQVkTljeQxF2yNO0w4IYoTLX_5KDGQtLStO0gVxQ=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: 4ZH5DRm6aoC66yoQRe9iwHz0_GmgqMngRcPM5itbqa4=
+text: |
+  Tunkunia deberá proporcionar al administrador institucional una interfaz gráfica para crear y modificar las definiciones de trámite y sus elementos de proceso.
+type: interface

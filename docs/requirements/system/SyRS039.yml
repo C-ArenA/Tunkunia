@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.11
+links:
+- TRS044: EEoPgfVjgvOtWGNCfJBwPvHk_i9RoH34Mht9_BOulJs=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: hG0NMIRRA65gJJQo6d0ZxaB2J10ASZjOmnkPjS_LshY=
+text: |
+  Tunkunia deberá permitir que un administrador institucional autorizado registre una intervención excepcional vinculada a un caso, indicando su motivo y la actuación realizada.
+type: audit

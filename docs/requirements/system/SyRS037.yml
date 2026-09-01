@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: 6.9
+links:
+- TRS041: pvPT6P51GBWh3X0PckEfNoMuYdPskdBeTGEdBOXbEvQ=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: 5_XjEmGQAejF3c1nIprtPr4WpoeS2FulVRrgy_1ZQck=
+text: |
+  Tunkunia deberá mostrar al ciudadano participante el estado vigente de cada uno de sus casos.
+type: interface

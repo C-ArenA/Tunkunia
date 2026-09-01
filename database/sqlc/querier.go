@@ -17,7 +17,7 @@ type Querier interface {
 	//
 	//  INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
 	//  VALUES (?, ?, ?, ?)
-	//  RETURNING id, name, description, procedure_description, type, status, created_at, updated_at
+	//  RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
 	CreateTramite(ctx context.Context, db DBTX, arg CreateTramiteParams) (Tramite, error)
 	//DeleteTramite
 	//
@@ -26,7 +26,7 @@ type Querier interface {
 	DeleteTramite(ctx context.Context, db DBTX, id int64) (int64, error)
 	//GetTramite
 	//
-	//  SELECT id, name, description, procedure_description, type, status, created_at, updated_at
+	//  SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
 	//  FROM tramites
 	//  WHERE id = ?
 	//  LIMIT 1

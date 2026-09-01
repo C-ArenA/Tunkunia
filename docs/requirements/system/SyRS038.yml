@@ -1,0 +1,15 @@
+active: true
+category: execution
+derived: false
+header: ''
+level: '6.10'
+links:
+- TRS043: fruaYoCehllk-2zBW9BR0NKEHxhv2HAvDIztbXire9U=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: e3bVkQbI5xwCWWPMY12Oj2TLOIYo4ZPeWtOBxX_AsVk=
+text: |
+  Tunkunia deberá mostrar la consecuencia configurada para el vencimiento del plazo de una etapa y aplicarla cuando el plazo venza sin que se complete la actuación requerida.
+type: functional

@@ -1,0 +1,14 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.1
+links: []
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: cXHfE342AAw76QuwQYYatDT9-yOghgSUbvIZ-XUDpMM=
+text: |
+  La entidad pública deberá poder registrar y modificar la identidad institucional asociada a la instancia.
+type: capability

@@ -1,0 +1,15 @@
+active: true
+category: records
+derived: false
+header: ''
+level: 7.3
+links:
+- TRS045: 2krfPLPcGm-rpttue3-DwBzAQ7kVAnlPvnghc86ZZMw=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: OoEuXCtdcdCpWpQiMOWcV9f27oOdUtE7mfCplQlLtQg=
+text: |
+  Tunkunia deberá mostrar el expediente de un caso a sus participantes autorizados.
+type: interface

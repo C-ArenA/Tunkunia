@@ -1,0 +1,15 @@
+active: true
+category: interoperability
+derived: false
+header: ''
+level: 10.7
+links:
+- TRS066: JK5lzF_vr9xdRtGoKAfQCoSfuq8PpM9p7l93oiPP5mY=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: hiaMFOZPqyn2JX0QdhVQ3rE0343_10Gd1qC241tFNUQ=
+text: |
+  Cuando un sistema externo inicie un caso, Tunkunia deberá registrar como iniciador la identidad técnica autenticada de ese sistema.
+type: audit

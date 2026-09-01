@@ -1,0 +1,25 @@
+{
+  "version": "0.2",
+  "ignorePaths": [],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [
+    "interopera",
+    "interoperabilidad",
+    "Latinobarómetro",
+    "microservicios",
+    "monitoreo",
+    "Plurinacional",
+    "SIAI",
+    "subnacionales",
+    "Viceministro",
+    "desreferenciable",
+    "desreferenciada",
+    "openapi",
+    "parsear",
+    "serializa",
+    "Tunkunia"
+  ],
+  "ignoreWords": [],
+  "import": []
+}

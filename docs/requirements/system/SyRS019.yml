@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.11
+links:
+- TRS028: R-97fpXkKbE6qBcmDuyIbN3WsBjUPzhnc4rnOcjoC0U=
+normative: true
+priority: Should
+prototype: ''
+ref: ''
+reviewed: 1GbS2IdTTyl19XvqWrSiSojBS7hcswq_PM1Q9188AxM=
+text: |
+  Tunkunia deberá permitir configurar un límite de tiempo para cada etapa del procedimiento.
+type: functional

@@ -1,0 +1,15 @@
+active: true
+category: reuse
+derived: false
+header: ''
+level: 1.4
+links:
+- TRS021: zlAuCj5q-V3DumU3nhTe-aMLSnhvyam4xjRDTdIZ9ZI=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: EnPZWk0IUNyLXv_iGgjmRV1-nmf8VKxXK2zk7YBrqT0=
+text: |
+  Tunkunia deberá permitir definir procedimientos mediante la configuración de los elementos y acciones provistos por el modelo común, sin modificar el código fuente del producto.
+type: functional

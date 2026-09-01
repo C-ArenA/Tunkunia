@@ -1,0 +1,15 @@
+active: true
+category: notifications
+derived: false
+header: ''
+level: 9.3
+links:
+- TRS055: fq-sCs6rsn8PwBMepqSAWb-HE7rxGdoeaVayaUdUFXQ=
+normative: true
+priority: Must
+prototype: ''
+ref: ''
+reviewed: LazTtBLonWWTkogjeou5AQieJrSo1FfRtDTocCy3Bps=
+text: |
+  Cuando cambie el estado de un caso, Tunkunia deberá generar una notificación interna para cada ciudadano participante que identifique el estado resultante.
+type: functional

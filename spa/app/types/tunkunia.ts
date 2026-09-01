@@ -6,6 +6,7 @@ export interface ProcedureNode {
   label: string;
   x: number;
   y: number;
+  role?: "citizen" | "servant";
 }
 
 export interface ProcedureArc {
@@ -17,6 +18,8 @@ export interface ProcedureArc {
 export interface ProcedureGraph {
   nodes: ProcedureNode[];
   arcs: ProcedureArc[];
+  initialPlaceId: string;
+  finalPlaceId: string;
 }
 
 export interface InstitutionSettings {
@@ -30,44 +33,4 @@ export interface InstitutionSettings {
   website: string;
   primaryColor: string;
   accentColor: string;
-}
-
-export interface DemoCase {
-  id: string;
-  tramiteId: number;
-  tramiteName: string;
-  participantId: number;
-  status: "active" | "completed";
-  startedAt: string;
-  updatedAt: string;
-  progress: number;
-  activeNodeIds: string[];
-  history: { at: string; label: string }[];
-}
-
-export interface DemoTask {
-  id: string;
-  caseId: string;
-  title: string;
-  description: string;
-  dueAt: string;
-  status: "pending" | "completed";
-  note: string;
-  attachmentName?: string;
-}
-
-export interface DemoUser {
-  id: number;
-  name: string;
-  email: string;
-  roles: string[];
-}
-
-export interface DemoState {
-  version: 1;
-  institution: InstitutionSettings;
-  graphs: Record<string, ProcedureGraph>;
-  cases: DemoCase[];
-  tasks: DemoTask[];
-  users: DemoUser[];
 }

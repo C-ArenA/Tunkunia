@@ -54,6 +54,10 @@ func NewForbiddenResponse(detail string) ForbiddenApplicationProblemPlusJSONResp
 	}
 }
 
+func NewConflictResponse(detail string) ConflictApplicationProblemPlusJSONResponse {
+	return ConflictApplicationProblemPlusJSONResponse{Title: "Conflicto", Status: 409, Detail: detail}
+}
+
 func Error(w http.ResponseWriter, errorResponse any, code int) {
 	h := w.Header()
 	h.Set("Content-Type", "application/problem+json")

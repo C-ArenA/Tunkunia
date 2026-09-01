@@ -1,0 +1,43 @@
+@startuml
+top to bottom direction
+
+skinparam defaultTextAlignment center
+skinparam linetype ortho
+
+rectangle "Estado Plurinacional\nde Bolivia" as Estado
+
+rectangle "Órgano\nLegislativo" as Legislativo
+rectangle "Órgano\nEjecutivo" as Ejecutivo
+rectangle "Órgano\nJudicial" as Judicial
+rectangle "Órgano\nElectoral" as Electoral
+
+rectangle "Entidades y unidades\nque gestionan trámites" as TramLeg
+rectangle "Entidades y unidades\nque gestionan trámites" as TramEje
+rectangle "Entidades y unidades\nque gestionan trámites" as TramJud
+rectangle "Entidades y unidades\nque gestionan trámites" as TramEle
+
+rectangle "Ministerio de\nla Presidencia" as MinPres
+rectangle "AGETIC" as AGETIC
+
+rectangle "🇧🇴🤖\nGobierno electrónico\nen Bolivia" as GE
+
+Estado --> Legislativo
+Estado --> Ejecutivo
+Estado --> Judicial
+Estado --> Electoral
+
+Legislativo --> TramLeg
+Ejecutivo --> TramEje
+Judicial --> TramJud
+Electoral --> TramEle
+
+Ejecutivo --> MinPres
+MinPres --> AGETIC
+
+TramLeg <.. GE : involucra
+TramEje <.. GE : involucra
+TramJud <.. GE : involucra
+TramEle <.. GE : involucra
+AGETIC ..> GE : impulsa e implementa\npolíticas y servicios
+
+@enduml

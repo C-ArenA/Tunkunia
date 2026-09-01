@@ -1,7 +1,7 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "/shared/theme/lib.typ": img-fig
 
-== Antecedentes
+=== Antecedentes
 
 A continuación se presenta el recorrido que conduce a la problemática de este proyecto: los problemas del trámite tradicional, la adopción de tecnologías de la información por el gobierno boliviano, la atención a esta necesidad en el @SIAI mediante la consultora 2IES y la posterior identificación de características comunes a diversos trámites (@fig:background).
 
@@ -13,7 +13,7 @@ A continuación se presenta el recorrido que conduce a la problemática de este 
   placement: top,
 )
 
-=== Del trámite tradicional a la modernización administrativa
+==== Del trámite tradicional a la modernización administrativa
 
 En su forma tradicional, los trámites se llevan a cabo de forma presencial, en una oficina pública, donde el ciudadano debe presentar una serie de documentos y cumplir con ciertos requisitos, muchos de los cuales involucran la realización de otros trámites.
 
@@ -43,7 +43,7 @@ Su caso fue motivo de preocupación y, cuando finalmente logró recibir su cédu
 
 Estos problemas dentro de la administración pública despertaron el interés acerca del impacto que podría tener la utilización de las tecnologías de la información en este ámbito, llevando a la creación del concepto de *Gobierno Electrónico* o *e-government*, desarrollado en el @section:reference_framework.
 
-=== Evolución del gobierno electrónico en Bolivia
+==== Evolución del gobierno electrónico en Bolivia
 
 La implementación de un gobierno electrónico no es una tarea sencilla, ya que requiere esfuerzos en conjunto dentro de los gobiernos.
 En Bolivia, a partir del año 2009, se promulgaron decretos, leyes y reglamentos orientados a promover el uso de las tecnologías de la información y comunicación en la administración pública, aunque aún queda un largo camino por recorrer para lograr una implementación efectiva y eficiente.
@@ -57,9 +57,23 @@ En ese contexto se aprobó, mediante Resolución Ministerial Nº 079/20, el docu
 
 Esta evolución normativa, desarrollada sistemáticamente en el @section:reference_framework, impulsó a distintas entidades públicas a implementar sistemas que facilitaran sus funciones administrativas, particularmente aquellas relacionadas con trámites.
 
-=== El SIAI y la experiencia de 2IES
+==== Convenio Marco de Co-Creación Digital
 
-Un caso que ilustra esta evolución es el Sistema de Información Ambiental Industrial (@SIAI), desarrollado para el Ministerio de Desarrollo Productivo y Economía Plural (@MDPyEP) en Bolivia.
+#img-fig(
+  "/assets/figures/convenio_umsa_agetic.png",
+  [Convenio con presencia de Autoridades del Estado y Universidades],
+  <fig:convenio_umsa_agetic>,
+  source: [Notas de Prensa - AGETIC],
+  width: 70%,
+)
+
+Durante el desarrollo de este proyecto, el 11 de febrero de 2026, la Universidad Mayor de San Andrés junto con otras universidades, firmó un convenio con la @AGETIC (@fig:convenio_umsa_agetic) que busca, entre otras cosas, eliminar el uso excesivo de papel y *optimizar tiempos en trámites administrativos*, contribuyendo a la modernización del estado@agenciadegobiernoelectronicoytecnologiasdeinformacionycomunicacionAGETICFirmaConvenio2026.
+
+Este acuerdo tiene como uno de sus ejes el gobierno electrónico y la transformación digital, para lo cual se espera que las universidades apoyen en la creación, mejora y evaluación de plataformas que *faciliten el paso de trámites en papel a procesos en línea*.
+
+==== El SIAI y la experiencia de 2IES
+
+Un caso que ilustra los esfuerzos en la digitalización de servicios del gobierno es el Sistema de Información Ambiental Industrial (@SIAI), desarrollado para el Ministerio de Desarrollo Productivo y Economía Plural (@MDPyEP) en Bolivia.
 
 A través de un análisis realizado en la gestión 2020 se determinó que el SIAI requería una adecuación para reducir los tiempos de envío de la información desde las instancias departamentales y municipales, facilitar el llenado a través de Internet y generar usuarios y autorizaciones para este llenado.
 
@@ -75,7 +89,7 @@ En años recientes, con la adopción de las tecnologías de la información cada
 
 La ejecución del proyecto, licitado por el @MDPyEP, estuvo a cargo de la consultora 2IES, que procedió a implementar el nuevo @SIAI atendiendo las especificaciones técnicas del Documento Base de Contratación y las distintas interacciones efectuadas con el cliente.
 
-=== Identificación de la necesidad del proyecto
+==== Identificación de la necesidad del proyecto
 
 Además de atender los requerimientos iniciales del DBC, 2IES propuso funcionalidades que modernizaran el trabajo con el SIAI.
 A partir del requerimiento de hacer seguimiento a las solicitudes de distintos documentos ambientales y a la generación de estos, se identificó a dichos procesos como trámites que debían ser digitalizados.
