@@ -12,38 +12,76 @@ Comprende un sistema reutilizable de baja complejidad operacional pensando en la
 
 === Arquitectura General
 
-Considerando el alcance de la arquitectura sobre un prototipo funcional evolutivo, se consideró de acuerdo a los requerimientos y entendiendo que los interesados principales desean la implementación pronta de este sistema, que el prototipo inicialmente contemple una arquitectura monolítica, es decir, evitando los problemas de las arquitecturas distribuidas.
-Si bien es entendido que las arquitecturas distribuidas pueden proporcionar mayor escalabilidad, esto no se considera un problema, ya que un monolito es siempre un buen punto de partida para cualquier sistema.
-Es decir, en tanto el monolito sea estructurado de manera correcta, la arquitectura puede evolucionar a arquitecturas distribuidas si fuese necesario.
-Adicionalmente es importante notar que una mayoría de trámites no requieren el uso excesivo de recursos, es decir, no todos los trámites son realizados por toda la población de Bolivia en todo en cada momento del año.
-De este modo, el sistema inicialmente no requiere ser distribuido.
-También hay que considerar que en sistemas distribuidos.
-También hay que considerar que en sistemas distribuidos el costo de despliegue puede llegar a ser elevado.
-Entendemos de acuerdo a los requerimientos de negocio que este sistema debe ser desplegado en servidores del estado, mismos que no necesariamente, y en todos los casos serán muchos ni tendrán la mayor eficiencia posible.
-También se debe considerar que una restricción importante del proyecto es que este primer prototipo es realizado por una sola persona en cuanto a su desarrollo e implementación, por lo que la elección de un sistema distribuido podría no ser la decisión más inteligente si se consideran estas restricciones.
+Considerado el alcance de la arquitectura, correspondiente a un prototipo
+funcional evolutivo, se optó por una arquitectura monolítica. Esta
+decisión responde a los requerimientos del proyecto y a la necesidad de
+facilitar su instalación y despliegue en entornos institucionales diversos, a
+la vez que evita la complejidad operativa propia de las arquitecturas
+distribuidas. En particular, la posibilidad de distribuir el sistema como un
+único binario reduce la cantidad de componentes que cada institución debe
+instalar, configurar y mantener.
+
+Si bien las arquitecturas distribuidas pueden proporcionar una mayor
+escalabilidad, esta no representa un problema inmediato para el proyecto. Un
+monolito constituye un buen punto de partida y, siempre que esté estructurado
+correctamente, puede evolucionar hacia una arquitectura distribuida si llegara
+a ser necesario.
+
+Además, se parte de la hipótesis de que la carga de la mayoría de los trámites
+estará acotada por su población destinataria y por los periodos en los que se
+realizan. Muchos procedimientos corresponden a grupos específicos de ciudadanos
+o empresas y no se solicitan de manera continua; por tanto, no se espera que
+todos los trámites sean realizados por toda la población boliviana de forma
+simultánea. Esta hipótesis deberá comprobarse mediante mediciones durante la
+evolución del sistema, pero permite evitar desde el inicio una distribución que
+la demanda observada todavía no justifica. En un subsistema reutilizable, que espera cargas variadas, es difícil determinar las necesidades exactas de demanda.
+
+También debe considerarse que una arquitectura distribuida incrementaría los
+recursos necesarios para el despliegue y la operación. De acuerdo con los
+requerimientos de negocio, el sistema debe poder instalarse en infraestructura
+administrada por distintas instituciones del Estado, cuyas capacidades y
+prácticas operativas pueden variar. Por ello, resulta conveniente utilizar de
+manera eficiente los recursos disponibles y reducir la cantidad de componentes
+que deben administrarse, sin presuponer que todas las instituciones cuentan con
+la misma infraestructura o las mismas herramientas de despliegue.
+
+Otra restricción importante a nivel de proyecto es que el desarrollo y la implementación de este
+primer prototipo están a cargo de una sola persona. En estas condiciones, elegir
+un sistema distribuido añadiría una complejidad difícil de justificar.
+
+Los requerimientos y las restricciones anteriores confirman que la primera
+aproximación planteada al inicio del proyecto continúa siendo adecuada
+(@fig:modulegraph).
 
 #img-fig(
   "/assets/figures/modulegraph.png",
   [Arquitectura Inicial y Entorno de Tunkunia],
   <fig:modulegraph>,
+  placement: bottom,
 )
 
-Si bien lo anterior describe los requerimientos y restricciones que llevaron a la solución se puede ver que la primera aproximación a la solución que se planteó cuando el proyecto se propuso por primera vez sigue siendo correcto (@fig:modulegraph).
+Desde un punto de vista más general, se elige una arquitectura cliente-servidor
+basada en tecnologías web. Esta elección responde al requerimiento de que el
+sistema sea accesible para la mayor cantidad posible de ciudadanos y pueda
+utilizarse en distintos dispositivos sin necesidad de instalaciones.
 
-Ahora bien, desde un punto de vista más general y considerando el requerimiento de que el sistema debe ser accesible for the mayor cantidad de ciudadanos possibles, y además de que este debe correr in distinto dispositivos sin necesidad de instalaciones, se elige una arquitectura cliente-servidor, aprovechando las tecnologías web que actualmente se han vuelto las más utilizadas por la gente.
+Para que el sistema pueda evolucionar y responder a cambios futuros, el
+monolito propuesto debe organizarse de manera modular.
 
-Por supuesto, si se desea evolucionar este sistema y si se desea que el sistema pueda responder a cambios futuros, es necesario que el monolito antes propuesto sea modular.
+En consecuencia, Tunkunia adopta un enfoque semejante al de la arquitectura orientada a
+servicios (@fig:soa_topo), pero sin establecer fronteras de despliegue independientes y
+compartiendo la interfaz de usuario y la base de datos. En otras palabras, podemos definir que:
 
-Esto define nuestro sistema como un monolito con arquitectura cliente-servidor adoptando un enfoque modular parecido al del estilo de arquitectura por servicios, pero sin las fronteras de despliegue, compartiendo interfaz de usuario y base de datos.
-Algunos lo llaman monolito modular.
-
-Monolito orientado a servicios con arquitectura cliente-servidor.
-Esto se ve reflejado en la @fig:soa_monolith que puede ser comparable con la @fig:soa_topo.
+#quote[
+  Tunkunia es un monolito orientado a servicios con arquitectura cliente-servidor,
+  como se muestra en la @fig:soa_monolith.
+]
 
 #img-fig(
   "/assets/figures/soa_monolith.svg",
   [Arquitectura General de Tunkunia],
   <fig:soa_monolith>,
+  placement: bottom,
 )
 
 === Metas y Restricciones de la Arquitectura
