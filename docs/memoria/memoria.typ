@@ -1,7 +1,5 @@
 #import "/shared/theme/lib.typ": memoria
-#import "/shared/metadata.typ": (
-  projectTitle, rightsNotice, studentName, tutorName,
-)
+#import "/shared/metadata.typ": projectTitle, rightsNotice, studentName, tutorName
 #import "/shared/acronyms.typ": acronyms
 #import "/shared/glossary.typ": glossary
 
@@ -18,8 +16,11 @@
   appendices: [
     #include "appendices/repository-readme.typ"
     #include "appendices/repository-license.typ"
+    #include "appendices/technical-artifacts.typ"
+    #include "appendices/openapi-excerpt.typ"
   ],
   font: "New Computer Modern",
+  date: datetime(day: 26, month: 8, year: 2026),
 )
 
 #include "01-presentation/00-introduction.typ"
