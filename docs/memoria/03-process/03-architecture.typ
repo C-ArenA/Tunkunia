@@ -36,6 +36,13 @@ simultánea. Esta hipótesis deberá comprobarse mediante mediciones durante la
 evolución del sistema, pero permite evitar desde el inicio una distribución que
 la demanda observada todavía no justifica. En un subsistema reutilizable, que espera cargas variadas, es difícil determinar las necesidades exactas de demanda.
 
+#img-fig(
+  "/assets/figures/modulegraph.png",
+  [Arquitectura Inicial y Entorno de Tunkunia],
+  <fig:modulegraph>,
+  placement: bottom,
+)
+
 También debe considerarse que una arquitectura distribuida incrementaría los
 recursos necesarios para el despliegue y la operación. De acuerdo con los
 requerimientos de negocio, el sistema debe poder instalarse en infraestructura
@@ -53,13 +60,6 @@ Los requerimientos y las restricciones anteriores confirman que la primera
 aproximación planteada al inicio del proyecto continúa siendo adecuada
 (@fig:modulegraph).
 
-#img-fig(
-  "/assets/figures/modulegraph.png",
-  [Arquitectura Inicial y Entorno de Tunkunia],
-  <fig:modulegraph>,
-  placement: bottom,
-)
-
 Desde un punto de vista más general, se elige una arquitectura cliente-servidor
 basada en tecnologías web. Esta elección responde al requerimiento de que el
 sistema sea accesible para la mayor cantidad posible de ciudadanos y pueda
@@ -72,8 +72,8 @@ En consecuencia, Tunkunia adopta un enfoque semejante al de la arquitectura orie
 servicios (@fig:soa_topo), pero sin establecer fronteras de despliegue independientes y
 compartiendo la interfaz de usuario y la base de datos. En otras palabras, podemos definir que:
 
-#quote[
-  Tunkunia es un monolito orientado a servicios con arquitectura cliente-servidor,
+#rect()[
+  Tunkunia es un monolito orientado a servicios#footnote[A veces nos referimos a él como monolito modular, un término usado en la industria] con arquitectura cliente-servidor,
   como se muestra en la @fig:soa_monolith.
 ]
 
@@ -116,11 +116,7 @@ Tunkunia en una biblioteca.
 
 Cada módulo adopta una arquitectura hexagonal como primera opción, pero en casos triviales como módulos CRUD, se consideran arquitecturas internas de capas.
 
-=== Vista Lógica
-
-
-
-=== Contexto, despliegue y módulos
+=== Contexto del sistema y Escenarios
 
 El contexto de Tunkunia se resume en la @fig:tunkunia-c4-system-context.
 Un
@@ -142,29 +138,7 @@ representan mediante interfaces controladas.
   width: 100%,
 )
 
-La topología prevista utiliza un servidor Linux.
-Un proxy inverso termina HTTPS
-y reenvía las solicitudes a un único proceso Go.
-El mismo binario sirve la API y
-la aplicación Nuxt generada como archivos estáticos, por lo que navegador y
-servidor comparten un origen.
-Un volumen persistente contiene el archivo SQLite
-y el directorio de documentos; el proveedor OIDC permanece fuera de la
-instancia.
-Las direcciones, rutas, credenciales y secretos se suministran
-mediante variables de entorno.
-Los datos administrables —identidad visual,
-información institucional, usuarios y trámites— se almacenan y modifican desde
-la aplicación.
-
-Esta topología deliberadamente sencilla no proporciona alta disponibilidad ni
-ejecución simultánea en varios nodos.
-Ante un reinicio, el proceso recupera los
-vencimientos pendientes desde la base de datos.
-El respaldo es responsabilidad
-del operador y debe capturar de manera consistente tanto SQLite como el
-directorio documental, porque ambos forman una sola unidad lógica de
-información.
+=== Vista lógica
 
 La @fig:tunkunia-modules muestra la división del servidor por capacidades:
 
@@ -187,6 +161,13 @@ La @fig:tunkunia-modules muestra la división del servidor por capacidades:
   width: 100%,
 )
 
+El módulo Casos ocupa el centro de la colaboración.
+Obtiene de Catálogo la
+versión inmutable aplicable, solicita a Petrunia la evaluación formal del
+marcado, consulta a Usuarios las asignaciones y registra auditoría y avisos.
+
+=== Vista de desarrollo
+
 `cmd` y la composición de la API conectan estas capacidades sin contener reglas
 del trámite.
 La carga de configuración también es infraestructura y no un módulo
@@ -197,13 +178,32 @@ aplicación, los repositorios y la traducción HTTP.
 Ningún módulo accede de forma
 directa a las tablas o implementaciones internas de otro.
 
-El módulo Casos ocupa el centro de la colaboración.
-Obtiene de Catálogo la
-versión inmutable aplicable, solicita a Petrunia la evaluación formal del
-marcado, consulta a Usuarios las asignaciones y registra auditoría y avisos.
-Las
-llamadas son síncronas y explícitas.
-Las interfaces hacia notificaciones y
-sistemas externos permiten sustituir la implementación demostrativa más
-adelante, pero no se introduce un sistema general de complementos ni webhooks en
-el prototipo.
+=== Vista de procesos
+
+En tiempo de ejecución, las capacidades del servidor operan dentro de un único
+proceso Go y sus llamadas son síncronas y explícitas. No se emplean procesos
+independientes, un intermediario de mensajes ni ejecución simultánea en varios
+nodos. Esta organización no proporciona alta disponibilidad. Ante un reinicio,
+el proceso recupera de la base de datos los vencimientos pendientes para
+continuar su procesamiento.
+
+=== Vista física
+
+La topología prevista utiliza un servidor Linux.
+Un proxy inverso termina HTTPS
+y reenvía las solicitudes al proceso Go.
+El mismo binario sirve la API y
+la aplicación Nuxt generada como archivos estáticos, por lo que navegador y
+servidor comparten un origen.
+Un volumen persistente contiene el archivo SQLite
+y el directorio de documentos; el proveedor OIDC permanece fuera de la
+instancia.
+Las direcciones, rutas, credenciales y secretos se suministran
+mediante variables de entorno.
+Los datos administrables —identidad visual,
+información institucional, usuarios y trámites— se almacenan y modifican desde
+la aplicación.
+
+El respaldo es responsabilidad del operador y debe capturar de manera
+consistente tanto SQLite como el directorio documental, porque ambos forman una
+sola unidad lógica de información.
