@@ -44,3 +44,5 @@ Se plantean las siguientes recomendaciones habiendo descrito las conclusiones
 - El sistema utiliza el concepto de Redes de Petri coloreadas que en futuras versiones del proyecto pueden usarse para otorgar reportes de cuellos de botella en trámites.
 
 - Las metodologías de desarrollo de software deben ser usadas como una guía que evoluciona con el proyecto y se adapta al mismo.
+
+- La arquitectura de implementación de acciones junto a los nuevos desarrollos en inteligencia artificial soberana de la AGETIC abren la posibilidad a que siguientes iteraciones implementen la automatización de revisión de documentos con modelos de lenguaje.
