@@ -6,7 +6,7 @@
 A continuación se presenta el recorrido que conduce a la problemática de este proyecto: los problemas del trámite tradicional, la adopción de tecnologías de la información por el gobierno boliviano, la atención a esta necesidad en el @SIAI mediante la consultora 2IES y la posterior identificación de características comunes a diversos trámites (@fig:background).
 
 #img-fig(
-  "/assets/figures/background.svg",
+  "/assets/figures/background.png",
   [Antecedentes a la identificación de la problemática de este proyecto],
   <fig:background>,
   width: 80%,
