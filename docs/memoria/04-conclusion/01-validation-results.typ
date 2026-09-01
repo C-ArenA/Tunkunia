@@ -5,13 +5,6 @@
 
 === Alcance provisional de la validación
 
-La validación definitiva deberá ejecutar en Tunkunia casos completos de los
-trámites descritos en el marco referencial y contrastar los resultados esperados
-con evidencias producidas por el prototipo. Mientras esa implementación no se
-encuentre concluida, este capítulo no presenta resultados observados. En su
-lugar, prepara los modelos y recorridos que se configurarán posteriormente como
-pruebas de validación.
-
 Se consideran el Registro Ambiental Industrial, la cédula de identidad por
 primera vez y la adscripción al Sistema Único de Salud. La solicitud de patente
 de invención se conserva como referencia para el diseño, pero se excluye de esta
@@ -19,7 +12,7 @@ etapa porque su representación exigiría interpretar aspectos operativos no
 descritos con suficiente detalle y abarcar una cantidad de excepciones que
 excede el alcance del prototipo.
 
-Cada caso se expresa mediante una red de flujo de trabajo con un único lugar de
+Cada caso se expresa mediante una red de flujo de trabajo (WFNet) con un único lugar de
 inicio y uno de terminación. Los círculos representan lugares o situaciones; los
 rectángulos, transiciones ejecutables; y las flechas, la relación de flujo. El
 recorrido satisfactorio indica la secuencia de disparos y el lugar que conserva
