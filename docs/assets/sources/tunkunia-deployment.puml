@@ -1,0 +1,43 @@
+@startuml tunkunia-deployment
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 40
+skinparam ranksep 45
+left to right direction
+
+node "Dispositivo del usuario\n<<device>>" as client {
+  node "Navegador web" as browser
+}
+
+node "Infraestructura de la institución" as institution {
+  node "Servidor Linux\n<<device>>" as server {
+    node "Proxy inverso" as proxy
+
+    node "Proceso Tunkunia\n<<execution environment>>" as process {
+      artifact "Binario Tunkunia\n— API Go\n— aplicación Nuxt estática" as binary
+    }
+
+    node "Volumen persistente\n<<storage>>" as volume {
+      database "SQLite" as sqlite
+      artifact "Directorio de documentos" as documents
+    }
+  }
+}
+
+node "Proveedor de identidad\n<<external>>" as identity {
+  node "Ciudadanía Digital\n<<OIDC>>" as oidc
+}
+
+browser --> proxy : HTTPS
+proxy --> process : HTTP
+process --> volume : lectura / escritura
+process --> oidc : OIDC / HTTPS
+
+note bottom of process
+  La configuración, las rutas,
+  las credenciales y los secretos
+  se suministran mediante
+  variables de entorno.
+end note
+@enduml

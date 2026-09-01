@@ -168,24 +168,20 @@ marcado, consulta a Usuarios las asignaciones y registra auditoría y avisos.
 
 === Vista de desarrollo
 
-`cmd` y la composición de la API conectan estas capacidades sin contener reglas
-del trámite.
-La carga de configuración también es infraestructura y no un módulo
-de negocio: prepara los adaptadores concretos y entrega sus dependencias a los
-módulos.
-Dentro de cada capacidad se separan el dominio, los servicios de
-aplicación, los repositorios y la traducción HTTP.
-Ningún módulo accede de forma
-directa a las tablas o implementaciones internas de otro.
+La vista de desarrollo refleja principalmente la vista lógica y no aporta mayor información sobre la arquitectura.
 
 === Vista de procesos
 
 En tiempo de ejecución, las capacidades del servidor operan dentro de un único
-proceso Go y sus llamadas son síncronas y explícitas. No se emplean procesos
-independientes, un intermediario de mensajes ni ejecución simultánea en varios
-nodos. Esta organización no proporciona alta disponibilidad. Ante un reinicio,
-el proceso recupera de la base de datos los vencimientos pendientes para
-continuar su procesamiento.
+proceso Go, sin permitir múltiples instancias.
+
+#img-fig(
+  "/assets/figures/tunkunia-deployment.svg",
+  [Despliegue de una instancia de Tunkunia],
+  <fig:tunkunia-deployment>,
+  width: 100%,
+  placement: top,
+)
 
 === Vista física
 
