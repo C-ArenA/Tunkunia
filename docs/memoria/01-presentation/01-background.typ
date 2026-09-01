@@ -6,7 +6,7 @@
 A continuación se presenta el recorrido que conduce a la problemática de este proyecto: los problemas del trámite tradicional, la adopción de tecnologías de la información por el gobierno boliviano, la atención a esta necesidad en el @SIAI mediante la consultora 2IES y la posterior identificación de características comunes a diversos trámites (@fig:background).
 
 #img-fig(
-  "/assets/figures/background.png",
+  "/assets/figures/background.svg",
   [Antecedentes a la identificación de la problemática de este proyecto],
   <fig:background>,
   width: 80%,
@@ -57,9 +57,23 @@ En ese contexto se aprobó, mediante Resolución Ministerial Nº 079/20, el docu
 
 Esta evolución normativa, desarrollada sistemáticamente en el @section:reference_framework, impulsó a distintas entidades públicas a implementar sistemas que facilitaran sus funciones administrativas, particularmente aquellas relacionadas con trámites.
 
+==== Convenio Marco de Co-Creación Digital
+
+#img-fig(
+  "/assets/figures/convenio_umsa_agetic.png",
+  [Convenio con presencia de Autoridades del Estado y Universidades],
+  <fig:convenio_umsa_agetic>,
+  source: [Notas de Prensa - AGETIC],
+  width: 70%
+)
+
+Durante el desarrollo de este proyecto, el 11 de febrero de 2026, la Universidad Mayor de San Andrés junto con otras universidades, firmó un convenio con la @AGETIC (@fig:convenio_umsa_agetic) que busca, entre otras cosas, eliminar el uso excesivo de papel y *optimizar tiempos en trámites administrativos*, contribuyendo a la modernización del estado@agenciadegobiernoelectronicoytecnologiasdeinformacionycomunicacionAGETICFirmaConvenio2026.
+
+Este acuerdo tiene como uno de sus ejes el gobierno electrónico y la transformación digital, para lo cual se espera que las universidades apoyen en la creación, mejora y evaluación de plataformas que *faciliten el paso de trámites en papel a procesos en línea*.
+
 ==== El SIAI y la experiencia de 2IES
 
-Un caso que ilustra esta evolución es el Sistema de Información Ambiental Industrial (@SIAI), desarrollado para el Ministerio de Desarrollo Productivo y Economía Plural (@MDPyEP) en Bolivia.
+Un caso que ilustra los esfuerzos en la digitalización de servicios del gobierno es el Sistema de Información Ambiental Industrial (@SIAI), desarrollado para el Ministerio de Desarrollo Productivo y Economía Plural (@MDPyEP) en Bolivia.
 
 A través de un análisis realizado en la gestión 2020 se determinó que el SIAI requería una adecuación para reducir los tiempos de envío de la información desde las instancias departamentales y municipales, facilitar el llenado a través de Internet y generar usuarios y autorizaciones para este llenado.
 

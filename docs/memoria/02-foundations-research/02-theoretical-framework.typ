@@ -188,7 +188,7 @@ La ingeniería de requerimientos nos ayuda a manipular los requerimientos de for
 
 ==== Arquitectura de software y modularidad
 
-Una ingeniería de software efectiva requiere diseñar la arquitectura del software, práctica que siempre se lleva a cabo de forma implícita al desarrollar, pero que conviene aplicar de forma fundamentada.
+Una ingeniería de software efectiva requiere diseñar la arquitectura del software, práctica que muchas veces se puede llevar a cabo de forma implícita al desarrollar, pero que conviene aplicar de forma fundamentada.
 Primero, reconocer paradigmas comunes permite entender relaciones de alto nivel entre sistemas y construir sistemas nuevos como variaciones de sistemas antiguos.
 Segundo, conseguir una arquitectura correcta suele ser crucial para el éxito del diseño, mientras que hacerlo incorrectamente puede llevar a resultados desastrosos.
 Tercero, comprender las arquitecturas permite elegir de manera fundamentada entre alternativas de diseño.
@@ -228,6 +228,15 @@ Cada estilo tiene características, ventajas y desventajas propias, pero todos b
   Es compleja y requiere independencia incluso en las bases de datos, como puede verse en la @fig:micro_topo.
 - *La arquitectura orientada a servicios (SOA)* es un estilo pragmático y flexible que, si bien se basa en servicios independientes, no tiene el mismo nivel de complejidad que los microservicios y otras arquitecturas distribuidas (ver @fig:soa_topo).
   Se volvió popular en muchas aplicaciones relacionadas con empresas.
+
+#img-fig(
+  "/assets/figures/hex_original.png",
+  [Estructura básica de la arquitectura hexagonal],
+  <fig:hex_original>,
+  source: [Hexagonal architecture the original 2005 article by Alistair Cockburn@cockburn2005hexagonal],
+)
+
+Existen muchos más patrones y estilos de arquitectura ampliamente reconocidos que ayudan a describir el sistema de forma global. Asimismo, existen patrones que describen el sistema en un nivel inferior y que se popularizaron por inducir a un código más sencillo de mantener y son las arquitecturas con inversión de dependencias. Una de las primeras estructuras con esta naturaleza fue la arquitectura hexagonal@cockburn2005hexagonal o de puertos y adaptadores, que aísla la capa de aplicación y la vuelve ignorante de su entorno, viviendo en el centro del sistema como puede verse en la @fig:hex_original.
 
 ==== Diseño de Software
 

@@ -1,6 +1,6 @@
 #import "/shared/theme/lib.typ": img-fig
 
-== #text(size: 0.8em)[Descripción del diseño de software]
+== Descripción del diseño de software
 
 === Del trámite referencial al modelo de software
 
