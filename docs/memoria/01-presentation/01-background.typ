@@ -41,7 +41,7 @@ Su caso fue motivo de preocupación y, cuando finalmente logró recibir su cédu
   placement: auto,
 )
 
-Estos problemas dentro de la administración pública despertaron el interés acerca del impacto que podría tener la utilización de las tecnologías de la información en este ámbito, llevando a la creación del concepto de *Gobierno Electrónico* o *e-government*, desarrollado en el @section:reference_framework.
+Estos problemas dentro de la administración pública despertaron el interés acerca del impacto que podría tener la utilización de las tecnologías de la información en este ámbito, llevando a la creación del concepto de *Gobierno Electrónico* o *e-government* (Ver @sec:egov).
 
 ==== Evolución del gobierno electrónico en Bolivia
 
@@ -67,7 +67,7 @@ Esta evolución normativa, desarrollada sistemáticamente en el @section:referen
   width: 70%,
 )
 
-Durante el desarrollo de este proyecto, el 11 de febrero de 2026, la Universidad Mayor de San Andrés junto con otras universidades, firmó un convenio con la @AGETIC (@fig:convenio_umsa_agetic) que busca, entre otras cosas, eliminar el uso excesivo de papel y *optimizar tiempos en trámites administrativos*, contribuyendo a la modernización del estado@agenciadegobiernoelectronicoytecnologiasdeinformacionycomunicacionAGETICFirmaConvenio2026.
+En esta línea de esfuerzos hacia el gobierno electrónico, también es importante señalar que, durante el desarrollo de este proyecto, el 11 de febrero de 2026, la Universidad Mayor de San Andrés, junto con otras universidades, firmó un convenio con la @AGETIC (@fig:convenio_umsa_agetic) que busca, entre otras cosas, eliminar el uso excesivo de papel y *optimizar tiempos en trámites administrativos*, contribuyendo a la modernización del estado@agenciadegobiernoelectronicoytecnologiasdeinformacionycomunicacionAGETICFirmaConvenio2026.
 
 Este acuerdo tiene como uno de sus ejes el gobierno electrónico y la transformación digital, para lo cual se espera que las universidades apoyen en la creación, mejora y evaluación de plataformas que *faciliten el paso de trámites en papel a procesos en línea*.
 

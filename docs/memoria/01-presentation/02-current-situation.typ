@@ -321,13 +321,9 @@ Entre los más relevantes se encuentran:
 
 ==== Brechas identificadas
 
-La situación revisada muestra una adopción creciente de Internet, plataformas digitales y servicios de gobierno electrónico; además, existen sistemas de gestión de procesos, soluciones institucionales, técnicas de modelado y numerosos trabajos académicos.
-Sin embargo, una parte de la población boliviana todavía no tiene acceso a Internet y muchos trámites permanecen total o parcialmente presenciales, por lo que la transición debe mantener un puente entre ambos canales.
+La situación revisada muestra una adopción creciente de Internet, plataformas digitales y servicios de gobierno electrónico. Además, existen sistemas generales de gestión de procesos, soluciones institucionales específicas, técnicas de modelado y numerosos trabajos académicos que se especializan en ciertos trámites en particular.
 
-También existen productos capaces de modelar o gestionar procesos, pero no se encontró un módulo especializado en trámites que pudiera integrarse en sistemas mayores y reuniera a la vez reutilización y naturaleza de software libre.
-Las experiencias revisadas atienden capacidades semejantes, mientras que casos como OTTO muestran que las verificaciones y los modelos de negocio institucionales no son homogéneos.
-En consecuencia, sigue siendo necesario atender las características comunes de los trámites sin impedir que cada institución incorpore su funcionalidad específica.
-
+Existen soluciones muy generales, no especializadas en trámites, que no cubren necesidades específicas del gobierno electrónico en Bolivia y pueden no ser de software libre, pero por el otro lado existen soluciones específicas a ciertos trámites, que repiten desarrollos similares. En consecuencia, no parece existir un sistema que atienda las características comunes de los trámites #footnote[Es importante señalar que, durante el desarrollo de este proyecto, la @AGETIC publicó, el 11 de noviembre de 2025, la Plataforma de Trámites y Certificaciones (PTC), cuyo propósito presenta similitudes con el de Tunkunia, que se publicó en GitHub el 12 de junio de 2024. Este desarrollo posterior evidencia que el gobierno, de forma independiente, identificó una problemática similar a la abordada por este proyecto y adoptó también un enfoque basado en una plataforma reutilizable para la gestión de trámites. Aun así, ambas propuestas divergen en su diseño, por lo que pueden aportar perspectivas originales.].
 /*NOTE
 Realmente existen otros temas más que podrían ser relevantes, pero se incluye sólo lo más prioritario dada la extensión actual de esta sección.
   - Más sistemas de trámite y ventanilla única: El gobierno boliviano tiene más trámites digitalizados, recientemente se lanzó el sistema VUCE (Ventanilla Única de Comercio Exterior). También en una versión anterior de este mismo documento, se llegó a hablar del trámite de vidrios polarizados, entre otros que ya habrían sido digitalizados.

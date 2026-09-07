@@ -279,7 +279,7 @@ de diseño, donde corresponde justificar esas decisiones.
 
 #set list(spacing: auto)
 
-=== Gobierno electrónico y contexto institucional boliviano
+=== Gobierno electrónico y contexto institucional boliviano <sec:egov>
 
 #let governmentFootNote = [
   No existe consenso en la definición y uso del término "Gobierno Electrónico" por ser relativamente incipiente y más de una vez se emplean los términos
@@ -287,9 +287,7 @@ de diseño, donde corresponde justificar esas decisiones.
   En este documento se prefiere el uso del primero.
 ]
 
-En una entrevista del año 2015 a Carlos Jiménez @digitalGobiernoInteligenteEntrevista2015, responsable mundial de _IEEE e-government_, este señaló que el *gobierno electrónico #footnote(
-  governmentFootNote,
-)* es una fase para llegar a tener gobiernos inteligentes y abiertos y que:
+En una entrevista del año 2015 a Carlos Jiménez @digitalGobiernoInteligenteEntrevista2015, responsable mundial de _IEEE e-government_, este señaló que el *gobierno electrónico #footnote(governmentFootNote)* es una fase para llegar a tener gobiernos inteligentes y abiertos y que:
 
 #quote(attribution: "Carlos Jiménez")[
   ...consiste en implantar la tecnología para *mejorar procesos administrativos y permitir la interacción con los ciudadanos*
