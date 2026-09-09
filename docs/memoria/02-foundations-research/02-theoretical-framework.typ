@@ -363,14 +363,16 @@ OpenID Connect (OIDC) es una capa de identidad construida sobre OAuth 2.0 que pe
 Introduce el _ID Token_, expresado como un JSON Web Token (JWT), y estandariza flujos, alcances, declaraciones y puntos de acceso para que proveedores y clientes de identidad interoperen @openidFoundationOpenIDConnectCore2023.
 La @fig:oidc_sequence resume un flujo típico: el cliente redirige al usuario al proveedor, recibe un código de autorización, lo intercambia por tokens y emplea el token de acceso para consultar la información del usuario.
 
-#img-fig(
-  "/assets/figures/OIDC_sequence_diagram.png",
-  [Secuencia de autenticación mediante OpenID Connect],
-  <fig:oidc_sequence>,
-  source: [Mozilla, _Web Security Guidelines_ @mozillaOIDCSequenceDiagram],
-  width: 90%,
-  placement: auto,
-)
+#page(margin: (x: 0.5in, y: 0.5in))[
+  #img-fig(
+    "/assets/figures/OIDC_sequence_diagram.png",
+    [Secuencia de autenticación mediante OpenID Connect],
+    <fig:oidc_sequence>,
+    source: [Mozilla, _Web Security Guidelines_ @mozillaOIDCSequenceDiagram],
+    width: 100%,
+    placement: auto,
+  )
+]
 
 ==== REST API
 
