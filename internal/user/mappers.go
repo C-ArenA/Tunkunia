@@ -28,6 +28,7 @@ func ToDomainUser(u sqlc.User, r []string) User {
 		Email:         Email(u.Email),
 		EmailVerified: cast.SqliteToBool(u.EmailVerified),
 		CreatedAt:     cast.SqliteToTimeForced(u.CreatedAt),
+		UpdatedAt:     cast.SqliteToTimeForced(u.UpdatedAt),
 		Roles:         dRoles,
 	}
 }

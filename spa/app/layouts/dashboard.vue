@@ -45,6 +45,16 @@ const items = computed<NavigationMenuItem[]>(() => [
             variant="ghost"
             class="w-full"
           />
+          <UButton
+            to="/oidc-logout"
+            external
+            icon="i-lucide-log-out"
+            aria-label="Cerrar sesión"
+            :label="collapsed ? undefined : 'Cerrar sesión'"
+            color="neutral"
+            variant="ghost"
+            class="w-full"
+          />
         </div>
       </template>
     </UDashboardSidebar>

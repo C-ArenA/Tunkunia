@@ -31,6 +31,7 @@ const {
         <UButton
           v-if="!me"
           to="/login"
+          external
           class="mt-8"
           size="xl"
           label="Ingresar"
