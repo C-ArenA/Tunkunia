@@ -47,3 +47,10 @@ Use `gofmt` for Go and Oxfmt/Oxlint for the SPA. Follow local patterns. Use Go's
 Use the Conventional Commits specification with prefixes such as `feat:`, `fix:`, and `chore:`, consistent with the project history. Pull requests should describe the behavior changed, list relevant tests or checks run, and include screenshots for visible frontend or documentation changes.
 
 When explicitly asked to integrate a feature branch, prefer a squash merge unless the user requests preserving its history. Use a Conventional Commit subject, summarize the branch's important changes in the commit body, and list the most relevant original commits. Do not push unless explicitly requested.
+
+## Implementation Workflow
+
+- For multi-step work, create a Markdown plan in `docs/plans/`. Prefix the filename with a timestamp and include a short title.
+- Work through the plan one step at a time. After each step, summarize what changed, why it changed, and any important design decisions.
+- Keep each step's diff focused. If a step requires a larger diff, explain why.
+- When a step is ready for review, stage only its files and propose a Conventional Commit message. Wait for approval before committing.
