@@ -13,7 +13,7 @@ const {
   "admin-tramites",
   async () => {
     const response = await listTramites({
-      query: { status: statusFilter.value === "all" ? undefined : statusFilter.value, limit: 100 },
+      query: { status: statusFilter.value === "all" ? undefined : statusFilter.value },
     });
     if (response.error) throw response.error;
     return response.data;

@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"context"
+	"errors"
 
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
@@ -23,15 +24,17 @@ func (h *StrictCatalogHandlerV1) isAdmin(ctx context.Context) bool {
 }
 
 func (h *StrictCatalogHandlerV1) ListTramites(ctx context.Context, request oapi.ListTramitesRequestObject) (oapi.ListTramitesResponseObject, error) {
-	filter := TramiteFilter{Status: new(Published)}
+	var status *TramiteStatus
 	if h.isAdmin(ctx) {
-		filter.Status = nil
 		if request.Params.Status != nil {
-			status := TramiteStatus(*request.Params.Status)
-			filter.Status = &status
+			value := TramiteStatus(*request.Params.Status)
+			status = &value
 		}
+	} else {
+		value := Published
+		status = &value
 	}
-	tramites, err := h.service.ListWithFilter(ctx, filter)
+	tramites, err := h.service.List(ctx, status)
 	if err != nil {
 		return oapi.ListTramites500ApplicationProblemPlusJSONResponse{InternalErrorApplicationProblemPlusJSONResponse: oapi.NewInternalErrorResponse(err.Error())}, nil
 	}
@@ -70,23 +73,11 @@ func (h *StrictCatalogHandlerV1) UpdateTramite(ctx context.Context, request oapi
 	if !h.isAdmin(ctx) {
 		return oapi.UpdateTramite403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
-	if request.Body.Status != nil {
-		return oapi.UpdateTramite400ApplicationProblemPlusJSONResponse{BadRequestApplicationProblemPlusJSONResponse: oapi.NewBadRequestResponse("use las operaciones publicar o archivar para cambiar el estado")}, nil
+	t := TramiteFromUpdateRequest(request.Body)
+	updated, err := h.service.Update(ctx, TramiteID(request.Id), t)
+	if errors.Is(err, ErrNotFound) {
+		return oapi.UpdateTramite404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
 	}
-	var validationErrors []oapi.ErrorDetail
-	if request.Body.Status != nil {
-		if !request.Body.Status.Valid() {
-			validationErrors = append(validationErrors, oapi.ErrorDetail{
-				Detail:  "Estado de trámite inválido",
-				Pointer: "#/status",
-			})
-		}
-	}
-	if len(validationErrors) > 0 {
-		return oapi.UpdateTramite422ApplicationProblemPlusJSONResponse{ValidationErrorApplicationProblemPlusJSONResponse: oapi.NewValidationErrorResponse("", validationErrors)}, nil
-	}
-	t, m := TramiteFromUpdateRequest(request.Body)
-	updated, err := h.service.Update(ctx, TramiteID(request.Id), t, m)
 	if err != nil {
 		return oapi.UpdateTramite400ApplicationProblemPlusJSONResponse{BadRequestApplicationProblemPlusJSONResponse: oapi.NewBadRequestResponse(err.Error())}, nil
 	}

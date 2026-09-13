@@ -49,6 +49,19 @@ type Querier interface {
 	//  WHERE
 	//    id = ?
 	GetUserById(ctx context.Context, db DBTX, id int64) (User, error)
+	//ListTramites
+	//
+	//  SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+	//  FROM tramites
+	//  ORDER BY name, id
+	ListTramites(ctx context.Context, db DBTX) ([]Tramite, error)
+	//ListTramitesByStatus
+	//
+	//  SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+	//  FROM tramites
+	//  WHERE status = ?
+	//  ORDER BY name, id
+	ListTramitesByStatus(ctx context.Context, db DBTX, status string) ([]Tramite, error)
 	//ListUsers
 	//
 	//  SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
@@ -63,6 +76,17 @@ type Querier interface {
 	//    updated_at = CURRENT_TIMESTAMP
 	//  WHERE id = ?
 	SetAdmin(ctx context.Context, db DBTX, arg SetAdminParams) error
+	//UpdateTramite
+	//
+	//  UPDATE tramites
+	//  SET name = ?,
+	//      description = ?,
+	//      procedure_description = ?,
+	//      type = ?,
+	//      updated_at = CURRENT_TIMESTAMP
+	//  WHERE id = ?
+	//  RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+	UpdateTramite(ctx context.Context, db DBTX, arg UpdateTramiteParams) (Tramite, error)
 	//UpdateUserAccess
 	//
 	//  UPDATE users

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { listTramitesQuery, listUsersQuery } from "#shared/clientV1/@pinia/colada.gen";
-const { data: tramites } = useQuery(listTramitesQuery({ query: { limit: 100 } }));
+const { data: tramites } = useQuery(listTramitesQuery());
 const { data: users } = useQuery(listUsersQuery());
 const cards = computed(() => [
   {

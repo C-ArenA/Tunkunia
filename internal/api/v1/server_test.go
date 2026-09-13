@@ -113,7 +113,7 @@ func TestOpenAPIRequestValidatorValidatesRequestsAndPreservesBody(t *testing.T) 
 			t.Fatal("invalid request reached handler")
 		}))
 		res := httptest.NewRecorder()
-		handler.ServeHTTP(res, httptest.NewRequest(http.MethodGet, "/tramites?limit=invalid", nil))
+		handler.ServeHTTP(res, httptest.NewRequest(http.MethodGet, "/tramites?status=invalid", nil))
 
 		assert.Equal(t, http.StatusBadRequest, res.Code)
 		assert.Equal(t, "application/problem+json", res.Header().Get("Content-Type"))

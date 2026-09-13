@@ -7,7 +7,7 @@ components:
         operationId: listTramites
         summary: Listar Trámites
         description: |
-          Obtiene una lista paginada de trámites.
+          Obtiene la lista de trámites.
           - Los visitantes sólo ven elementos publicados.
           - Los creadores ven además sus propios borradores y elementos archivados.
           - Los administradores ven todos los elementos.
@@ -21,21 +21,9 @@ components:
             required: false
             schema:
               $ref: "#/components/schemas/TramiteStatus"
-          - name: page
-            in: query
-            schema:
-              type: string
-              description: Cursor opaco de la página que se desea obtener.
-          - name: limit
-            in: query
-            schema:
-              type: integer
-              default: 20
-              minimum: 1
-              maximum: 100
         responses:
           "200":
-            description: Lista paginada de trámites.
+            description: Lista de trámites.
             content:
               application/json:
                 schema:
@@ -103,7 +91,7 @@ components:
             $ref: common.yaml#/components/responses/NotFound
 
         deprecated: false
-      patch:
+      put:
         tags:
           - Catalog
         operationId: updateTramite
@@ -131,9 +119,6 @@ components:
             $ref: common.yaml#/components/responses/Forbidden
           "404":
             $ref: common.yaml#/components/responses/NotFound
-          "422":
-            $ref: common.yaml#/components/responses/ValidationError
-
       delete:
         tags:
           - Catalog
@@ -215,15 +200,13 @@ components:
               $ref: "#/components/schemas/TramiteStatus"
 
     TramiteCollection:
-      allOf:
-        - $ref: common.yaml#/components/schemas/CollectionBase
-        - type: object
-          required: [data]
-          properties:
-            data:
-              type: array
-              items:
-                $ref: "#/components/schemas/TramiteBase"
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/TramiteBase"
 
     TramiteCreate:
       allOf:
@@ -232,12 +215,17 @@ components:
           required: [name]
 
     TramiteUpdate:
-      allOf:
-        - $ref: "#/components/schemas/TramiteWritableFields"
-        - type: object
-          properties:
-            status:
-              $ref: "#/components/schemas/TramiteStatus"
+      type: object
+      required: [name, description, procedureDescription, type]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        procedureDescription:
+          type: string
+        type:
+          $ref: "#/components/schemas/TramiteType"
 
     TramiteWritableFields:
       type: object

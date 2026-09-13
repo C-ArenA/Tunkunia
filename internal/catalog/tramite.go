@@ -4,25 +4,6 @@ import "time"
 
 type TramiteID int64
 
-type TramiteField string
-
-const (
-	TramiteFieldName      TramiteField = "name"
-	TramiteFieldCreatedAt TramiteField = "created_at"
-	TramiteFieldUpdatedAt TramiteField = "updated_at"
-	TramiteFieldStatus    TramiteField = "status"
-	TramiteFieldType      TramiteField = "type"
-)
-
-func (f TramiteField) IsValid() bool {
-	switch f {
-	case TramiteFieldName, TramiteFieldCreatedAt, TramiteFieldUpdatedAt, TramiteFieldStatus, TramiteFieldType:
-		return true
-	default:
-		return false
-	}
-}
-
 type TramiteStatus string
 
 const (
@@ -55,28 +36,4 @@ type Tramite struct {
 	UpdatedBy            int
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
-}
-
-type TramiteMask struct {
-	ID                   bool
-	Name                 bool
-	Description          bool
-	ProcedureDescription bool
-	Type                 bool
-	Status               bool
-	LegalFramework       bool
-	CreatedBy            bool
-	UpdatedBy            bool
-	CreatedAt            bool
-	UpdatedAt            bool
-}
-
-type TramiteFilter struct {
-	Status *TramiteStatus
-	Type   *TramiteType
-}
-
-type TramiteSort struct {
-	Field  TramiteField
-	IsDesc bool
 }

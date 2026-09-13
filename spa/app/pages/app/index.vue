@@ -5,7 +5,7 @@ const {
   data: tramites,
   status,
   error,
-} = useQuery(listTramitesQuery({ query: { status: "published", limit: 100 } }));
+} = useQuery(listTramitesQuery({ query: { status: "published" } }));
 const visible = computed(() =>
   (tramites.value?.data ?? []).filter((item) =>
     item.name.toLocaleLowerCase().includes(search.value.toLocaleLowerCase()),

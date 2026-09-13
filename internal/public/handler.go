@@ -21,7 +21,7 @@ type Institution struct {
 func RegisterRoutes(r *chi.Mux, cs *catalog.Service) {
 	tmpl := template.Must(template.New("home").Parse(homeHtml))
 	r.Get("/docs/home", func(w http.ResponseWriter, r *http.Request) {
-		t, err := cs.List(r.Context())
+		t, err := cs.List(r.Context(), nil)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}

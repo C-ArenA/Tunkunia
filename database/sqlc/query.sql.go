@@ -178,6 +178,96 @@ func (q *Queries) GetUserById(ctx context.Context, db DBTX, id int64) (User, err
 	return i, err
 }
 
+const listTramites = `-- name: ListTramites :many
+SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+FROM tramites
+ORDER BY name, id
+`
+
+// ListTramites
+//
+//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+//	FROM tramites
+//	ORDER BY name, id
+func (q *Queries) ListTramites(ctx context.Context, db DBTX) ([]Tramite, error) {
+	rows, err := db.QueryContext(ctx, listTramites)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Tramite
+	for rows.Next() {
+		var i Tramite
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Description,
+			&i.ProcedureDescription,
+			&i.Type,
+			&i.Status,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.CurrentVersionID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listTramitesByStatus = `-- name: ListTramitesByStatus :many
+SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+FROM tramites
+WHERE status = ?
+ORDER BY name, id
+`
+
+// ListTramitesByStatus
+//
+//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+//	FROM tramites
+//	WHERE status = ?
+//	ORDER BY name, id
+func (q *Queries) ListTramitesByStatus(ctx context.Context, db DBTX, status string) ([]Tramite, error) {
+	rows, err := db.QueryContext(ctx, listTramitesByStatus, status)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Tramite
+	for rows.Next() {
+		var i Tramite
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Description,
+			&i.ProcedureDescription,
+			&i.Type,
+			&i.Status,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.CurrentVersionID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listUsers = `-- name: ListUsers :many
 SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 FROM users
@@ -245,6 +335,58 @@ type SetAdminParams struct {
 func (q *Queries) SetAdmin(ctx context.Context, db DBTX, arg SetAdminParams) error {
 	_, err := db.ExecContext(ctx, setAdmin, arg.IsAdmin, arg.ID)
 	return err
+}
+
+const updateTramite = `-- name: UpdateTramite :one
+UPDATE tramites
+SET name = ?,
+    description = ?,
+    procedure_description = ?,
+    type = ?,
+    updated_at = CURRENT_TIMESTAMP
+WHERE id = ?
+RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+`
+
+type UpdateTramiteParams struct {
+	Name                 string
+	Description          string
+	ProcedureDescription string
+	Type                 string
+	ID                   int64
+}
+
+// UpdateTramite
+//
+//	UPDATE tramites
+//	SET name = ?,
+//	    description = ?,
+//	    procedure_description = ?,
+//	    type = ?,
+//	    updated_at = CURRENT_TIMESTAMP
+//	WHERE id = ?
+//	RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+func (q *Queries) UpdateTramite(ctx context.Context, db DBTX, arg UpdateTramiteParams) (Tramite, error) {
+	row := db.QueryRowContext(ctx, updateTramite,
+		arg.Name,
+		arg.Description,
+		arg.ProcedureDescription,
+		arg.Type,
+		arg.ID,
+	)
+	var i Tramite
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Description,
+		&i.ProcedureDescription,
+		&i.Type,
+		&i.Status,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.CurrentVersionID,
+	)
+	return i, err
 }
 
 const updateUserAccess = `-- name: UpdateUserAccess :one

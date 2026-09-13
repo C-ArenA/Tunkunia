@@ -57,7 +57,7 @@ type ServerInterface interface {
 	// (GET /tramites/{id})
 	GetTramite(w http.ResponseWriter, r *http.Request, id TramiteId)
 	// UpdateTramite Modificar Trámite
-	// (PATCH /tramites/{id})
+	// (PUT /tramites/{id})
 	UpdateTramite(w http.ResponseWriter, r *http.Request, id TramiteId)
 	// ArchiveTramite Archivar trámite
 	// (POST /tramites/{id}/archive)
@@ -168,7 +168,7 @@ func (_ Unimplemented) GetTramite(w http.ResponseWriter, r *http.Request, id Tra
 }
 
 // UpdateTramite Modificar Trámite
-// (PATCH /tramites/{id})
+// (PUT /tramites/{id})
 func (_ Unimplemented) UpdateTramite(w http.ResponseWriter, r *http.Request, id TramiteId) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
@@ -469,32 +469,6 @@ func (siw *ServerInterfaceWrapper) ListTramites(w http.ResponseWriter, r *http.R
 			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "status"})
 		} else {
 			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "status", Err: err})
-		}
-		return
-	}
-
-	// ------------- Optional query parameter "page" -------------
-
-	err = runtime.BindQueryParameterWithOptions("form", true, false, "page", r.URL.Query(), &params.Page, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
-	if err != nil {
-		var requiredError *runtime.RequiredParameterError
-		if errors.As(err, &requiredError) {
-			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "page"})
-		} else {
-			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "page", Err: err})
-		}
-		return
-	}
-
-	// ------------- Optional query parameter "limit" -------------
-
-	err = runtime.BindQueryParameterWithOptions("form", true, false, "limit", r.URL.Query(), &params.Limit, runtime.BindQueryParameterOptions{Type: "integer", Format: ""})
-	if err != nil {
-		var requiredError *runtime.RequiredParameterError
-		if errors.As(err, &requiredError) {
-			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "limit"})
-		} else {
-			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "limit", Err: err})
 		}
 		return
 	}
@@ -927,7 +901,7 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 		r.Get(options.BaseURL+"/tramites/{id}", wrapper.GetTramite)
 	})
 	r.Group(func(r chi.Router) {
-		r.Patch(options.BaseURL+"/tramites/{id}", wrapper.UpdateTramite)
+		r.Put(options.BaseURL+"/tramites/{id}", wrapper.UpdateTramite)
 	})
 	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/me", wrapper.GetMe)
@@ -1773,22 +1747,6 @@ func (response UpdateTramite404ApplicationProblemPlusJSONResponse) VisitUpdateTr
 	return err
 }
 
-type UpdateTramite422ApplicationProblemPlusJSONResponse struct {
-	ValidationErrorApplicationProblemPlusJSONResponse
-}
-
-func (response UpdateTramite422ApplicationProblemPlusJSONResponse) VisitUpdateTramiteResponse(w http.ResponseWriter) error {
-
-	var buf bytes.Buffer
-	if err := json.NewEncoder(&buf).Encode(response); err != nil {
-		return err
-	}
-	w.Header().Set("Content-Type", "application/problem+json")
-	w.WriteHeader(422)
-	_, err := buf.WriteTo(w)
-	return err
-}
-
 type ArchiveTramiteRequestObject struct {
 	Id WorkflowTramiteId `json:"id"`
 }
@@ -2258,7 +2216,7 @@ type StrictServerInterface interface {
 	// (GET /tramites/{id})
 	GetTramite(ctx context.Context, request GetTramiteRequestObject) (GetTramiteResponseObject, error)
 	// UpdateTramite Modificar Trámite
-	// (PATCH /tramites/{id})
+	// (PUT /tramites/{id})
 	UpdateTramite(ctx context.Context, request UpdateTramiteRequestObject) (UpdateTramiteResponseObject, error)
 	// ArchiveTramite Archivar trámite
 	// (POST /tramites/{id}/archive)

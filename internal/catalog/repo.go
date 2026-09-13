@@ -4,13 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"time"
 
-	"github.com/C-ArenA/Tunkunia/database/jet/model"
-	"github.com/C-ArenA/Tunkunia/database/jet/table"
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
-	"github.com/go-jet/jet/v2/qrm"
-	. "github.com/go-jet/jet/v2/sqlite"
 )
 
 type CatalogRepo struct {
@@ -26,17 +21,22 @@ func NewRepo(db *sql.DB, q sqlc.Querier) *CatalogRepo {
 }
 
 // List implements [Repo].
-func (r *CatalogRepo) List(ctx context.Context, f TramiteFilter, s TramiteSort) ([]Tramite, error) {
-	q := ListTramitesQuery(f, s)
-	var dest []model.Tramites
-
-	err := q.QueryContext(ctx, r.db, &dest)
+func (r *CatalogRepo) List(ctx context.Context, status *TramiteStatus) ([]Tramite, error) {
+	var (
+		dest []sqlc.Tramite
+		err  error
+	)
+	if status == nil {
+		dest, err = r.queries.ListTramites(ctx, r.db)
+	} else {
+		dest, err = r.queries.ListTramitesByStatus(ctx, r.db, string(*status))
+	}
 	if err != nil {
 		return nil, err
 	}
 	tramites := make([]Tramite, len(dest))
 	for i, t := range dest {
-		dT, err := TramiteFromJet(t)
+		dT, err := TramiteFromSqlc(t)
 		if err != nil {
 			return nil, err
 		}
@@ -98,24 +98,21 @@ func (r *CatalogRepo) Get(ctx context.Context, id TramiteID) (*Tramite, error) {
 }
 
 // Update implements [Repo].
-func (r *CatalogRepo) Update(ctx context.Context, id TramiteID, t Tramite, m TramiteMask) (*Tramite, error) {
-	m.UpdatedAt = true
-	t.UpdatedAt = time.Now().UTC()
-
-	stmt := table.Tramites.
-		UPDATE(TramiteMaskToColumns(m)).
-		MODEL(TramiteToJet(t)).
-		WHERE(table.Tramites.ID.EQ(Int(int64(id)))).
-		RETURNING(table.Tramites.AllColumns)
-	var dest model.Tramites
-	err := stmt.QueryContext(ctx, r.db, &dest)
-	if errors.Is(err, qrm.ErrNoRows) {
+func (r *CatalogRepo) Update(ctx context.Context, id TramiteID, t Tramite) (*Tramite, error) {
+	dest, err := r.queries.UpdateTramite(ctx, r.db, sqlc.UpdateTramiteParams{
+		Name:                 t.Name,
+		Description:          t.Description,
+		ProcedureDescription: t.ProcedureDescription,
+		Type:                 string(t.Type),
+		ID:                   int64(id),
+	})
+	if errors.Is(err, sql.ErrNoRows) {
 		return nil, ErrNotFound
 	}
 	if err != nil {
 		return nil, err
 	}
-	dT, err := TramiteFromJet(dest)
+	dT, err := TramiteFromSqlc(dest)
 	if err != nil {
 		return nil, err
 	}
