@@ -8,7 +8,7 @@ Tunkunia is a reusable, open-source system for managing and tracking *trámite* 
 
 Organize backend code by business capability. Current modules include `catalog`, `user`, and `authn`; add a module under `internal/` when a capability has distinct domain language and behavior.
 
-Each module owns its domain types, services, persistence adapters, and transport mappings. Keep composition and wiring in `cmd/` and `internal/api/`. Cross-module calls use deliberate exported interfaces or types; never expose generated database models as module APIs or reach into another module's implementation.
+Each module owns its persistence adapter and transport mappings. Add domain types and a service only when they express behavior that cannot be kept simple in the handler or repository; CRUD modules may use generated OpenAPI types at their module boundary. Keep composition and wiring in `cmd/` and `internal/api/`. Cross-module calls use deliberate exported interfaces or types; never expose generated database models as module APIs or reach into another module's implementation.
 
 Share only genuine cross-cutting technical concerns. Avoid generic `utils` packages and abstractions for hypothetical needs. Aim for independently understandable modules within one deployable application.
 

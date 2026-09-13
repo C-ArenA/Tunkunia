@@ -223,8 +223,10 @@ Tunkunia/
 └── Taskfile.yml  # automatización del desarrollo
 ```
 
-Los módulos de negocio mantienen sus tipos, servicios y persistencia
-encapsulados. La composición transversal permanece en `cmd/` e `internal/api/`.
+Los módulos de negocio mantienen su persistencia y transporte encapsulados; los
+tipos de dominio y servicios se incorporan cuando expresan comportamiento real,
+no como capas obligatorias para CRUD. La composición transversal permanece en
+`cmd/` e `internal/api/`.
 
 ## Contribuir
 

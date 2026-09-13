@@ -6,92 +6,87 @@ import (
 	"fmt"
 
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
-	"github.com/C-ArenA/Tunkunia/internal/cast"
+	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
+	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
-func NewSqliteStore(db *sql.DB, q *sqlc.Queries) *sqliteStore {
-	return &sqliteStore{
-		db: db,
-		q:  q,
-	}
-}
-
-var _ Repo = (*sqliteStore)(nil)
-
-type sqliteStore struct {
+type sqliteRepository struct {
 	db *sql.DB
 	q  *sqlc.Queries
 }
 
-func (s *sqliteStore) GetUserById(ctx context.Context, id UserId) (*User, error) {
-	savedUser, err := s.q.GetUserById(ctx, s.db, int64(id))
+func NewSQLiteRepository(db *sql.DB, q *sqlc.Queries) *sqliteRepository {
+	return &sqliteRepository{db: db, q: q}
+}
+
+var _ identityRepository = (*sqliteRepository)(nil)
+var _ repository = (*sqliteRepository)(nil)
+
+func (s *sqliteRepository) Get(ctx context.Context, id int64) (oapi.User, error) {
+	row, err := s.q.GetUserById(ctx, s.db, id)
 	if err != nil {
-		return nil, fmt.Errorf("No se pudo obtener usuario con id '%d': %w", int(id), err)
+		return oapi.User{}, err
 	}
-
-	return new(ToDomainUser(savedUser)), nil
+	return apiUser(row), nil
 }
 
-func (s *sqliteStore) GetUserByEmail(ctx context.Context, email Email) (*User, error) {
-	savedUser, err := s.q.GetUserByEmail(ctx, s.db, string(email))
-	if err != nil {
-		return nil, fmt.Errorf("No se pudo obtener usuario con correo '%s': %w", email, err)
-	}
-
-	return new(ToDomainUser(savedUser)), nil
-}
-
-func (s *sqliteStore) SaveUser(ctx context.Context, u User) (*User, error) {
-	savedUser, err := s.q.UpsertUser(ctx, s.db, NewUserUpsertParamsFromDomain(u))
-	if err != nil {
-		return nil, fmt.Errorf("No se pudo guardar el usuario con correo '%s': %w", u.Email, err)
-	}
-
-	return new(ToDomainUser(savedUser)), nil
-}
-
-func (s *sqliteStore) UpsertUserBySub(ctx context.Context, u User) (*User, error) {
-	savedUser, err := s.q.UpsertUserBySub(ctx, s.db, sqlc.UpsertUserBySubParams{
-		Name:          u.Name,
-		Sub:           u.Sub,
-		Email:         string(u.Email),
-		EmailVerified: cast.BoolToSqlite(u.EmailVerified),
-	})
-	if err != nil {
-		return nil, fmt.Errorf("No se pudo guardar el usuario con sub '%s': %w", u.Sub, err)
-	}
-
-	return new(ToDomainUser(savedUser)), nil
-}
-
-func (s *sqliteStore) SetAdmin(ctx context.Context, userId UserId, isAdmin bool) error {
-	return s.q.SetAdmin(ctx, s.db, sqlc.SetAdminParams{
-		IsAdmin: cast.BoolToSqlite(isAdmin),
-		ID:      int64(userId),
-	})
-}
-
-func (s *sqliteStore) ListUsers(ctx context.Context) ([]User, error) {
+func (s *sqliteRepository) List(ctx context.Context) ([]oapi.User, error) {
 	rows, err := s.q.ListUsers(ctx, s.db)
 	if err != nil {
 		return nil, err
 	}
-
-	users := make([]User, len(rows))
+	result := make([]oapi.User, len(rows))
 	for i, row := range rows {
-		users[i] = ToDomainUser(row)
+		result[i] = apiUser(row)
 	}
-	return users, nil
+	return result, nil
 }
 
-func (s *sqliteStore) UpdateAccess(ctx context.Context, userId UserId, isAdmin, isPublicServant bool) (*User, error) {
-	savedUser, err := s.q.UpdateUserAccess(ctx, s.db, sqlc.UpdateUserAccessParams{
-		IsAdmin:         cast.BoolToSqlite(isAdmin),
-		IsPublicServant: cast.BoolToSqlite(isPublicServant),
-		ID:              int64(userId),
+func (s *sqliteRepository) UpdateAccess(ctx context.Context, id int64, isAdmin, isPublicServant bool) (oapi.User, error) {
+	row, err := s.q.UpdateUserAccess(ctx, s.db, sqlc.UpdateUserAccessParams{
+		IsAdmin: sqliteInt(isAdmin), IsPublicServant: sqliteInt(isPublicServant), ID: id,
 	})
 	if err != nil {
-		return nil, err
+		return oapi.User{}, err
 	}
-	return new(ToDomainUser(savedUser)), nil
+	return apiUser(row), nil
+}
+
+func apiUser(row sqlc.User) oapi.User {
+	return oapi.User{
+		Id: row.ID, Name: row.Name, Sub: row.Sub, Email: openapi_types.Email(row.Email),
+		EmailVerified: sqliteBool(row.EmailVerified), IsAdmin: sqliteBool(row.IsAdmin),
+		IsPublicServant: sqliteBool(row.IsPublicServant),
+	}
+}
+
+func (s *sqliteRepository) UpsertUserBySub(ctx context.Context, subject, email, name string, emailVerified bool) (identity, error) {
+	row, err := s.q.UpsertUserBySub(ctx, s.db, sqlc.UpsertUserBySubParams{
+		Name: name, Sub: subject, Email: email, EmailVerified: sqliteInt(emailVerified),
+	})
+	if err != nil {
+		return identity{}, fmt.Errorf("No se pudo guardar el usuario con sub '%s': %w", subject, err)
+	}
+	return identity{id: row.ID, isAdmin: sqliteBool(row.IsAdmin)}, nil
+}
+
+func (s *sqliteRepository) GetAccess(ctx context.Context, id int64) (bool, bool, error) {
+	row, err := s.q.GetUserById(ctx, s.db, id)
+	if err != nil {
+		return false, false, fmt.Errorf("No se pudo obtener usuario con id '%d': %w", id, err)
+	}
+	return sqliteBool(row.IsAdmin), sqliteBool(row.IsPublicServant), nil
+}
+
+func (s *sqliteRepository) SetAdmin(ctx context.Context, id int64, isAdmin bool) error {
+	return s.q.SetAdmin(ctx, s.db, sqlc.SetAdminParams{IsAdmin: sqliteInt(isAdmin), ID: id})
+}
+
+func sqliteBool(value int64) bool { return value != 0 }
+
+func sqliteInt(value bool) int64 {
+	if value {
+		return 1
+	}
+	return 0
 }

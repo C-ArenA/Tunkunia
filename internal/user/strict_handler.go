@@ -9,12 +9,19 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/authn"
 )
 
+type repository interface {
+	Get(context.Context, int64) (oapi.User, error)
+	List(context.Context) ([]oapi.User, error)
+	UpdateAccess(context.Context, int64, bool, bool) (oapi.User, error)
+}
+
 type StrictUserHandlerV1 struct {
+	repo    repository
 	service *Service
 }
 
-func NewStrictUserHandlerV1(service *Service) *StrictUserHandlerV1 {
-	return &StrictUserHandlerV1{service: service}
+func NewStrictUserHandlerV1(repo repository, service *Service) *StrictUserHandlerV1 {
+	return &StrictUserHandlerV1{repo: repo, service: service}
 }
 
 func (h *StrictUserHandlerV1) principal(ctx context.Context) (*authn.Principal, bool) {
@@ -22,9 +29,12 @@ func (h *StrictUserHandlerV1) principal(ctx context.Context) (*authn.Principal, 
 	return p, ok && p.Type == authn.UserPrincipal
 }
 
-func (h *StrictUserHandlerV1) isAdmin(ctx context.Context) bool {
+func (h *StrictUserHandlerV1) isAdmin(ctx context.Context) (bool, error) {
 	p, ok := h.principal(ctx)
-	return ok && h.service.IsAdmin(ctx, UserId(p.ID))
+	if !ok {
+		return false, nil
+	}
+	return h.service.IsAdmin(ctx, int64(p.ID))
 }
 
 func (h *StrictUserHandlerV1) GetMe(ctx context.Context, _ oapi.GetMeRequestObject) (oapi.GetMeResponseObject, error) {
@@ -33,35 +43,42 @@ func (h *StrictUserHandlerV1) GetMe(ctx context.Context, _ oapi.GetMeRequestObje
 		return oapi.GetMe401ApplicationProblemPlusJSONResponse{UnauthorizedApplicationProblemPlusJSONResponse: oapi.NewUnauthorizedResponse("No se pudo verificar la identidad del usuario")}, nil
 	}
 
-	u, err := h.service.GetUserById(ctx, UserId(p.ID))
-	if err != nil {
+	u, err := h.repo.Get(ctx, int64(p.ID))
+	if errors.Is(err, sql.ErrNoRows) {
 		return oapi.GetMe404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse("Usuario no encontrado")}, nil
 	}
-	return oapi.GetMe200JSONResponse(UserToResponse(*u)), nil
-}
-
-func (h *StrictUserHandlerV1) ListUsers(ctx context.Context, _ oapi.ListUsersRequestObject) (oapi.ListUsersResponseObject, error) {
-	if !h.isAdmin(ctx) {
-		return oapi.ListUsers403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
-	}
-	items, err := h.service.ListUsers(ctx)
 	if err != nil {
 		return nil, err
 	}
-	result := make(oapi.ListUsers200JSONResponse, len(items))
-	for i, item := range items {
-		result[i] = UserToResponse(item)
+	return oapi.GetMe200JSONResponse(u), nil
+}
+
+func (h *StrictUserHandlerV1) ListUsers(ctx context.Context, _ oapi.ListUsersRequestObject) (oapi.ListUsersResponseObject, error) {
+	admin, accessErr := h.isAdmin(ctx)
+	if accessErr != nil {
+		return nil, accessErr
 	}
-	return result, nil
+	if !admin {
+		return oapi.ListUsers403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+	}
+	items, err := h.repo.List(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return oapi.ListUsers200JSONResponse(items), nil
 }
 
 func (h *StrictUserHandlerV1) UpdateUserAccess(ctx context.Context, request oapi.UpdateUserAccessRequestObject) (oapi.UpdateUserAccessResponseObject, error) {
-	if !h.isAdmin(ctx) {
+	admin, accessErr := h.isAdmin(ctx)
+	if accessErr != nil {
+		return nil, accessErr
+	}
+	if !admin {
 		return oapi.UpdateUserAccess403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
-	item, err := h.service.UpdateAccess(
+	item, err := h.repo.UpdateAccess(
 		ctx,
-		UserId(request.Id),
+		request.Id,
 		request.Body.IsAdmin,
 		request.Body.IsPublicServant,
 	)
@@ -71,5 +88,5 @@ func (h *StrictUserHandlerV1) UpdateUserAccess(ctx context.Context, request oapi
 	if err != nil {
 		return nil, err
 	}
-	return oapi.UpdateUserAccess200JSONResponse(UserToResponse(*item)), nil
+	return oapi.UpdateUserAccess200JSONResponse(item), nil
 }

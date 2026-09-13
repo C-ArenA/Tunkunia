@@ -2,62 +2,37 @@ package user
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
-
-	"github.com/C-ArenA/Tunkunia/database/sqlc"
 )
 
-type Repo interface {
-	SaveUser(ctx context.Context, u User) (*User, error)
-	UpsertUserBySub(ctx context.Context, u User) (*User, error)
-	GetUserByEmail(ctx context.Context, email Email) (*User, error)
-	GetUserById(ctx context.Context, id UserId) (*User, error)
-	SetAdmin(ctx context.Context, userId UserId, isAdmin bool) error
-	ListUsers(ctx context.Context) ([]User, error)
-	UpdateAccess(ctx context.Context, userId UserId, isAdmin, isPublicServant bool) (*User, error)
+type identity struct {
+	id      int64
+	isAdmin bool
+}
+
+type identityRepository interface {
+	UpsertUserBySub(ctx context.Context, subject, email, name string, emailVerified bool) (identity, error)
+	GetAccess(ctx context.Context, id int64) (isAdmin, isPublicServant bool, err error)
+	SetAdmin(ctx context.Context, id int64, isAdmin bool) error
 }
 
 type Service struct {
-	r               Repo
+	repo            identityRepository
 	firstAdminEmail Email
 }
 
-func NewService(db *sql.DB, q *sqlc.Queries, firstAdminEmail Email) *Service {
-	return &Service{
-		r:               NewSqliteStore(db, q),
-		firstAdminEmail: firstAdminEmail,
-	}
+func NewService(repo identityRepository, firstAdminEmail Email) *Service {
+	return &Service{repo: repo, firstAdminEmail: firstAdminEmail}
 }
 
-func (s *Service) SaveUser(ctx context.Context, u User) (*User, error) {
-	return s.r.SaveUser(ctx, u)
+func (s *Service) IsAdmin(ctx context.Context, id int64) (bool, error) {
+	isAdmin, _, err := s.repo.GetAccess(ctx, id)
+	return isAdmin, err
 }
 
-func (s *Service) GetUserByEmail(ctx context.Context, email Email) (*User, error) {
-	return s.r.GetUserByEmail(ctx, email)
-}
-
-func (s *Service) GetUserById(ctx context.Context, id UserId) (*User, error) {
-	return s.r.GetUserById(ctx, id)
-}
-
-func (s *Service) ListUsers(ctx context.Context) ([]User, error) {
-	return s.r.ListUsers(ctx)
-}
-
-func (s *Service) UpdateAccess(ctx context.Context, id UserId, isAdmin, isPublicServant bool) (*User, error) {
-	return s.r.UpdateAccess(ctx, id, isAdmin, isPublicServant)
-}
-
-func (s *Service) IsAdmin(ctx context.Context, id UserId) bool {
-	u, err := s.r.GetUserById(ctx, id)
-	return err == nil && u.IsAdmin
-}
-
-func (s *Service) IsPublicServant(ctx context.Context, id UserId) bool {
-	u, err := s.r.GetUserById(ctx, id)
-	return err == nil && u.IsPublicServant
+func (s *Service) IsPublicServant(ctx context.Context, id int64) (bool, error) {
+	_, isPublicServant, err := s.repo.GetAccess(ctx, id)
+	return isPublicServant, err
 }
 
 // FindOrRegister persists an externally authenticated user and returns the
@@ -69,21 +44,14 @@ func (s *Service) FindOrRegister(ctx context.Context, subject, email, name strin
 		return 0, fmt.Errorf("invalid user email: %w", err)
 	}
 
-	u := User{
-		Sub:           subject,
-		Email:         domainEmail,
-		EmailVerified: emailVerified,
-		Name:          name,
-	}
-	loggedInUser, err := s.r.UpsertUserBySub(ctx, u)
+	loggedInUser, err := s.repo.UpsertUserBySub(ctx, subject, string(domainEmail), name, emailVerified)
 	if err != nil {
 		return 0, fmt.Errorf("UpsertUserBySub failed: %w", err)
 	}
-	if emailVerified && domainEmail == s.firstAdminEmail && !loggedInUser.IsAdmin {
-		err := s.r.SetAdmin(ctx, loggedInUser.ID, true)
-		if err != nil {
+	if emailVerified && domainEmail == s.firstAdminEmail && !loggedInUser.isAdmin {
+		if err := s.repo.SetAdmin(ctx, loggedInUser.id, true); err != nil {
 			return 0, fmt.Errorf("No se pudo conceder acceso de administrador: %w", err)
 		}
 	}
-	return int(loggedInUser.ID), nil
+	return int(loggedInUser.id), nil
 }

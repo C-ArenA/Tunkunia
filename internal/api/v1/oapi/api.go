@@ -63,7 +63,5 @@ func Error(w http.ResponseWriter, errorResponse any, code int) {
 	h.Set("Content-Type", "application/problem+json")
 	h.Set("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(code)
-	if err := json.NewEncoder(w).Encode(errorResponse); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	_ = json.NewEncoder(w).Encode(errorResponse)
 }

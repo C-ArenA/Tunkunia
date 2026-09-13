@@ -42,66 +42,61 @@ func TestEmailCreation(t *testing.T) {
 }
 
 func TestUserAdditionalAccessFlags(t *testing.T) {
-	service := newTestService(t)
-	saved, err := service.SaveUser(t.Context(), User{
-		Name:  "Ciudadana",
-		Sub:   "citizen-sub",
-		Email: "citizen@example.com",
-	})
+	service, repo := newTestService(t)
+	saved, err := repo.UpsertUserBySub(t.Context(), "citizen-sub", "citizen@example.com", "Ciudadana", true)
 	require.NoError(t, err)
-	assert.False(t, saved.IsAdmin)
-	assert.False(t, saved.IsPublicServant)
+	assert.False(t, saved.isAdmin)
 
-	updated, err := service.UpdateAccess(t.Context(), saved.ID, true, true)
+	updated, err := repo.UpdateAccess(t.Context(), saved.id, true, true)
 	require.NoError(t, err)
 	assert.True(t, updated.IsAdmin)
 	assert.True(t, updated.IsPublicServant)
-	assert.True(t, service.IsAdmin(t.Context(), saved.ID))
-	assert.True(t, service.IsPublicServant(t.Context(), saved.ID))
+	isAdmin, err := service.IsAdmin(t.Context(), saved.id)
+	require.NoError(t, err)
+	assert.True(t, isAdmin)
+	isServant, err := service.IsPublicServant(t.Context(), saved.id)
+	require.NoError(t, err)
+	assert.True(t, isServant)
 
-	_, err = service.UpdateAccess(t.Context(), 999, false, false)
+	_, err = repo.UpdateAccess(t.Context(), 999, false, false)
 	assert.ErrorIs(t, err, sql.ErrNoRows)
 }
 
 func TestFindOrRegisterBootstrapsConfiguredAdmin(t *testing.T) {
-	service := newTestService(t)
+	service, repo := newTestService(t)
 
 	id, err := service.FindOrRegister(t.Context(), "admin-sub", "admin@example.com", "Administradora", false)
 	require.NoError(t, err)
-	created, err := service.GetUserById(t.Context(), UserId(id))
+	created, err := repo.Get(t.Context(), int64(id))
 	require.NoError(t, err)
 	assert.False(t, created.IsAdmin)
 
 	id, err = service.FindOrRegister(t.Context(), "admin-sub", "admin@example.com", "Administradora", true)
 	require.NoError(t, err)
-	assert.Equal(t, int(created.ID), id)
-	loggedIn, err := service.GetUserById(t.Context(), UserId(id))
+	assert.Equal(t, created.Id, int64(id))
+	loggedIn, err := repo.Get(t.Context(), int64(id))
 	require.NoError(t, err)
 	assert.True(t, loggedIn.IsAdmin)
 
-	other, err := service.SaveUser(t.Context(), User{
-		Name:    "Otra administradora",
-		Sub:     "other-admin-sub",
-		Email:   "other-admin@example.com",
-		IsAdmin: true,
-	})
+	other, err := repo.UpsertUserBySub(t.Context(), "other-admin-sub", "other-admin@example.com", "Otra administradora", true)
 	require.NoError(t, err)
-	assert.True(t, other.IsAdmin)
+	require.NoError(t, repo.SetAdmin(t.Context(), other.id, true))
 
-	_, err = service.UpdateAccess(t.Context(), UserId(id), false, false)
+	_, err = repo.UpdateAccess(t.Context(), int64(id), false, false)
 	require.NoError(t, err)
 	_, err = service.FindOrRegister(t.Context(), "admin-sub", "admin@example.com", "Administradora", true)
 	require.NoError(t, err)
-	loggedIn, err = service.GetUserById(t.Context(), UserId(id))
+	loggedIn, err = repo.Get(t.Context(), int64(id))
 	require.NoError(t, err)
 	assert.True(t, loggedIn.IsAdmin, "configured bootstrap user should be promoted even when another admin exists")
 }
 
-func newTestService(t *testing.T) *Service {
+func newTestService(t *testing.T) (*Service, *sqliteRepository) {
 	t.Helper()
 	db, err := sql.Open("sqlite", ":memory:")
 	require.NoError(t, err)
 	t.Cleanup(func() { db.Close() })
 	require.NoError(t, database.Migrate(t.Context(), db))
-	return NewService(db, sqlc.New(), "admin@example.com")
+	repo := NewSQLiteRepository(db, sqlc.New())
+	return NewService(repo, "admin@example.com"), repo
 }

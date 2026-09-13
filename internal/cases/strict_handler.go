@@ -7,31 +7,50 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
-	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/C-ArenA/Tunkunia/petrunia"
 )
 
-type StrictCasesHandlerV1 struct {
-	service *Service
-	users   *user.Service
+type readRepository interface {
+	ListMine(context.Context, int64) ([]Summary, error)
+	ListUnassigned(context.Context) ([]Summary, error)
+	ListTasks(context.Context, int64, TaskStatus) ([]Task, error)
+	ListNotifications(context.Context, int64) ([]Notification, error)
+	MarkNotificationRead(context.Context, int64, int64) error
 }
 
-func NewStrictCasesHandlerV1(service *Service, users *user.Service) *StrictCasesHandlerV1 {
-	return &StrictCasesHandlerV1{service: service, users: users}
+type userAccess interface {
+	IsAdmin(context.Context, int64) (bool, error)
+	IsPublicServant(context.Context, int64) (bool, error)
+}
+
+type StrictCasesHandlerV1 struct {
+	service *Service
+	repo    readRepository
+	users   userAccess
+}
+
+func NewStrictCasesHandlerV1(service *Service, repo readRepository, users userAccess) *StrictCasesHandlerV1 {
+	return &StrictCasesHandlerV1{service: service, repo: repo, users: users}
 }
 
 func (h *StrictCasesHandlerV1) principal(ctx context.Context) (*authn.Principal, bool) {
 	return authn.FromAuthContext(ctx)
 }
 
-func (h *StrictCasesHandlerV1) isAdmin(ctx context.Context) bool {
+func (h *StrictCasesHandlerV1) isAdmin(ctx context.Context) (bool, error) {
 	p, ok := h.principal(ctx)
-	return ok && p.Type == authn.UserPrincipal && h.users.IsAdmin(ctx, user.UserId(p.ID))
+	if !ok || p.Type != authn.UserPrincipal {
+		return false, nil
+	}
+	return h.users.IsAdmin(ctx, int64(p.ID))
 }
 
-func (h *StrictCasesHandlerV1) isPublicServant(ctx context.Context) bool {
+func (h *StrictCasesHandlerV1) isPublicServant(ctx context.Context) (bool, error) {
 	p, ok := h.principal(ctx)
-	return ok && p.Type == authn.UserPrincipal && h.users.IsPublicServant(ctx, user.UserId(p.ID))
+	if !ok || p.Type != authn.UserPrincipal {
+		return false, nil
+	}
+	return h.users.IsPublicServant(ctx, int64(p.ID))
 }
 
 func (h *StrictCasesHandlerV1) StartCase(ctx context.Context, request oapi.StartCaseRequestObject) (oapi.StartCaseResponseObject, error) {
@@ -41,6 +60,9 @@ func (h *StrictCasesHandlerV1) StartCase(ctx context.Context, request oapi.Start
 	}
 	item, err := h.service.Start(ctx, int64(request.Id), int64(p.ID))
 	if err != nil {
+		if !errors.Is(err, ErrProcedureInactive) {
+			return nil, err
+		}
 		return oapi.StartCase409ApplicationProblemPlusJSONResponse{ConflictApplicationProblemPlusJSONResponse: oapi.NewConflictResponse(err.Error())}, nil
 	}
 	return oapi.StartCase201JSONResponse(caseToResponse(*item)), nil
@@ -54,12 +76,16 @@ func (h *StrictCasesHandlerV1) ListCases(ctx context.Context, request oapi.ListC
 	var items []Summary
 	var err error
 	if string(request.Params.Scope) == "unassigned" {
-		if !h.isPublicServant(ctx) {
+		servant, accessErr := h.isPublicServant(ctx)
+		if accessErr != nil {
+			return nil, accessErr
+		}
+		if !servant {
 			return oapi.ListCases403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere ser servidor público")}, nil
 		}
-		items, err = h.service.ListUnassigned(ctx)
+		items, err = h.repo.ListUnassigned(ctx)
 	} else {
-		items, err = h.service.ListMine(ctx, int64(p.ID))
+		items, err = h.repo.ListMine(ctx, int64(p.ID))
 	}
 	if err != nil {
 		return nil, err
@@ -76,9 +102,16 @@ func (h *StrictCasesHandlerV1) GetCase(ctx context.Context, request oapi.GetCase
 	if !ok {
 		return nil, authn.ErrRequiresAuthenticatedUser
 	}
-	item, err := h.service.Get(ctx, int64(request.Id), int64(p.ID), h.isAdmin(ctx))
-	if err != nil {
+	admin, accessErr := h.isAdmin(ctx)
+	if accessErr != nil {
+		return nil, accessErr
+	}
+	item, err := h.service.Get(ctx, int64(request.Id), int64(p.ID), admin)
+	if errors.Is(err, ErrNotFound) {
 		return oapi.GetCase404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
+	}
+	if err != nil {
+		return nil, err
 	}
 	return oapi.GetCase200JSONResponse(caseToResponse(*item)), nil
 }
@@ -88,10 +121,19 @@ func (h *StrictCasesHandlerV1) ClaimCase(ctx context.Context, request oapi.Claim
 	if !ok {
 		return nil, authn.ErrRequiresAuthenticatedUser
 	}
-	if !h.isPublicServant(ctx) {
+	servant, accessErr := h.isPublicServant(ctx)
+	if accessErr != nil {
+		return nil, accessErr
+	}
+	if !servant {
 		return oapi.ClaimCase403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere ser servidor público")}, nil
 	}
 	item, err := h.service.Claim(ctx, int64(request.Id), int64(p.ID))
+	if !errors.Is(err, ErrAlreadyClaimed) && !errors.Is(err, ErrNotClaimable) {
+		if err != nil {
+			return nil, err
+		}
+	}
 	if err != nil {
 		return oapi.ClaimCase409ApplicationProblemPlusJSONResponse{ConflictApplicationProblemPlusJSONResponse: oapi.NewConflictResponse(err.Error())}, nil
 	}
@@ -107,8 +149,11 @@ func (h *StrictCasesHandlerV1) FireTransition(ctx context.Context, request oapi.
 	if errors.Is(err, ErrForbidden) {
 		return oapi.FireTransition403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse(err.Error())}, nil
 	}
-	if err != nil {
+	if errors.Is(err, ErrConflict) {
 		return oapi.FireTransition409ApplicationProblemPlusJSONResponse{ConflictApplicationProblemPlusJSONResponse: oapi.NewConflictResponse(err.Error())}, nil
+	}
+	if err != nil {
+		return nil, err
 	}
 	return oapi.FireTransition200JSONResponse(caseToResponse(*item)), nil
 }
@@ -122,7 +167,7 @@ func (h *StrictCasesHandlerV1) ListTasks(ctx context.Context, request oapi.ListT
 	if request.Params.Status != nil && string(*request.Params.Status) == "completed" {
 		status = TaskCompleted
 	}
-	items, err := h.service.ListTasks(ctx, int64(p.ID), status)
+	items, err := h.repo.ListTasks(ctx, int64(p.ID), status)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +183,7 @@ func (h *StrictCasesHandlerV1) ListNotifications(ctx context.Context, _ oapi.Lis
 	if !ok {
 		return nil, authn.ErrRequiresAuthenticatedUser
 	}
-	items, err := h.service.ListNotifications(ctx, int64(p.ID))
+	items, err := h.repo.ListNotifications(ctx, int64(p.ID))
 	if err != nil {
 		return nil, err
 	}
@@ -154,8 +199,10 @@ func (h *StrictCasesHandlerV1) MarkNotificationRead(ctx context.Context, request
 	if !ok {
 		return nil, authn.ErrRequiresAuthenticatedUser
 	}
-	if err := h.service.MarkNotificationRead(ctx, request.Id, int64(p.ID)); err != nil {
+	if err := h.repo.MarkNotificationRead(ctx, request.Id, int64(p.ID)); errors.Is(err, ErrNotFound) {
 		return oapi.MarkNotificationRead404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
+	} else if err != nil {
+		return nil, err
 	}
 	return oapi.MarkNotificationRead204Response{}, nil
 }

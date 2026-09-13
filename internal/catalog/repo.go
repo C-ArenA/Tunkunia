@@ -4,8 +4,10 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"time"
 
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
+	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 )
 
 type CatalogRepo struct {
@@ -13,64 +15,75 @@ type CatalogRepo struct {
 	queries *sqlc.Queries
 }
 
-func NewRepo(db *sql.DB, q *sqlc.Queries) *CatalogRepo {
-	return &CatalogRepo{
-		db:      db,
-		queries: q,
-	}
+func NewSQLiteRepository(db *sql.DB, q *sqlc.Queries) *CatalogRepo {
+	return &CatalogRepo{db: db, queries: q}
 }
 
-// List implements [Repo].
-func (r *CatalogRepo) List(ctx context.Context, status *TramiteStatus) ([]Tramite, error) {
-	var (
-		dest []sqlc.Tramite
-		err  error
-	)
+func (r *CatalogRepo) List(ctx context.Context, status *oapi.TramiteStatus) ([]oapi.TramiteBase, error) {
+	var rows []sqlc.Tramite
+	var err error
 	if status == nil {
-		dest, err = r.queries.ListTramites(ctx, r.db)
+		rows, err = r.queries.ListTramites(ctx, r.db)
 	} else {
-		dest, err = r.queries.ListTramitesByStatus(ctx, r.db, string(*status))
+		rows, err = r.queries.ListTramitesByStatus(ctx, r.db, string(*status))
 	}
 	if err != nil {
 		return nil, err
 	}
-	tramites := make([]Tramite, len(dest))
-	for i, t := range dest {
-		dT, err := TramiteFromSqlc(t)
-		if err != nil {
-			return nil, err
-		}
-		tramites[i] = dT
+	result := make([]oapi.TramiteBase, len(rows))
+	for i, row := range rows {
+		result[i] = tramiteBase(row)
 	}
-
-	return tramites, nil
+	return result, nil
 }
 
-// Create implements [Repo].
-func (r *CatalogRepo) Create(ctx context.Context, t Tramite) (*Tramite, error) {
-	sqlcT := TramiteToSqlc(t)
-
-	newT, err := r.queries.CreateTramite(ctx, r.db, sqlc.CreateTramiteParams{
-		Name:                 sqlcT.Name,
-		Description:          sqlcT.Description,
-		ProcedureDescription: sqlcT.ProcedureDescription,
-		Type:                 sqlcT.Type,
+func (r *CatalogRepo) Create(ctx context.Context, input oapi.TramiteCreate) (oapi.Tramite, error) {
+	description, procedureDescription, tramiteType := "", "", ""
+	if input.Description != nil {
+		description = *input.Description
+	}
+	if input.ProcedureDescription != nil {
+		procedureDescription = *input.ProcedureDescription
+	}
+	if input.Type != nil {
+		tramiteType = string(*input.Type)
+	}
+	row, err := r.queries.CreateTramite(ctx, r.db, sqlc.CreateTramiteParams{
+		Name: input.Name, Description: description, ProcedureDescription: procedureDescription, Type: tramiteType,
 	})
-
 	if err != nil {
-		return nil, err
+		return oapi.Tramite{}, err
 	}
-
-	dT, err := TramiteFromSqlc(newT)
-	if err != nil {
-		return nil, err
-	}
-	return &dT, nil
+	return tramite(row), nil
 }
 
-// Delete implements [Repo].
-func (r *CatalogRepo) Delete(ctx context.Context, id TramiteID) error {
-	rows, err := r.queries.DeleteTramite(ctx, r.db, int64(id))
+func (r *CatalogRepo) Get(ctx context.Context, id int64) (oapi.Tramite, error) {
+	row, err := r.queries.GetTramite(ctx, r.db, id)
+	if errors.Is(err, sql.ErrNoRows) {
+		return oapi.Tramite{}, ErrNotFound
+	}
+	if err != nil {
+		return oapi.Tramite{}, err
+	}
+	return tramite(row), nil
+}
+
+func (r *CatalogRepo) Update(ctx context.Context, id int64, input oapi.TramiteUpdate) (oapi.Tramite, error) {
+	row, err := r.queries.UpdateTramite(ctx, r.db, sqlc.UpdateTramiteParams{
+		ID: id, Name: input.Name, Description: input.Description,
+		ProcedureDescription: input.ProcedureDescription, Type: string(input.Type),
+	})
+	if errors.Is(err, sql.ErrNoRows) {
+		return oapi.Tramite{}, ErrNotFound
+	}
+	if err != nil {
+		return oapi.Tramite{}, err
+	}
+	return tramite(row), nil
+}
+
+func (r *CatalogRepo) Delete(ctx context.Context, id int64) error {
+	rows, err := r.queries.DeleteTramite(ctx, r.db, id)
 	if err != nil {
 		return err
 	}
@@ -80,41 +93,24 @@ func (r *CatalogRepo) Delete(ctx context.Context, id TramiteID) error {
 	return nil
 }
 
-// Get implements [Repo].
-func (r *CatalogRepo) Get(ctx context.Context, id TramiteID) (*Tramite, error) {
-	t, err := r.queries.GetTramite(ctx, r.db, int64(id))
-	if errors.Is(err, sql.ErrNoRows) {
-		return nil, ErrNotFound
+func tramite(row sqlc.Tramite) oapi.Tramite {
+	return oapi.Tramite{
+		Id: row.ID, Name: row.Name, Description: row.Description,
+		ProcedureDescription: row.ProcedureDescription,
+		Status:               oapi.TramiteStatus(row.Status), Type: oapi.TramiteType(row.Type),
+		CreatedAt: parseTimestamp(row.CreatedAt), UpdatedAt: parseTimestamp(row.UpdatedAt),
 	}
-	if err != nil {
-		return nil, err
-	}
-
-	dT, err := TramiteFromSqlc(t)
-	if err != nil {
-		return nil, err
-	}
-	return &dT, nil
 }
 
-// Update implements [Repo].
-func (r *CatalogRepo) Update(ctx context.Context, id TramiteID, t Tramite) (*Tramite, error) {
-	dest, err := r.queries.UpdateTramite(ctx, r.db, sqlc.UpdateTramiteParams{
-		Name:                 t.Name,
-		Description:          t.Description,
-		ProcedureDescription: t.ProcedureDescription,
-		Type:                 string(t.Type),
-		ID:                   int64(id),
-	})
-	if errors.Is(err, sql.ErrNoRows) {
-		return nil, ErrNotFound
+func tramiteBase(row sqlc.Tramite) oapi.TramiteBase {
+	return oapi.TramiteBase{Id: row.ID, Name: row.Name, Description: row.Description}
+}
+
+func parseTimestamp(value string) time.Time {
+	for _, layout := range []string{time.DateTime, time.RFC3339Nano} {
+		if parsed, err := time.Parse(layout, value); err == nil {
+			return parsed.UTC()
+		}
 	}
-	if err != nil {
-		return nil, err
-	}
-	dT, err := TramiteFromSqlc(dest)
-	if err != nil {
-		return nil, err
-	}
-	return &dT, nil
+	return time.Time{}
 }

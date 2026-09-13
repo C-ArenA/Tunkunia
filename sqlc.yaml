@@ -5,6 +5,7 @@ sql:
     schema: "database/migrations"
     queries:
       - "internal/catalog/query.sql"
+      - "internal/cases/query.sql"
       - "internal/user/query.sql"
     gen:
       go:

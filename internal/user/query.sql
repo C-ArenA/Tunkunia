@@ -1,27 +1,8 @@
--- name: GetUserByEmail :one
-SELECT *
-FROM users
-WHERE
-  email = ?;
-
 -- name: GetUserById :one
 SELECT *
 FROM users
 WHERE
   id = ?;
-
--- name: UpsertUser :one
-INSERT INTO users(name, sub, email, email_verified, is_admin, is_public_servant)
-VALUES (?, ?, ?, ?, ?, ?)
-ON CONFLICT (email) DO UPDATE
-SET
-  sub = excluded.sub,
-  name = excluded.name,
-  email_verified = excluded.email_verified,
-  is_admin = excluded.is_admin,
-  is_public_servant = excluded.is_public_servant,
-  updated_at = CURRENT_TIMESTAMP
-RETURNING *;
 
 -- name: UpsertUserBySub :one
 INSERT INTO users(name, sub, email, email_verified)

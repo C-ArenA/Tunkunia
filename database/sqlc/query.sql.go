@@ -7,6 +7,7 @@ package sqlc
 
 import (
 	"context"
+	"database/sql"
 )
 
 const createTramite = `-- name: CreateTramite :one
@@ -96,36 +97,6 @@ func (q *Queries) GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, e
 	return i, err
 }
 
-const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
-FROM users
-WHERE
-  email = ?
-`
-
-// GetUserByEmail
-//
-//	SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
-//	FROM users
-//	WHERE
-//	  email = ?
-func (q *Queries) GetUserByEmail(ctx context.Context, db DBTX, email string) (User, error) {
-	row := db.QueryRowContext(ctx, getUserByEmail, email)
-	var i User
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Sub,
-		&i.Email,
-		&i.EmailVerified,
-		&i.IsAdmin,
-		&i.IsPublicServant,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
-}
-
 const getUserById = `-- name: GetUserById :one
 SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 FROM users
@@ -154,6 +125,179 @@ func (q *Queries) GetUserById(ctx context.Context, db DBTX, id int64) (User, err
 		&i.UpdatedAt,
 	)
 	return i, err
+}
+
+const listCaseSummariesByUser = `-- name: ListCaseSummariesByUser :many
+SELECT c.id, c.tramite_id, t.name AS tramite_name, c.status, c.revision, c.started_at, c.updated_at
+FROM cases c
+JOIN tramites t ON t.id = c.tramite_id
+JOIN case_participants cp ON cp.case_id = c.id
+WHERE cp.user_id = ?
+ORDER BY c.updated_at DESC
+`
+
+type ListCaseSummariesByUserRow struct {
+	ID          int64
+	TramiteID   int64
+	TramiteName string
+	Status      string
+	Revision    int64
+	StartedAt   string
+	UpdatedAt   string
+}
+
+// ListCaseSummariesByUser
+//
+//	SELECT c.id, c.tramite_id, t.name AS tramite_name, c.status, c.revision, c.started_at, c.updated_at
+//	FROM cases c
+//	JOIN tramites t ON t.id = c.tramite_id
+//	JOIN case_participants cp ON cp.case_id = c.id
+//	WHERE cp.user_id = ?
+//	ORDER BY c.updated_at DESC
+func (q *Queries) ListCaseSummariesByUser(ctx context.Context, db DBTX, userID int64) ([]ListCaseSummariesByUserRow, error) {
+	rows, err := db.QueryContext(ctx, listCaseSummariesByUser, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ListCaseSummariesByUserRow
+	for rows.Next() {
+		var i ListCaseSummariesByUserRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.TramiteID,
+			&i.TramiteName,
+			&i.Status,
+			&i.Revision,
+			&i.StartedAt,
+			&i.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listNotificationsByUser = `-- name: ListNotificationsByUser :many
+SELECT id, case_id, task_id, type, title, created_at, read_at
+FROM notifications
+WHERE user_id = ?
+ORDER BY created_at DESC
+`
+
+type ListNotificationsByUserRow struct {
+	ID        int64
+	CaseID    int64
+	TaskID    int64
+	Type      string
+	Title     string
+	CreatedAt string
+	ReadAt    sql.NullString
+}
+
+// ListNotificationsByUser
+//
+//	SELECT id, case_id, task_id, type, title, created_at, read_at
+//	FROM notifications
+//	WHERE user_id = ?
+//	ORDER BY created_at DESC
+func (q *Queries) ListNotificationsByUser(ctx context.Context, db DBTX, userID int64) ([]ListNotificationsByUserRow, error) {
+	rows, err := db.QueryContext(ctx, listNotificationsByUser, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ListNotificationsByUserRow
+	for rows.Next() {
+		var i ListNotificationsByUserRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.CaseID,
+			&i.TaskID,
+			&i.Type,
+			&i.Title,
+			&i.CreatedAt,
+			&i.ReadAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listTasksByAssignee = `-- name: ListTasksByAssignee :many
+SELECT id, case_id, transition_id, transition_label, role, assignee_id, status, created_at
+FROM case_tasks
+WHERE assignee_id = ? AND status = ?
+ORDER BY created_at DESC
+`
+
+type ListTasksByAssigneeParams struct {
+	AssigneeID sql.NullInt64
+	Status     string
+}
+
+type ListTasksByAssigneeRow struct {
+	ID              int64
+	CaseID          int64
+	TransitionID    string
+	TransitionLabel string
+	Role            string
+	AssigneeID      sql.NullInt64
+	Status          string
+	CreatedAt       string
+}
+
+// ListTasksByAssignee
+//
+//	SELECT id, case_id, transition_id, transition_label, role, assignee_id, status, created_at
+//	FROM case_tasks
+//	WHERE assignee_id = ? AND status = ?
+//	ORDER BY created_at DESC
+func (q *Queries) ListTasksByAssignee(ctx context.Context, db DBTX, arg ListTasksByAssigneeParams) ([]ListTasksByAssigneeRow, error) {
+	rows, err := db.QueryContext(ctx, listTasksByAssignee, arg.AssigneeID, arg.Status)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ListTasksByAssigneeRow
+	for rows.Next() {
+		var i ListTasksByAssigneeRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.CaseID,
+			&i.TransitionID,
+			&i.TransitionLabel,
+			&i.Role,
+			&i.AssigneeID,
+			&i.Status,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const listTramites = `-- name: ListTramites :many
@@ -246,6 +390,66 @@ func (q *Queries) ListTramitesByStatus(ctx context.Context, db DBTX, status stri
 	return items, nil
 }
 
+const listUnassignedCaseSummaries = `-- name: ListUnassignedCaseSummaries :many
+SELECT DISTINCT c.id, c.tramite_id, t.name AS tramite_name, c.status, c.revision, c.started_at, c.updated_at
+FROM cases c
+JOIN tramites t ON t.id = c.tramite_id
+JOIN case_tasks ct ON ct.case_id = c.id AND ct.role = 'servant' AND ct.status = 'pending'
+LEFT JOIN case_participants cp ON cp.case_id = c.id AND cp.role = 'servant'
+WHERE c.status = 'active' AND cp.user_id IS NULL
+ORDER BY c.started_at
+`
+
+type ListUnassignedCaseSummariesRow struct {
+	ID          int64
+	TramiteID   int64
+	TramiteName string
+	Status      string
+	Revision    int64
+	StartedAt   string
+	UpdatedAt   string
+}
+
+// ListUnassignedCaseSummaries
+//
+//	SELECT DISTINCT c.id, c.tramite_id, t.name AS tramite_name, c.status, c.revision, c.started_at, c.updated_at
+//	FROM cases c
+//	JOIN tramites t ON t.id = c.tramite_id
+//	JOIN case_tasks ct ON ct.case_id = c.id AND ct.role = 'servant' AND ct.status = 'pending'
+//	LEFT JOIN case_participants cp ON cp.case_id = c.id AND cp.role = 'servant'
+//	WHERE c.status = 'active' AND cp.user_id IS NULL
+//	ORDER BY c.started_at
+func (q *Queries) ListUnassignedCaseSummaries(ctx context.Context, db DBTX) ([]ListUnassignedCaseSummariesRow, error) {
+	rows, err := db.QueryContext(ctx, listUnassignedCaseSummaries)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ListUnassignedCaseSummariesRow
+	for rows.Next() {
+		var i ListUnassignedCaseSummariesRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.TramiteID,
+			&i.TramiteName,
+			&i.Status,
+			&i.Revision,
+			&i.StartedAt,
+			&i.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listUsers = `-- name: ListUsers :many
 SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 FROM users
@@ -288,6 +492,30 @@ func (q *Queries) ListUsers(ctx context.Context, db DBTX) ([]User, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+const markNotificationRead = `-- name: MarkNotificationRead :execrows
+UPDATE notifications
+SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP)
+WHERE id = ? AND user_id = ?
+`
+
+type MarkNotificationReadParams struct {
+	ID     int64
+	UserID int64
+}
+
+// MarkNotificationRead
+//
+//	UPDATE notifications
+//	SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP)
+//	WHERE id = ? AND user_id = ?
+func (q *Queries) MarkNotificationRead(ctx context.Context, db DBTX, arg MarkNotificationReadParams) (int64, error) {
+	result, err := db.ExecContext(ctx, markNotificationRead, arg.ID, arg.UserID)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected()
 }
 
 const setAdmin = `-- name: SetAdmin :exec
@@ -394,66 +622,6 @@ type UpdateUserAccessParams struct {
 //	RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 func (q *Queries) UpdateUserAccess(ctx context.Context, db DBTX, arg UpdateUserAccessParams) (User, error) {
 	row := db.QueryRowContext(ctx, updateUserAccess, arg.IsAdmin, arg.IsPublicServant, arg.ID)
-	var i User
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Sub,
-		&i.Email,
-		&i.EmailVerified,
-		&i.IsAdmin,
-		&i.IsPublicServant,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
-}
-
-const upsertUser = `-- name: UpsertUser :one
-INSERT INTO users(name, sub, email, email_verified, is_admin, is_public_servant)
-VALUES (?, ?, ?, ?, ?, ?)
-ON CONFLICT (email) DO UPDATE
-SET
-  sub = excluded.sub,
-  name = excluded.name,
-  email_verified = excluded.email_verified,
-  is_admin = excluded.is_admin,
-  is_public_servant = excluded.is_public_servant,
-  updated_at = CURRENT_TIMESTAMP
-RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
-`
-
-type UpsertUserParams struct {
-	Name            string
-	Sub             string
-	Email           string
-	EmailVerified   int64
-	IsAdmin         int64
-	IsPublicServant int64
-}
-
-// UpsertUser
-//
-//	INSERT INTO users(name, sub, email, email_verified, is_admin, is_public_servant)
-//	VALUES (?, ?, ?, ?, ?, ?)
-//	ON CONFLICT (email) DO UPDATE
-//	SET
-//	  sub = excluded.sub,
-//	  name = excluded.name,
-//	  email_verified = excluded.email_verified,
-//	  is_admin = excluded.is_admin,
-//	  is_public_servant = excluded.is_public_servant,
-//	  updated_at = CURRENT_TIMESTAMP
-//	RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
-func (q *Queries) UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams) (User, error) {
-	row := db.QueryRowContext(ctx, upsertUser,
-		arg.Name,
-		arg.Sub,
-		arg.Email,
-		arg.EmailVerified,
-		arg.IsAdmin,
-		arg.IsPublicServant,
-	)
 	var i User
 	err := row.Scan(
 		&i.ID,

@@ -3,7 +3,6 @@ package user
 import (
 	"net/mail"
 	"strings"
-	"time"
 )
 
 type Email string
@@ -30,20 +29,4 @@ func NewEmail(e string) (Email, error) {
 	}
 
 	return Email(addr.Address), nil
-}
-
-type UserId int
-
-// User is always a citizen. IsAdmin and IsPublicServant grant additional,
-// independent system access.
-type User struct {
-	ID              UserId
-	Name            string
-	Sub             string
-	Email           Email
-	EmailVerified   bool
-	IsAdmin         bool
-	IsPublicServant bool
-	CreatedAt       time.Time
-	UpdatedAt       time.Time
 }

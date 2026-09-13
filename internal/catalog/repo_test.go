@@ -6,6 +6,7 @@ import (
 
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
+	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	_ "modernc.org/sqlite"
@@ -31,29 +32,29 @@ func TestRepoListsByStatusAndReplacesMetadata(t *testing.T) {
 	`)
 	require.NoError(t, err)
 
-	repo := NewRepo(db, sqlc.New())
+	repo := NewSQLiteRepository(db, sqlc.New())
 	all, err := repo.List(t.Context(), nil)
 	require.NoError(t, err)
 	require.Len(t, all, 2)
 	assert.Equal(t, "Borrador", all[0].Name)
 	assert.Equal(t, "Publicado", all[1].Name)
 
-	published := Published
+	published := oapi.TramiteStatusPublished
 	tramites, err := repo.List(t.Context(), &published)
 	require.NoError(t, err)
 	require.Len(t, tramites, 1)
 	assert.Equal(t, "Publicado", tramites[0].Name)
 
-	updated, err := repo.Update(t.Context(), TramiteID(firstID), Tramite{
+	updated, err := repo.Update(t.Context(), firstID, oapi.TramiteUpdate{
 		Name:                 "Borrador actualizado",
 		Description:          "Nueva descripción",
 		ProcedureDescription: "Nuevo procedimiento",
-		Type:                 Certificación,
+		Type:                 oapi.Certification,
 	})
 	require.NoError(t, err)
 	assert.Equal(t, "Borrador actualizado", updated.Name)
 	assert.Equal(t, "Nueva descripción", updated.Description)
 	assert.Equal(t, "Nuevo procedimiento", updated.ProcedureDescription)
-	assert.Equal(t, Certificación, updated.Type)
-	assert.Equal(t, Draft, updated.Status)
+	assert.Equal(t, oapi.Certification, updated.Type)
+	assert.Equal(t, oapi.TramiteStatusDraft, updated.Status)
 }

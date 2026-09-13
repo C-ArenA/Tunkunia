@@ -40,5 +40,5 @@ func ProcedureToResponse(net petrunia.Net) oapi.ProcedureDefinition {
 }
 
 func ProcedureVersionToResponse(v ProcedureVersion) oapi.ProcedureVersion {
-	return oapi.ProcedureVersion{Id: v.ID, TramiteId: int64(v.TramiteID), VersionNumber: v.VersionNumber, Status: oapi.ProcedureVersionStatus(v.Status), Definition: ProcedureToResponse(v.Definition)}
+	return oapi.ProcedureVersion{Id: v.ID, TramiteId: v.TramiteID, VersionNumber: v.VersionNumber, Status: oapi.ProcedureVersionStatus(v.Status), Definition: ProcedureToResponse(v.Definition)}
 }

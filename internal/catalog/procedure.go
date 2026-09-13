@@ -2,23 +2,21 @@ package catalog
 
 import (
 	"context"
-	"database/sql"
-	"encoding/json"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/C-ArenA/Tunkunia/petrunia"
 )
 
 var (
+	ErrNotFound             = errors.New("element not found")
 	ErrNoPublishedProcedure = errors.New("el trámite no tiene un procedimiento publicado")
 	ErrInvalidProcedure     = errors.New("el procedimiento no es válido")
 )
 
 type ProcedureVersion struct {
 	ID            int64
-	TramiteID     TramiteID
+	TramiteID     int64
 	VersionNumber *int
 	Status        string
 	Definition    petrunia.Net
@@ -34,54 +32,25 @@ type ProcedureValidationError struct {
 func (e *ProcedureValidationError) Error() string { return ErrInvalidProcedure.Error() }
 func (e *ProcedureValidationError) Unwrap() error { return ErrInvalidProcedure }
 
-func (s *Service) GetPublishedProcedure(ctx context.Context, id TramiteID) (*ProcedureVersion, error) {
-	return s.repo.GetPublishedProcedure(ctx, id)
+type procedureRepository interface {
+	PublishProcedure(context.Context, int64, func(petrunia.Net) error) (*ProcedureVersion, error)
 }
 
-func (s *Service) GetDraftProcedure(ctx context.Context, id TramiteID) (*ProcedureVersion, error) {
-	return s.repo.GetDraftProcedure(ctx, id)
+// ProcedureService owns the only catalog behavior that is more than CRUD:
+// validating a draft before publishing it.
+type ProcedureService struct {
+	repo procedureRepository
 }
 
-func (s *Service) SaveDraftProcedure(ctx context.Context, id TramiteID, net petrunia.Net) (*ProcedureVersion, error) {
-	return s.repo.SaveDraftProcedure(ctx, id, net)
+func NewProcedureService(repo procedureRepository) *ProcedureService {
+	return &ProcedureService{repo: repo}
 }
 
-func (s *Service) PublishProcedure(ctx context.Context, id TramiteID) (*ProcedureVersion, error) {
-	draft, err := s.repo.GetDraftProcedure(ctx, id)
-	if err != nil {
-		return nil, err
-	}
-	if violations := petrunia.ValidateWorkflow(draft.Definition, petrunia.ValidationOptions{MaxReachableMarkings: 10_000}); len(violations) > 0 {
-		return nil, &ProcedureValidationError{Violations: violations}
-	}
-	return s.repo.PublishProcedure(ctx, id)
-}
-
-func (s *Service) Archive(ctx context.Context, id TramiteID) error {
-	return s.repo.Archive(ctx, id)
-}
-
-func scanProcedure(scanner interface{ Scan(...any) error }) (*ProcedureVersion, error) {
-	var version ProcedureVersion
-	var definition string
-	var versionNumber sql.NullInt64
-	var createdAt, updatedAt string
-	var publishedAt sql.NullString
-	if err := scanner.Scan(&version.ID, &version.TramiteID, &versionNumber, &version.Status, &definition, &createdAt, &updatedAt, &publishedAt); err != nil {
-		return nil, err
-	}
-	if versionNumber.Valid {
-		n := int(versionNumber.Int64)
-		version.VersionNumber = &n
-	}
-	if err := json.Unmarshal([]byte(definition), &version.Definition); err != nil {
-		return nil, fmt.Errorf("decodificar procedimiento: %w", err)
-	}
-	version.CreatedAt, _ = time.Parse(time.RFC3339, createdAt)
-	version.UpdatedAt, _ = time.Parse(time.RFC3339, updatedAt)
-	if publishedAt.Valid {
-		t, _ := time.Parse(time.RFC3339, publishedAt.String)
-		version.PublishedAt = &t
-	}
-	return &version, nil
+func (s *ProcedureService) PublishProcedure(ctx context.Context, id int64) (*ProcedureVersion, error) {
+	return s.repo.PublishProcedure(ctx, id, func(net petrunia.Net) error {
+		if violations := petrunia.ValidateWorkflow(net, petrunia.ValidationOptions{MaxReachableMarkings: 10_000}); len(violations) > 0 {
+			return &ProcedureValidationError{Violations: violations}
+		}
+		return nil
+	})
 }

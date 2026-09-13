@@ -19,6 +19,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/cases"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
+	"github.com/C-ArenA/Tunkunia/internal/health"
 	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/Marlliton/slogpretty"
 	"github.com/go-chi/chi/v5"
@@ -50,13 +51,21 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	q := sqlc.New()
 
 	// modules wiring
-	userService := user.NewService(db, q, cfg.FirstAdminEmail)
-	catalogService := catalog.NewService(catalog.NewRepo(db, q))
-	caseService := cases.NewService(db, catalogService)
+	userRepo := user.NewSQLiteRepository(db, q)
+	userService := user.NewService(userRepo, cfg.FirstAdminEmail)
+	catalogRepo := catalog.NewSQLiteRepository(db, q)
+	procedureService := catalog.NewProcedureService(catalogRepo)
+	caseRepo := cases.NewSQLiteRepository(db, q)
+	caseService := cases.NewService(caseRepo, catalogRepo)
 	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
 
 	// Handlers
-	strictHandlerV1 := apiv1.NewStrictHandler(catalogService, userService, caseService)
+	strictHandlerV1 := apiv1.NewStrictHandler(
+		health.NewStrictHealthHandlerV1(),
+		catalog.NewStrictCatalogHandlerV1(catalogRepo, procedureService, userService),
+		user.NewStrictUserHandlerV1(userRepo, userService),
+		cases.NewStrictCasesHandlerV1(caseService, caseRepo, userService),
+	)
 
 	oidcHandler, err := authn.NewOIDCHandler(ctx, authn.OIDCConfig{
 		AppURL:       cfg.AppURL,
