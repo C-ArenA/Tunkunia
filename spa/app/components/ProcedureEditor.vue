@@ -1,212 +1,135 @@
 <script setup lang="ts">
-import type {
-  ProcedureArc,
-  ProcedureGraph,
-  ProcedureNode,
-  ProcedureNodeKind,
-} from "~/types/tunkunia";
-const props = defineProps<{ modelValue: ProcedureGraph }>();
-const emit = defineEmits<{ "update:modelValue": [value: ProcedureGraph] }>();
-const graph = computed({
-  get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
-});
-const from = ref("");
-const to = ref("");
-const error = ref("");
-function updateNode(id: string, patch: Partial<ProcedureNode>) {
-  graph.value = {
-    ...graph.value,
-    nodes: graph.value.nodes.map((node) => (node.id === id ? { ...node, ...patch } : node)),
-  };
+import "@vue-flow/core/dist/style.css";
+import "@vue-flow/core/dist/theme-default.css";
+import ProcedureCanvas from "./procedure/ProcedureCanvas.vue";
+import type { ProcedureDefinition, ProcedureNode } from "#shared/clientV1/types.gen";
+
+const props = defineProps<{ modelValue: ProcedureDefinition }>();
+const emit = defineEmits<{ "update:modelValue": [value: ProcedureDefinition] }>();
+const canvas = ref<InstanceType<typeof ProcedureCanvas>>();
+const selectedId = ref("");
+
+const selected = computed(() =>
+  props.modelValue.nodes.find((node) => node.id === selectedId.value),
+);
+const places = computed(() => props.modelValue.nodes.filter((node) => node.kind === "place"));
+const update = (patch: Partial<ProcedureNode>) => {
+  if (!selected.value) return;
+  emit("update:modelValue", {
+    ...props.modelValue,
+    nodes: props.modelValue.nodes.map((node) =>
+      node.id === selected.value?.id ? { ...node, ...patch } : node,
+    ),
+  });
+};
+
+function addNode(kind: "place" | "transition") {
+  canvas.value?.addNode(kind);
 }
-function addNode(kind: ProcedureNodeKind) {
-  const id = `${kind === "place" ? "p" : "t"}-${Date.now()}`;
-  graph.value = {
-    ...graph.value,
-    nodes: [
-      ...graph.value.nodes,
-      {
-        id,
-        kind,
-        label: kind === "place" ? "Nuevo estado" : "Nueva actividad",
-        x: 100 + graph.value.nodes.length * 90,
-        y: 110,
-        ...(kind === "transition" ? { role: "citizen" as const } : {}),
-      },
-    ],
-  };
-}
-function removeNode(id: string) {
-  graph.value = {
-    nodes: graph.value.nodes.filter((node) => node.id !== id),
-    arcs: graph.value.arcs.filter((arc) => arc.from !== id && arc.to !== id),
-  };
-}
-function addArc() {
-  error.value = "";
-  const a = graph.value.nodes.find((node) => node.id === from.value);
-  const b = graph.value.nodes.find((node) => node.id === to.value);
-  if (!a || !b) return;
-  if (a.id === b.id || a.kind === b.kind) {
-    error.value = "Una conexión debe unir un círculo con una caja.";
-    return;
-  }
-  if (graph.value.arcs.some((arc) => arc.from === a.id && arc.to === b.id)) {
-    error.value = "Esa conexión ya existe.";
-    return;
-  }
-  const arc: ProcedureArc = { id: `a-${Date.now()}`, from: a.id, to: b.id };
-  graph.value = { ...graph.value, arcs: [...graph.value.arcs, arc] };
-  from.value = "";
-  to.value = "";
+function removeSelected() {
+  canvas.value?.removeSelected();
+  selectedId.value = "";
 }
 </script>
+
 <template>
-  <div class="grid gap-6 2xl:grid-cols-[430px_1fr]">
-    <div class="space-y-5">
+  <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
+    <div class="min-w-0">
+      <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h3 class="font-semibold">Editor visual</h3>
+          <p class="mt-1 text-xs text-slate-500">
+            Arrastra elementos, conecta círculos con actividades y pulsa Suprimir para quitar una
+            conexión.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <UButton
+            size="sm"
+            icon="i-lucide-circle"
+            label="Estado"
+            color="neutral"
+            variant="soft"
+            @click="addNode('place')"
+          />
+          <UButton
+            size="sm"
+            icon="i-lucide-square"
+            label="Actividad"
+            color="neutral"
+            variant="soft"
+            @click="addNode('transition')"
+          />
+        </div>
+      </div>
+      <ProcedureCanvas
+        ref="canvas"
+        :graph="modelValue"
+        :editable="true"
+        @update:graph="emit('update:modelValue', $event)"
+        @select-node="selectedId = $event"
+      />
+    </div>
+    <aside class="space-y-5">
       <div class="surface p-5">
         <div class="flex items-center justify-between">
-          <div>
-            <h3 class="font-semibold">Elementos</h3>
-            <p class="mt-1 text-xs text-slate-500">Círculos son estados; cajas son actividades.</p>
-          </div>
-          <div class="flex gap-2">
-            <UButton
-              size="sm"
-              icon="i-lucide-circle"
-              label="Círculo"
-              color="neutral"
-              variant="soft"
-              @click="addNode('place')"
-            /><UButton
-              size="sm"
-              icon="i-lucide-square"
-              label="Caja"
-              color="neutral"
-              variant="soft"
-              @click="addNode('transition')"
-            />
-          </div>
+          <h3 class="font-semibold">Elemento seleccionado</h3>
+          <UButton
+            v-if="selected"
+            icon="i-lucide-trash-2"
+            color="error"
+            variant="ghost"
+            size="sm"
+            aria-label="Eliminar elemento"
+            @click="removeSelected"
+          />
         </div>
-        <div class="mt-4 max-h-80 space-y-3 overflow-y-auto">
-          <div
-            v-for="node in graph.nodes"
-            :key="node.id"
-            class="rounded-xl border border-slate-200 p-3"
-          >
-            <div class="flex items-center gap-2">
-              <UIcon
-                :name="node.kind === 'place' ? 'i-lucide-circle' : 'i-lucide-square'"
-                class="size-4"
-              /><UInput
-                :model-value="node.label"
-                class="flex-1"
-                @update:model-value="updateNode(node.id, { label: String($event) })"
-              /><UButton
-                icon="i-lucide-trash-2"
-                color="error"
-                variant="ghost"
-                size="sm"
-                aria-label="Eliminar elemento"
-                @click="removeNode(node.id)"
-              />
-            </div>
-            <div class="mt-2 grid grid-cols-2 gap-2">
-              <UInput
-                type="number"
-                :model-value="node.x"
-                @update:model-value="updateNode(node.id, { x: Number($event) })"
-              /><UInput
-                type="number"
-                :model-value="node.y"
-                @update:model-value="updateNode(node.id, { y: Number($event) })"
-              />
-            </div>
+        <p v-if="!selected" class="mt-3 text-sm text-slate-500">
+          Selecciona un elemento para editarlo.
+        </p>
+        <div v-else class="mt-4 space-y-3">
+          <UFormField label="Nombre"
+            ><UInput
+              :model-value="selected.label"
+              class="w-full"
+              @update:model-value="update({ label: String($event) })"
+          /></UFormField>
+          <UFormField v-if="selected.kind === 'transition'" label="Responsable">
             <USelect
-              v-if="node.kind === 'transition'"
-              :model-value="node.role || 'citizen'"
-              class="mt-2 w-full"
+              :model-value="selected.role || 'citizen'"
               :items="[
                 { label: 'Ciudadano', value: 'citizen' },
                 { label: 'Servidor público', value: 'servant' },
               ]"
-              @update:model-value="updateNode(node.id, { role: $event as 'citizen' | 'servant' })"
+              class="w-full"
+              @update:model-value="update({ role: $event as 'citizen' | 'servant' })"
             />
-          </div>
+          </UFormField>
         </div>
       </div>
       <div class="surface p-5">
         <h3 class="font-semibold">Inicio y final</h3>
         <div class="mt-4 grid gap-3">
-          <UFormField label="Lugar inicial">
-            <USelect
-              :model-value="graph.initialPlaceId"
-              :items="
-                graph.nodes
-                  .filter((n) => n.kind === 'place')
-                  .map((n) => ({ label: n.label, value: n.id }))
+          <UFormField label="Lugar inicial"
+            ><USelect
+              :model-value="modelValue.initialPlaceId"
+              :items="places.map((node) => ({ label: node.label, value: node.id }))"
+              class="w-full"
+              @update:model-value="
+                emit('update:modelValue', { ...modelValue, initialPlaceId: String($event) })
               "
-              @update:model-value="graph = { ...graph, initialPlaceId: String($event) }"
-            />
-          </UFormField>
-          <UFormField label="Lugar final">
-            <USelect
-              :model-value="graph.finalPlaceId"
-              :items="
-                graph.nodes
-                  .filter((n) => n.kind === 'place')
-                  .map((n) => ({ label: n.label, value: n.id }))
+          /></UFormField>
+          <UFormField label="Lugar final"
+            ><USelect
+              :model-value="modelValue.finalPlaceId"
+              :items="places.map((node) => ({ label: node.label, value: node.id }))"
+              class="w-full"
+              @update:model-value="
+                emit('update:modelValue', { ...modelValue, finalPlaceId: String($event) })
               "
-              @update:model-value="graph = { ...graph, finalPlaceId: String($event) }"
-            />
-          </UFormField>
+          /></UFormField>
         </div>
       </div>
-      <div class="surface p-5">
-        <h3 class="font-semibold">Conexiones dirigidas</h3>
-        <div class="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-          <USelect
-            v-model="from"
-            :items="graph.nodes.map((n) => ({ label: n.label, value: n.id }))"
-            placeholder="Origen"
-          /><UIcon name="i-lucide-arrow-right" /><USelect
-            v-model="to"
-            :items="graph.nodes.map((n) => ({ label: n.label, value: n.id }))"
-            placeholder="Destino"
-          />
-        </div>
-        <p v-if="error" class="mt-2 text-xs text-red-600">{{ error }}</p>
-        <UButton
-          class="mt-3"
-          size="sm"
-          label="Añadir conexión"
-          icon="i-lucide-plus"
-          @click="addArc"
-        />
-        <div class="mt-4 space-y-2">
-          <div
-            v-for="arc in graph.arcs"
-            :key="arc.id"
-            class="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-xs"
-          >
-            <span
-              >{{ graph.nodes.find((n) => n.id === arc.from)?.label }} →
-              {{ graph.nodes.find((n) => n.id === arc.to)?.label }}</span
-            ><UButton
-              icon="i-lucide-x"
-              size="xs"
-              color="error"
-              variant="ghost"
-              @click="graph = { ...graph, arcs: graph.arcs.filter((a) => a.id !== arc.id) }"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <p class="mb-3 text-sm font-semibold">Vista previa</p>
-      <ProcedureDiagram :graph="graph" />
-    </div>
+    </aside>
   </div>
 </template>

@@ -2,7 +2,7 @@
 
 This plan tracks the implementation from the SPA cleanup. Check a commit only after its staged diff has been reviewed and the commit has been created. The current `AGENTS.md` edit predates this plan and remains excluded from all groups.
 
-- [ ] `feat: add institution settings and user lookup API`
+- [x] `feat: add institution settings and user lookup API`
   - Add the institution migration, SQLite repository, validation, admin authorization, and API wiring.
   - Add admin `GET /users/{id}`.
   - Update source OpenAPI, SQLC configuration, generated Go API models/handlers, and migration coverage.
@@ -30,4 +30,4 @@ This plan tracks the implementation from the SPA cleanup. Check a commit only af
 
 ## Current position
 
-The first group is staged for review. No commit has been created yet. After approval, update this file’s first checkbox and stage the next group before proposing its commit message.
+The first group has been committed as `3b19424`. The second group is staged for review; no second commit has been created yet. After approval, update this file’s second checkbox and stage the next group before proposing its commit message.

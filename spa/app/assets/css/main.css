@@ -40,6 +40,23 @@ body {
   background-size: 18px 18px;
   padding: 0.75rem;
 }
+.diagram-shell .vue-flow {
+  min-height: 100%;
+  background: transparent;
+}
+.diagram-shell .vue-flow__node {
+  overflow: visible;
+}
+.diagram-shell .vue-flow__handle {
+  width: 8px;
+  height: 8px;
+  border: 2px solid white;
+  background: var(--tunkunia-primary);
+}
+.diagram-shell .procedure-edge path {
+  stroke: #64746a;
+  stroke-width: 2;
+}
 .page-title {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   line-height: 1.1;

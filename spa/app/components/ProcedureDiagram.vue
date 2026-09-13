@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import type { ProcedureGraph } from "~/types/tunkunia";
+import "@vue-flow/core/dist/style.css";
+import "@vue-flow/core/dist/theme-default.css";
+import ProcedureCanvas from "./procedure/ProcedureCanvas.vue";
+import type { ProcedureDefinition } from "#shared/clientV1/types.gen";
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
-    graph: ProcedureGraph;
+    graph: ProcedureDefinition;
     activeNodeIds?: string[];
     enabledTransitionIds?: string[];
     actionableTransitionIds?: string[];
@@ -17,94 +20,16 @@ const props = withDefaults(
   },
 );
 const emit = defineEmits<{ transition: [id: string] }>();
-
-const nodes = computed(() => new Map(props.graph.nodes.map((node) => [node.id, node])));
-const width = computed(() => Math.max(760, ...props.graph.nodes.map((node) => node.x + 90)));
-const height = computed(() => Math.max(230, ...props.graph.nodes.map((node) => node.y + 90)));
 </script>
 
 <template>
-  <div class="diagram-shell" role="img" :aria-label="title">
-    <svg :viewBox="`0 0 ${width} ${height}`" class="min-w-[680px] w-full" aria-hidden="true">
-      <defs>
-        <marker
-          id="procedure-arrow"
-          viewBox="0 0 10 10"
-          refX="9"
-          refY="5"
-          markerWidth="7"
-          markerHeight="7"
-          orient="auto-start-reverse"
-        >
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
-        </marker>
-      </defs>
-      <g v-for="arc in graph.arcs" :key="arc.id" class="text-slate-400">
-        <line
-          v-if="nodes.get(arc.from) && nodes.get(arc.to)"
-          :x1="nodes.get(arc.from)!.x"
-          :y1="nodes.get(arc.from)!.y"
-          :x2="nodes.get(arc.to)!.x"
-          :y2="nodes.get(arc.to)!.y"
-          stroke="currentColor"
-          stroke-width="2"
-          marker-end="url(#procedure-arrow)"
-        />
-      </g>
-      <g
-        v-for="node in graph.nodes"
-        :key="node.id"
-        :role="node.kind === 'transition' ? 'button' : undefined"
-        :tabindex="
-          node.kind === 'transition' && actionableTransitionIds.includes(node.id) ? 0 : undefined
-        "
-        :aria-disabled="
-          node.kind === 'transition' ? !actionableTransitionIds.includes(node.id) : undefined
-        "
-        :class="actionableTransitionIds.includes(node.id) ? 'cursor-pointer' : ''"
-        @click="actionableTransitionIds.includes(node.id) && emit('transition', node.id)"
-        @keydown.enter="actionableTransitionIds.includes(node.id) && emit('transition', node.id)"
-        @keydown.space.prevent="
-          actionableTransitionIds.includes(node.id) && emit('transition', node.id)
-        "
-      >
-        <circle
-          v-if="node.kind === 'place'"
-          :cx="node.x"
-          :cy="node.y"
-          r="27"
-          :class="
-            activeNodeIds.includes(node.id)
-              ? 'fill-emerald-100 stroke-emerald-700'
-              : 'fill-white stroke-slate-600'
-          "
-          stroke-width="3"
-        />
-        <rect
-          v-else
-          :x="node.x - 12"
-          :y="node.y - 35"
-          width="24"
-          height="70"
-          rx="3"
-          :class="
-            actionableTransitionIds.includes(node.id)
-              ? 'fill-emerald-400 stroke-emerald-800'
-              : enabledTransitionIds.includes(node.id)
-                ? 'fill-amber-300 stroke-amber-700'
-                : 'fill-slate-700 stroke-slate-900'
-          "
-          stroke-width="2"
-        />
-        <text
-          :x="node.x"
-          :y="node.y + 58"
-          text-anchor="middle"
-          class="fill-slate-700 text-[13px] font-medium"
-        >
-          {{ node.label }}
-        </text>
-      </g>
-    </svg>
+  <div role="group" :aria-label="title">
+    <ProcedureCanvas
+      :graph="graph"
+      :active-node-ids="activeNodeIds"
+      :enabled-transition-ids="enabledTransitionIds"
+      :actionable-transition-ids="actionableTransitionIds"
+      @transition="emit('transition', $event)"
+    />
   </div>
 </template>
