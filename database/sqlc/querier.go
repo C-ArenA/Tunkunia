@@ -9,10 +9,14 @@ import (
 )
 
 type Querier interface {
-	//AssignRoleToUser
+	//AdminExists
 	//
-	//  INSERT INTO user_roles(user_id, role) VALUES (?, ?) ON CONFLICT DO NOTHING
-	AssignRoleToUser(ctx context.Context, db DBTX, arg AssignRoleToUserParams) error
+	//  SELECT EXISTS (
+	//    SELECT 1
+	//    FROM users
+	//    WHERE is_admin = 1
+	//  )
+	AdminExists(ctx context.Context, db DBTX) (bool, error)
 	//CreateTramite
 	//
 	//  INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
@@ -33,52 +37,67 @@ type Querier interface {
 	GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, error)
 	//GetUserByEmail
 	//
-	//  SELECT id, name, sub, email, email_verified, created_at, updated_at
+	//  SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 	//  FROM users
 	//  WHERE
 	//    email = ?
 	GetUserByEmail(ctx context.Context, db DBTX, email string) (User, error)
 	//GetUserById
 	//
-	//  SELECT id, name, sub, email, email_verified, created_at, updated_at
+	//  SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 	//  FROM users
 	//  WHERE
 	//    id = ?
 	GetUserById(ctx context.Context, db DBTX, id int64) (User, error)
-	//GetUserRoles
+	//ListUsers
 	//
-	//  SELECT role FROM user_roles WHERE user_id = ?
-	GetUserRoles(ctx context.Context, db DBTX, userID int64) ([]string, error)
-	//IsRoleInUse
+	//  SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
+	//  FROM users
+	//  ORDER BY name, id
+	ListUsers(ctx context.Context, db DBTX) ([]User, error)
+	//SetAdmin
 	//
-	//  SELECT EXISTS (SELECT 1 FROM user_roles WHERE role = ?)
-	IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, error)
-	//RemoveUserRoles
+	//  UPDATE users
+	//  SET
+	//    is_admin = ?,
+	//    updated_at = CURRENT_TIMESTAMP
+	//  WHERE id = ?
+	SetAdmin(ctx context.Context, db DBTX, arg SetAdminParams) error
+	//UpdateUserAccess
 	//
-	//  DELETE FROM user_roles WHERE user_id = ?
-	RemoveUserRoles(ctx context.Context, db DBTX, userID int64) error
+	//  UPDATE users
+	//  SET
+	//    is_admin = ?,
+	//    is_public_servant = ?,
+	//    updated_at = CURRENT_TIMESTAMP
+	//  WHERE id = ?
+	//  RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
+	UpdateUserAccess(ctx context.Context, db DBTX, arg UpdateUserAccessParams) (User, error)
 	//UpsertUser
 	//
-	//  INSERT INTO users(name, sub, email, email_verified)
-	//  VALUES (?, ?, ?, ?)
+	//  INSERT INTO users(name, sub, email, email_verified, is_admin, is_public_servant)
+	//  VALUES (?, ?, ?, ?, ?, ?)
 	//  ON CONFLICT (email) DO UPDATE
 	//  SET
 	//    sub = excluded.sub,
 	//    name = excluded.name,
-	//    email_verified = excluded.email_verified
-	//  RETURNING id, name, sub, email, email_verified, created_at, updated_at
+	//    email_verified = excluded.email_verified,
+	//    is_admin = excluded.is_admin,
+	//    is_public_servant = excluded.is_public_servant,
+	//    updated_at = CURRENT_TIMESTAMP
+	//  RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 	UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams) (User, error)
 	//UpsertUserBySub
 	//
 	//  INSERT INTO users(name, sub, email, email_verified)
 	//  VALUES (?, ?, ?, ?)
-	//  ON CONFLICT (sub) DO UPDATE
+	//  ON CONFLICT DO UPDATE
 	//  SET
 	//    email = excluded.email,
 	//    name = excluded.name,
 	//    email_verified = excluded.email_verified,
 	//    updated_at = CURRENT_TIMESTAMP
-	//  RETURNING id, name, sub, email, email_verified, created_at, updated_at
+	//  RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 	UpsertUserBySub(ctx context.Context, db DBTX, arg UpsertUserBySubParams) (User, error)
 }
 

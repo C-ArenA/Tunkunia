@@ -105,11 +105,11 @@ Al iniciar un caso, la persona iniciadora ocupa el recurso ciudadano y
 los demás recursos se asignan mediante usuarios o grupos configurados.
 Estas
 asignaciones pueden modificarse con autorización y quedan auditadas.
-Ciudadano y
-servidor público son, por tanto, papeles contextuales: una misma identidad puede
-ocupar uno u otro en casos diferentes.
-Los roles globales de administrador y
-participante son independientes de estas asignaciones.
+Ciudadano y servidor público son, por tanto, papeles contextuales: toda
+identidad puede ocupar el recurso ciudadano y las identidades habilitadas como
+servidor público también pueden ocupar el recurso de servicio público.
+Los indicadores globales de administración y servicio público son
+independientes de estas asignaciones.
 
 La interacción con toda transición ordinaria sigue un único patrón.
 La pantalla
@@ -188,9 +188,9 @@ institucional podrá definir retención o anonimización sin que el prototipo
 realice borrados destructivos.
 
 La autenticación sigue el flujo de código de autorización de OIDC.
-En el primer
-ingreso se crea o actualiza una identidad local con privilegio de participante;
-la función administrativa se concede de forma explícita.
+En el primer ingreso se crea o actualiza una identidad local cuya condición
+ciudadana es implícita; el acceso de administración y de servicio público se
+concede de forma explícita.
 Después del retorno del
 proveedor, el servidor establece una sesión propia mediante una cookie
 `HttpOnly`, `Secure` y `SameSite`, por lo que la aplicación web no almacena
@@ -198,8 +198,8 @@ credenciales sensibles.
 Las páginas públicas del catálogo no requieren sesión.
 
 La autorización combina tres niveles.
-El rol global habilita funciones
-administrativas o de participación; la asignación del caso identifica los
+Los indicadores globales habilitan funciones
+administrativas o de servicio público; la asignación del caso identifica los
 recursos que ocupa la persona; y la versión del proceso declara qué recursos
 pueden ejecutar cada transición.
 Consultar un expediente exige participar en el
@@ -248,8 +248,8 @@ la bandeja de avisos, el expediente, el mapa del marcado y la pantalla uniforme
 de acción.
 El área administrativa contiene los datos institucionales, usuarios,
 grupos y el editor de trámites.
-Esta separación responde a tareas distintas y no
-impide que una misma identidad posea más de un rol global.
+Esta separación responde a tareas distintas y permite que una misma identidad
+combine acceso de administración y de servicio público.
 
 El editor gráfico permite crear lugares, transiciones y arcos; asociar recursos;
 definir el campo textual; configurar plazos y seleccionar lugares sumidero.

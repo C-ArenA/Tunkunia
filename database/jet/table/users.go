@@ -17,13 +17,15 @@ type usersTable struct {
 	sqlite.Table
 
 	// Columns
-	ID            sqlite.ColumnInteger
-	Name          sqlite.ColumnString
-	Sub           sqlite.ColumnString
-	Email         sqlite.ColumnString
-	EmailVerified sqlite.ColumnInteger
-	CreatedAt     sqlite.ColumnString
-	UpdatedAt     sqlite.ColumnString
+	ID              sqlite.ColumnInteger
+	Name            sqlite.ColumnString
+	Sub             sqlite.ColumnString
+	Email           sqlite.ColumnString
+	EmailVerified   sqlite.ColumnInteger
+	IsAdmin         sqlite.ColumnInteger
+	IsPublicServant sqlite.ColumnInteger
+	CreatedAt       sqlite.ColumnString
+	UpdatedAt       sqlite.ColumnString
 
 	AllColumns     sqlite.ColumnList
 	MutableColumns sqlite.ColumnList
@@ -65,29 +67,33 @@ func newUsersTable(schemaName, tableName, alias string) *UsersTable {
 
 func newUsersTableImpl(schemaName, tableName, alias string) usersTable {
 	var (
-		IDColumn            = sqlite.IntegerColumn("id")
-		NameColumn          = sqlite.StringColumn("name")
-		SubColumn           = sqlite.StringColumn("sub")
-		EmailColumn         = sqlite.StringColumn("email")
-		EmailVerifiedColumn = sqlite.IntegerColumn("email_verified")
-		CreatedAtColumn     = sqlite.StringColumn("created_at")
-		UpdatedAtColumn     = sqlite.StringColumn("updated_at")
-		allColumns          = sqlite.ColumnList{IDColumn, NameColumn, SubColumn, EmailColumn, EmailVerifiedColumn, CreatedAtColumn, UpdatedAtColumn}
-		mutableColumns      = sqlite.ColumnList{NameColumn, SubColumn, EmailColumn, EmailVerifiedColumn, CreatedAtColumn, UpdatedAtColumn}
-		defaultColumns      = sqlite.ColumnList{NameColumn, EmailVerifiedColumn, CreatedAtColumn, UpdatedAtColumn}
+		IDColumn              = sqlite.IntegerColumn("id")
+		NameColumn            = sqlite.StringColumn("name")
+		SubColumn             = sqlite.StringColumn("sub")
+		EmailColumn           = sqlite.StringColumn("email")
+		EmailVerifiedColumn   = sqlite.IntegerColumn("email_verified")
+		IsAdminColumn         = sqlite.IntegerColumn("is_admin")
+		IsPublicServantColumn = sqlite.IntegerColumn("is_public_servant")
+		CreatedAtColumn       = sqlite.StringColumn("created_at")
+		UpdatedAtColumn       = sqlite.StringColumn("updated_at")
+		allColumns            = sqlite.ColumnList{IDColumn, NameColumn, SubColumn, EmailColumn, EmailVerifiedColumn, IsAdminColumn, IsPublicServantColumn, CreatedAtColumn, UpdatedAtColumn}
+		mutableColumns        = sqlite.ColumnList{NameColumn, SubColumn, EmailColumn, EmailVerifiedColumn, IsAdminColumn, IsPublicServantColumn, CreatedAtColumn, UpdatedAtColumn}
+		defaultColumns        = sqlite.ColumnList{NameColumn, EmailVerifiedColumn, IsAdminColumn, IsPublicServantColumn, CreatedAtColumn, UpdatedAtColumn}
 	)
 
 	return usersTable{
 		Table: sqlite.NewTable(schemaName, tableName, alias, allColumns...),
 
 		//Columns
-		ID:            IDColumn,
-		Name:          NameColumn,
-		Sub:           SubColumn,
-		Email:         EmailColumn,
-		EmailVerified: EmailVerifiedColumn,
-		CreatedAt:     CreatedAtColumn,
-		UpdatedAt:     UpdatedAtColumn,
+		ID:              IDColumn,
+		Name:            NameColumn,
+		Sub:             SubColumn,
+		Email:           EmailColumn,
+		EmailVerified:   EmailVerifiedColumn,
+		IsAdmin:         IsAdminColumn,
+		IsPublicServant: IsPublicServantColumn,
+		CreatedAt:       CreatedAtColumn,
+		UpdatedAt:       UpdatedAtColumn,
 
 		AllColumns:     allColumns,
 		MutableColumns: mutableColumns,

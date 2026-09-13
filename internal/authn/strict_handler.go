@@ -26,17 +26,14 @@ func (h *StrictHandler) GetMe(ctx context.Context, request oapi.GetMeRequestObje
 		if err != nil {
 			return oapi.GetMe404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse("Usuario no encontrado")}, nil
 		}
-		roles := make([]string, len(u.Roles))
-		for i, r := range u.Roles {
-			roles[i] = string(r)
-		}
 		return oapi.GetMe200JSONResponse{
-			Id:            int64(u.ID),
-			Email:         types.Email(u.Email),
-			EmailVerified: u.EmailVerified,
-			Name:          u.Name,
-			Roles:         roles,
-			Sub:           u.Sub,
+			Id:              int64(u.ID),
+			Email:           types.Email(u.Email),
+			EmailVerified:   u.EmailVerified,
+			IsAdmin:         u.IsAdmin,
+			IsPublicServant: u.IsPublicServant,
+			Name:            u.Name,
+			Sub:             u.Sub,
 		}, nil
 	}
 	return oapi.GetMe500ApplicationProblemPlusJSONResponse{InternalErrorApplicationProblemPlusJSONResponse: oapi.NewInternalErrorResponse("No implementado")}, nil

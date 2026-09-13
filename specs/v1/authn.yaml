@@ -37,7 +37,7 @@ components:
                   items: { $ref: "#/components/schemas/User" }
           "401": { $ref: common.yaml#/components/responses/Unauthorized }
           "403": { $ref: common.yaml#/components/responses/Forbidden }
-    UserRoles:
+    UserById:
       parameters:
         - name: id
           in: path
@@ -45,8 +45,8 @@ components:
           schema: { type: integer, format: int64, minimum: 1 }
       patch:
         tags: [Users]
-        operationId: updateUserRoles
-        summary: Actualizar roles globales de un usuario
+        operationId: updateUserAccess
+        summary: Actualizar el acceso institucional de un usuario
         security: [{ BearerAuth: [] }]
         requestBody:
           required: true
@@ -54,12 +54,12 @@ components:
             application/json:
               schema:
                 type: object
-                required: [roles]
+                required: [isAdmin, isPublicServant]
                 properties:
-                  roles:
-                    type: array
-                    uniqueItems: true
-                    items: { type: string, enum: [admin, servant] }
+                  isAdmin:
+                    type: boolean
+                  isPublicServant:
+                    type: boolean
         responses:
           "200":
             description: Usuario actualizado
@@ -73,7 +73,8 @@ components:
   schemas:
     User:
       type: object
-      required: [id, name, sub, email, emailVerified, roles]
+      description: Every user is a citizen. The access flags grant additional, independent capabilities.
+      required: [id, name, sub, email, emailVerified, isAdmin, isPublicServant]
       properties:
         id:
           type: integer
@@ -92,8 +93,11 @@ components:
         emailVerified:
           type: boolean
           example: true
-        roles:
-          type: array
-          items:
-            type: string
-          example: [admin, user]
+        isAdmin:
+          type: boolean
+          description: Whether the citizen also has system administration access.
+          example: false
+        isPublicServant:
+          type: boolean
+          description: Whether the citizen is also authorized to act as a public servant.
+          example: true

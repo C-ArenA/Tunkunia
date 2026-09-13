@@ -9,21 +9,26 @@ import (
 	"context"
 )
 
-const assignRoleToUser = `-- name: AssignRoleToUser :exec
-INSERT INTO user_roles(user_id, role) VALUES (?, ?) ON CONFLICT DO NOTHING
+const adminExists = `-- name: AdminExists :one
+SELECT EXISTS (
+  SELECT 1
+  FROM users
+  WHERE is_admin = 1
+)
 `
 
-type AssignRoleToUserParams struct {
-	UserID int64
-	Role   string
-}
-
-// AssignRoleToUser
+// AdminExists
 //
-//	INSERT INTO user_roles(user_id, role) VALUES (?, ?) ON CONFLICT DO NOTHING
-func (q *Queries) AssignRoleToUser(ctx context.Context, db DBTX, arg AssignRoleToUserParams) error {
-	_, err := db.ExecContext(ctx, assignRoleToUser, arg.UserID, arg.Role)
-	return err
+//	SELECT EXISTS (
+//	  SELECT 1
+//	  FROM users
+//	  WHERE is_admin = 1
+//	)
+func (q *Queries) AdminExists(ctx context.Context, db DBTX) (bool, error) {
+	row := db.QueryRowContext(ctx, adminExists)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
 }
 
 const createTramite = `-- name: CreateTramite :one
@@ -114,7 +119,7 @@ func (q *Queries) GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, e
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, name, sub, email, email_verified, created_at, updated_at
+SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 FROM users
 WHERE
   email = ?
@@ -122,7 +127,7 @@ WHERE
 
 // GetUserByEmail
 //
-//	SELECT id, name, sub, email, email_verified, created_at, updated_at
+//	SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 //	FROM users
 //	WHERE
 //	  email = ?
@@ -135,6 +140,8 @@ func (q *Queries) GetUserByEmail(ctx context.Context, db DBTX, email string) (Us
 		&i.Sub,
 		&i.Email,
 		&i.EmailVerified,
+		&i.IsAdmin,
+		&i.IsPublicServant,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -142,7 +149,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, db DBTX, email string) (Us
 }
 
 const getUserById = `-- name: GetUserById :one
-SELECT id, name, sub, email, email_verified, created_at, updated_at
+SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 FROM users
 WHERE
   id = ?
@@ -150,7 +157,7 @@ WHERE
 
 // GetUserById
 //
-//	SELECT id, name, sub, email, email_verified, created_at, updated_at
+//	SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 //	FROM users
 //	WHERE
 //	  id = ?
@@ -163,32 +170,48 @@ func (q *Queries) GetUserById(ctx context.Context, db DBTX, id int64) (User, err
 		&i.Sub,
 		&i.Email,
 		&i.EmailVerified,
+		&i.IsAdmin,
+		&i.IsPublicServant,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
 	return i, err
 }
 
-const getUserRoles = `-- name: GetUserRoles :many
-SELECT role FROM user_roles WHERE user_id = ?
+const listUsers = `-- name: ListUsers :many
+SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
+FROM users
+ORDER BY name, id
 `
 
-// GetUserRoles
+// ListUsers
 //
-//	SELECT role FROM user_roles WHERE user_id = ?
-func (q *Queries) GetUserRoles(ctx context.Context, db DBTX, userID int64) ([]string, error) {
-	rows, err := db.QueryContext(ctx, getUserRoles, userID)
+//	SELECT id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
+//	FROM users
+//	ORDER BY name, id
+func (q *Queries) ListUsers(ctx context.Context, db DBTX) ([]User, error) {
+	rows, err := db.QueryContext(ctx, listUsers)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []string
+	var items []User
 	for rows.Next() {
-		var role string
-		if err := rows.Scan(&role); err != nil {
+		var i User
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Sub,
+			&i.Email,
+			&i.EmailVerified,
+			&i.IsAdmin,
+			&i.IsPublicServant,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+		); err != nil {
 			return nil, err
 		}
-		items = append(items, role)
+		items = append(items, i)
 	}
 	if err := rows.Close(); err != nil {
 		return nil, err
@@ -199,66 +222,117 @@ func (q *Queries) GetUserRoles(ctx context.Context, db DBTX, userID int64) ([]st
 	return items, nil
 }
 
-const isRoleInUse = `-- name: IsRoleInUse :one
-SELECT EXISTS (SELECT 1 FROM user_roles WHERE role = ?)
+const setAdmin = `-- name: SetAdmin :exec
+UPDATE users
+SET
+  is_admin = ?,
+  updated_at = CURRENT_TIMESTAMP
+WHERE id = ?
 `
 
-// IsRoleInUse
-//
-//	SELECT EXISTS (SELECT 1 FROM user_roles WHERE role = ?)
-func (q *Queries) IsRoleInUse(ctx context.Context, db DBTX, role string) (bool, error) {
-	row := db.QueryRowContext(ctx, isRoleInUse, role)
-	var exists bool
-	err := row.Scan(&exists)
-	return exists, err
+type SetAdminParams struct {
+	IsAdmin int64
+	ID      int64
 }
 
-const removeUserRoles = `-- name: RemoveUserRoles :exec
-DELETE FROM user_roles WHERE user_id = ?
-`
-
-// RemoveUserRoles
+// SetAdmin
 //
-//	DELETE FROM user_roles WHERE user_id = ?
-func (q *Queries) RemoveUserRoles(ctx context.Context, db DBTX, userID int64) error {
-	_, err := db.ExecContext(ctx, removeUserRoles, userID)
+//	UPDATE users
+//	SET
+//	  is_admin = ?,
+//	  updated_at = CURRENT_TIMESTAMP
+//	WHERE id = ?
+func (q *Queries) SetAdmin(ctx context.Context, db DBTX, arg SetAdminParams) error {
+	_, err := db.ExecContext(ctx, setAdmin, arg.IsAdmin, arg.ID)
 	return err
 }
 
+const updateUserAccess = `-- name: UpdateUserAccess :one
+UPDATE users
+SET
+  is_admin = ?,
+  is_public_servant = ?,
+  updated_at = CURRENT_TIMESTAMP
+WHERE id = ?
+RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
+`
+
+type UpdateUserAccessParams struct {
+	IsAdmin         int64
+	IsPublicServant int64
+	ID              int64
+}
+
+// UpdateUserAccess
+//
+//	UPDATE users
+//	SET
+//	  is_admin = ?,
+//	  is_public_servant = ?,
+//	  updated_at = CURRENT_TIMESTAMP
+//	WHERE id = ?
+//	RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
+func (q *Queries) UpdateUserAccess(ctx context.Context, db DBTX, arg UpdateUserAccessParams) (User, error) {
+	row := db.QueryRowContext(ctx, updateUserAccess, arg.IsAdmin, arg.IsPublicServant, arg.ID)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Sub,
+		&i.Email,
+		&i.EmailVerified,
+		&i.IsAdmin,
+		&i.IsPublicServant,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const upsertUser = `-- name: UpsertUser :one
-INSERT INTO users(name, sub, email, email_verified)
-VALUES (?, ?, ?, ?)
+INSERT INTO users(name, sub, email, email_verified, is_admin, is_public_servant)
+VALUES (?, ?, ?, ?, ?, ?)
 ON CONFLICT (email) DO UPDATE
 SET
   sub = excluded.sub,
   name = excluded.name,
-  email_verified = excluded.email_verified
-RETURNING id, name, sub, email, email_verified, created_at, updated_at
+  email_verified = excluded.email_verified,
+  is_admin = excluded.is_admin,
+  is_public_servant = excluded.is_public_servant,
+  updated_at = CURRENT_TIMESTAMP
+RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 `
 
 type UpsertUserParams struct {
-	Name          string
-	Sub           string
-	Email         string
-	EmailVerified int64
+	Name            string
+	Sub             string
+	Email           string
+	EmailVerified   int64
+	IsAdmin         int64
+	IsPublicServant int64
 }
 
 // UpsertUser
 //
-//	INSERT INTO users(name, sub, email, email_verified)
-//	VALUES (?, ?, ?, ?)
+//	INSERT INTO users(name, sub, email, email_verified, is_admin, is_public_servant)
+//	VALUES (?, ?, ?, ?, ?, ?)
 //	ON CONFLICT (email) DO UPDATE
 //	SET
 //	  sub = excluded.sub,
 //	  name = excluded.name,
-//	  email_verified = excluded.email_verified
-//	RETURNING id, name, sub, email, email_verified, created_at, updated_at
+//	  email_verified = excluded.email_verified,
+//	  is_admin = excluded.is_admin,
+//	  is_public_servant = excluded.is_public_servant,
+//	  updated_at = CURRENT_TIMESTAMP
+//	RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 func (q *Queries) UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams) (User, error) {
 	row := db.QueryRowContext(ctx, upsertUser,
 		arg.Name,
 		arg.Sub,
 		arg.Email,
 		arg.EmailVerified,
+		arg.IsAdmin,
+		arg.IsPublicServant,
 	)
 	var i User
 	err := row.Scan(
@@ -267,6 +341,8 @@ func (q *Queries) UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams)
 		&i.Sub,
 		&i.Email,
 		&i.EmailVerified,
+		&i.IsAdmin,
+		&i.IsPublicServant,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -276,13 +352,13 @@ func (q *Queries) UpsertUser(ctx context.Context, db DBTX, arg UpsertUserParams)
 const upsertUserBySub = `-- name: UpsertUserBySub :one
 INSERT INTO users(name, sub, email, email_verified)
 VALUES (?, ?, ?, ?)
-ON CONFLICT (sub) DO UPDATE
+ON CONFLICT DO UPDATE
 SET
   email = excluded.email,
   name = excluded.name,
   email_verified = excluded.email_verified,
   updated_at = CURRENT_TIMESTAMP
-RETURNING id, name, sub, email, email_verified, created_at, updated_at
+RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 `
 
 type UpsertUserBySubParams struct {
@@ -296,13 +372,13 @@ type UpsertUserBySubParams struct {
 //
 //	INSERT INTO users(name, sub, email, email_verified)
 //	VALUES (?, ?, ?, ?)
-//	ON CONFLICT (sub) DO UPDATE
+//	ON CONFLICT DO UPDATE
 //	SET
 //	  email = excluded.email,
 //	  name = excluded.name,
 //	  email_verified = excluded.email_verified,
 //	  updated_at = CURRENT_TIMESTAMP
-//	RETURNING id, name, sub, email, email_verified, created_at, updated_at
+//	RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 func (q *Queries) UpsertUserBySub(ctx context.Context, db DBTX, arg UpsertUserBySubParams) (User, error) {
 	row := db.QueryRowContext(ctx, upsertUserBySub,
 		arg.Name,
@@ -317,6 +393,8 @@ func (q *Queries) UpsertUserBySub(ctx context.Context, db DBTX, arg UpsertUserBy
 		&i.Sub,
 		&i.Email,
 		&i.EmailVerified,
+		&i.IsAdmin,
+		&i.IsPublicServant,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)

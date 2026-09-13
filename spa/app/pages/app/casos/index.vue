@@ -50,9 +50,7 @@ async function claim(id: number) {
           v-model="view"
           :items="[
             { label: 'Mis casos', value: 'mine' },
-            ...(me?.roles.includes('servant')
-              ? [{ label: 'No asignados', value: 'unassigned' }]
-              : []),
+            ...(me?.isPublicServant ? [{ label: 'No asignados', value: 'unassigned' }] : []),
           ]"
         />
       </div>

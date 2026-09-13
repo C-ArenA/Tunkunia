@@ -27,7 +27,7 @@ const visible = computed(() =>
         <p class="eyebrow">Participantes</p>
         <h1 class="page-title mt-2">Gestión de usuarios</h1>
         <p class="mt-3 text-slate-600">
-          Concede el rol servidor a quienes puedan autoasignarse casos.
+          Concede acceso institucional a quienes administran el sistema o atienden casos.
         </p>
       </div>
       <div class="surface mt-8 overflow-hidden">
@@ -41,11 +41,13 @@ const visible = computed(() =>
             <p class="truncate text-sm text-slate-500">{{ item.email }}</p>
           </div>
           <div class="flex gap-2">
-            <UBadge v-for="role in item.roles" :key="role" :label="role" variant="subtle" />
+            <UBadge label="Ciudadano" color="neutral" variant="subtle" />
+            <UBadge v-if="item.isAdmin" label="Administrador" variant="subtle" />
+            <UBadge v-if="item.isPublicServant" label="Servidor público" variant="subtle" />
           </div>
           <UButton
             :to="`/admin/usuarios/${item.id}`"
-            label="Gestionar roles"
+            label="Gestionar acceso"
             color="neutral"
             variant="soft"
           />

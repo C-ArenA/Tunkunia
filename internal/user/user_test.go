@@ -1,11 +1,15 @@
 package user
 
 import (
+	"database/sql"
 	"errors"
 	"testing"
 
+	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	_ "modernc.org/sqlite"
 )
 
 func TestEmailCreation(t *testing.T) {
@@ -37,18 +41,55 @@ func TestEmailCreation(t *testing.T) {
 	}
 }
 
-func TestBatchRolesAssignmentQueryGenerator(t *testing.T) {
-	s, a := assignManyRolesToUserStmtBuilder([]sqlc.AssignRoleToUserParams{
-		{UserID: 1, Role: "admin"},
-		{UserID: 1, Role: "citizen"},
+func TestUserAdditionalAccessFlags(t *testing.T) {
+	service := newTestService(t)
+	saved, err := service.SaveUser(t.Context(), User{
+		Name:  "Ciudadana",
+		Sub:   "citizen-sub",
+		Email: "citizen@example.com",
 	})
+	require.NoError(t, err)
+	assert.False(t, saved.IsAdmin)
+	assert.False(t, saved.IsPublicServant)
 
-	assert.Equal(t, "INSERT INTO user_roles (user_id, role) VALUES (?,?), (?,?) ON CONFLICT DO NOTHING RETURNING role", s, "La query construida no es válida")
-	assert.Len(t, a, 4)
-	assert.Equal(t, a[1], "admin")
+	updated, err := service.UpdateAccess(t.Context(), saved.ID, true, true)
+	require.NoError(t, err)
+	assert.True(t, updated.IsAdmin)
+	assert.True(t, updated.IsPublicServant)
+	assert.True(t, service.IsAdmin(t.Context(), saved.ID))
+	assert.True(t, service.IsPublicServant(t.Context(), saved.ID))
 
-	s, a = assignManyRolesToUserStmtBuilder([]sqlc.AssignRoleToUserParams{})
-	assert.Equal(t, "", s)
-	assert.Nil(t, a)
+	_, err = service.UpdateAccess(t.Context(), 999, false, false)
+	assert.ErrorIs(t, err, sql.ErrNoRows)
+}
 
+func TestCreateFirstAdmin(t *testing.T) {
+	service := newTestService(t)
+
+	created, err := service.CreateFirstAdmin(t.Context(), "admin@example.com")
+	require.NoError(t, err)
+	assert.True(t, created.IsAdmin)
+	assert.False(t, created.IsPublicServant)
+
+	loggedIn, err := service.Login(t.Context(), User{
+		Name:          "Administradora",
+		Sub:           "admin-sub",
+		Email:         "admin@example.com",
+		EmailVerified: true,
+	}, true)
+	require.NoError(t, err)
+	assert.Equal(t, created.ID, loggedIn.ID)
+	assert.True(t, loggedIn.IsAdmin)
+
+	_, err = service.CreateFirstAdmin(t.Context(), "another-admin@example.com")
+	assert.ErrorIs(t, err, ErrAdminAlreadyExists)
+}
+
+func newTestService(t *testing.T) *Service {
+	t.Helper()
+	db, err := sql.Open("sqlite", ":memory:")
+	require.NoError(t, err)
+	t.Cleanup(func() { db.Close() })
+	require.NoError(t, database.Migrate(t.Context(), db))
+	return NewService(db, sqlc.New())
 }

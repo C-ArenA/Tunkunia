@@ -80,9 +80,9 @@ type ServerInterface interface {
 	// ListUsers Listar usuarios de la instancia
 	// (GET /users)
 	ListUsers(w http.ResponseWriter, r *http.Request)
-	// UpdateUserRoles Actualizar roles globales de un usuario
-	// (PATCH /users/{id}/roles)
-	UpdateUserRoles(w http.ResponseWriter, r *http.Request, id int64)
+	// UpdateUserAccess Actualizar el acceso institucional de un usuario
+	// (PATCH /users/{id})
+	UpdateUserAccess(w http.ResponseWriter, r *http.Request, id int64)
 }
 
 // Unimplemented server implementation that returns http.StatusNotImplemented for each endpoint.
@@ -215,9 +215,9 @@ func (_ Unimplemented) ListUsers(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
-// UpdateUserRoles Actualizar roles globales de un usuario
-// (PATCH /users/{id}/roles)
-func (_ Unimplemented) UpdateUserRoles(w http.ResponseWriter, r *http.Request, id int64) {
+// UpdateUserAccess Actualizar el acceso institucional de un usuario
+// (PATCH /users/{id})
+func (_ Unimplemented) UpdateUserAccess(w http.ResponseWriter, r *http.Request, id int64) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -772,8 +772,8 @@ func (siw *ServerInterfaceWrapper) ListUsers(w http.ResponseWriter, r *http.Requ
 	handler.ServeHTTP(w, r)
 }
 
-// UpdateUserRoles operation middleware
-func (siw *ServerInterfaceWrapper) UpdateUserRoles(w http.ResponseWriter, r *http.Request) {
+// UpdateUserAccess operation middleware
+func (siw *ServerInterfaceWrapper) UpdateUserAccess(w http.ResponseWriter, r *http.Request) {
 
 	var err error
 	_ = err
@@ -788,7 +788,7 @@ func (siw *ServerInterfaceWrapper) UpdateUserRoles(w http.ResponseWriter, r *htt
 	}
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.UpdateUserRoles(w, r, id)
+		siw.Handler.UpdateUserAccess(w, r, id)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -936,7 +936,7 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 		r.Get(options.BaseURL+"/users", wrapper.ListUsers)
 	})
 	r.Group(func(r chi.Router) {
-		r.Patch(options.BaseURL+"/users/{id}/roles", wrapper.UpdateUserRoles)
+		r.Patch(options.BaseURL+"/users/{id}", wrapper.UpdateUserAccess)
 	})
 	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/tramites/{id}/procedure", wrapper.GetPublishedProcedure)
@@ -2145,18 +2145,18 @@ func (response ListUsers403ApplicationProblemPlusJSONResponse) VisitListUsersRes
 	return err
 }
 
-type UpdateUserRolesRequestObject struct {
+type UpdateUserAccessRequestObject struct {
 	Id   int64 `json:"id"`
-	Body *UpdateUserRolesJSONRequestBody
+	Body *UpdateUserAccessJSONRequestBody
 }
 
-type UpdateUserRolesResponseObject interface {
-	VisitUpdateUserRolesResponse(w http.ResponseWriter) error
+type UpdateUserAccessResponseObject interface {
+	VisitUpdateUserAccessResponse(w http.ResponseWriter) error
 }
 
-type UpdateUserRoles200JSONResponse User
+type UpdateUserAccess200JSONResponse User
 
-func (response UpdateUserRoles200JSONResponse) VisitUpdateUserRolesResponse(w http.ResponseWriter) error {
+func (response UpdateUserAccess200JSONResponse) VisitUpdateUserAccessResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -2168,11 +2168,11 @@ func (response UpdateUserRoles200JSONResponse) VisitUpdateUserRolesResponse(w ht
 	return err
 }
 
-type UpdateUserRoles401ApplicationProblemPlusJSONResponse struct {
+type UpdateUserAccess401ApplicationProblemPlusJSONResponse struct {
 	UnauthorizedApplicationProblemPlusJSONResponse
 }
 
-func (response UpdateUserRoles401ApplicationProblemPlusJSONResponse) VisitUpdateUserRolesResponse(w http.ResponseWriter) error {
+func (response UpdateUserAccess401ApplicationProblemPlusJSONResponse) VisitUpdateUserAccessResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -2184,11 +2184,11 @@ func (response UpdateUserRoles401ApplicationProblemPlusJSONResponse) VisitUpdate
 	return err
 }
 
-type UpdateUserRoles403ApplicationProblemPlusJSONResponse struct {
+type UpdateUserAccess403ApplicationProblemPlusJSONResponse struct {
 	ForbiddenApplicationProblemPlusJSONResponse
 }
 
-func (response UpdateUserRoles403ApplicationProblemPlusJSONResponse) VisitUpdateUserRolesResponse(w http.ResponseWriter) error {
+func (response UpdateUserAccess403ApplicationProblemPlusJSONResponse) VisitUpdateUserAccessResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -2200,11 +2200,11 @@ func (response UpdateUserRoles403ApplicationProblemPlusJSONResponse) VisitUpdate
 	return err
 }
 
-type UpdateUserRoles404ApplicationProblemPlusJSONResponse struct {
+type UpdateUserAccess404ApplicationProblemPlusJSONResponse struct {
 	NotFoundApplicationProblemPlusJSONResponse
 }
 
-func (response UpdateUserRoles404ApplicationProblemPlusJSONResponse) VisitUpdateUserRolesResponse(w http.ResponseWriter) error {
+func (response UpdateUserAccess404ApplicationProblemPlusJSONResponse) VisitUpdateUserAccessResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -2281,9 +2281,9 @@ type StrictServerInterface interface {
 	// ListUsers Listar usuarios de la instancia
 	// (GET /users)
 	ListUsers(ctx context.Context, request ListUsersRequestObject) (ListUsersResponseObject, error)
-	// UpdateUserRoles Actualizar roles globales de un usuario
-	// (PATCH /users/{id}/roles)
-	UpdateUserRoles(ctx context.Context, request UpdateUserRolesRequestObject) (UpdateUserRolesResponseObject, error)
+	// UpdateUserAccess Actualizar el acceso institucional de un usuario
+	// (PATCH /users/{id})
+	UpdateUserAccess(ctx context.Context, request UpdateUserAccessRequestObject) (UpdateUserAccessResponseObject, error)
 }
 
 type StrictHandlerFunc func(ctx context.Context, w http.ResponseWriter, r *http.Request, request any) (any, error)
@@ -2890,13 +2890,13 @@ func (sh *strictHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// UpdateUserRoles operation middleware
-func (sh *strictHandler) UpdateUserRoles(w http.ResponseWriter, r *http.Request, id int64) {
-	var request UpdateUserRolesRequestObject
+// UpdateUserAccess operation middleware
+func (sh *strictHandler) UpdateUserAccess(w http.ResponseWriter, r *http.Request, id int64) {
+	var request UpdateUserAccessRequestObject
 
 	request.Id = id
 
-	var body UpdateUserRolesJSONRequestBody
+	var body UpdateUserAccessJSONRequestBody
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
 		return
@@ -2904,18 +2904,18 @@ func (sh *strictHandler) UpdateUserRoles(w http.ResponseWriter, r *http.Request,
 	request.Body = &body
 
 	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.UpdateUserRoles(ctx, request.(UpdateUserRolesRequestObject))
+		return sh.ssi.UpdateUserAccess(ctx, request.(UpdateUserAccessRequestObject))
 	}
 	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "UpdateUserRoles")
+		handler = middleware(handler, "UpdateUserAccess")
 	}
 
 	response, err := handler(r.Context(), w, r, request)
 
 	if err != nil {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(UpdateUserRolesResponseObject); ok {
-		if err := validResponse.VisitUpdateUserRolesResponse(w); err != nil {
+	} else if validResponse, ok := response.(UpdateUserAccessResponseObject); ok {
+		if err := validResponse.VisitUpdateUserAccessResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

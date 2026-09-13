@@ -1,5 +1,5 @@
 -- name: GetUserByEmail :one
-SELECT id, name, sub, email, email_verified, created_at, updated_at
+SELECT *
 FROM users
 WHERE
   email = ?;
@@ -11,19 +11,22 @@ WHERE
   id = ?;
 
 -- name: UpsertUser :one
-INSERT INTO users(name, sub, email, email_verified)
-VALUES (?, ?, ?, ?)
+INSERT INTO users(name, sub, email, email_verified, is_admin, is_public_servant)
+VALUES (?, ?, ?, ?, ?, ?)
 ON CONFLICT (email) DO UPDATE
 SET
   sub = excluded.sub,
   name = excluded.name,
-  email_verified = excluded.email_verified
+  email_verified = excluded.email_verified,
+  is_admin = excluded.is_admin,
+  is_public_servant = excluded.is_public_servant,
+  updated_at = CURRENT_TIMESTAMP
 RETURNING *;
 
 -- name: UpsertUserBySub :one
 INSERT INTO users(name, sub, email, email_verified)
 VALUES (?, ?, ?, ?)
-ON CONFLICT (sub) DO UPDATE
+ON CONFLICT DO UPDATE
 SET
   email = excluded.email,
   name = excluded.name,
@@ -31,14 +34,30 @@ SET
   updated_at = CURRENT_TIMESTAMP
 RETURNING *;
 
--- name: AssignRoleToUser :exec
-INSERT INTO user_roles(user_id, role) VALUES (?, ?) ON CONFLICT DO NOTHING;
+-- name: ListUsers :many
+SELECT *
+FROM users
+ORDER BY name, id;
 
--- name: RemoveUserRoles :exec
-DELETE FROM user_roles WHERE user_id = ?;
+-- name: AdminExists :one
+SELECT EXISTS (
+  SELECT 1
+  FROM users
+  WHERE is_admin = 1
+);
 
--- name: GetUserRoles :many
-SELECT role FROM user_roles WHERE user_id = ?;
+-- name: SetAdmin :exec
+UPDATE users
+SET
+  is_admin = ?,
+  updated_at = CURRENT_TIMESTAMP
+WHERE id = ?;
 
--- name: IsRoleInUse :one
-SELECT EXISTS (SELECT 1 FROM user_roles WHERE role = ?);
+-- name: UpdateUserAccess :one
+UPDATE users
+SET
+  is_admin = ?,
+  is_public_servant = ?,
+  updated_at = CURRENT_TIMESTAMP
+WHERE id = ?
+RETURNING *;

@@ -5,9 +5,9 @@ export default defineNuxtRouteMiddleware(async () => {
   const queryCache = useQueryCache();
   try {
     const state = await queryCache.refresh(queryCache.ensure(getMeQuery()));
-    if (state.status === "success" && state.data?.roles.includes("admin")) return;
+    if (state.status === "success" && state.data?.isAdmin) return;
   } catch {
-    // Treat missing identity or roles as unauthorized.
+    // Treat missing identity or access as unauthorized.
   }
   return navigateTo("/app");
 });

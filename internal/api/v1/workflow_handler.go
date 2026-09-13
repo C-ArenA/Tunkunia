@@ -28,9 +28,14 @@ func (h *WorkflowHandler) principal(ctx context.Context) (*authn.Principal, bool
 	return authn.FromAuthContext(ctx)
 }
 
-func (h *WorkflowHandler) hasRole(ctx context.Context, role user.RoleName) bool {
+func (h *WorkflowHandler) isAdmin(ctx context.Context) bool {
 	p, ok := h.principal(ctx)
-	return ok && p.Type == authn.UserPrincipal && h.users.HasRole(ctx, user.UserId(p.ID), role)
+	return ok && p.Type == authn.UserPrincipal && h.users.IsAdmin(ctx, user.UserId(p.ID))
+}
+
+func (h *WorkflowHandler) isPublicServant(ctx context.Context) bool {
+	p, ok := h.principal(ctx)
+	return ok && p.Type == authn.UserPrincipal && h.users.IsPublicServant(ctx, user.UserId(p.ID))
 }
 
 func (h *WorkflowHandler) GetPublishedProcedure(ctx context.Context, request oapi.GetPublishedProcedureRequestObject) (oapi.GetPublishedProcedureResponseObject, error) {
@@ -42,7 +47,7 @@ func (h *WorkflowHandler) GetPublishedProcedure(ctx context.Context, request oap
 }
 
 func (h *WorkflowHandler) GetDraftProcedure(ctx context.Context, request oapi.GetDraftProcedureRequestObject) (oapi.GetDraftProcedureResponseObject, error) {
-	if !h.hasRole(ctx, user.ADMIN) {
+	if !h.isAdmin(ctx) {
 		return oapi.GetDraftProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
 	version, err := h.catalog.GetDraftProcedure(ctx, catalog.TramiteID(request.Id))
@@ -53,7 +58,7 @@ func (h *WorkflowHandler) GetDraftProcedure(ctx context.Context, request oapi.Ge
 }
 
 func (h *WorkflowHandler) SaveDraftProcedure(ctx context.Context, request oapi.SaveDraftProcedureRequestObject) (oapi.SaveDraftProcedureResponseObject, error) {
-	if !h.hasRole(ctx, user.ADMIN) {
+	if !h.isAdmin(ctx) {
 		return oapi.SaveDraftProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
 	version, err := h.catalog.SaveDraftProcedure(ctx, catalog.TramiteID(request.Id), procedureFromAPI(*request.Body))
@@ -64,7 +69,7 @@ func (h *WorkflowHandler) SaveDraftProcedure(ctx context.Context, request oapi.S
 }
 
 func (h *WorkflowHandler) PublishProcedure(ctx context.Context, request oapi.PublishProcedureRequestObject) (oapi.PublishProcedureResponseObject, error) {
-	if !h.hasRole(ctx, user.ADMIN) {
+	if !h.isAdmin(ctx) {
 		return oapi.PublishProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
 	version, err := h.catalog.PublishProcedure(ctx, catalog.TramiteID(request.Id))
@@ -83,7 +88,7 @@ func (h *WorkflowHandler) PublishProcedure(ctx context.Context, request oapi.Pub
 }
 
 func (h *WorkflowHandler) ArchiveTramite(ctx context.Context, request oapi.ArchiveTramiteRequestObject) (oapi.ArchiveTramiteResponseObject, error) {
-	if !h.hasRole(ctx, user.ADMIN) {
+	if !h.isAdmin(ctx) {
 		return oapi.ArchiveTramite403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
 	if err := h.catalog.Archive(ctx, catalog.TramiteID(request.Id)); err != nil {
@@ -112,8 +117,8 @@ func (h *WorkflowHandler) ListCases(ctx context.Context, request oapi.ListCasesR
 	var items []cases.Summary
 	var err error
 	if string(request.Params.Scope) == "unassigned" {
-		if !h.hasRole(ctx, user.SERVANT) {
-			return oapi.ListCases403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere el rol servant")}, nil
+		if !h.isPublicServant(ctx) {
+			return oapi.ListCases403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere ser servidor público")}, nil
 		}
 		items, err = h.cases.ListUnassigned(ctx)
 	} else {
@@ -134,7 +139,7 @@ func (h *WorkflowHandler) GetCase(ctx context.Context, request oapi.GetCaseReque
 	if !ok {
 		return nil, errRequiresAuthenticatedUser
 	}
-	item, err := h.cases.Get(ctx, int64(request.Id), int64(p.ID), h.hasRole(ctx, user.ADMIN))
+	item, err := h.cases.Get(ctx, int64(request.Id), int64(p.ID), h.isAdmin(ctx))
 	if err != nil {
 		return oapi.GetCase404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
 	}
@@ -146,8 +151,8 @@ func (h *WorkflowHandler) ClaimCase(ctx context.Context, request oapi.ClaimCaseR
 	if !ok {
 		return nil, errRequiresAuthenticatedUser
 	}
-	if !h.hasRole(ctx, user.SERVANT) {
-		return oapi.ClaimCase403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere el rol servant")}, nil
+	if !h.isPublicServant(ctx) {
+		return oapi.ClaimCase403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere ser servidor público")}, nil
 	}
 	item, err := h.cases.Claim(ctx, int64(request.Id), int64(p.ID))
 	if err != nil {
@@ -217,7 +222,7 @@ func (h *WorkflowHandler) MarkNotificationRead(ctx context.Context, request oapi
 }
 
 func (h *WorkflowHandler) ListUsers(ctx context.Context, _ oapi.ListUsersRequestObject) (oapi.ListUsersResponseObject, error) {
-	if !h.hasRole(ctx, user.ADMIN) {
+	if !h.isAdmin(ctx) {
 		return oapi.ListUsers403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
 	items, err := h.users.ListUsers(ctx)
@@ -230,22 +235,23 @@ func (h *WorkflowHandler) ListUsers(ctx context.Context, _ oapi.ListUsersRequest
 	}
 	return result, nil
 }
-func (h *WorkflowHandler) UpdateUserRoles(ctx context.Context, request oapi.UpdateUserRolesRequestObject) (oapi.UpdateUserRolesResponseObject, error) {
-	if !h.hasRole(ctx, user.ADMIN) {
-		return oapi.UpdateUserRoles403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+func (h *WorkflowHandler) UpdateUserAccess(ctx context.Context, request oapi.UpdateUserAccessRequestObject) (oapi.UpdateUserAccessResponseObject, error) {
+	if !h.isAdmin(ctx) {
+		return oapi.UpdateUserAccess403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
-	roles := make([]user.RoleName, len(request.Body.Roles))
-	for i, role := range request.Body.Roles {
-		roles[i] = user.RoleName(role)
-	}
-	item, err := h.users.ReplaceRoles(ctx, user.UserId(request.Id), roles)
+	item, err := h.users.UpdateAccess(
+		ctx,
+		user.UserId(request.Id),
+		request.Body.IsAdmin,
+		request.Body.IsPublicServant,
+	)
 	if errors.Is(err, sql.ErrNoRows) {
-		return oapi.UpdateUserRoles404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
+		return oapi.UpdateUserAccess404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
 	}
 	if err != nil {
 		return nil, err
 	}
-	return oapi.UpdateUserRoles200JSONResponse(userToAPI(*item)), nil
+	return oapi.UpdateUserAccess200JSONResponse(userToAPI(*item)), nil
 }
 
 func procedureFromAPI(input oapi.ProcedureDefinition) petrunia.Net {
@@ -313,9 +319,13 @@ func notificationToAPI(v cases.Notification) oapi.Notification {
 	return oapi.Notification{Id: v.ID, CaseId: v.CaseID, TaskId: v.TaskID, Type: oapi.NotificationType(v.Type), Title: v.Title, CreatedAt: v.CreatedAt, ReadAt: v.ReadAt}
 }
 func userToAPI(v user.User) oapi.User {
-	roles := make([]string, len(v.Roles))
-	for i, r := range v.Roles {
-		roles[i] = string(r)
+	return oapi.User{
+		Id:              int64(v.ID),
+		Name:            v.Name,
+		Sub:             v.Sub,
+		Email:           openapi_types.Email(v.Email),
+		EmailVerified:   v.EmailVerified,
+		IsAdmin:         v.IsAdmin,
+		IsPublicServant: v.IsPublicServant,
 	}
-	return oapi.User{Id: int64(v.ID), Name: v.Name, Sub: v.Sub, Email: openapi_types.Email(v.Email), EmailVerified: v.EmailVerified, Roles: roles}
 }

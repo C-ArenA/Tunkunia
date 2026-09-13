@@ -121,9 +121,9 @@ Cada módulo adopta una arquitectura hexagonal como primera opción, pero en cas
 El contexto de Tunkunia se resume en la @fig:tunkunia-c4-system-context.
 Un
 visitante consulta el catálogo sin autenticarse.
-Después del ingreso, una misma
-persona puede actuar como ciudadana o servidora pública según el recurso que
-ocupe en un caso.
+Después del ingreso, toda persona actúa como ciudadana y, cuando cuenta con la
+habilitación correspondiente, también puede actuar como servidora pública según
+el recurso que ocupe en un caso.
 El administrador institucional configura la instancia y
 publica trámites, mientras que el operador técnico se ocupa del despliegue y el
 respaldo.
@@ -146,7 +146,8 @@ La @fig:tunkunia-modules muestra la división del servidor por capacidades:
 - *Catálogo* administra los trámites y las versiones de sus procesos.
 - *Casos* inicia y ejecuta casos, mantiene sus asignaciones, marcado, expediente
   e historial, y coordina las operaciones que deben ocurrir juntas.
-- *Usuarios* conserva las identidades locales, los grupos y los roles globales.
+- *Usuarios* conserva las identidades locales y sus indicadores de acceso
+  administrativo y de servicio público.
 - *Autenticación* integra OIDC y establece la sesión local.
 - *Notificaciones* mantiene la bandeja interna de avisos.
 - *Interoperabilidad* genera el reporte para gob.bo, gestiona la demostración con

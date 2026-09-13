@@ -526,7 +526,7 @@ Sin embargo, existen algunos apartados recomendados en el @SRS que pueden aporta
     - Pantalla de ejecución de paso de trámite.
   - Aplicación de administración institucional.
     - Vista del gestor de trámites y procesos.
-    - Vista del gestor de usuarios y roles.
+    - Vista del gestor de usuarios y acceso institucional.
     - Vista del gestor de llaves de acceso.
     - Vista del gestor institucional.
 

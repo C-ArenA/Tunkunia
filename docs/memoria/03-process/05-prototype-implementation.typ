@@ -80,7 +80,7 @@ Tunkunia/
 │   ├── api/             # transporte HTTP
 │   ├── authn/           # OIDC y sesión JWT
 │   ├── catalog/         # catálogo de trámites
-│   ├── user/            # usuarios y roles
+│   ├── user/            # usuarios y acceso institucional
 │   └── health/          # estado operativo
 ├── database/
 │   ├── migrations/      # evolución del esquema
@@ -118,15 +118,16 @@ ejecuta casos, conserva el marcado y coordina participantes, tareas, actuaciones
 y notificaciones dentro de una transacción. El paquete público `petrunia`
 implementa la habilitación, el disparo y la verificación acotada de las WF-nets,
 sin depender de usuarios ni persistencia. El módulo `user` mantiene la
-identidad local, los roles y la asignación inicial de administración. El módulo
-`authn` integra el proveedor OIDC, establece la sesión y construye el principal
+identidad local, los indicadores de acceso y la asignación inicial de
+administración. El módulo `authn` integra el proveedor OIDC, establece la
+sesión y construye el principal
 que utilizan los demás manejadores.
 El módulo `health` aporta una comprobación
 operativa independiente de las capacidades de negocio.
 
 ==== Persistencia y contrato HTTP
 
-SQLite contiene las tablas de usuarios, roles, trámites, versiones de
+SQLite contiene las tablas de usuarios, trámites, versiones de
 procedimiento, casos, participantes, tareas, actuaciones y notificaciones. Goose aplica las
 migraciones en el arranque y carga datos demostrativos durante el desarrollo.
 Las restricciones de unicidad, claves foráneas e índices complementan las

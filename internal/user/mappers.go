@@ -5,39 +5,27 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/cast"
 )
 
-func NewUserFromDomain(dU User) sqlc.User {
-	return sqlc.User{
-		ID:            int64(dU.ID),
-		Name:          dU.Name,
-		Sub:           dU.Sub,
-		Email:         string(dU.Email),
-		EmailVerified: cast.BoolToSqlite(dU.EmailVerified),
-		CreatedAt:     cast.TimeToSqlite(dU.CreatedAt),
-	}
-}
-
-func ToDomainUser(u sqlc.User, r []string) User {
-	dRoles := make([]RoleName, len(r))
-	for i, role := range r {
-		dRoles[i] = RoleName(role)
-	}
+func ToDomainUser(u sqlc.User) User {
 	return User{
-		ID:            UserId(u.ID),
-		Name:          u.Name,
-		Sub:           u.Sub,
-		Email:         Email(u.Email),
-		EmailVerified: cast.SqliteToBool(u.EmailVerified),
-		CreatedAt:     cast.SqliteToTimeForced(u.CreatedAt),
-		UpdatedAt:     cast.SqliteToTimeForced(u.UpdatedAt),
-		Roles:         dRoles,
+		ID:              UserId(u.ID),
+		Name:            u.Name,
+		Sub:             u.Sub,
+		Email:           Email(u.Email),
+		EmailVerified:   cast.SqliteToBool(u.EmailVerified),
+		IsAdmin:         cast.SqliteToBool(u.IsAdmin),
+		IsPublicServant: cast.SqliteToBool(u.IsPublicServant),
+		CreatedAt:       cast.SqliteToTimeForced(u.CreatedAt),
+		UpdatedAt:       cast.SqliteToTimeForced(u.UpdatedAt),
 	}
 }
 
 func NewUserUpsertParamsFromDomain(dU User) sqlc.UpsertUserParams {
 	return sqlc.UpsertUserParams{
-		Name:          dU.Name,
-		Sub:           dU.Sub,
-		Email:         string(dU.Email),
-		EmailVerified: cast.BoolToSqlite(dU.EmailVerified),
+		Name:            dU.Name,
+		Sub:             dU.Sub,
+		Email:           string(dU.Email),
+		EmailVerified:   cast.BoolToSqlite(dU.EmailVerified),
+		IsAdmin:         cast.BoolToSqlite(dU.IsAdmin),
+		IsPublicServant: cast.BoolToSqlite(dU.IsPublicServant),
 	}
 }

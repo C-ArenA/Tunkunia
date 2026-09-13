@@ -6,16 +6,6 @@ import (
 	"time"
 )
 
-type RoleName string
-
-const (
-	ADMIN   RoleName = "admin"
-	EDITOR  RoleName = "editor"
-	PLAYER  RoleName = "player"
-	SERVANT RoleName = "servant"
-	CITIZEN RoleName = "citizen"
-)
-
 type Email string
 
 func (e *Email) UnmarshalText(text []byte) error {
@@ -43,13 +33,17 @@ func NewEmail(e string) (Email, error) {
 }
 
 type UserId int
+
+// User is always a citizen. IsAdmin and IsPublicServant grant additional,
+// independent system access.
 type User struct {
-	ID            UserId
-	Name          string
-	Sub           string
-	Email         Email
-	EmailVerified bool
-	Roles         []RoleName
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
+	ID              UserId
+	Name            string
+	Sub             string
+	Email           Email
+	EmailVerified   bool
+	IsAdmin         bool
+	IsPublicServant bool
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
 }

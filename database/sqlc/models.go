@@ -88,16 +88,13 @@ type Tramite struct {
 }
 
 type User struct {
-	ID            int64
-	Name          string
-	Sub           string
-	Email         string
-	EmailVerified int64
-	CreatedAt     string
-	UpdatedAt     string
-}
-
-type UserRole struct {
-	UserID int64
-	Role   string
+	ID              int64
+	Name            string
+	Sub             string
+	Email           string
+	EmailVerified   int64
+	IsAdmin         int64
+	IsPublicServant int64
+	CreatedAt       string
+	UpdatedAt       string
 }

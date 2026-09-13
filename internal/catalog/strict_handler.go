@@ -19,7 +19,7 @@ func NewStrictApiHandler(service *Service, users *user.Service) *StrictCatalogHa
 
 func (h *StrictCatalogHandlerV1) isAdmin(ctx context.Context) bool {
 	p, ok := authn.FromAuthContext(ctx)
-	return ok && h.users.HasRole(ctx, user.UserId(p.ID), user.ADMIN)
+	return ok && h.users.IsAdmin(ctx, user.UserId(p.ID))
 }
 
 func (h *StrictCatalogHandlerV1) ListTramites(ctx context.Context, request oapi.ListTramitesRequestObject) (oapi.ListTramitesResponseObject, error) {

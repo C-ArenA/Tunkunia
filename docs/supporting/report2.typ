@@ -111,7 +111,7 @@
 
   [*Acceso*],
   [Atender ciudadanos y servidores con responsabilidades distintas],
-  [OIDC, rol global, recurso del caso y permiso de transición],
+  [OIDC, indicadores de acceso, recurso del caso y permiso de transición],
 
   [*Integración*],
   [Relacionarse con gob.bo y sistemas autorizados],

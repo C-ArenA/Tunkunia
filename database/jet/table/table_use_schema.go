@@ -18,6 +18,5 @@ func UseSchema(schema string) {
 	Notifications = Notifications.FromSchema(schema)
 	ProcedureVersions = ProcedureVersions.FromSchema(schema)
 	Tramites = Tramites.FromSchema(schema)
-	UserRoles = UserRoles.FromSchema(schema)
 	Users = Users.FromSchema(schema)
 }

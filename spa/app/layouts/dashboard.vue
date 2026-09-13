@@ -30,7 +30,7 @@ const items = computed<NavigationMenuItem[]>(() => [
       <template #footer="{ collapsed }">
         <div class="space-y-2">
           <UButton
-            v-if="me?.roles.includes('admin')"
+            v-if="me?.isAdmin"
             to="/admin"
             icon="i-lucide-shield-check"
             :label="collapsed ? undefined : 'Administración'"

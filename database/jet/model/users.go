@@ -8,11 +8,13 @@
 package model
 
 type Users struct {
-	ID            int64 `sql:"primary_key"`
-	Name          string
-	Sub           string
-	Email         string
-	EmailVerified int64
-	CreatedAt     string
-	UpdatedAt     string
+	ID              int64 `sql:"primary_key"`
+	Name            string
+	Sub             string
+	Email           string
+	EmailVerified   int64
+	IsAdmin         int64
+	IsPublicServant int64
+	CreatedAt       string
+	UpdatedAt       string
 }

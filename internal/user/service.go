@@ -13,10 +13,10 @@ type Repo interface {
 	UpsertUserBySub(ctx context.Context, u User) (*User, error)
 	GetUserByEmail(ctx context.Context, email Email) (*User, error)
 	GetUserById(ctx context.Context, id UserId) (*User, error)
-	IsRoleInUse(ctx context.Context, role RoleName) (bool, error)
-	AssignRoleToUser(ctx context.Context, userId UserId, role RoleName) error
+	AdminExists(ctx context.Context) (bool, error)
+	SetAdmin(ctx context.Context, userId UserId, isAdmin bool) error
 	ListUsers(ctx context.Context) ([]User, error)
-	ReplaceRoles(ctx context.Context, userId UserId, roles []RoleName) (*User, error)
+	UpdateAccess(ctx context.Context, userId UserId, isAdmin, isPublicServant bool) (*User, error)
 }
 
 type Service struct {
@@ -45,25 +45,22 @@ func (s *Service) ListUsers(ctx context.Context) ([]User, error) {
 	return s.r.ListUsers(ctx)
 }
 
-func (s *Service) ReplaceRoles(ctx context.Context, id UserId, roles []RoleName) (*User, error) {
-	return s.r.ReplaceRoles(ctx, id, roles)
+func (s *Service) UpdateAccess(ctx context.Context, id UserId, isAdmin, isPublicServant bool) (*User, error) {
+	return s.r.UpdateAccess(ctx, id, isAdmin, isPublicServant)
 }
 
-func (s *Service) HasRole(ctx context.Context, id UserId, role RoleName) bool {
+func (s *Service) IsAdmin(ctx context.Context, id UserId) bool {
 	u, err := s.r.GetUserById(ctx, id)
-	if err != nil {
-		return false
-	}
-	for _, current := range u.Roles {
-		if current == role {
-			return true
-		}
-	}
-	return false
+	return err == nil && u.IsAdmin
+}
+
+func (s *Service) IsPublicServant(ctx context.Context, id UserId) bool {
+	u, err := s.r.GetUserById(ctx, id)
+	return err == nil && u.IsPublicServant
 }
 
 func (s *Service) CreateFirstAdmin(ctx context.Context, email Email) (*User, error) {
-	adminExists, err := s.r.IsRoleInUse(ctx, ADMIN)
+	adminExists, err := s.r.AdminExists(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("No se pudo verificar si ya existe un administrador: %w", err)
 	}
@@ -72,8 +69,8 @@ func (s *Service) CreateFirstAdmin(ctx context.Context, email Email) (*User, err
 	}
 
 	adminUser := User{
-		Email: email,
-		Roles: []RoleName{ADMIN},
+		Email:   email,
+		IsAdmin: true,
 	}
 
 	createdUser, err := s.r.SaveUser(ctx, adminUser)
@@ -90,10 +87,11 @@ func (s *Service) Login(ctx context.Context, u User, isFirstAdmin bool) (*User, 
 	}
 	isNewUser := loggedInUser.CreatedAt.Equal(loggedInUser.UpdatedAt)
 	if isNewUser && isFirstAdmin {
-		err := s.r.AssignRoleToUser(ctx, loggedInUser.ID, ADMIN)
+		err := s.r.SetAdmin(ctx, loggedInUser.ID, true)
 		if err != nil {
-			return loggedInUser, fmt.Errorf("No se pudo asignar rol de administrador: %w", err)
+			return loggedInUser, fmt.Errorf("No se pudo conceder acceso de administrador: %w", err)
 		}
+		loggedInUser.IsAdmin = true
 	}
 	return loggedInUser, nil
 }

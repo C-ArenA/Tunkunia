@@ -37,8 +37,8 @@ paths:
     $ref: authn.yaml#/components/pathItems/CurrentUser
   /users:
     $ref: authn.yaml#/components/pathItems/Users
-  /users/{id}/roles:
-    $ref: authn.yaml#/components/pathItems/UserRoles
+  /users/{id}:
+    $ref: authn.yaml#/components/pathItems/UserById
   /tramites/{id}/procedure:
     $ref: workflow.yaml#/components/pathItems/PublishedProcedure
   /tramites/{id}/procedure/draft:

@@ -239,7 +239,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
-  /users/{id}/roles:
+  /users/{id}:
     parameters:
       - name: id
         in: path
@@ -251,8 +251,8 @@ paths:
     patch:
       tags:
         - Users
-      operationId: updateUserRoles
-      summary: Actualizar roles globales de un usuario
+      operationId: updateUserAccess
+      summary: Actualizar el acceso institucional de un usuario
       security:
         - BearerAuth: []
       requestBody:
@@ -262,16 +262,13 @@ paths:
             schema:
               type: object
               required:
-                - roles
+                - isAdmin
+                - isPublicServant
               properties:
-                roles:
-                  type: array
-                  uniqueItems: true
-                  items:
-                    type: string
-                    enum:
-                      - admin
-                      - servant
+                isAdmin:
+                  type: boolean
+                isPublicServant:
+                  type: boolean
       responses:
         '200':
           description: Usuario actualizado
@@ -785,13 +782,15 @@ components:
               $ref: '#/components/schemas/TramiteStatus'
     User:
       type: object
+      description: Every user is a citizen. The access flags grant additional, independent capabilities.
       required:
         - id
         - name
         - sub
         - email
         - emailVerified
-        - roles
+        - isAdmin
+        - isPublicServant
       properties:
         id:
           type: integer
@@ -810,13 +809,14 @@ components:
         emailVerified:
           type: boolean
           example: true
-        roles:
-          type: array
-          items:
-            type: string
-          example:
-            - admin
-            - user
+        isAdmin:
+          type: boolean
+          description: Whether the citizen also has system administration access.
+          example: false
+        isPublicServant:
+          type: boolean
+          description: Whether the citizen is also authorized to act as a public servant.
+          example: true
     ProcedureRole:
       type: string
       enum:
