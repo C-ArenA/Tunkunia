@@ -20,6 +20,8 @@ type Principal struct {
 	Type PrincipalType
 }
 
+var ErrRequiresAuthenticatedUser = errors.New("Requires authenticated user")
+
 func (p Principal) IsValid() bool {
 	if p.ID <= 0 {
 		return false

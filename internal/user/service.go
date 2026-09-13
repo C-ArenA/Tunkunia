@@ -13,19 +13,20 @@ type Repo interface {
 	UpsertUserBySub(ctx context.Context, u User) (*User, error)
 	GetUserByEmail(ctx context.Context, email Email) (*User, error)
 	GetUserById(ctx context.Context, id UserId) (*User, error)
-	AdminExists(ctx context.Context) (bool, error)
 	SetAdmin(ctx context.Context, userId UserId, isAdmin bool) error
 	ListUsers(ctx context.Context) ([]User, error)
 	UpdateAccess(ctx context.Context, userId UserId, isAdmin, isPublicServant bool) (*User, error)
 }
 
 type Service struct {
-	r Repo
+	r               Repo
+	firstAdminEmail Email
 }
 
-func NewService(db *sql.DB, q *sqlc.Queries) *Service {
+func NewService(db *sql.DB, q *sqlc.Queries, firstAdminEmail Email) *Service {
 	return &Service{
-		r: NewSqliteStore(db, q),
+		r:               NewSqliteStore(db, q),
+		firstAdminEmail: firstAdminEmail,
 	}
 }
 
@@ -59,39 +60,30 @@ func (s *Service) IsPublicServant(ctx context.Context, id UserId) bool {
 	return err == nil && u.IsPublicServant
 }
 
-func (s *Service) CreateFirstAdmin(ctx context.Context, email Email) (*User, error) {
-	adminExists, err := s.r.AdminExists(ctx)
+// FindOrRegister persists an externally authenticated user and returns the
+// local ID needed by the authentication layer. Bootstrap administration is a
+// user policy, so it is applied here rather than in authn.
+func (s *Service) FindOrRegister(ctx context.Context, subject, email, name string, emailVerified bool) (int, error) {
+	domainEmail, err := NewEmail(email)
 	if err != nil {
-		return nil, fmt.Errorf("No se pudo verificar si ya existe un administrador: %w", err)
-	}
-	if adminExists {
-		return nil, ErrAdminAlreadyExists
+		return 0, fmt.Errorf("invalid user email: %w", err)
 	}
 
-	adminUser := User{
-		Email:   email,
-		IsAdmin: true,
+	u := User{
+		Sub:           subject,
+		Email:         domainEmail,
+		EmailVerified: emailVerified,
+		Name:          name,
 	}
-
-	createdUser, err := s.r.SaveUser(ctx, adminUser)
-	if err != nil {
-		return nil, fmt.Errorf("No se pudo guardar usuario administrador correctamente: %w", err)
-	}
-	return createdUser, nil
-}
-
-func (s *Service) Login(ctx context.Context, u User, isFirstAdmin bool) (*User, error) {
 	loggedInUser, err := s.r.UpsertUserBySub(ctx, u)
 	if err != nil {
-		return nil, fmt.Errorf("UpsertUserBySub failed: %w", err)
+		return 0, fmt.Errorf("UpsertUserBySub failed: %w", err)
 	}
-	isNewUser := loggedInUser.CreatedAt.Equal(loggedInUser.UpdatedAt)
-	if isNewUser && isFirstAdmin {
+	if emailVerified && domainEmail == s.firstAdminEmail && !loggedInUser.IsAdmin {
 		err := s.r.SetAdmin(ctx, loggedInUser.ID, true)
 		if err != nil {
-			return loggedInUser, fmt.Errorf("No se pudo conceder acceso de administrador: %w", err)
+			return 0, fmt.Errorf("No se pudo conceder acceso de administrador: %w", err)
 		}
-		loggedInUser.IsAdmin = true
 	}
-	return loggedInUser, nil
+	return int(loggedInUser.ID), nil
 }

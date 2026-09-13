@@ -18,8 +18,6 @@ servers:
 tags:
   - name: Catalog
     description: Catálogo institucional de trámites.
-  - name: Authn
-    description: Identidad del usuario autenticado.
   - name: Health
     description: Estado operativo del servicio.
   - name: Workflows
@@ -34,11 +32,11 @@ paths:
   /tramites/{id}:
     $ref: catalog.yaml#/components/pathItems/TramiteById
   /me:
-    $ref: authn.yaml#/components/pathItems/CurrentUser
+    $ref: user.yaml#/components/pathItems/CurrentUser
   /users:
-    $ref: authn.yaml#/components/pathItems/Users
+    $ref: user.yaml#/components/pathItems/Users
   /users/{id}:
-    $ref: authn.yaml#/components/pathItems/UserById
+    $ref: user.yaml#/components/pathItems/UserById
   /tramites/{id}/procedure:
     $ref: workflow.yaml#/components/pathItems/PublishedProcedure
   /tramites/{id}/procedure/draft:

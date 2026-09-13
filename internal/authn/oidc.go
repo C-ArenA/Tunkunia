@@ -15,8 +15,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/C-ArenA/Tunkunia/internal/config"
-	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/coreos/go-oidc/v3/oidc"
 	"github.com/go-chi/chi/v5"
 	"golang.org/x/oauth2"
@@ -33,24 +31,38 @@ type oidcClaims struct {
 	Name          string `json:"name"`
 }
 
+// UserRegistry is the application capability needed by OIDC after claims
+// have been verified. Primitive arguments keep authn independent of the user
+// module and let the user service satisfy this interface implicitly.
+type UserRegistry interface {
+	FindOrRegister(ctx context.Context, subject, email, name string, emailVerified bool) (int, error)
+}
+
+type OIDCConfig struct {
+	AppURL       string
+	ProviderURL  string
+	ClientID     string
+	ClientSecret string
+	CallbackPath string
+}
+
 // Highly inspired on the dex guides. DEX is being used as an oidc provider local sandbox
 // https://dexidp.io/docs/guides/using-dex/
 
 type OIDCHandler struct {
-	userService     *user.Service
-	jwtAuth         *JWTAuth
-	firstAdminEmail user.Email
-	provider        *oidc.Provider
-	providerURL     string
-	clientID        string
-	clientSecret    string
-	redirectURL     string
-	scopes          []string
-	mu              sync.RWMutex
+	users        UserRegistry
+	jwtAuth      *JWTAuth
+	provider     *oidc.Provider
+	providerURL  string
+	clientID     string
+	clientSecret string
+	redirectURL  string
+	scopes       []string
+	mu           sync.RWMutex
 }
 
-func NewOIDCHandler(ctx context.Context, cfg *config.Config, us *user.Service, ja *JWTAuth) (*OIDCHandler, error) {
-	redirectURL, err := url.JoinPath(cfg.AppURL, cfg.Route.OidcCallback)
+func NewOIDCHandler(ctx context.Context, cfg OIDCConfig, users UserRegistry, ja *JWTAuth) (*OIDCHandler, error) {
+	redirectURL, err := url.JoinPath(cfg.AppURL, cfg.CallbackPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to construct redirect URL: %w", err)
 	}
@@ -60,14 +72,13 @@ func NewOIDCHandler(ctx context.Context, cfg *config.Config, us *user.Service, j
 	}
 
 	return &OIDCHandler{
-		userService:     us,
-		jwtAuth:         ja,
-		firstAdminEmail: cfg.FirstAdminEmail,
-		providerURL:     cfg.OidcURL,
-		clientID:        cfg.OidcClientID,
-		clientSecret:    cfg.OidcSecret,
-		redirectURL:     parsedURL.String(),
-		scopes:          []string{oidc.ScopeOpenID, oidc.ScopeEmail, oidc.ScopeProfile},
+		users:        users,
+		jwtAuth:      ja,
+		providerURL:  cfg.ProviderURL,
+		clientID:     cfg.ClientID,
+		clientSecret: cfg.ClientSecret,
+		redirectURL:  parsedURL.String(),
+		scopes:       []string{oidc.ScopeOpenID, oidc.ScopeEmail, oidc.ScopeProfile},
 	}, nil
 }
 
@@ -101,13 +112,13 @@ func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	u, err := h.getUserWithClaims(r.Context(), claims)
+	userID, err := h.getUserWithClaims(r.Context(), claims)
 	if err != nil {
 		http.Redirect(w, r, loginRoute+"?error=no_user", http.StatusSeeOther)
 		return
 	}
 
-	loginToken, err := h.jwtAuth.IssueUserToken(int(u.ID))
+	loginToken, err := h.jwtAuth.IssueUserToken(userID)
 	if err != nil {
 		http.Redirect(w, r, loginRoute+"?error=no_token", http.StatusSeeOther)
 		return
@@ -147,18 +158,8 @@ func (h *OIDCHandler) exchange(ctx context.Context, code string) (*oidcClaims, e
 	return claims, nil
 }
 
-func (h *OIDCHandler) getUserWithClaims(ctx context.Context, claims *oidcClaims) (*user.User, error) {
-	email, err := user.NewEmail(claims.Email)
-	if err != nil {
-		return nil, fmt.Errorf("Claim has invalid email: %w", err)
-	}
-
-	return h.userService.Login(ctx, user.User{
-		Sub:           claims.Sub,
-		Email:         email,
-		EmailVerified: claims.EmailVerified,
-		Name:          claims.Name,
-	}, email == h.firstAdminEmail)
+func (h *OIDCHandler) getUserWithClaims(ctx context.Context, claims *oidcClaims) (int, error) {
+	return h.users.FindOrRegister(ctx, claims.Sub, claims.Email, claims.Name, claims.EmailVerified)
 }
 
 func (h *OIDCHandler) loadProvider(ctx context.Context) error {

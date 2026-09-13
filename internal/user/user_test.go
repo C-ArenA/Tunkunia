@@ -63,26 +63,38 @@ func TestUserAdditionalAccessFlags(t *testing.T) {
 	assert.ErrorIs(t, err, sql.ErrNoRows)
 }
 
-func TestCreateFirstAdmin(t *testing.T) {
+func TestFindOrRegisterBootstrapsConfiguredAdmin(t *testing.T) {
 	service := newTestService(t)
 
-	created, err := service.CreateFirstAdmin(t.Context(), "admin@example.com")
+	id, err := service.FindOrRegister(t.Context(), "admin-sub", "admin@example.com", "Administradora", false)
 	require.NoError(t, err)
-	assert.True(t, created.IsAdmin)
-	assert.False(t, created.IsPublicServant)
+	created, err := service.GetUserById(t.Context(), UserId(id))
+	require.NoError(t, err)
+	assert.False(t, created.IsAdmin)
 
-	loggedIn, err := service.Login(t.Context(), User{
-		Name:          "Administradora",
-		Sub:           "admin-sub",
-		Email:         "admin@example.com",
-		EmailVerified: true,
-	}, true)
+	id, err = service.FindOrRegister(t.Context(), "admin-sub", "admin@example.com", "Administradora", true)
 	require.NoError(t, err)
-	assert.Equal(t, created.ID, loggedIn.ID)
+	assert.Equal(t, int(created.ID), id)
+	loggedIn, err := service.GetUserById(t.Context(), UserId(id))
+	require.NoError(t, err)
 	assert.True(t, loggedIn.IsAdmin)
 
-	_, err = service.CreateFirstAdmin(t.Context(), "another-admin@example.com")
-	assert.ErrorIs(t, err, ErrAdminAlreadyExists)
+	other, err := service.SaveUser(t.Context(), User{
+		Name:    "Otra administradora",
+		Sub:     "other-admin-sub",
+		Email:   "other-admin@example.com",
+		IsAdmin: true,
+	})
+	require.NoError(t, err)
+	assert.True(t, other.IsAdmin)
+
+	_, err = service.UpdateAccess(t.Context(), UserId(id), false, false)
+	require.NoError(t, err)
+	_, err = service.FindOrRegister(t.Context(), "admin-sub", "admin@example.com", "Administradora", true)
+	require.NoError(t, err)
+	loggedIn, err = service.GetUserById(t.Context(), UserId(id))
+	require.NoError(t, err)
+	assert.True(t, loggedIn.IsAdmin, "configured bootstrap user should be promoted even when another admin exists")
 }
 
 func newTestService(t *testing.T) *Service {
@@ -91,5 +103,5 @@ func newTestService(t *testing.T) *Service {
 	require.NoError(t, err)
 	t.Cleanup(func() { db.Close() })
 	require.NoError(t, database.Migrate(t.Context(), db))
-	return NewService(db, sqlc.New())
+	return NewService(db, sqlc.New(), "admin@example.com")
 }

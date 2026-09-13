@@ -7,19 +7,19 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 )
 
-type StrictApiHandler struct {
+type StrictHealthHandlerV1 struct {
 	Name   string `json:"name"`
 	Author string `json:"author"`
 }
 
-func NewStrictApiHandler() *StrictApiHandler {
-	return &StrictApiHandler{
+func NewStrictHealthHandlerV1() *StrictHealthHandlerV1 {
+	return &StrictHealthHandlerV1{
 		Name:   "Tunkunia",
 		Author: "Ernesto Carlos Arena Alarcon",
 	}
 }
 
-func (a *StrictApiHandler) GetHealth(ctx context.Context, request oapi.GetHealthRequestObject) (oapi.GetHealthResponseObject, error) {
+func (a *StrictHealthHandlerV1) GetHealth(ctx context.Context, request oapi.GetHealthRequestObject) (oapi.GetHealthResponseObject, error) {
 	if a.Name != "Tunkunia" {
 		return oapi.GetHealth503JSONResponse{
 			Status:    oapi.DEGRADED,

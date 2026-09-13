@@ -51,7 +51,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	q := sqlc.New()
 
 	// modules wiring
-	userService := user.NewService(db, q)
+	userService := user.NewService(db, q, cfg.FirstAdminEmail)
 	catalogService := catalog.NewService(catalog.NewRepo(db, q))
 	caseService := cases.NewService(db, catalogService)
 	jwtAuthn := authn.NewJWTAuth(cfg.JWTSecret)
@@ -59,7 +59,13 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 	// Handlers
 	strictHandlerV1 := apiv1.NewStrictHandler(catalogService, userService, caseService)
 
-	oidcHandler, err := authn.NewOIDCHandler(ctx, cfg, userService, jwtAuthn)
+	oidcHandler, err := authn.NewOIDCHandler(ctx, authn.OIDCConfig{
+		AppURL:       cfg.AppURL,
+		ProviderURL:  cfg.OidcURL,
+		ClientID:     cfg.OidcClientID,
+		ClientSecret: cfg.OidcSecret,
+		CallbackPath: cfg.Route.OidcCallback,
+	}, userService, jwtAuthn)
 	if err != nil {
 		log.Fatal(err)
 	}

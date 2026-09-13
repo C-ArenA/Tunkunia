@@ -2,7 +2,6 @@ package v1
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"net/http"
 
@@ -17,24 +16,22 @@ import (
 	nethttpmiddleware "github.com/oapi-codegen/nethttp-middleware"
 )
 
-var errRequiresAuthenticatedUser = errors.New("Requires authenticated user")
-
 var _ oapi.StrictServerInterface = (*StrictHandler)(nil)
 
 func NewStrictHandler(catalogService *catalog.Service, userService *user.Service, caseService *cases.Service) *StrictHandler {
 	return &StrictHandler{
-		health.NewStrictApiHandler(),
-		catalog.NewStrictApiHandler(catalogService, userService),
-		authn.NewStrictHandler(userService),
-		NewWorkflowHandler(catalogService, caseService, userService),
+		health.NewStrictHealthHandlerV1(),
+		catalog.NewStrictCatalogHandlerV1(catalogService, userService),
+		user.NewStrictUserHandlerV1(userService),
+		cases.NewStrictCasesHandlerV1(caseService, userService),
 	}
 }
 
 type StrictHandler struct {
-	*health.StrictApiHandler
+	*health.StrictHealthHandlerV1
 	*catalog.StrictCatalogHandlerV1
-	*authn.StrictHandler
-	*WorkflowHandler
+	*user.StrictUserHandlerV1
+	*cases.StrictCasesHandlerV1
 }
 
 func (h *StrictHandler) RegisterRoutes(r *chi.Mux, baseURL string) {
@@ -61,7 +58,7 @@ func validationMiddleware(baseURL string) (func(http.Handler) http.Handler, erro
 			AuthenticationFunc: func(ctx context.Context, ai *openapi3filter.AuthenticationInput) error {
 				fmt.Println("Validando autenticación")
 				if _, ok := authn.FromAuthContext(ctx); !ok {
-					return errRequiresAuthenticatedUser
+					return authn.ErrRequiresAuthenticatedUser
 				}
 				return nil
 			},
@@ -76,7 +73,7 @@ func handleOpenAPIValidationError(_ context.Context, err error, w http.ResponseW
 	case http.StatusBadRequest:
 		oapi.Error(w, oapi.NewBadRequestResponse(err.Error()), opts.StatusCode)
 	case http.StatusUnauthorized:
-		oapi.Error(w, oapi.NewUnauthorizedResponse(errRequiresAuthenticatedUser.Error()), opts.StatusCode)
+		oapi.Error(w, oapi.NewUnauthorizedResponse(authn.ErrRequiresAuthenticatedUser.Error()), opts.StatusCode)
 	case http.StatusNotFound:
 		fmt.Println("ajjaaaa")
 		oapi.Error(w, oapi.NewNotFoundResponse(err.Error()), opts.StatusCode)

@@ -41,10 +41,6 @@ func (s *sqliteStore) GetUserByEmail(ctx context.Context, email Email) (*User, e
 	return new(ToDomainUser(savedUser)), nil
 }
 
-func (s *sqliteStore) AdminExists(ctx context.Context) (bool, error) {
-	return s.q.AdminExists(ctx, s.db)
-}
-
 func (s *sqliteStore) SaveUser(ctx context.Context, u User) (*User, error) {
 	savedUser, err := s.q.UpsertUser(ctx, s.db, NewUserUpsertParamsFromDomain(u))
 	if err != nil {

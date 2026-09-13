@@ -2,8 +2,22 @@ package user
 
 import (
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
+	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/cast"
+	openapi_types "github.com/oapi-codegen/runtime/types"
 )
+
+func UserToResponse(v User) oapi.User {
+	return oapi.User{
+		Id:              int64(v.ID),
+		Name:            v.Name,
+		Sub:             v.Sub,
+		Email:           openapi_types.Email(v.Email),
+		EmailVerified:   v.EmailVerified,
+		IsAdmin:         v.IsAdmin,
+		IsPublicServant: v.IsPublicServant,
+	}
+}
 
 func ToDomainUser(u sqlc.User) User {
 	return User{

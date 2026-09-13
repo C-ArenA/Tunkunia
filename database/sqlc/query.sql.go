@@ -9,28 +9,6 @@ import (
 	"context"
 )
 
-const adminExists = `-- name: AdminExists :one
-SELECT EXISTS (
-  SELECT 1
-  FROM users
-  WHERE is_admin = 1
-)
-`
-
-// AdminExists
-//
-//	SELECT EXISTS (
-//	  SELECT 1
-//	  FROM users
-//	  WHERE is_admin = 1
-//	)
-func (q *Queries) AdminExists(ctx context.Context, db DBTX) (bool, error) {
-	row := db.QueryRowContext(ctx, adminExists)
-	var exists bool
-	err := row.Scan(&exists)
-	return exists, err
-}
-
 const createTramite = `-- name: CreateTramite :one
 INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
 VALUES (?, ?, ?, ?)
@@ -496,10 +474,11 @@ INSERT INTO users(name, sub, email, email_verified)
 VALUES (?, ?, ?, ?)
 ON CONFLICT DO UPDATE
 SET
-  email = excluded.email,
-  name = excluded.name,
-  email_verified = excluded.email_verified,
-  updated_at = CURRENT_TIMESTAMP
+	sub = excluded.sub,
+	email = excluded.email,
+	name = excluded.name,
+	email_verified = excluded.email_verified,
+	updated_at = CURRENT_TIMESTAMP
 RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 `
 
@@ -516,10 +495,11 @@ type UpsertUserBySubParams struct {
 //	VALUES (?, ?, ?, ?)
 //	ON CONFLICT DO UPDATE
 //	SET
-//	  email = excluded.email,
-//	  name = excluded.name,
-//	  email_verified = excluded.email_verified,
-//	  updated_at = CURRENT_TIMESTAMP
+//		sub = excluded.sub,
+//		email = excluded.email,
+//		name = excluded.name,
+//		email_verified = excluded.email_verified,
+//		updated_at = CURRENT_TIMESTAMP
 //	RETURNING id, name, sub, email, email_verified, is_admin, is_public_servant, created_at, updated_at
 func (q *Queries) UpsertUserBySub(ctx context.Context, db DBTX, arg UpsertUserBySubParams) (User, error) {
 	row := db.QueryRowContext(ctx, upsertUserBySub,

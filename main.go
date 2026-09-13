@@ -21,7 +21,6 @@ var rootCmd = &cobra.Command{
 func main() {
 	rootCmd.AddCommand(cmd.NewServeCmd())
 	rootCmd.AddCommand(cmd.NewRouteListCmd())
-	rootCmd.AddCommand(cmd.NewFirstAdminCmd())
 	rootCmd.AddCommand(cmd.NewApiKeyGenerateCmd())
 	err := rootCmd.Execute()
 	if err != nil {

@@ -18,8 +18,6 @@ servers:
 tags:
   - name: Catalog
     description: Catálogo institucional de trámites.
-  - name: Authn
-    description: Identidad del usuario autenticado.
   - name: Health
     description: Estado operativo del servicio.
   - name: Workflows
@@ -186,7 +184,7 @@ paths:
   /me:
     get:
       tags:
-        - Authn
+        - Users
       operationId: getMe
       summary: Obtener información del usuario
       security:

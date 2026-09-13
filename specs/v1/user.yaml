@@ -3,7 +3,7 @@ components:
     CurrentUser:
       get:
         tags:
-          - Authn
+          - Users
         operationId: getMe
         summary: Obtener información del usuario
         security:
@@ -69,7 +69,7 @@ components:
           "401": { $ref: common.yaml#/components/responses/Unauthorized }
           "403": { $ref: common.yaml#/components/responses/Forbidden }
           "404": { $ref: common.yaml#/components/responses/NotFound }
-  
+
   schemas:
     User:
       type: object

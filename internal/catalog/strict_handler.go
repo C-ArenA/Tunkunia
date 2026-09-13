@@ -14,7 +14,7 @@ type StrictCatalogHandlerV1 struct {
 	users   *user.Service
 }
 
-func NewStrictApiHandler(service *Service, users *user.Service) *StrictCatalogHandlerV1 {
+func NewStrictCatalogHandlerV1(service *Service, users *user.Service) *StrictCatalogHandlerV1 {
 	return &StrictCatalogHandlerV1{service: service, users: users}
 }
 
@@ -93,4 +93,63 @@ func (h *StrictCatalogHandlerV1) DeleteTramite(ctx context.Context, request oapi
 		return oapi.DeleteTramite404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
 	}
 	return oapi.DeleteTramite204Response{}, nil
+}
+
+func (h *StrictCatalogHandlerV1) GetPublishedProcedure(ctx context.Context, request oapi.GetPublishedProcedureRequestObject) (oapi.GetPublishedProcedureResponseObject, error) {
+	version, err := h.service.GetPublishedProcedure(ctx, TramiteID(request.Id))
+	if err != nil {
+		return oapi.GetPublishedProcedure404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
+	}
+	return oapi.GetPublishedProcedure200JSONResponse{ProcedureVersionJSONResponse: oapi.ProcedureVersionJSONResponse(ProcedureVersionToResponse(*version))}, nil
+}
+
+func (h *StrictCatalogHandlerV1) GetDraftProcedure(ctx context.Context, request oapi.GetDraftProcedureRequestObject) (oapi.GetDraftProcedureResponseObject, error) {
+	if !h.isAdmin(ctx) {
+		return oapi.GetDraftProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+	}
+	version, err := h.service.GetDraftProcedure(ctx, TramiteID(request.Id))
+	if err != nil {
+		return oapi.GetDraftProcedure404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
+	}
+	return oapi.GetDraftProcedure200JSONResponse{ProcedureVersionJSONResponse: oapi.ProcedureVersionJSONResponse(ProcedureVersionToResponse(*version))}, nil
+}
+
+func (h *StrictCatalogHandlerV1) SaveDraftProcedure(ctx context.Context, request oapi.SaveDraftProcedureRequestObject) (oapi.SaveDraftProcedureResponseObject, error) {
+	if !h.isAdmin(ctx) {
+		return oapi.SaveDraftProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+	}
+	version, err := h.service.SaveDraftProcedure(ctx, TramiteID(request.Id), ProcedureFromRequest(*request.Body))
+	if err != nil {
+		return oapi.SaveDraftProcedure404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
+	}
+	return oapi.SaveDraftProcedure200JSONResponse{ProcedureVersionJSONResponse: oapi.ProcedureVersionJSONResponse(ProcedureVersionToResponse(*version))}, nil
+}
+
+func (h *StrictCatalogHandlerV1) PublishProcedure(ctx context.Context, request oapi.PublishProcedureRequestObject) (oapi.PublishProcedureResponseObject, error) {
+	if !h.isAdmin(ctx) {
+		return oapi.PublishProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+	}
+	version, err := h.service.PublishProcedure(ctx, TramiteID(request.Id))
+	var validation *ProcedureValidationError
+	if errors.As(err, &validation) {
+		violations := make([]oapi.ProcedureViolation, len(validation.Violations))
+		for i, v := range validation.Violations {
+			violations[i] = oapi.ProcedureViolation{Code: v.Code, Message: v.Message}
+		}
+		return oapi.PublishProcedure422JSONResponse{Violations: violations}, nil
+	}
+	if err != nil {
+		return oapi.PublishProcedure404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
+	}
+	return oapi.PublishProcedure200JSONResponse{ProcedureVersionJSONResponse: oapi.ProcedureVersionJSONResponse(ProcedureVersionToResponse(*version))}, nil
+}
+
+func (h *StrictCatalogHandlerV1) ArchiveTramite(ctx context.Context, request oapi.ArchiveTramiteRequestObject) (oapi.ArchiveTramiteResponseObject, error) {
+	if !h.isAdmin(ctx) {
+		return oapi.ArchiveTramite403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+	}
+	if err := h.service.Archive(ctx, TramiteID(request.Id)); err != nil {
+		return oapi.ArchiveTramite404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
+	}
+	return oapi.ArchiveTramite204Response{}, nil
 }

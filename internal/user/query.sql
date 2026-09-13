@@ -28,23 +28,17 @@ INSERT INTO users(name, sub, email, email_verified)
 VALUES (?, ?, ?, ?)
 ON CONFLICT DO UPDATE
 SET
-  email = excluded.email,
-  name = excluded.name,
-  email_verified = excluded.email_verified,
-  updated_at = CURRENT_TIMESTAMP
+	sub = excluded.sub,
+	email = excluded.email,
+	name = excluded.name,
+	email_verified = excluded.email_verified,
+	updated_at = CURRENT_TIMESTAMP
 RETURNING *;
 
 -- name: ListUsers :many
 SELECT *
 FROM users
 ORDER BY name, id;
-
--- name: AdminExists :one
-SELECT EXISTS (
-  SELECT 1
-  FROM users
-  WHERE is_admin = 1
-);
 
 -- name: SetAdmin :exec
 UPDATE users
