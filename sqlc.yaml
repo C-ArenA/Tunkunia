@@ -10,6 +10,5 @@ sql:
       go:
         package: "sqlc"
         out: "database/sqlc"
-        emit_interface: true
         emit_methods_with_db_argument: true
         emit_sql_as_comment: true

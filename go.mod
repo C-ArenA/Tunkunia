@@ -1,6 +1,8 @@
 module github.com/C-ArenA/Tunkunia
 
-go 1.26.3
+go 1.27.1
+
+ignore ./docs
 
 tool (
 	github.com/a-h/templ/cmd/templ

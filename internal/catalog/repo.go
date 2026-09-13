@@ -10,10 +10,10 @@ import (
 
 type CatalogRepo struct {
 	db      *sql.DB
-	queries sqlc.Querier
+	queries *sqlc.Queries
 }
 
-func NewRepo(db *sql.DB, q sqlc.Querier) *CatalogRepo {
+func NewRepo(db *sql.DB, q *sqlc.Queries) *CatalogRepo {
 	return &CatalogRepo{
 		db:      db,
 		queries: q,
