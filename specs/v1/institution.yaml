@@ -1,0 +1,53 @@
+components:
+  pathItems:
+    Institution:
+      get:
+        tags: [Institution]
+        operationId: getInstitution
+        summary: Obtener la identidad institucional
+        security:
+          - {}
+          - BearerAuth: []
+        responses:
+          "200":
+            description: Configuración institucional
+            content:
+              application/json:
+                schema: { $ref: "#/components/schemas/Institution" }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
+          "500": { $ref: common.yaml#/components/responses/InternalError }
+      put:
+        tags: [Institution]
+        operationId: updateInstitution
+        summary: Actualizar la identidad institucional
+        security: [{ BearerAuth: [] }]
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Institution" }
+        responses:
+          "200":
+            description: Configuración institucional actualizada
+            content:
+              application/json:
+                schema: { $ref: "#/components/schemas/Institution" }
+          "400": { $ref: common.yaml#/components/responses/BadRequest }
+          "401": { $ref: common.yaml#/components/responses/Unauthorized }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "500": { $ref: common.yaml#/components/responses/InternalError }
+  schemas:
+    Institution:
+      type: object
+      required: [name, acronym, description, logoUrl, email, phone, address, website, primaryColor, accentColor]
+      properties:
+        name: { type: string, minLength: 1 }
+        acronym: { type: string, minLength: 1, maxLength: 20 }
+        description: { type: string }
+        logoUrl: { type: string, format: uri-reference }
+        email: { type: string }
+        phone: { type: string }
+        address: { type: string }
+        website: { type: string, format: uri-reference }
+        primaryColor: { type: string, pattern: '^#[0-9a-fA-F]{6}$' }
+        accentColor: { type: string, pattern: '^#[0-9a-fA-F]{6}$' }

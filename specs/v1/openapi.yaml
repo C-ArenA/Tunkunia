@@ -24,6 +24,8 @@ tags:
     description: Definiciones ejecutables, casos, tareas y notificaciones.
   - name: Users
     description: Gestión institucional de usuarios.
+  - name: Institution
+    description: Identidad y configuración institucional.
 paths:
   /health:
     $ref: health.yaml#/components/pathItems/Health
@@ -37,6 +39,8 @@ paths:
     $ref: user.yaml#/components/pathItems/Users
   /users/{id}:
     $ref: user.yaml#/components/pathItems/UserById
+  /institution:
+    $ref: institution.yaml#/components/pathItems/Institution
   /tramites/{id}/procedure:
     $ref: workflow.yaml#/components/pathItems/PublishedProcedure
   /tramites/{id}/procedure/draft:

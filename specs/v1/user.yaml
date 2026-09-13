@@ -43,6 +43,20 @@ components:
           in: path
           required: true
           schema: { type: integer, format: int64, minimum: 1 }
+      get:
+        tags: [Users]
+        operationId: getUser
+        summary: Obtener usuario por identificador
+        security: [{ BearerAuth: [] }]
+        responses:
+          "200":
+            description: Usuario registrado
+            content:
+              application/json:
+                schema: { $ref: "#/components/schemas/User" }
+          "401": { $ref: common.yaml#/components/responses/Unauthorized }
+          "403": { $ref: common.yaml#/components/responses/Forbidden }
+          "404": { $ref: common.yaml#/components/responses/NotFound }
       patch:
         tags: [Users]
         operationId: updateUserAccess

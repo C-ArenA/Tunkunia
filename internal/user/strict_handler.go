@@ -68,6 +68,24 @@ func (h *StrictUserHandlerV1) ListUsers(ctx context.Context, _ oapi.ListUsersReq
 	return oapi.ListUsers200JSONResponse(items), nil
 }
 
+func (h *StrictUserHandlerV1) GetUser(ctx context.Context, request oapi.GetUserRequestObject) (oapi.GetUserResponseObject, error) {
+	admin, accessErr := h.isAdmin(ctx)
+	if accessErr != nil {
+		return nil, accessErr
+	}
+	if !admin {
+		return oapi.GetUser403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+	}
+	item, err := h.repo.Get(ctx, request.Id)
+	if errors.Is(err, sql.ErrNoRows) {
+		return oapi.GetUser404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse("Usuario no encontrado")}, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	return oapi.GetUser200JSONResponse(item), nil
+}
+
 func (h *StrictUserHandlerV1) UpdateUserAccess(ctx context.Context, request oapi.UpdateUserAccessRequestObject) (oapi.UpdateUserAccessResponseObject, error) {
 	admin, accessErr := h.isAdmin(ctx)
 	if accessErr != nil {

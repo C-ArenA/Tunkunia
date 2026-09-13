@@ -67,6 +67,37 @@ func (q *Queries) DeleteTramite(ctx context.Context, db DBTX, id int64) (int64, 
 	return result.RowsAffected()
 }
 
+const getInstitution = `-- name: GetInstitution :one
+SELECT id, name, acronym, description, logo_url, email, phone, address, website, primary_color, accent_color, updated_at
+FROM institution
+WHERE id = 1
+`
+
+// GetInstitution
+//
+//	SELECT id, name, acronym, description, logo_url, email, phone, address, website, primary_color, accent_color, updated_at
+//	FROM institution
+//	WHERE id = 1
+func (q *Queries) GetInstitution(ctx context.Context, db DBTX) (Institution, error) {
+	row := db.QueryRowContext(ctx, getInstitution)
+	var i Institution
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Acronym,
+		&i.Description,
+		&i.LogoUrl,
+		&i.Email,
+		&i.Phone,
+		&i.Address,
+		&i.Website,
+		&i.PrimaryColor,
+		&i.AccentColor,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const getTramite = `-- name: GetTramite :one
 SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
 FROM tramites
@@ -541,6 +572,83 @@ type SetAdminParams struct {
 func (q *Queries) SetAdmin(ctx context.Context, db DBTX, arg SetAdminParams) error {
 	_, err := db.ExecContext(ctx, setAdmin, arg.IsAdmin, arg.ID)
 	return err
+}
+
+const updateInstitution = `-- name: UpdateInstitution :one
+UPDATE institution
+SET name = ?,
+    acronym = ?,
+    description = ?,
+    logo_url = ?,
+    email = ?,
+    phone = ?,
+    address = ?,
+    website = ?,
+    primary_color = ?,
+    accent_color = ?,
+    updated_at = CURRENT_TIMESTAMP
+WHERE id = 1
+RETURNING id, name, acronym, description, logo_url, email, phone, address, website, primary_color, accent_color, updated_at
+`
+
+type UpdateInstitutionParams struct {
+	Name         string
+	Acronym      string
+	Description  string
+	LogoUrl      string
+	Email        string
+	Phone        string
+	Address      string
+	Website      string
+	PrimaryColor string
+	AccentColor  string
+}
+
+// UpdateInstitution
+//
+//	UPDATE institution
+//	SET name = ?,
+//	    acronym = ?,
+//	    description = ?,
+//	    logo_url = ?,
+//	    email = ?,
+//	    phone = ?,
+//	    address = ?,
+//	    website = ?,
+//	    primary_color = ?,
+//	    accent_color = ?,
+//	    updated_at = CURRENT_TIMESTAMP
+//	WHERE id = 1
+//	RETURNING id, name, acronym, description, logo_url, email, phone, address, website, primary_color, accent_color, updated_at
+func (q *Queries) UpdateInstitution(ctx context.Context, db DBTX, arg UpdateInstitutionParams) (Institution, error) {
+	row := db.QueryRowContext(ctx, updateInstitution,
+		arg.Name,
+		arg.Acronym,
+		arg.Description,
+		arg.LogoUrl,
+		arg.Email,
+		arg.Phone,
+		arg.Address,
+		arg.Website,
+		arg.PrimaryColor,
+		arg.AccentColor,
+	)
+	var i Institution
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Acronym,
+		&i.Description,
+		&i.LogoUrl,
+		&i.Email,
+		&i.Phone,
+		&i.Address,
+		&i.Website,
+		&i.PrimaryColor,
+		&i.AccentColor,
+		&i.UpdatedAt,
+	)
+	return i, err
 }
 
 const updateTramite = `-- name: UpdateTramite :one

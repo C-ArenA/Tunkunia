@@ -53,6 +53,21 @@ type CaseTask struct {
 	FinishedAt      sql.NullString
 }
 
+type Institution struct {
+	ID           int64
+	Name         string
+	Acronym      string
+	Description  string
+	LogoUrl      string
+	Email        string
+	Phone        string
+	Address      string
+	Website      string
+	PrimaryColor string
+	AccentColor  string
+	UpdatedAt    string
+}
+
 type Notification struct {
 	ID        int64
 	UserID    int64

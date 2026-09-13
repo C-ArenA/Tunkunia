@@ -10,6 +10,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/cases"
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/health"
+	"github.com/C-ArenA/Tunkunia/internal/institution"
 	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/getkin/kin-openapi/openapi3filter"
 	"github.com/go-chi/chi/v5"
@@ -18,12 +19,13 @@ import (
 
 var _ oapi.StrictServerInterface = (*StrictHandler)(nil)
 
-func NewStrictHandler(healthHandler *health.StrictHealthHandlerV1, catalogHandler *catalog.StrictCatalogHandlerV1, userHandler *user.StrictUserHandlerV1, casesHandler *cases.StrictCasesHandlerV1) *StrictHandler {
+func NewStrictHandler(healthHandler *health.StrictHealthHandlerV1, catalogHandler *catalog.StrictCatalogHandlerV1, userHandler *user.StrictUserHandlerV1, casesHandler *cases.StrictCasesHandlerV1, institutionHandler *institution.StrictHandlerV1) *StrictHandler {
 	return &StrictHandler{
 		StrictHealthHandlerV1:  healthHandler,
 		StrictCatalogHandlerV1: catalogHandler,
 		StrictUserHandlerV1:    userHandler,
 		StrictCasesHandlerV1:   casesHandler,
+		StrictHandlerV1:        institutionHandler,
 	}
 }
 
@@ -32,6 +34,7 @@ type StrictHandler struct {
 	*catalog.StrictCatalogHandlerV1
 	*user.StrictUserHandlerV1
 	*cases.StrictCasesHandlerV1
+	*institution.StrictHandlerV1
 }
 
 func (h *StrictHandler) RegisterRoutes(r *chi.Mux, baseURL string) {

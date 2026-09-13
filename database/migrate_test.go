@@ -55,6 +55,12 @@ func TestMigrateAndSeed(t *testing.T) {
 	if count != 0 {
 		t.Errorf("expected 0 records in tramites after migration, got %d", count)
 	}
+	if err = db.QueryRow("SELECT COUNT(*) FROM institution").Scan(&count); err != nil {
+		t.Fatalf("failed to query institution table: %v", err)
+	}
+	if count != 1 {
+		t.Errorf("expected one institution after migration, got %d", count)
+	}
 
 	// 4. Run Seed using default dialect
 	err = database.Seed(t.Context(), db)

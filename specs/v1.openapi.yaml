@@ -24,6 +24,8 @@ tags:
     description: Definiciones ejecutables, casos, tareas y notificaciones.
   - name: Users
     description: Gestión institucional de usuarios.
+  - name: Institution
+    description: Identidad y configuración institucional.
 paths:
   /health:
     get:
@@ -232,6 +234,26 @@ paths:
           type: integer
           format: int64
           minimum: 1
+    get:
+      tags:
+        - Users
+      operationId: getUser
+      summary: Obtener usuario por identificador
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Usuario registrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Users
@@ -266,6 +288,54 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+  /institution:
+    get:
+      tags:
+        - Institution
+      operationId: getInstitution
+      summary: Obtener la identidad institucional
+      security:
+        - {}
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Configuración institucional
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    put:
+      tags:
+        - Institution
+      operationId: updateInstitution
+      summary: Actualizar la identidad institucional
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Institution'
+      responses:
+        '200':
+          description: Configuración institucional actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
   /tramites/{id}/procedure:
     parameters:
       - $ref: '#/components/parameters/WorkflowTramiteId'
@@ -790,6 +860,47 @@ components:
           type: boolean
           description: Whether the citizen is also authorized to act as a public servant.
           example: true
+    Institution:
+      type: object
+      required:
+        - name
+        - acronym
+        - description
+        - logoUrl
+        - email
+        - phone
+        - address
+        - website
+        - primaryColor
+        - accentColor
+      properties:
+        name:
+          type: string
+          minLength: 1
+        acronym:
+          type: string
+          minLength: 1
+          maxLength: 20
+        description:
+          type: string
+        logoUrl:
+          type: string
+          format: uri-reference
+        email:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        website:
+          type: string
+          format: uri-reference
+        primaryColor:
+          type: string
+          pattern: ^#[0-9a-fA-F]{6}$
+        accentColor:
+          type: string
+          pattern: ^#[0-9a-fA-F]{6}$
     ProcedureRole:
       type: string
       enum:

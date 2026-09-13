@@ -20,6 +20,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/catalog"
 	"github.com/C-ArenA/Tunkunia/internal/config"
 	"github.com/C-ArenA/Tunkunia/internal/health"
+	"github.com/C-ArenA/Tunkunia/internal/institution"
 	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/Marlliton/slogpretty"
 	"github.com/go-chi/chi/v5"
@@ -65,6 +66,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 		catalog.NewStrictCatalogHandlerV1(catalogRepo, procedureService, userService),
 		user.NewStrictUserHandlerV1(userRepo, userService),
 		cases.NewStrictCasesHandlerV1(caseService, caseRepo, userService),
+		institution.NewStrictHandlerV1(institution.NewSQLiteRepository(db, q), userService),
 	)
 
 	oidcHandler, err := authn.NewOIDCHandler(ctx, authn.OIDCConfig{
