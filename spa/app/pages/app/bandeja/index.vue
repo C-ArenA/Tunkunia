@@ -1,28 +1,24 @@
 <script setup lang="ts">
-import { listNotifications, listTasks, markNotificationRead } from "#shared/clientV1/sdk.gen";
+import { listNotificationsQuery, listTasksQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { markNotificationRead } from "#shared/clientV1/sdk.gen";
 
 const tab = ref<"pending" | "completed" | "notifications">("pending");
-const { data: tasks, refresh: refreshTasks } = await useAsyncData("personal-tasks", async () => {
-  const response = await listTasks({
-    query: { status: tab.value === "completed" ? "completed" : "pending" },
-  });
-  return response.data ?? [];
-});
-const { data: notifications, refresh: refreshNotifications } = await useAsyncData(
-  "personal-notifications",
-  async () => {
-    const response = await listNotifications();
-    return response.data ?? [];
-  },
+const tasksQuery = useQuery(() =>
+  listTasksQuery({ query: { status: tab.value === "completed" ? "completed" : "pending" } }),
 );
-watch(tab, () => {
-  if (tab.value === "notifications") refreshNotifications();
-  else refreshTasks();
-});
+const notificationsQuery = useQuery(listNotificationsQuery);
+const tasks = computed(() => tasksQuery.data.value ?? []);
+const notifications = computed(() => notificationsQuery.data.value ?? []);
+const actionError = ref("");
 
 async function read(id: number) {
-  await markNotificationRead({ path: { id } });
-  await refreshNotifications();
+  actionError.value = "";
+  const response = await markNotificationRead({ path: { id } });
+  if (response.error) {
+    actionError.value = "No se pudo marcar la notificación como leída.";
+    return;
+  }
+  await notificationsQuery.refresh();
 }
 </script>
 
@@ -34,6 +30,7 @@ async function read(id: number) {
         <p class="eyebrow">Trabajo personal</p>
         <h1 class="page-title mt-2">Acciones y notificaciones</h1>
       </div>
+      <UAlert v-if="actionError" class="mt-6" color="warning" :title="actionError" />
       <UTabs
         v-model="tab"
         class="mt-6 max-w-xl"

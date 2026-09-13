@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { listUsers, updateUserAccess } from "#shared/clientV1/sdk.gen";
+import { getUserQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { updateUserAccess } from "#shared/clientV1/sdk.gen";
 const route = useRoute();
 const id = Number(route.params.id);
 const saving = ref(false);
 const saved = ref(false);
-const { data: item, refresh } = await useAsyncData(`admin-user-${id}`, async () => {
-  const response = await listUsers();
-  return response.data?.find((user) => user.id === id);
-});
+const actionError = ref("");
+const { data: item, status, error: loadError, refresh } = useQuery(getUserQuery({ path: { id } }));
 async function toggle(access: "isAdmin" | "isPublicServant") {
   if (!item.value) return;
   saving.value = true;
   saved.value = false;
-  await updateUserAccess({
+  actionError.value = "";
+  const response = await updateUserAccess({
     path: { id },
     body: {
       isAdmin: access === "isAdmin" ? !item.value.isAdmin : item.value.isAdmin,
@@ -21,6 +21,10 @@ async function toggle(access: "isAdmin" | "isPublicServant") {
     },
   });
   saving.value = false;
+  if (response.error) {
+    actionError.value = "No se pudo actualizar el acceso del usuario.";
+    return;
+  }
   saved.value = true;
   await refresh();
 }
@@ -37,9 +41,11 @@ async function toggle(access: "isAdmin" | "isPublicServant") {
             variant="ghost" /></template></UDashboardNavbar
     ></template>
     <template #body>
-      <UAlert v-if="!item" color="error" title="Usuario no encontrado" />
+      <USkeleton v-if="status === 'pending'" class="h-48" />
+      <UAlert v-else-if="loadError || !item" color="error" title="Usuario no encontrado" />
       <template v-else>
         <UAlert v-if="saved" class="mb-5" color="success" title="Acceso actualizado" />
+        <UAlert v-if="actionError" class="mb-5" color="error" :title="actionError" />
         <div class="surface p-6">
           <h1 class="text-2xl font-semibold">{{ item.name }}</h1>
           <p class="mt-1 text-slate-500">{{ item.email }}</p>

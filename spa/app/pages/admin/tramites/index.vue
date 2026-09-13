@@ -1,25 +1,18 @@
 <script setup lang="ts">
-import { archiveTramite, listTramites } from "#shared/clientV1/sdk.gen";
+import { listTramitesQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { archiveTramite } from "#shared/clientV1/sdk.gen";
 import type { TramiteStatus } from "#shared/clientV1/types.gen";
 const statusFilter = ref<"all" | TramiteStatus>("all");
 const search = ref("");
 const archiving = ref<number>();
-const {
-  data: collection,
-  status,
-  error,
-  refresh,
-} = await useAsyncData(
-  "admin-tramites",
-  async () => {
-    const response = await listTramites({
-      query: { status: statusFilter.value === "all" ? undefined : statusFilter.value },
-    });
-    if (response.error) throw response.error;
-    return response.data;
-  },
-  { watch: [statusFilter] },
+const tramitesQuery = useQuery(() =>
+  listTramitesQuery({
+    query: { status: statusFilter.value === "all" ? undefined : statusFilter.value },
+  }),
 );
+const collection = computed(() => tramitesQuery.data.value);
+const status = computed(() => tramitesQuery.status.value);
+const error = computed(() => tramitesQuery.error.value);
 const visible = computed(() =>
   (collection.value?.data ?? []).filter((t) =>
     t.name.toLowerCase().includes(search.value.toLowerCase()),
@@ -30,7 +23,7 @@ async function archive(id: number) {
   archiving.value = id;
   const response = await archiveTramite({ path: { id } });
   archiving.value = undefined;
-  if (!response.error) await refresh();
+  if (!response.error) await tramitesQuery.refresh();
 }
 </script>
 <template>

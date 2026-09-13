@@ -15,7 +15,7 @@ This plan tracks the implementation from the SPA cleanup. Check a commit only af
   - Files: `spa/app/components/ProcedureDiagram.vue`, `spa/app/components/ProcedureEditor.vue`, `spa/app/components/procedure/`, `spa/app/utils/procedure.ts`, `spa/app/assets/css/main.css`.
   - Validation: SPA lint, formatting, and production build.
 
-- [ ] `feat: load institution identity from the API`
+- [x] `feat: load institution identity from the API`
   - Replace browser-only demo persistence with the institution query and admin mutation.
   - Update public/admin branding and institution editing; remove obsolete demo composable and duplicate types.
   - Refresh the SPA README with the component and generation conventions.
@@ -30,4 +30,4 @@ This plan tracks the implementation from the SPA cleanup. Check a commit only af
 
 ## Current position
 
-The first group was committed as `3b19424` and the second group as `d930159`. The third group is staged for review; no third commit has been created yet. After approval, update this file’s third checkbox and stage the final group before proposing its commit message.
+The first group was committed as `3b19424`, the second group as `d930159`, and the third group as `496b7bc`. The final group is staged for review; no fourth commit has been created yet. After approval, update this file’s final checkbox.

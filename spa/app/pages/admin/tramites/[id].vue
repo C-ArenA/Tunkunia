@@ -62,10 +62,15 @@ async function save() {
   saving.value = true;
   const { status: _status, ...metadata } = form;
   const response = await updateTramite({ path: { id }, body: metadata });
+  if (response.error) {
+    saving.value = false;
+    error.value = "No se pudieron guardar los datos del trámite.";
+    return;
+  }
   const procedureResponse = await saveDraftProcedure({ path: { id }, body: graph.value });
   saving.value = false;
-  if (response.error || procedureResponse.error) {
-    error.value = "No se pudieron guardar los cambios.";
+  if (procedureResponse.error) {
+    error.value = "Los datos se guardaron, pero no se pudo guardar el procedimiento.";
     return;
   }
   saved.value = true;

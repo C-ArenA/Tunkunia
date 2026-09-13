@@ -1,26 +1,19 @@
 <script setup lang="ts">
 import { getMeQuery } from "#shared/clientV1/@pinia/colada.gen";
-import { claimCase, listCases } from "#shared/clientV1/sdk.gen";
+import { listCasesQuery } from "#shared/clientV1/@pinia/colada.gen";
+import { claimCase } from "#shared/clientV1/sdk.gen";
 
 const { data: me } = useQuery(getMeQuery);
 const view = ref<"mine" | "unassigned">("mine");
 const claiming = ref<number>();
 const actionError = ref("");
 const loadError = ref("");
-const {
-  data: cases,
-  refresh,
-  status,
-} = useAsyncData("workflow-cases", async () => {
-  loadError.value = "";
-  const response = await listCases({ query: { scope: view.value } });
-  if (response.error) {
-    loadError.value = "No pudimos cargar los casos. Intenta nuevamente.";
-    return [];
-  }
-  return response.data ?? [];
+const casesQuery = useQuery(() => listCasesQuery({ query: { scope: view.value } }));
+const cases = computed(() => casesQuery.data.value ?? []);
+const status = computed(() => casesQuery.status.value);
+watch(casesQuery.error, (value) => {
+  loadError.value = value ? "No pudimos cargar los casos. Intenta nuevamente." : "";
 });
-watch(view, () => refresh());
 
 async function claim(id: number) {
   claiming.value = id;
@@ -29,7 +22,7 @@ async function claim(id: number) {
   claiming.value = undefined;
   if (response.error) {
     actionError.value = "Otro servidor tomó el caso o ya no requiere atención.";
-    await refresh();
+    await casesQuery.refresh();
     return;
   }
   await navigateTo(`/app/casos/${id}`);

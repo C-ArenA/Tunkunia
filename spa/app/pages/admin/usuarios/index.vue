@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { listUsers } from "#shared/clientV1/sdk.gen";
+import { listUsersQuery } from "#shared/clientV1/@pinia/colada.gen";
 const search = ref("");
-const { data: users } = await useAsyncData("admin-users", async () => {
-  const response = await listUsers();
-  if (response.error) throw response.error;
-  return response.data ?? [];
-});
+const { data: users, status, error } = useQuery(listUsersQuery);
 const visible = computed(() =>
   (users.value ?? []).filter((u) =>
     `${u.name} ${u.email}`.toLowerCase().includes(search.value.toLowerCase()),
@@ -30,7 +26,15 @@ const visible = computed(() =>
           Concede acceso institucional a quienes administran el sistema o atienden casos.
         </p>
       </div>
-      <div class="surface mt-8 overflow-hidden">
+      <USkeleton v-if="status === 'pending'" class="mt-8 h-64" />
+      <UAlert v-else-if="error" class="mt-8" color="error" title="No pudimos cargar los usuarios" />
+      <UEmpty
+        v-else-if="!visible.length"
+        class="mt-8"
+        icon="i-lucide-users"
+        title="No hay usuarios en esta vista"
+      />
+      <div v-else class="surface mt-8 overflow-hidden">
         <div
           v-for="item in visible"
           :key="item.id"

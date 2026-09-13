@@ -1,24 +1,18 @@
 <script setup lang="ts">
-import { fireTransition, getCase } from "#shared/clientV1/sdk.gen";
+import { useMutation } from "@pinia/colada";
+import { fireTransitionMutation, getCaseQuery } from "#shared/clientV1/@pinia/colada.gen";
 
 const route = useRoute();
 const id = Number(route.params.id);
 const firing = ref<string>();
 const conflict = ref("");
 const loadError = ref("");
-const {
-  data: item,
-  status,
-  refresh,
-} = useAsyncData(`case-${id}`, async () => {
-  loadError.value = "";
-  const response = await getCase({ path: { id } });
-  if (response.error || !response.data) {
-    loadError.value = "No pudimos cargar el caso solicitado.";
-    return null;
-  }
-  return response.data;
-});
+const { data: item, status, error: queryError, refresh } = useQuery(getCaseQuery({ path: { id } }));
+const transitionMutation = useMutation(fireTransitionMutation());
+watch(
+  queryError,
+  (value) => (loadError.value = value ? "No pudimos cargar el caso solicitado." : ""),
+);
 const actionable = computed(
   () => item.value?.availableTasks?.map((task) => task.transitionId) ?? [],
 );
@@ -32,18 +26,20 @@ async function fire(transitionId: string) {
   if (!item.value) return;
   firing.value = transitionId;
   conflict.value = "";
-  const response = await fireTransition({
-    path: { id, transitionId },
-    body: { expectedRevision: item.value.revision },
-  });
-  firing.value = undefined;
-  if (response.error) {
+  try {
+    await transitionMutation.mutateAsync({
+      path: { id, transitionId },
+      body: { expectedRevision: item.value.revision },
+    });
+  } catch {
+    firing.value = undefined;
     conflict.value =
       "El caso cambió o la acción dejó de estar disponible. Se recargó el estado vigente.";
     await refresh();
     return;
   }
-  if (response.data) item.value = response.data;
+  await refresh();
+  firing.value = undefined;
 }
 </script>
 
