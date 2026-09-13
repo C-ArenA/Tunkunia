@@ -9,7 +9,7 @@ This plan tracks the implementation from the SPA cleanup. Check a commit only af
   - Files: `database/migrations/20260912100000_institution.sql`, `database/migrate_test.go`, `sqlc.yaml`, `database/sqlc/`, `internal/institution/`, `internal/user/strict_handler.go`, `internal/api/v1/`, `cmd/serve.go`, `specs/v1/`.
   - Validation: `GOCACHE=/tmp/tunkunia-go-cache go test ./...`, `go build .`, `pnpm exec redocly lint ./specs/v1.openapi.yaml`.
 
-- [ ] `feat: replace procedure diagrams with Vue Flow`
+- [x] `feat: replace procedure diagrams with Vue Flow`
   - Replace SVG rendering and the coordinate editor with the shared Vue Flow canvas.
   - Add custom place/transition nodes, typed API/flow adapters, dragging, connection validation, edge deletion, selection, and workflow highlighting.
   - Files: `spa/app/components/ProcedureDiagram.vue`, `spa/app/components/ProcedureEditor.vue`, `spa/app/components/procedure/`, `spa/app/utils/procedure.ts`, `spa/app/assets/css/main.css`.
@@ -30,4 +30,4 @@ This plan tracks the implementation from the SPA cleanup. Check a commit only af
 
 ## Current position
 
-The first group has been committed as `3b19424`. The second group is staged for review; no second commit has been created yet. After approval, update this file’s second checkbox and stage the next group before proposing its commit message.
+The first group was committed as `3b19424` and the second group as `d930159`. The third group is staged for review; no third commit has been created yet. After approval, update this file’s third checkbox and stage the final group before proposing its commit message.

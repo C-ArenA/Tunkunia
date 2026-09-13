@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
-const { state, reset } = useTunkuniaDemo();
+const { institution } = useInstitution();
 const items: NavigationMenuItem[] = [
   { label: "Resumen", icon: "i-lucide-gauge", to: "/admin" },
   { label: "Trámites", icon: "i-lucide-workflow", to: "/admin/tramites" },
@@ -14,7 +14,7 @@ const items: NavigationMenuItem[] = [
     <UDashboardSidebar collapsible :ui="{ footer: 'border-t border-default' }">
       <template #header="{ collapsed }"
         ><span class="font-bold text-slate-900">{{
-          collapsed ? state.institution.acronym : "Tunkunia · Admin"
+          collapsed ? institution.acronym : `${institution.acronym} · Admin`
         }}</span></template
       >
       <UNavigationMenu :items="items" orientation="vertical" />
@@ -27,14 +27,6 @@ const items: NavigationMenuItem[] = [
             color="neutral"
             variant="soft"
             class="w-full"
-          />
-          <UButton
-            icon="i-lucide-refresh-cw"
-            :label="collapsed ? undefined : 'Restablecer institución'"
-            color="neutral"
-            variant="ghost"
-            class="w-full"
-            @click="reset"
           />
           <UButton
             to="/oidc-logout"

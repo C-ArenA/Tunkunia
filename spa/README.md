@@ -1,75 +1,16 @@
-# Nuxt Minimal Starter
+# Tunkunia SPA
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+The Nuxt application is organized around route-level pages and small feature components. Pages coordinate routes, queries, and mutations; reusable UI belongs in `app/components`; API-to-UI transformations live in `app/utils` and use the generated types.
 
-## Setup
+The procedure canvas is shared by read-only diagrams and the admin editor. Its API adapter preserves node coordinates, roles, arcs, and start/end places while keeping Vue Flow viewport state local to the browser.
 
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+The API client is generated from `../specs/v1.openapi.yaml`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+pnpm --filter spa openapi-ts
+pnpm --filter spa lint
+pnpm --filter spa fmt:check
+pnpm --filter spa build
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Run the development app with `pnpm --filter spa dev`.

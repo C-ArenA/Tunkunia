@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getMeQuery, listTramitesQuery } from "#shared/clientV1/@pinia/colada.gen";
 
-const { state } = useTunkuniaDemo();
+const { institution } = useInstitution();
 const { data: me } = useQuery(getMeQuery);
 const {
   data: tramites,
@@ -19,14 +19,17 @@ const {
         <div
           class="grid size-14 place-items-center rounded-2xl bg-emerald-800 text-sm font-bold text-white"
         >
-          {{ state.institution.acronym }}
+          {{ institution.acronym }}
         </div>
         <p class="mt-7 text-sm font-semibold tracking-wide text-emerald-700">Tunkunia</p>
         <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
-          {{ state.institution.name }}
+          {{ institution.name }}
         </h1>
         <p class="mt-4 max-w-md leading-7 text-slate-600">
-          {{ state.institution.description }}
+          {{
+            institution.description ||
+            "Consulta servicios públicos digitales de forma clara y accesible."
+          }}
         </p>
         <UButton
           v-if="!me"

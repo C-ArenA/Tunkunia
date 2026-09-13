@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { state } = useTunkuniaDemo();
+const { institution } = useInstitution();
 const route = useRoute();
 const isHomepage = computed(() => route.path === "/");
 </script>
@@ -12,9 +12,9 @@ const isHomepage = computed(() => route.path === "/");
         <NuxtLink to="/" class="flex items-center gap-3 font-bold text-slate-900">
           <span
             class="grid size-10 place-items-center rounded-xl bg-emerald-800 text-sm text-white"
-            >{{ state.institution.acronym }}</span
+            >{{ institution.acronym }}</span
           >
-          <span class="hidden sm:block">{{ state.institution.name }}</span>
+          <span class="hidden sm:block">{{ institution.name }}</span>
         </NuxtLink>
         <nav class="flex items-center gap-2" aria-label="Navegación principal">
           <UButton to="/#tramites" label="Trámites" color="neutral" variant="ghost" />
@@ -29,18 +29,19 @@ const isHomepage = computed(() => route.path === "/");
     >
       <UContainer class="grid gap-8 md:grid-cols-3">
         <div>
-          <p class="font-semibold text-white">{{ state.institution.name }}</p>
-          <p class="mt-2 text-sm">{{ state.institution.description }}</p>
+          <p class="font-semibold text-white">{{ institution.name }}</p>
+          <p v-if="institution.description" class="mt-2 text-sm">{{ institution.description }}</p>
         </div>
         <div>
           <p class="text-sm font-semibold text-white">Contacto</p>
           <p class="mt-2 text-sm">
-            {{ state.institution.email }}<br />{{ state.institution.phone }}
+            <span v-if="institution.email">{{ institution.email }}<br /></span
+            >{{ institution.phone }}
           </p>
         </div>
         <div>
           <p class="text-sm font-semibold text-white">Atención</p>
-          <p class="mt-2 text-sm">{{ state.institution.address }}</p>
+          <p class="mt-2 text-sm">{{ institution.address }}</p>
         </div>
       </UContainer>
     </footer>
