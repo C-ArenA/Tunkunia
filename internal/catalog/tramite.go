@@ -1,8 +1,6 @@
 package catalog
 
-import (
-	"github.com/C-ArenA/Tunkunia/internal/audit"
-)
+import "time"
 
 type TramiteID int64
 
@@ -53,7 +51,10 @@ type Tramite struct {
 	Type                 TramiteType
 	Status               TramiteStatus
 	LegalFramework       []string
-	audit.Metadata
+	CreatedBy            int
+	UpdatedBy            int
+	CreatedAt            time.Time
+	UpdatedAt            time.Time
 }
 
 type TramiteMask struct {
@@ -64,7 +65,10 @@ type TramiteMask struct {
 	Type                 bool
 	Status               bool
 	LegalFramework       bool
-	audit.MetadataMask
+	CreatedBy            bool
+	UpdatedBy            bool
+	CreatedAt            bool
+	UpdatedAt            bool
 }
 
 type TramiteFilter struct {

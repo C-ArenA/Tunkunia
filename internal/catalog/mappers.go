@@ -7,7 +7,6 @@ import (
 	"github.com/C-ArenA/Tunkunia/database/jet/table"
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
-	"github.com/C-ArenA/Tunkunia/internal/audit"
 	"github.com/go-jet/jet/v2/sqlite"
 )
 
@@ -105,10 +104,8 @@ func TramiteFromSqlc(t sqlc.Tramite) (Tramite, error) {
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 TramiteType(t.Type),
 		Status:               TramiteStatus(t.Status),
-		Metadata: audit.Metadata{
-			CreatedAt: createdAt,
-			UpdatedAt: updatedAt,
-		},
+		CreatedAt:            createdAt,
+		UpdatedAt:            updatedAt,
 	}, nil
 }
 
@@ -141,10 +138,8 @@ func TramiteFromJet(t model.Tramites) (Tramite, error) {
 		ProcedureDescription: t.ProcedureDescription,
 		Type:                 TramiteType(t.Type),
 		Status:               TramiteStatus(t.Status),
-		Metadata: audit.Metadata{
-			CreatedAt: createdAt,
-			UpdatedAt: updatedAt,
-		},
+		CreatedAt:            createdAt,
+		UpdatedAt:            updatedAt,
 	}, nil
 }
 
