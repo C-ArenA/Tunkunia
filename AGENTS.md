@@ -26,7 +26,7 @@ Follow the additional instructions in `site/AGENTS.md` when working inside `site
 
 - `go test ./...` — run Go tests; `go build .` — build the backend.
 - `go run . serve` — start the backend server locally (the project uses Cobra for the CLI).
-- `go generate ./...` — run Go code-generation tasks for SQLC, Jet, and OpenAPI.
+- `go generate ./...` — run Go code-generation tasks for SQLC and OpenAPI.
 - `go tool task server:dev` — run the Go server with hot reload.
 - `pnpm --filter spa dev` — start the Nuxt frontend.
 - `pnpm --filter site dev` — start the Astro documentation site.
@@ -36,7 +36,7 @@ Follow the additional instructions in `site/AGENTS.md` when working inside `site
 
 Before the first release, prefer the latest stable Go, Nuxt, Vue, and Typst releases during intentional upgrades. Manifests and lockfiles remain authoritative for reproducible builds. Keep upgrades focused and verify affected builds and tests. Define a fixed support policy at the first release.
 
-Do not manually edit generated files under `database/sqlc/`, `database/jet/`, or `internal/api/v1/oapi/*.gen.go`. Treat the configuration structs and their `envDefault` tags in `internal/config/config.go` as the canonical reference for supported settings and defaults. Use `.env` only for local overrides; never expose or commit secrets or local database files.
+Do not manually edit generated files under `database/sqlc/` or `internal/api/v1/oapi/*.gen.go`. Treat the configuration structs and their `envDefault` tags in `internal/config/config.go` as the canonical reference for supported settings and defaults. Use `.env` only for local overrides; never expose or commit secrets or local database files.
 
 ## Style and Testing
 

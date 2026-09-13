@@ -47,7 +47,7 @@ La
 
     [Línea de comandos], [Cobra 1.10], [Arranque del servidor y operaciones administrativas.],
 
-    [Persistencia], [SQLite, Goose, SQLC y Jet], [Migraciones, consultas tipadas y acceso a datos.],
+    [Persistencia], [SQLite, Goose y SQLC], [Migraciones, consultas tipadas y acceso a datos.],
 
     [Contrato], [OpenAPI 3.1 y oapi-codegen], [Especificación, validación y tipos del servidor.],
 
@@ -85,8 +85,7 @@ Tunkunia/
 ├── database/
 │   ├── migrations/      # evolución del esquema
 │   ├── seeds/           # datos iniciales
-│   ├── sqlc/            # consultas generadas
-│   └── jet/             # modelo relacional
+│   └── sqlc/            # consultas generadas
 ├── specs/v1/            # contrato OpenAPI
 ├── spa/                 # aplicación Nuxt
 └── docs/                # documentación
@@ -132,9 +131,8 @@ procedimiento, casos, participantes, tareas, actuaciones y notificaciones. Goose
 migraciones en el arranque y carga datos demostrativos durante el desarrollo.
 Las restricciones de unicidad, claves foráneas e índices complementan las
 validaciones del dominio.
-SQLC genera consultas tipadas para las operaciones
-directas y Jet construye dinámicamente las consultas que requieren filtros,
-ordenamiento o actualización selectiva.
+SQLC genera consultas tipadas para las operaciones directas y las consultas
+especiales se expresan mediante SQL explícito dentro de los módulos que las necesitan.
 
 La API se especificó en OpenAPI 3.1 mediante archivos separados para catálogo,
 identidad, salud, auditoría y respuestas comunes.
@@ -286,8 +284,7 @@ Los valores admitidos y sus predeterminados se declaran en
 externamente y no se incorporan al código ni a la documentación.
 
 La generación reproducible se centraliza mediante `go generate ./...`
-: SQLC y
-Jet producen los adaptadores de datos, Redocly agrupa y valida la especificación
+: SQLC produce los adaptadores de datos, Redocly agrupa y valida la especificación
 OpenAPI y oapi-codegen genera el transporte del servidor.
 El _plugin_ de Hey API
 genera el cliente TypeScript durante la construcción de la SPA.

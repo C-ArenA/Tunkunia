@@ -30,7 +30,7 @@ Caddy proporciona un origen HTTPS único y Dex simula un proveedor OIDC externo.
 Tecnologías principales:
 
 - Go 1.26, Chi, Cobra y oapi-codegen.
-- SQLite, Goose, SQLC y Jet.
+- SQLite, Goose y SQLC.
 - Nuxt 4, Vue 3, TypeScript y Nuxt UI.
 - pnpm para el espacio de trabajo de JavaScript.
 - Caddy como proxy inverso local.
@@ -176,8 +176,8 @@ go generate ./...
 pnpm --filter spa openapi-ts
 ```
 
-No edites manualmente los archivos generados bajo `database/sqlc/`,
-`database/jet/` o `internal/api/v1/oapi/`.
+No edites manualmente los archivos generados bajo `database/sqlc/` o
+`internal/api/v1/oapi/`.
 
 ### Documentación
 

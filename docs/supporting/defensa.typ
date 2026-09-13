@@ -108,7 +108,7 @@
   [Servidor], [Go 1.26 · Chi 5], [Composición, negocio y transporte HTTP],
   [CLI], [Cobra 1.10], [Arranque y operaciones administrativas],
   [Persistencia],
-  [SQLite · Goose · SQLC · Jet],
+  [SQLite · Goose · SQLC],
   [Migraciones y acceso tipado a datos],
 
   [Contrato],
