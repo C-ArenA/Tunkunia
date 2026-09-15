@@ -60,6 +60,9 @@ tasks:
   server:dev:
     prefix: GO
     desc: Run server with hot reload (air)
+    preconditions:
+      - sh: test -f ./spa/.output/public/index.html
+        msg: "You should generate the SPA first, run `go tool task spa:build`"
     cmds:
       - go tool air serve
   spa:dev:
@@ -70,8 +73,16 @@ tasks:
 
   server:build:
     desc: Build server binary
+    deps:
+      - spa:build
     cmds:
-      - go build -o bin/server ./cmd/api
+      - mkdir -p bin
+      - go build -o bin/tunkunia .
+
+  spa:build:
+    desc: Generate the production SPA assets for embedding
+    cmds:
+      - pnpm --filter spa generate
 
   templ:generate:
     cmd: go tool templ generate --watch
@@ -114,7 +125,6 @@ tasks:
     desc: Build all projects
     cmds:
       - task: server:build
-      - task: spa:build
 
   docs:all:
     desc: Generate all documentation

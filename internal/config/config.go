@@ -1,10 +1,11 @@
 package config
 
 import (
+	"errors"
 	"fmt"
-	"log/slog"
 	"os"
 
+	"github.com/C-ArenA/Tunkunia/internal/authn"
 	"github.com/C-ArenA/Tunkunia/internal/user"
 	"github.com/caarlos0/env/v11"
 	"github.com/joho/godotenv"
@@ -17,34 +18,53 @@ type RoutesConfig struct {
 }
 
 type Config struct {
-	AppName         string       `env:"APP_NAME" envDefault:"Tunkunia"`
-	AppURL          string       `env:"APP_URL" envDefault:"https://localhost:8443"`
-	Host            string       `env:"HOST" envDefault:"http://127.0.0.1"`
+	AppURL          string       `env:"APP_URL,required,notEmpty"`
 	Port            string       `env:"PORT" envDefault:":8080"`
-	DevNuxtPort     string       `env:"DEV_NUXT_PORT" envDefault:":3000"`
-	Env             string       `env:"ENV" envDefault:"dev"`
-	GooseDriver     string       `env:"GOOSE_DRIVER" envDefault:"sqlite3"`
-	GooseDbString   string       `env:"GOOSE_DBSTRING" envDefault:"./database/tunkunia.db"`
-	JWTSecret       string       `env:"JWT_SECRET,notEmpty"`
-	OidcURL         string       `env:"OIDC_URL" envDefault:"http://127.0.0.1:5556/dex"`
-	OidcClientID    string       `env:"OIDC_CLIENT_ID" envDefault:"tunkunia"`
-	OidcSecret      string       `env:"OIDC_SECRET" envDefault:"ZXhhbXBsZS1hcHAtc2VjcmV0"`
-	FirstAdminEmail user.Email   `env:"FIRST_ADMIN_EMAIL" envDefault:"admin@example.com"`
+	Debug           bool         `env:"DEBUG" envDefault:"false"`
+	Demo            bool         `env:"DEMO" envDefault:"false"`
+	DbString        string       `env:"GOOSE_DBSTRING,required,notEmpty"`
+	JWTSecret       string       `env:"JWT_SECRET"`
+	OidcURL         string       `env:"OIDC_URL,required"`
+	OidcClientID    string       `env:"OIDC_CLIENT_ID,required"`
+	OidcSecret      string       `env:"OIDC_SECRET,required"`
+	FirstAdminEmail user.Email   `env:"FIRST_ADMIN_EMAIL,required,notEmpty"`
 	Route           RoutesConfig `envPrefix:"ROUTE_"`
 }
 
+// Load reads .env before parsing the application configuration.
 func Load() (*Config, error) {
-	environment := "dev"
-	if v, ok := os.LookupEnv("ENV"); ok {
-		environment = v
+	if err := godotenv.Load(); err != nil && !errors.Is(err, os.ErrNotExist) {
+		return nil, fmt.Errorf("no se pudo leer .env: %w", err)
 	}
-	_ = godotenv.Load()
-	_ = godotenv.Load(".env." + environment)
-
 	c := &Config{}
 	if err := env.Parse(c); err != nil {
-		return nil, fmt.Errorf("No se pudo cargar la configuración del entorno: %w", err)
+		return nil, fmt.Errorf("no se pudo cargar la configuración: %w", err)
 	}
-	slog.Info("Configuración cargada", "Config", *c)
+	if c.JWTSecret == "" {
+		fmt.Println("No existe llave secreta para JWT. Se creará una nueva")
+		JWTSecret, err := ApiKeyGenerate()
+		if err != nil {
+			return nil, fmt.Errorf("no se pudo generar la llave JWT: %w", err)
+		}
+		c.JWTSecret = JWTSecret
+	}
 	return c, nil
+}
+
+func ApiKeyGenerate() (string, error) {
+	envFile := ".env"
+	keyName := "JWT_SECRET"
+
+	env, err := godotenv.Read(envFile)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return "", fmt.Errorf("archivo %s existente no pudo leerse %w", envFile, err)
+	}
+
+	env[keyName] = authn.NewSecretKey()
+
+	if err := godotenv.Write(env, envFile); err != nil {
+		return "", fmt.Errorf("archivo %s no pudo guardarse %w", envFile, err)
+	}
+	fmt.Println("✅ Nueva llave HS256 generada y guardada!")
+	return env[keyName], nil
 }

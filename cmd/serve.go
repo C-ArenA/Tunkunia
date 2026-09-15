@@ -6,10 +6,12 @@ package cmd
 import (
 	"context"
 	"database/sql"
-	"log"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/C-ArenA/Tunkunia/database"
 	"github.com/C-ArenA/Tunkunia/database/sqlc"
@@ -22,6 +24,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/internal/health"
 	"github.com/C-ArenA/Tunkunia/internal/institution"
 	"github.com/C-ArenA/Tunkunia/internal/user"
+	"github.com/C-ArenA/Tunkunia/spa"
 	"github.com/Marlliton/slogpretty"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -33,22 +36,29 @@ func NewServeCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "serve",
 		Short: "Inicia el servidor de Tunkunia",
-		Run: func(cmd *cobra.Command, args []string) {
-			ctx := context.Background()
-			_, r, cfg := initServer(ctx)
-			log.Println("🌄 Starting TUNKUNIA Server on port:", cfg.Port)
-			log.Fatal(http.ListenAndServe(cfg.Port, r))
+		RunE: func(cmd *cobra.Command, args []string) error {
+			db, r, cfg, err := initServer(cmd.Context())
+			if err != nil {
+				return err
+			}
+			defer db.Close()
+			slog.Info("🌄 Tunkunia server started", "address", cfg.Port)
+			return http.ListenAndServe(cfg.Port, r)
 		},
 	}
 }
 
-func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
-	// Configs
+func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config, error) {
+	cfg, err := config.Load()
+	if err != nil {
+		return nil, nil, nil, err
+	}
 	initLogger()
-	cfg := loadConfig()
-
 	// Database
-	db := initDB(ctx, cfg.GooseDbString, cfg.Env == "dev")
+	db, err := initDB(ctx, cfg.DbString, cfg.Demo)
+	if err != nil {
+		return nil, nil, nil, err
+	}
 	q := sqlc.New()
 
 	// modules wiring
@@ -77,40 +87,53 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config) {
 		CallbackPath: cfg.Route.OidcCallback,
 	}, userService, jwtAuthn)
 	if err != nil {
-		log.Fatal(err)
+		db.Close()
+		return nil, nil, nil, err
 	}
 
 	// HTTP
 	r := chi.NewRouter()
 	r.Use(api.CorsMiddleware(cfg.AppURL), middleware.Logger, authn.Authenticate(jwtAuthn))
 
-	r.Mount("/", oidcHandler.Handler(cfg.Route.OidcRedirect, cfg.Route.OidcCallback))
+	oidcHandler.RegisterRoutes(r, cfg.Route.OidcRedirect, cfg.Route.OidcCallback)
 	strictHandlerV1.RegisterRoutes(r, cfg.Route.ApiV1)
-	apiv1.RegisterSpecsRoutes(r, cfg.Env == "dev")
+	apiv1.RegisterSpecsRoutes(r, cfg.Debug)
+	r.NotFound(spa.Handler().ServeHTTP)
 
-	return db, r, cfg
+	return db, r, cfg, nil
 }
 
-func initDB(ctx context.Context, dataSourceName string, withSeeding bool) *sql.DB {
+func initDB(ctx context.Context, dataSourceName string, demo bool) (*sql.DB, error) {
+	if dataSourceName != ":memory:" && !strings.HasPrefix(dataSourceName, "file:") {
+		if err := os.MkdirAll(filepath.Dir(dataSourceName), 0750); err != nil {
+			return nil, fmt.Errorf("no se pudo crear el directorio de datos: %w", err)
+		}
+	}
 	db, err := sql.Open("sqlite", dataSourceName)
 	if err != nil {
-		log.Fatal(err)
+		return nil, fmt.Errorf("no se pudo abrir la base de datos: %w", err)
+	}
+	db.SetMaxOpenConns(1)
+	db.SetMaxIdleConns(1)
+	if _, err := db.ExecContext(ctx, "PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;"); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("no se pudo configurar SQLite: %w", err)
+	}
+	if err := db.PingContext(ctx); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("no se pudo conectar con la base de datos: %w", err)
 	}
 	if err := database.Migrate(ctx, db); err != nil {
-		log.Fatal(err)
+		db.Close()
+		return nil, fmt.Errorf("no se pudieron aplicar las migraciones: %w", err)
 	}
-	if withSeeding {
-		database.Seed(ctx, db)
+	if demo {
+		if err := database.Seed(ctx, db); err != nil {
+			db.Close()
+			return nil, fmt.Errorf("no se pudieron cargar los datos de desarrollo: %w", err)
+		}
 	}
-	return db
-}
-
-func loadConfig() *config.Config {
-	cfg, err := config.Load()
-	if err != nil {
-		log.Fatal(err)
-	}
-	return cfg
+	return db, nil
 }
 
 func initLogger() {

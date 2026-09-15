@@ -210,15 +210,16 @@ func (h *OIDCHandler) logout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
-func (h *OIDCHandler) Handler(loginRoute, callbackRoute string) http.Handler {
-	r := chi.NewRouter()
+// RegisterRoutes adds only the authentication endpoints to an existing
+// router. Keeping these routes explicit lets the application serve SPA
+// client-side routes from its top-level 404 handler.
+func (h *OIDCHandler) RegisterRoutes(r chi.Router, loginRoute, callbackRoute string) {
 	r.Get("/oidc-logout", h.logout)
 	r.Group(func(r chi.Router) {
 		r.Use(RequireNonAuthenticatedOrRedirect)
 		r.Get(loginRoute, h.loginRedirect)
 		r.Get(callbackRoute, h.callback)
 	})
-	return r
 }
 
 func b64EncodedBytes(n int) string {

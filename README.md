@@ -131,8 +131,8 @@ Servicios del entorno:
 | Nuxt | `http://localhost:3000` | Servidor de desarrollo de la SPA |
 | Dex | `http://127.0.0.1:5556/dex` | Proveedor OIDC local |
 
-El servidor crea `database/tunkunia.db`, aplica las migraciones y carga datos de
-demostración automáticamente cuando `ENV=dev`.
+El servidor crea `database/tunkunia.db` y aplica las migraciones. Configura
+`DEMO=true` cuando también necesites cargar los datos de demostración.
 
 ### Ejecución parcial
 
@@ -157,7 +157,8 @@ ese flujo.
 
 ```sh
 go test ./...
-go build .
+go build .                 # requires an existing spa/.output/public
+go tool task build:all     # generates the SPA before building everything
 ```
 
 ### Aplicación web
@@ -194,10 +195,9 @@ go tool task docs:build:memoria
 | Variable | Valor local predeterminado | Descripción |
 | --- | --- | --- |
 | `APP_URL` | `https://localhost:8443` | Origen público de la aplicación |
-| `HOST` | `http://127.0.0.1` | Dirección base del servidor |
 | `PORT` | `:8080` | Puerto HTTP del servidor Go |
-| `DEV_NUXT_PORT` | `:3000` | Puerto de Nuxt en desarrollo |
-| `ENV` | `dev` | Entorno de ejecución |
+| `DEBUG` | `false` | Habilita herramientas de diagnóstico para desarrollo |
+| `DEMO` | `false` | Carga los datos de demostración al iniciar |
 | `GOOSE_DBSTRING` | `./database/tunkunia.db` | Ruta de la base SQLite |
 | `JWT_SECRET` | Sin valor seguro predeterminado | Clave de firma de la sesión |
 | `OIDC_URL` | `http://127.0.0.1:5556/dex` | Emisor OIDC |

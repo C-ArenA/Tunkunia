@@ -128,7 +128,7 @@ operativa independiente de las capacidades de negocio.
 
 SQLite contiene las tablas de usuarios, trámites, versiones de
 procedimiento, casos, participantes, tareas, actuaciones y notificaciones. Goose aplica las
-migraciones en el arranque y carga datos demostrativos durante el desarrollo.
+migraciones en el arranque y carga datos demostrativos cuando la configuración `DEMO` está activa.
 Las restricciones de unicidad, claves foráneas e índices complementan las
 validaciones del dominio.
 SQLC genera consultas tipadas para las operaciones directas y las consultas
