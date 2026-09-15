@@ -7,6 +7,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
 
+  ui: {
+    colorMode: false,
+  },
+
   hooks: {
     "prerender:routes"({ routes }) {
       routes.clear(); // Do not generate any routes (except the defaults)
