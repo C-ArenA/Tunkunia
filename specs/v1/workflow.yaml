@@ -8,7 +8,7 @@ components:
         summary: Obtener procedimiento publicado
         security: [{}]
         responses:
-          "200": { $ref: "#/components/responses/ProcedureVersion" }
+          "200": { $ref: "#/components/responses/Procedure" }
           "404": { $ref: common.yaml#/components/responses/NotFound }
     DraftProcedure:
       parameters: [{ $ref: "#/components/parameters/WorkflowTramiteId" }]
@@ -18,7 +18,7 @@ components:
         summary: Obtener borrador del procedimiento
         security: [{ BearerAuth: [] }]
         responses:
-          "200": { $ref: "#/components/responses/ProcedureVersion" }
+          "200": { $ref: "#/components/responses/Procedure" }
           "403": { $ref: common.yaml#/components/responses/Forbidden }
           "404": { $ref: common.yaml#/components/responses/NotFound }
       put:
@@ -28,9 +28,9 @@ components:
         security: [{ BearerAuth: [] }]
         requestBody:
           required: true
-          content: { application/json: { schema: { $ref: "#/components/schemas/ProcedureDefinition" } } }
+          content: { application/json: { schema: { $ref: "#/components/schemas/Net" } } }
         responses:
-          "200": { $ref: "#/components/responses/ProcedureVersion" }
+          "200": { $ref: "#/components/responses/Procedure" }
           "403": { $ref: common.yaml#/components/responses/Forbidden }
           "404": { $ref: common.yaml#/components/responses/NotFound }
     PublishProcedure:
@@ -41,7 +41,7 @@ components:
         summary: Validar y publicar procedimiento
         security: [{ BearerAuth: [] }]
         responses:
-          "200": { $ref: "#/components/responses/ProcedureVersion" }
+          "200": { $ref: "#/components/responses/Procedure" }
           "403": { $ref: common.yaml#/components/responses/Forbidden }
           "404": { $ref: common.yaml#/components/responses/NotFound }
           "422":
@@ -165,9 +165,9 @@ components:
     WorkflowTramiteId: { name: id, in: path, required: true, schema: { $ref: catalog.yaml#/components/schemas/TramiteId } }
     CaseId: { name: id, in: path, required: true, schema: { type: integer, format: int64, minimum: 1 } }
   responses:
-    ProcedureVersion:
-      description: Versión de procedimiento
-      content: { application/json: { schema: { $ref: "#/components/schemas/ProcedureVersion" } } }
+    Procedure:
+      description: Procedimiento
+      content: { application/json: { schema: { $ref: "#/components/schemas/Procedure" } } }
   schemas:
     ProcedureRole: { type: string, enum: [citizen, servant] }
     ProcedureNode:
@@ -187,7 +187,7 @@ components:
         id: { type: string, minLength: 1 }
         from: { type: string, minLength: 1 }
         to: { type: string, minLength: 1 }
-    ProcedureDefinition:
+    Net:
       type: object
       required: [nodes, arcs, initialPlaceId, finalPlaceId]
       properties:
@@ -195,15 +195,15 @@ components:
         arcs: { type: array, items: { $ref: "#/components/schemas/ProcedureArc" } }
         initialPlaceId: { type: string }
         finalPlaceId: { type: string }
-    ProcedureVersion:
+    Procedure:
       type: object
-      required: [id, tramiteId, status, definition]
+      required: [id, tramiteId, status, net]
       properties:
         id: { type: integer, format: int64 }
         tramiteId: { type: integer, format: int64 }
         versionNumber: { type: integer }
         status: { type: string, enum: [draft, published] }
-        definition: { $ref: "#/components/schemas/ProcedureDefinition" }
+        net: { $ref: "#/components/schemas/Net" }
     ProcedureViolation:
       type: object
       required: [code, message]
@@ -253,12 +253,12 @@ components:
       allOf:
         - { $ref: "#/components/schemas/CaseSummary" }
         - type: object
-          required: [procedureVersionId, procedureVersion, marking, definition, participants, enabledTransitions, availableTasks, history]
+          required: [procedureId, procedureVersion, marking, net, participants, enabledTransitions, availableTasks, history]
           properties:
-            procedureVersionId: { type: integer, format: int64 }
+            procedureId: { type: integer, format: int64 }
             procedureVersion: { type: integer }
             marking: { type: object, additionalProperties: { type: integer, minimum: 0 } }
-            definition: { $ref: "#/components/schemas/ProcedureDefinition" }
+            net: { $ref: "#/components/schemas/Net" }
             participants: { type: array, items: { $ref: "#/components/schemas/Participant" } }
             enabledTransitions: { type: array, items: { type: string } }
             availableTasks: { type: array, items: { $ref: "#/components/schemas/Task" } }

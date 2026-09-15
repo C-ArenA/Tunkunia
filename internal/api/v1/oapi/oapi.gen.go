@@ -1055,7 +1055,7 @@ type InternalErrorApplicationProblemPlusJSONResponse ProblemDetails
 
 type NotFoundApplicationProblemPlusJSONResponse ProblemDetails
 
-type ProcedureVersionJSONResponse ProcedureVersion
+type ProcedureJSONResponse Procedure
 
 type UnauthorizedApplicationProblemPlusJSONResponse ProblemDetails
 
@@ -2070,7 +2070,7 @@ type GetPublishedProcedureResponseObject interface {
 	VisitGetPublishedProcedureResponse(w http.ResponseWriter) error
 }
 
-type GetPublishedProcedure200JSONResponse struct{ ProcedureVersionJSONResponse }
+type GetPublishedProcedure200JSONResponse struct{ ProcedureJSONResponse }
 
 func (response GetPublishedProcedure200JSONResponse) VisitGetPublishedProcedureResponse(w http.ResponseWriter) error {
 
@@ -2108,7 +2108,7 @@ type GetDraftProcedureResponseObject interface {
 	VisitGetDraftProcedureResponse(w http.ResponseWriter) error
 }
 
-type GetDraftProcedure200JSONResponse struct{ ProcedureVersionJSONResponse }
+type GetDraftProcedure200JSONResponse struct{ ProcedureJSONResponse }
 
 func (response GetDraftProcedure200JSONResponse) VisitGetDraftProcedureResponse(w http.ResponseWriter) error {
 
@@ -2163,7 +2163,7 @@ type SaveDraftProcedureResponseObject interface {
 	VisitSaveDraftProcedureResponse(w http.ResponseWriter) error
 }
 
-type SaveDraftProcedure200JSONResponse struct{ ProcedureVersionJSONResponse }
+type SaveDraftProcedure200JSONResponse struct{ ProcedureJSONResponse }
 
 func (response SaveDraftProcedure200JSONResponse) VisitSaveDraftProcedureResponse(w http.ResponseWriter) error {
 
@@ -2217,7 +2217,7 @@ type PublishProcedureResponseObject interface {
 	VisitPublishProcedureResponse(w http.ResponseWriter) error
 }
 
-type PublishProcedure200JSONResponse struct{ ProcedureVersionJSONResponse }
+type PublishProcedure200JSONResponse struct{ ProcedureJSONResponse }
 
 func (response PublishProcedure200JSONResponse) VisitPublishProcedureResponse(w http.ResponseWriter) error {
 

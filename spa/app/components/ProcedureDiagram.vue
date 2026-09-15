@@ -2,11 +2,11 @@
 import "@vue-flow/core/dist/style.css";
 import "@vue-flow/core/dist/theme-default.css";
 import ProcedureCanvas from "./procedure/ProcedureCanvas.vue";
-import type { ProcedureDefinition } from "#shared/clientV1/types.gen";
+import type { Net } from "#shared/clientV1/types.gen";
 
 withDefaults(
   defineProps<{
-    graph: ProcedureDefinition;
+    graph: Net;
     activeNodeIds?: string[];
     enabledTransitionIds?: string[];
     actionableTransitionIds?: string[];

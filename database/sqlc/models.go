@@ -9,16 +9,16 @@ import (
 )
 
 type Case struct {
-	ID                 int64
-	TramiteID          int64
-	ProcedureVersionID int64
-	Status             string
-	Revision           int64
-	Marking            string
-	InitiatedBy        int64
-	StartedAt          string
-	UpdatedAt          string
-	CompletedAt        sql.NullString
+	ID          int64
+	TramiteID   int64
+	ProcedureID int64
+	Status      string
+	Revision    int64
+	Marking     string
+	InitiatedBy int64
+	StartedAt   string
+	UpdatedAt   string
+	CompletedAt sql.NullString
 }
 
 type CaseAction struct {
@@ -79,12 +79,12 @@ type Notification struct {
 	ReadAt    sql.NullString
 }
 
-type ProcedureVersion struct {
+type Procedure struct {
 	ID            int64
 	TramiteID     int64
 	VersionNumber sql.NullInt64
 	Status        string
-	Definition    string
+	Net           string
 	CreatedAt     string
 	UpdatedAt     string
 	PublishedAt   sql.NullString
@@ -99,7 +99,7 @@ type Tramite struct {
 	Status               string
 	CreatedAt            string
 	UpdatedAt            string
-	CurrentVersionID     sql.NullInt64
+	CurrentProcedureID   sql.NullInt64
 }
 
 type User struct {

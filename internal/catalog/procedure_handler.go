@@ -8,14 +8,14 @@ import (
 )
 
 func (h *StrictCatalogHandlerV1) GetPublishedProcedure(ctx context.Context, request oapi.GetPublishedProcedureRequestObject) (oapi.GetPublishedProcedureResponseObject, error) {
-	version, err := h.repo.GetPublishedProcedure(ctx, request.Id)
+	procedure, err := h.repo.GetPublishedProcedure(ctx, request.Id)
 	if errors.Is(err, ErrNoPublishedProcedure) {
 		return oapi.GetPublishedProcedure404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
 	}
 	if err != nil {
 		return nil, err
 	}
-	return oapi.GetPublishedProcedure200JSONResponse{ProcedureVersionJSONResponse: oapi.ProcedureVersionJSONResponse(ProcedureVersionToResponse(*version))}, nil
+	return oapi.GetPublishedProcedure200JSONResponse{ProcedureJSONResponse: oapi.ProcedureJSONResponse(ProcedureToResponse(*procedure))}, nil
 }
 
 func (h *StrictCatalogHandlerV1) GetDraftProcedure(ctx context.Context, request oapi.GetDraftProcedureRequestObject) (oapi.GetDraftProcedureResponseObject, error) {
@@ -26,14 +26,14 @@ func (h *StrictCatalogHandlerV1) GetDraftProcedure(ctx context.Context, request 
 	if !admin {
 		return oapi.GetDraftProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
-	version, err := h.repo.GetDraftProcedure(ctx, request.Id)
+	procedure, err := h.repo.GetDraftProcedure(ctx, request.Id)
 	if errors.Is(err, ErrNotFound) {
 		return oapi.GetDraftProcedure404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
 	}
 	if err != nil {
 		return nil, err
 	}
-	return oapi.GetDraftProcedure200JSONResponse{ProcedureVersionJSONResponse: oapi.ProcedureVersionJSONResponse(ProcedureVersionToResponse(*version))}, nil
+	return oapi.GetDraftProcedure200JSONResponse{ProcedureJSONResponse: oapi.ProcedureJSONResponse(ProcedureToResponse(*procedure))}, nil
 }
 
 func (h *StrictCatalogHandlerV1) SaveDraftProcedure(ctx context.Context, request oapi.SaveDraftProcedureRequestObject) (oapi.SaveDraftProcedureResponseObject, error) {
@@ -44,14 +44,14 @@ func (h *StrictCatalogHandlerV1) SaveDraftProcedure(ctx context.Context, request
 	if !admin {
 		return oapi.SaveDraftProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
-	version, err := h.repo.SaveDraftProcedure(ctx, request.Id, ProcedureFromRequest(*request.Body))
+	procedure, err := h.repo.SaveDraftProcedure(ctx, request.Id, NetFromRequest(*request.Body))
 	if errors.Is(err, ErrNotFound) {
 		return oapi.SaveDraftProcedure404ApplicationProblemPlusJSONResponse{NotFoundApplicationProblemPlusJSONResponse: oapi.NewNotFoundResponse(err.Error())}, nil
 	}
 	if err != nil {
 		return nil, err
 	}
-	return oapi.SaveDraftProcedure200JSONResponse{ProcedureVersionJSONResponse: oapi.ProcedureVersionJSONResponse(ProcedureVersionToResponse(*version))}, nil
+	return oapi.SaveDraftProcedure200JSONResponse{ProcedureJSONResponse: oapi.ProcedureJSONResponse(ProcedureToResponse(*procedure))}, nil
 }
 
 func (h *StrictCatalogHandlerV1) PublishProcedure(ctx context.Context, request oapi.PublishProcedureRequestObject) (oapi.PublishProcedureResponseObject, error) {
@@ -62,7 +62,7 @@ func (h *StrictCatalogHandlerV1) PublishProcedure(ctx context.Context, request o
 	if !admin {
 		return oapi.PublishProcedure403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
 	}
-	version, err := h.service.PublishProcedure(ctx, request.Id)
+	procedure, err := h.service.PublishProcedure(ctx, request.Id)
 	var validation *ProcedureValidationError
 	if errors.As(err, &validation) {
 		violations := make([]oapi.ProcedureViolation, len(validation.Violations))
@@ -77,7 +77,7 @@ func (h *StrictCatalogHandlerV1) PublishProcedure(ctx context.Context, request o
 	if err != nil {
 		return nil, err
 	}
-	return oapi.PublishProcedure200JSONResponse{ProcedureVersionJSONResponse: oapi.ProcedureVersionJSONResponse(ProcedureVersionToResponse(*version))}, nil
+	return oapi.PublishProcedure200JSONResponse{ProcedureJSONResponse: oapi.ProcedureJSONResponse(ProcedureToResponse(*procedure))}, nil
 }
 
 func (h *StrictCatalogHandlerV1) ArchiveTramite(ctx context.Context, request oapi.ArchiveTramiteRequestObject) (oapi.ArchiveTramiteResponseObject, error) {

@@ -1,6 +1,6 @@
 import { Position, type Edge, type Node } from "@vue-flow/core";
 import type {
-  ProcedureDefinition,
+  Net,
   ProcedureNode as ApiProcedureNode,
   ProcedureRole,
 } from "#shared/clientV1/types.gen";
@@ -21,7 +21,7 @@ export type FlowProcedureNode = Node<ProcedureFlowData> & {
 const dimensions = (kind: ApiProcedureNode["kind"]) =>
   kind === "place" ? { width: 56, height: 56 } : { width: 24, height: 70 };
 
-export function newProcedure(): ProcedureDefinition {
+export function newProcedure(): Net {
   return {
     nodes: [
       { id: "start", kind: "place", label: "Inicio", x: 80, y: 120 },
@@ -56,7 +56,7 @@ export function newProcedure(): ProcedureDefinition {
 }
 
 export function procedureToFlow(
-  definition: ProcedureDefinition,
+  net: Net,
   state: Pick<ProcedureFlowData, "active" | "enabled" | "actionable"> = {
     active: false,
     enabled: false,
@@ -64,7 +64,7 @@ export function procedureToFlow(
   },
 ): { nodes: FlowProcedureNode[]; edges: Edge[] } {
   return {
-    nodes: definition.nodes.map((node) => {
+    nodes: net.nodes.map((node) => {
       const size = dimensions(node.kind);
       return {
         id: node.id,
@@ -77,7 +77,7 @@ export function procedureToFlow(
         ariaLabel: node.label,
       };
     }),
-    edges: definition.arcs.map((arc) => ({
+    edges: net.arcs.map((arc) => ({
       id: arc.id,
       source: arc.from,
       target: arc.to,
@@ -88,11 +88,7 @@ export function procedureToFlow(
   };
 }
 
-export function flowToProcedure(
-  nodes: FlowProcedureNode[],
-  edges: Edge[],
-  previous: ProcedureDefinition,
-): ProcedureDefinition {
+export function flowToProcedure(nodes: FlowProcedureNode[], edges: Edge[], previous: Net): Net {
   const nodeIds = new Set(nodes.map((node) => node.id));
   return {
     ...previous,

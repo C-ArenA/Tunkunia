@@ -17,11 +17,11 @@ import {
   procedureToFlow,
   type FlowProcedureNode,
 } from "~/utils/procedure";
-import type { ProcedureDefinition } from "#shared/clientV1/types.gen";
+import type { Net } from "#shared/clientV1/types.gen";
 
 const props = withDefaults(
   defineProps<{
-    graph: ProcedureDefinition;
+    graph: Net;
     editable?: boolean;
     activeNodeIds?: string[];
     enabledTransitionIds?: string[];
@@ -35,7 +35,7 @@ const props = withDefaults(
   },
 );
 const emit = defineEmits<{
-  "update:graph": [value: ProcedureDefinition];
+  "update:graph": [value: Net];
   transition: [id: string];
   "select-node": [id: string];
 }>();

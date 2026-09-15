@@ -24,15 +24,15 @@ func NewSQLiteRepository(db *sql.DB, queries *sqlc.Queries) *sqliteRepository {
 
 var _ repository = (*sqliteRepository)(nil)
 
-func (s *sqliteRepository) Start(ctx context.Context, tramiteID int64, actorID int64, version *catalog.ProcedureVersion) (*Case, error) {
-	marking := petrunia.InitialMarking(version.Definition)
+func (s *sqliteRepository) Start(ctx context.Context, tramiteID int64, actorID int64, procedure *catalog.Procedure) (*Case, error) {
+	marking := petrunia.InitialMarking(procedure.Net)
 	markingJSON, _ := json.Marshal(marking)
 	tx, err := s.db.BeginTx(ctx, nil)
 	if err != nil {
 		return nil, err
 	}
 	defer tx.Rollback()
-	result, err := tx.ExecContext(ctx, `INSERT INTO cases (tramite_id, procedure_version_id, marking, initiated_by) VALUES (?, ?, ?, ?)`, tramiteID, version.ID, string(markingJSON), actorID)
+	result, err := tx.ExecContext(ctx, `INSERT INTO cases (tramite_id, procedure_id, marking, initiated_by) VALUES (?, ?, ?, ?)`, tramiteID, procedure.ID, string(markingJSON), actorID)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (s *sqliteRepository) Start(ctx context.Context, tramiteID int64, actorID i
 	if _, err := tx.ExecContext(ctx, `INSERT INTO case_participants (case_id, role, user_id) VALUES (?, 'citizen', ?)`, caseID, actorID); err != nil {
 		return nil, err
 	}
-	if err := reconcileTasks(ctx, tx, caseID, version.Definition, marking); err != nil {
+	if err := reconcileTasks(ctx, tx, caseID, procedure.Net, marking); err != nil {
 		return nil, err
 	}
 	if err := tx.Commit(); err != nil {
@@ -182,7 +182,7 @@ func (s *sqliteRepository) ApplyTransition(ctx context.Context, command transiti
 		if _, err := tx.ExecContext(ctx, `UPDATE case_tasks SET status='cancelled', finished_at=CURRENT_TIMESTAMP WHERE case_id=? AND status='pending'`, command.CaseID); err != nil {
 			return nil, err
 		}
-	} else if err := reconcileTasks(ctx, tx, command.CaseID, command.Definition, command.NextMarking); err != nil {
+	} else if err := reconcileTasks(ctx, tx, command.CaseID, command.Net, command.NextMarking); err != nil {
 		return nil, err
 	}
 	if err := tx.Commit(); err != nil {
@@ -313,9 +313,9 @@ func insertNotification(ctx context.Context, tx *sql.Tx, userID, caseID, taskID 
 
 func loadCase(ctx context.Context, db *sql.DB, caseID, viewerID int64, admin bool) (*Case, error) {
 	var item Case
-	var markingText, definitionText, started, updated string
+	var markingText, netText, started, updated string
 	var completed sql.NullString
-	err := db.QueryRowContext(ctx, `SELECT c.id,c.tramite_id,t.name,c.procedure_version_id,pv.version_number,c.status,c.revision,c.marking,pv.definition,c.started_at,c.updated_at,c.completed_at FROM cases c JOIN tramites t ON t.id=c.tramite_id JOIN procedure_versions pv ON pv.id=c.procedure_version_id WHERE c.id=?`, caseID).Scan(&item.ID, &item.TramiteID, &item.TramiteName, &item.ProcedureVersionID, &item.ProcedureVersion, &item.Status, &item.Revision, &markingText, &definitionText, &started, &updated, &completed)
+	err := db.QueryRowContext(ctx, `SELECT c.id,c.tramite_id,t.name,c.procedure_id,p.version_number,c.status,c.revision,c.marking,p.net,c.started_at,c.updated_at,c.completed_at FROM cases c JOIN tramites t ON t.id=c.tramite_id JOIN procedures p ON p.id=c.procedure_id WHERE c.id=?`, caseID).Scan(&item.ID, &item.TramiteID, &item.TramiteName, &item.ProcedureID, &item.ProcedureVersion, &item.Status, &item.Revision, &markingText, &netText, &started, &updated, &completed)
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, ErrNotFound
 	}
@@ -325,7 +325,7 @@ func loadCase(ctx context.Context, db *sql.DB, caseID, viewerID int64, admin boo
 	if err := json.Unmarshal([]byte(markingText), &item.Marking); err != nil {
 		return nil, err
 	}
-	if err := json.Unmarshal([]byte(definitionText), &item.Definition); err != nil {
+	if err := json.Unmarshal([]byte(netText), &item.Net); err != nil {
 		return nil, err
 	}
 	item.StartedAt = parseTime(started)
@@ -334,7 +334,7 @@ func loadCase(ctx context.Context, db *sql.DB, caseID, viewerID int64, admin boo
 		t := parseTime(completed.String)
 		item.CompletedAt = &t
 	}
-	for _, transition := range petrunia.EnabledTransitions(item.Definition, item.Marking) {
+	for _, transition := range petrunia.EnabledTransitions(item.Net, item.Marking) {
 		item.EnabledTransitions = append(item.EnabledTransitions, transition.ID)
 	}
 	rows, err := db.QueryContext(ctx, `SELECT cp.role,cp.user_id,u.name,cp.assigned_at FROM case_participants cp JOIN users u ON u.id=cp.user_id WHERE cp.case_id=? ORDER BY cp.role`, caseID)

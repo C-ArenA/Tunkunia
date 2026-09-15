@@ -54,7 +54,7 @@ func TestCitizenAndServantExecuteWorkflow(t *testing.T) {
 	item, err = service.Fire(ctx, item.ID, "approve", item.Revision, 2)
 	require.NoError(t, err)
 	assert.Equal(t, StatusCompleted, item.Status)
-	assert.True(t, petrunia.IsFinal(item.Definition, item.Marking))
+	assert.True(t, petrunia.IsFinal(item.Net, item.Marking))
 	require.Len(t, item.History, 2)
 }
 

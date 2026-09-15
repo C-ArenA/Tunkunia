@@ -2,10 +2,10 @@
 import "@vue-flow/core/dist/style.css";
 import "@vue-flow/core/dist/theme-default.css";
 import ProcedureCanvas from "./procedure/ProcedureCanvas.vue";
-import type { ProcedureDefinition, ProcedureNode } from "#shared/clientV1/types.gen";
+import type { Net, ProcedureNode } from "#shared/clientV1/types.gen";
 
-const props = defineProps<{ modelValue: ProcedureDefinition }>();
-const emit = defineEmits<{ "update:modelValue": [value: ProcedureDefinition] }>();
+const props = defineProps<{ modelValue: Net }>();
+const emit = defineEmits<{ "update:modelValue": [value: Net] }>();
 const canvas = ref<InstanceType<typeof ProcedureCanvas>>();
 const selectedId = ref("");
 

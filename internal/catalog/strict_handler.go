@@ -14,9 +14,9 @@ type catalogRepository interface {
 	Get(context.Context, int64) (oapi.Tramite, error)
 	Update(context.Context, int64, oapi.TramiteUpdate) (oapi.Tramite, error)
 	Delete(context.Context, int64) error
-	GetPublishedProcedure(context.Context, int64) (*ProcedureVersion, error)
-	GetDraftProcedure(context.Context, int64) (*ProcedureVersion, error)
-	SaveDraftProcedure(context.Context, int64, petrunia.Net) (*ProcedureVersion, error)
+	GetPublishedProcedure(context.Context, int64) (*Procedure, error)
+	GetDraftProcedure(context.Context, int64) (*Procedure, error)
+	SaveDraftProcedure(context.Context, int64, petrunia.Net) (*Procedure, error)
 	Archive(context.Context, int64) error
 }
 

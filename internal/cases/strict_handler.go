@@ -216,7 +216,7 @@ func caseToResponse(v Case) oapi.Case {
 	for id, n := range v.Marking {
 		marking[string(id)] = int(n)
 	}
-	result := oapi.Case{Id: v.ID, TramiteId: v.TramiteID, TramiteName: v.TramiteName, ProcedureVersionId: v.ProcedureVersionID, ProcedureVersion: v.ProcedureVersion, Status: oapi.CaseStatus(v.Status), Revision: v.Revision, Marking: marking, Definition: catalog.ProcedureToResponse(v.Definition), StartedAt: v.StartedAt, UpdatedAt: v.UpdatedAt, CompletedAt: v.CompletedAt}
+	result := oapi.Case{Id: v.ID, TramiteId: v.TramiteID, TramiteName: v.TramiteName, ProcedureId: v.ProcedureID, ProcedureVersion: v.ProcedureVersion, Status: oapi.CaseStatus(v.Status), Revision: v.Revision, Marking: marking, Net: catalog.NetToResponse(v.Net), StartedAt: v.StartedAt, UpdatedAt: v.UpdatedAt, CompletedAt: v.CompletedAt}
 	for _, id := range v.EnabledTransitions {
 		result.EnabledTransitions = append(result.EnabledTransitions, string(id))
 	}

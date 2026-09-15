@@ -5,7 +5,7 @@ import (
 	"github.com/C-ArenA/Tunkunia/petrunia"
 )
 
-func ProcedureFromRequest(input oapi.ProcedureDefinition) petrunia.Net {
+func NetFromRequest(input oapi.Net) petrunia.Net {
 	net := petrunia.Net{InitialPlaceID: petrunia.NodeID(input.InitialPlaceId), FinalPlaceID: petrunia.NodeID(input.FinalPlaceId)}
 	for _, n := range input.Nodes {
 		if string(n.Kind) == "place" {
@@ -24,8 +24,8 @@ func ProcedureFromRequest(input oapi.ProcedureDefinition) petrunia.Net {
 	return net
 }
 
-func ProcedureToResponse(net petrunia.Net) oapi.ProcedureDefinition {
-	result := oapi.ProcedureDefinition{InitialPlaceId: string(net.InitialPlaceID), FinalPlaceId: string(net.FinalPlaceID), Arcs: make([]oapi.ProcedureArc, len(net.Arcs))}
+func NetToResponse(net petrunia.Net) oapi.Net {
+	result := oapi.Net{InitialPlaceId: string(net.InitialPlaceID), FinalPlaceId: string(net.FinalPlaceID), Arcs: make([]oapi.ProcedureArc, len(net.Arcs))}
 	for _, p := range net.Places {
 		result.Nodes = append(result.Nodes, oapi.ProcedureNode{Id: string(p.ID), Kind: oapi.ProcedureNodeKind("place"), Label: p.Label, X: p.X, Y: p.Y})
 	}
@@ -39,6 +39,6 @@ func ProcedureToResponse(net petrunia.Net) oapi.ProcedureDefinition {
 	return result
 }
 
-func ProcedureVersionToResponse(v ProcedureVersion) oapi.ProcedureVersion {
-	return oapi.ProcedureVersion{Id: v.ID, TramiteId: v.TramiteID, VersionNumber: v.VersionNumber, Status: oapi.ProcedureVersionStatus(v.Status), Definition: ProcedureToResponse(v.Definition)}
+func ProcedureToResponse(v Procedure) oapi.Procedure {
+	return oapi.Procedure{Id: v.ID, TramiteId: v.TramiteID, VersionNumber: v.VersionNumber, Status: oapi.ProcedureStatus(v.Status), Net: NetToResponse(v.Net)}
 }

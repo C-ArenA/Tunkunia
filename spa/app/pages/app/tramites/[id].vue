@@ -55,7 +55,7 @@ async function begin() {
           <ProcedureDiagram
             v-if="procedure"
             class="mt-6"
-            :graph="procedure.definition"
+            :graph="procedure.net"
           /></section></template></template
   ></UDashboardPanel>
 </template>

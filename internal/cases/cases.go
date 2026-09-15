@@ -60,12 +60,12 @@ type Case struct {
 	ID                 int64             `json:"id"`
 	TramiteID          int64             `json:"tramiteId"`
 	TramiteName        string            `json:"tramiteName"`
-	ProcedureVersionID int64             `json:"procedureVersionId"`
+	ProcedureID        int64             `json:"procedureId"`
 	ProcedureVersion   int               `json:"procedureVersion"`
 	Status             Status            `json:"status"`
 	Revision           int64             `json:"revision"`
 	Marking            petrunia.Marking  `json:"marking"`
-	Definition         petrunia.Net      `json:"definition"`
+	Net                petrunia.Net      `json:"net"`
 	Participants       []Participant     `json:"participants"`
 	EnabledTransitions []petrunia.NodeID `json:"enabledTransitions"`
 	AvailableTasks     []Task            `json:"availableTasks"`
@@ -96,7 +96,7 @@ type Notification struct {
 }
 
 type ProcedureProvider interface {
-	GetPublishedProcedure(context.Context, int64) (*catalog.ProcedureVersion, error)
+	GetPublishedProcedure(context.Context, int64) (*catalog.Procedure, error)
 }
 
 type transitionCommand struct {
@@ -104,13 +104,13 @@ type transitionCommand struct {
 	TransitionID     petrunia.NodeID
 	ExpectedRevision int64
 	ActorID          int64
-	Definition       petrunia.Net
+	Net              petrunia.Net
 	NextMarking      petrunia.Marking
 	Completed        bool
 }
 
 type repository interface {
-	Start(context.Context, int64, int64, *catalog.ProcedureVersion) (*Case, error)
+	Start(context.Context, int64, int64, *catalog.Procedure) (*Case, error)
 	Claim(context.Context, int64, int64) (*Case, error)
 	Get(context.Context, int64, int64, bool) (*Case, error)
 	ApplyTransition(context.Context, transitionCommand) (*Case, error)
@@ -126,14 +126,14 @@ func NewService(repo repository, provider ProcedureProvider) *Service {
 }
 
 func (s *Service) Start(ctx context.Context, tramiteID int64, actorID int64) (*Case, error) {
-	version, err := s.catalog.GetPublishedProcedure(ctx, tramiteID)
+	procedure, err := s.catalog.GetPublishedProcedure(ctx, tramiteID)
 	if errors.Is(err, catalog.ErrNoPublishedProcedure) {
 		return nil, ErrProcedureInactive
 	}
 	if err != nil {
 		return nil, err
 	}
-	return s.repo.Start(ctx, tramiteID, actorID, version)
+	return s.repo.Start(ctx, tramiteID, actorID, procedure)
 }
 
 func (s *Service) Claim(ctx context.Context, caseID, userID int64) (*Case, error) {
@@ -166,7 +166,7 @@ func (s *Service) Fire(ctx context.Context, caseID int64, transitionID petrunia.
 		return nil, ErrConflict
 	}
 
-	next, err := petrunia.Fire(item.Definition, item.Marking, transitionID)
+	next, err := petrunia.Fire(item.Net, item.Marking, transitionID)
 	if err != nil {
 		return nil, ErrConflict
 	}
@@ -175,9 +175,9 @@ func (s *Service) Fire(ctx context.Context, caseID int64, transitionID petrunia.
 		TransitionID:     transitionID,
 		ExpectedRevision: expectedRevision,
 		ActorID:          actorID,
-		Definition:       item.Definition,
+		Net:              item.Net,
 		NextMarking:      next,
-		Completed:        petrunia.IsFinal(item.Definition, next),
+		Completed:        petrunia.IsFinal(item.Net, next),
 	})
 }
 

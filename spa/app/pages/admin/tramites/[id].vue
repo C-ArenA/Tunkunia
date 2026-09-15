@@ -8,7 +8,7 @@ import {
   updateTramite,
 } from "#shared/clientV1/sdk.gen";
 import type { TramiteStatus, TramiteType } from "#shared/clientV1/types.gen";
-import type { ProcedureDefinition } from "#shared/clientV1/types.gen";
+import type { Net } from "#shared/clientV1/types.gen";
 const route = useRoute();
 const id = Number(route.params.id);
 const saving = ref(false);
@@ -27,12 +27,12 @@ const form = reactive({
   type: "Otro" as TramiteType,
   status: "draft" as TramiteStatus,
 });
-const graph = ref<ProcedureDefinition>(newProcedure());
+const graph = ref<Net>(newProcedure());
 const procedureResponse = await getDraftProcedure({ path: { id } });
-if (procedureResponse.data) graph.value = structuredClone(procedureResponse.data.definition);
+if (procedureResponse.data) graph.value = structuredClone(procedureResponse.data.net);
 else {
   const publishedResponse = await getPublishedProcedure({ path: { id } });
-  if (publishedResponse.data) graph.value = structuredClone(publishedResponse.data.definition);
+  if (publishedResponse.data) graph.value = structuredClone(publishedResponse.data.net);
 }
 watch(
   tramite,

@@ -53,7 +53,7 @@ const { data: procedure } = useQuery(getPublishedProcedureQuery({ path: { id } }
         <ProcedureDiagram
           v-if="procedure"
           class="mt-7"
-          :graph="procedure.definition"
+          :graph="procedure.net"
         /></section></template
   ></UContainer>
 </template>

@@ -348,7 +348,7 @@ paths:
         - {}
       responses:
         '200':
-          $ref: '#/components/responses/ProcedureVersion'
+          $ref: '#/components/responses/Procedure'
         '404':
           $ref: '#/components/responses/NotFound'
   /tramites/{id}/procedure/draft:
@@ -363,7 +363,7 @@ paths:
         - BearerAuth: []
       responses:
         '200':
-          $ref: '#/components/responses/ProcedureVersion'
+          $ref: '#/components/responses/Procedure'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
@@ -380,10 +380,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProcedureDefinition'
+              $ref: '#/components/schemas/Net'
       responses:
         '200':
-          $ref: '#/components/responses/ProcedureVersion'
+          $ref: '#/components/responses/Procedure'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
@@ -400,7 +400,7 @@ paths:
         - BearerAuth: []
       responses:
         '200':
-          $ref: '#/components/responses/ProcedureVersion'
+          $ref: '#/components/responses/Procedure'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
@@ -947,7 +947,7 @@ components:
         to:
           type: string
           minLength: 1
-    ProcedureDefinition:
+    Net:
       type: object
       required:
         - nodes
@@ -967,13 +967,13 @@ components:
           type: string
         finalPlaceId:
           type: string
-    ProcedureVersion:
+    Procedure:
       type: object
       required:
         - id
         - tramiteId
         - status
-        - definition
+        - net
       properties:
         id:
           type: integer
@@ -988,8 +988,8 @@ components:
           enum:
             - draft
             - published
-        definition:
-          $ref: '#/components/schemas/ProcedureDefinition'
+        net:
+          $ref: '#/components/schemas/Net'
     ProcedureViolation:
       type: object
       required:
@@ -1116,16 +1116,16 @@ components:
         - $ref: '#/components/schemas/CaseSummary'
         - type: object
           required:
-            - procedureVersionId
+            - procedureId
             - procedureVersion
             - marking
-            - definition
+            - net
             - participants
             - enabledTransitions
             - availableTasks
             - history
           properties:
-            procedureVersionId:
+            procedureId:
               type: integer
               format: int64
             procedureVersion:
@@ -1135,8 +1135,8 @@ components:
               additionalProperties:
                 type: integer
                 minimum: 0
-            definition:
-              $ref: '#/components/schemas/ProcedureDefinition'
+            net:
+              $ref: '#/components/schemas/Net'
             participants:
               type: array
               items:
@@ -1234,12 +1234,12 @@ components:
                     description: Lista de errores de validación identificados.
                     items:
                       $ref: '#/components/schemas/ErrorDetail'
-    ProcedureVersion:
-      description: Versión de procedimiento
+    Procedure:
+      description: Procedimiento
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ProcedureVersion'
+            $ref: '#/components/schemas/Procedure'
     Conflict:
       description: La operación entra en conflicto con el estado actual.
       content:

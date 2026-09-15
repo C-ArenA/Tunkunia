@@ -81,7 +81,7 @@ async function fire(transitionId: string) {
           </p>
           <ProcedureDiagram
             class="mt-6"
-            :graph="item.definition"
+            :graph="item.net"
             :active-node-ids="activePlaces"
             :enabled-transition-ids="item.enabledTransitions"
             :actionable-transition-ids="actionable"

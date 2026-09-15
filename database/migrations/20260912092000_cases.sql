@@ -3,7 +3,7 @@
 CREATE TABLE cases (
     id INTEGER PRIMARY KEY NOT NULL,
     tramite_id INTEGER NOT NULL REFERENCES tramites (id),
-    procedure_version_id INTEGER NOT NULL REFERENCES procedure_versions (id),
+    procedure_id INTEGER NOT NULL REFERENCES procedures (id),
     status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'completed')),
     revision INTEGER NOT NULL DEFAULT 1,
     marking TEXT NOT NULL,

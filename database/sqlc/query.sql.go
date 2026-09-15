@@ -13,7 +13,7 @@ import (
 const createTramite = `-- name: CreateTramite :one
 INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
 VALUES (?, ?, ?, ?)
-RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 `
 
 type CreateTramiteParams struct {
@@ -27,7 +27,7 @@ type CreateTramiteParams struct {
 //
 //	INSERT INTO tramites (name, description, procedure_description, type) -- status has its default value set in the database
 //	VALUES (?, ?, ?, ?)
-//	RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+//	RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 func (q *Queries) CreateTramite(ctx context.Context, db DBTX, arg CreateTramiteParams) (Tramite, error) {
 	row := db.QueryRowContext(ctx, createTramite,
 		arg.Name,
@@ -45,7 +45,7 @@ func (q *Queries) CreateTramite(ctx context.Context, db DBTX, arg CreateTramiteP
 		&i.Status,
 		&i.CreatedAt,
 		&i.UpdatedAt,
-		&i.CurrentVersionID,
+		&i.CurrentProcedureID,
 	)
 	return i, err
 }
@@ -99,7 +99,7 @@ func (q *Queries) GetInstitution(ctx context.Context, db DBTX) (Institution, err
 }
 
 const getTramite = `-- name: GetTramite :one
-SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 FROM tramites
 WHERE id = ?
 LIMIT 1
@@ -107,7 +107,7 @@ LIMIT 1
 
 // GetTramite
 //
-//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 //	FROM tramites
 //	WHERE id = ?
 //	LIMIT 1
@@ -123,7 +123,7 @@ func (q *Queries) GetTramite(ctx context.Context, db DBTX, id int64) (Tramite, e
 		&i.Status,
 		&i.CreatedAt,
 		&i.UpdatedAt,
-		&i.CurrentVersionID,
+		&i.CurrentProcedureID,
 	)
 	return i, err
 }
@@ -332,14 +332,14 @@ func (q *Queries) ListTasksByAssignee(ctx context.Context, db DBTX, arg ListTask
 }
 
 const listTramites = `-- name: ListTramites :many
-SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 FROM tramites
 ORDER BY name, id
 `
 
 // ListTramites
 //
-//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 //	FROM tramites
 //	ORDER BY name, id
 func (q *Queries) ListTramites(ctx context.Context, db DBTX) ([]Tramite, error) {
@@ -360,7 +360,7 @@ func (q *Queries) ListTramites(ctx context.Context, db DBTX) ([]Tramite, error) 
 			&i.Status,
 			&i.CreatedAt,
 			&i.UpdatedAt,
-			&i.CurrentVersionID,
+			&i.CurrentProcedureID,
 		); err != nil {
 			return nil, err
 		}
@@ -376,7 +376,7 @@ func (q *Queries) ListTramites(ctx context.Context, db DBTX) ([]Tramite, error) 
 }
 
 const listTramitesByStatus = `-- name: ListTramitesByStatus :many
-SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 FROM tramites
 WHERE status = ?
 ORDER BY name, id
@@ -384,7 +384,7 @@ ORDER BY name, id
 
 // ListTramitesByStatus
 //
-//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+//	SELECT id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 //	FROM tramites
 //	WHERE status = ?
 //	ORDER BY name, id
@@ -406,7 +406,7 @@ func (q *Queries) ListTramitesByStatus(ctx context.Context, db DBTX, status stri
 			&i.Status,
 			&i.CreatedAt,
 			&i.UpdatedAt,
-			&i.CurrentVersionID,
+			&i.CurrentProcedureID,
 		); err != nil {
 			return nil, err
 		}
@@ -659,7 +659,7 @@ SET name = ?,
     type = ?,
     updated_at = CURRENT_TIMESTAMP
 WHERE id = ?
-RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 `
 
 type UpdateTramiteParams struct {
@@ -679,7 +679,7 @@ type UpdateTramiteParams struct {
 //	    type = ?,
 //	    updated_at = CURRENT_TIMESTAMP
 //	WHERE id = ?
-//	RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_version_id
+//	RETURNING id, name, description, procedure_description, type, status, created_at, updated_at, current_procedure_id
 func (q *Queries) UpdateTramite(ctx context.Context, db DBTX, arg UpdateTramiteParams) (Tramite, error) {
 	row := db.QueryRowContext(ctx, updateTramite,
 		arg.Name,
@@ -698,7 +698,7 @@ func (q *Queries) UpdateTramite(ctx context.Context, db DBTX, arg UpdateTramiteP
 		&i.Status,
 		&i.CreatedAt,
 		&i.UpdatedAt,
-		&i.CurrentVersionID,
+		&i.CurrentProcedureID,
 	)
 	return i, err
 }
