@@ -1,0 +1,8 @@
+# Cloud Build needs the demo binary and its bundled configuration.
+*
+!Dockerfile
+!.dockerignore
+!bin/
+bin/*
+!bin/tunkunia
+!bin/.env

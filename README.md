@@ -190,6 +190,87 @@ documentación instaladas, la memoria se compila mediante:
 go tool task docs:build:memoria
 ```
 
+## Desplegar demo en Google Cloud
+
+El contenedor de demostración usa el ejecutable `bin/tunkunia` y la
+configuración `bin/.env`. La base SQLite vive en el sistema de archivos
+efímero de Cloud Run, y `DEMO=true` permite probar el flujo de demostración sin
+configurar un proveedor OIDC externo. Esta imagen está pensada únicamente para
+una demo.
+
+### Después de recompilar el binario
+
+Ejecuta estos comandos desde la raíz del repositorio. La compilación usa Linux
+x86-64 para que el ejecutable sea compatible con Cloud Run, incluso si tu
+equipo usa otro sistema operativo:
+
+```sh
+env GOOS=linux GOARCH=amd64 go tool task server:build
+file bin/tunkunia
+```
+
+La salida de `file` debe indicar un ejecutable ELF de Linux x86-64. Conserva
+`bin/.env` junto al ejecutable; `.gcloudignore` lo incluye explícitamente en el
+envío de Cloud Build, aunque `bin/` esté ignorado por Git.
+
+En fish, define la imagen con `set` y vuelve a ejecutar el build y el despliegue:
+
+```fish
+set -x PROJECT_ID (gcloud config get-value project)
+set -x REGION southamerica-west1
+set -x REPOSITORY tunkunia-demo
+set -x IMAGE_NAME tunkunia
+set -x IMAGE "$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME:latest"
+
+gcloud builds submit \
+  --project "$PROJECT_ID" \
+  --ignore-file=.gcloudignore \
+  --tag "$IMAGE" .
+
+gcloud run deploy tunkunia \
+  --project "$PROJECT_ID" \
+  --image "$IMAGE" \
+  --region "$REGION" \
+  --port 8080 \
+  --allow-unauthenticated
+```
+
+El primer comando crea y publica una nueva imagen en Artifact Registry. El
+segundo crea una nueva revisión de Cloud Run y dirige el tráfico hacia ella.
+Puedes cambiar `latest` por una etiqueta versionada, como `2026-09-15`, si
+quieres conservar referencias explícitas a cada compilación.
+
+Consulta la [guía de Cloud Build para construir imágenes con un
+Dockerfile](https://cloud.google.com/build/docs/building/build-containers) y
+la [guía de despliegue de imágenes en Cloud
+Run](https://cloud.google.com/run/docs/deploying).
+
+### Usar la consola web
+
+La consola puede desplegar una imagen que ya está en Artifact Registry. Después
+de publicar la imagen (con el flujo anterior o con otro sistema de build):
+
+1. Abre **Cloud Run** en la [Google Cloud Console](https://console.cloud.google.com/)
+   y selecciona el proyecto que muestra `gcloud config get-value project`.
+2. Abre el servicio `tunkunia` y pulsa **Edit and deploy new revision**.
+3. En **Container(s)**, introduce o selecciona el valor de `IMAGE` (puedes
+   consultarlo con `echo $IMAGE` en fish).
+4. Comprueba que el puerto del contenedor sea `8080` y pulsa **Deploy**.
+5. Para confirmar que la demo siga siendo pública, marca el servicio en la
+   lista, abre la pestaña **Permissions** del panel lateral, pulsa **Add
+   principal**, agrega `allUsers`, selecciona **Cloud Run Invoker**, pulsa
+   **Save** y confirma **Allow public access**. Consulta la [guía de acceso
+   público de Cloud Run](https://cloud.google.com/run/docs/authenticating/public).
+
+La consola no puede leer directamente el directorio local de tu terminal para
+reemplazar `gcloud builds submit`. Para construir sin usar la CLI, proporciona
+a Cloud Build un origen que pueda leer, por ejemplo un repositorio conectado o
+un archivo fuente subido a Cloud Storage. Ese origen debe contener el
+`Dockerfile`, `bin/tunkunia` y `bin/.env`; un repositorio Git por sí solo no
+incluye esos dos últimos archivos porque `bin/` está ignorado deliberadamente.
+Después, usa la imagen resultante en **Edit and deploy new revision** siguiendo
+los pasos anteriores.
+
 ## Configuración principal
 
 | Variable | Valor local predeterminado | Descripción |
