@@ -1,7 +1,7 @@
 {
   "files.exclude": {
     ".zed": true,
-    "bin": true,
+    "bin": false,
     "node_modules": true,
     "tmp": true,
     "docs": true
