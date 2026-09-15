@@ -7,6 +7,7 @@ import (
 
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
+	"github.com/C-ArenA/Tunkunia/internal/institution"
 )
 
 type repository interface {
@@ -54,12 +55,18 @@ func (h *StrictUserHandlerV1) GetMe(ctx context.Context, _ oapi.GetMeRequestObje
 }
 
 func (h *StrictUserHandlerV1) ListUsers(ctx context.Context, _ oapi.ListUsersRequestObject) (oapi.ListUsersResponseObject, error) {
-	admin, accessErr := h.isAdmin(ctx)
-	if accessErr != nil {
-		return nil, accessErr
+	demo, ok := institution.FromConfigContext(ctx)
+	if !ok {
+		demo = false
 	}
-	if !admin {
-		return oapi.ListUsers403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+	if !demo {
+		admin, accessErr := h.isAdmin(ctx)
+		if accessErr != nil {
+			return nil, accessErr
+		}
+		if !admin {
+			return oapi.ListUsers403ApplicationProblemPlusJSONResponse{ForbiddenApplicationProblemPlusJSONResponse: oapi.NewForbiddenResponse("se requiere administración")}, nil
+		}
 	}
 	items, err := h.repo.List(ctx)
 	if err != nil {

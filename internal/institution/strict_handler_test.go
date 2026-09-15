@@ -34,7 +34,7 @@ func TestValidateInstitution(t *testing.T) {
 }
 
 func TestUpdateInstitutionRequiresAdmin(t *testing.T) {
-	handler := NewStrictHandlerV1(&memoryRepository{}, accessRepository{})
+	handler := NewStrictHandlerV1(&memoryRepository{}, accessRepository{}, false)
 	body := oapi.Institution{Name: "Tunkunia", Acronym: "T", PrimaryColor: "#087443", AccentColor: "#d3a000"}
 	response, err := handler.UpdateInstitution(context.Background(), oapi.UpdateInstitutionRequestObject{Body: &body})
 	require.NoError(t, err)
@@ -44,7 +44,7 @@ func TestUpdateInstitutionRequiresAdmin(t *testing.T) {
 
 func TestUpdateInstitutionPersistsForAdmin(t *testing.T) {
 	repo := &memoryRepository{}
-	handler := NewStrictHandlerV1(repo, accessRepository{admin: true})
+	handler := NewStrictHandlerV1(repo, accessRepository{admin: true}, false)
 	body := oapi.Institution{Name: "Gobierno", Acronym: "G", PrimaryColor: "#087443", AccentColor: "#d3a000"}
 	ctx := authn.NewAuthContext(context.Background(), &authn.Principal{ID: 1, Type: authn.UserPrincipal})
 	response, err := handler.UpdateInstitution(ctx, oapi.UpdateInstitutionRequestObject{Body: &body})

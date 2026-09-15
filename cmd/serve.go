@@ -76,7 +76,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config, error) 
 		catalog.NewStrictCatalogHandlerV1(catalogRepo, procedureService, userService),
 		user.NewStrictUserHandlerV1(userRepo, userService),
 		cases.NewStrictCasesHandlerV1(caseService, caseRepo, userService),
-		institution.NewStrictHandlerV1(institution.NewSQLiteRepository(db, q), userService),
+		institution.NewStrictHandlerV1(institution.NewSQLiteRepository(db, q), userService, cfg.Demo),
 	)
 
 	oidcHandler, err := authn.NewOIDCHandler(ctx, authn.OIDCConfig{
@@ -93,7 +93,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config, error) 
 
 	// HTTP
 	r := chi.NewRouter()
-	r.Use(api.CorsMiddleware(cfg.AppURL), middleware.Logger, authn.Authenticate(jwtAuthn))
+	r.Use(api.CorsMiddleware(cfg.AppURL), middleware.Logger, authn.Authenticate(jwtAuthn), institution.ConfigMiddleware(cfg.Demo))
 
 	oidcHandler.RegisterRoutes(r, cfg.Route.OidcRedirect, cfg.Route.OidcCallback)
 	strictHandlerV1.RegisterRoutes(r, cfg.Route.ApiV1)

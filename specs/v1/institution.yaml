@@ -39,7 +39,20 @@ components:
   schemas:
     Institution:
       type: object
-      required: [name, acronym, description, logoUrl, email, phone, address, website, primaryColor, accentColor]
+      required:
+        [
+          name,
+          acronym,
+          description,
+          logoUrl,
+          email,
+          phone,
+          address,
+          website,
+          primaryColor,
+          accentColor,
+          demo,
+        ]
       properties:
         name: { type: string, minLength: 1 }
         acronym: { type: string, minLength: 1, maxLength: 20 }
@@ -49,5 +62,6 @@ components:
         phone: { type: string }
         address: { type: string }
         website: { type: string, format: uri-reference }
-        primaryColor: { type: string, pattern: '^#[0-9a-fA-F]{6}$' }
-        accentColor: { type: string, pattern: '^#[0-9a-fA-F]{6}$' }
+        primaryColor: { type: string, pattern: "^#[0-9a-fA-F]{6}$" }
+        accentColor: { type: string, pattern: "^#[0-9a-fA-F]{6}$" }
+        demo: { type: boolean }

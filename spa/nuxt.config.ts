@@ -26,7 +26,8 @@ export default defineNuxtConfig({
   modules: ["@pinia/colada-nuxt", "@pinia/nuxt", "@nuxt/ui"],
 
   routeRules: {
-    "/**": { appLayout: "public" },
+    "/": { appLayout: "public" },
+    "/tramites/**": { appLayout: "public" },
     "/app/**": {
       appLayout: "dashboard",
       appMiddleware: ["auth"],

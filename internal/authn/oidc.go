@@ -8,6 +8,7 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json/v2"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -128,6 +129,27 @@ func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, successRoute, http.StatusSeeOther)
 }
 
+func (h *OIDCHandler) demoCallback(w http.ResponseWriter, r *http.Request) {
+	const loginRoute = "/login"
+	const successRoute = "/app"
+	type demoRequest struct {
+		UserID int `json:"user_id"`
+	}
+	var dreq demoRequest
+
+	if err := json.UnmarshalRead(r.Body, &dreq); err != nil {
+		http.Error(w, fmt.Sprintf("Invalid JSON payload: %v", err), http.StatusBadRequest)
+		return
+	}
+	loginToken, err := h.jwtAuth.IssueUserToken(dreq.UserID)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("No Token was issued: %v", err), http.StatusInternalServerError)
+		return
+	}
+	cookie := NewCookie("jwt", loginToken, WithDuration(1*time.Hour))
+	http.SetCookie(w, cookie)
+}
+
 func (h *OIDCHandler) exchange(ctx context.Context, code string) (*oidcClaims, error) {
 	oauth2Config, err := h.oauth2Config(ctx)
 	if err != nil {
@@ -219,6 +241,7 @@ func (h *OIDCHandler) RegisterRoutes(r chi.Router, loginRoute, callbackRoute str
 		r.Use(RequireNonAuthenticatedOrRedirect)
 		r.Get(loginRoute, h.loginRedirect)
 		r.Get(callbackRoute, h.callback)
+		r.Post("/demo-callback", h.demoCallback)
 	})
 }
 

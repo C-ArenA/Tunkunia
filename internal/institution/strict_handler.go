@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"net/http"
 	"net/mail"
 	"net/url"
 	"strings"
@@ -24,10 +25,11 @@ type userAccess interface {
 type StrictHandlerV1 struct {
 	repo  repository
 	users userAccess
+	demo  bool
 }
 
-func NewStrictHandlerV1(repo repository, users userAccess) *StrictHandlerV1 {
-	return &StrictHandlerV1{repo: repo, users: users}
+func NewStrictHandlerV1(repo repository, users userAccess, demo bool) *StrictHandlerV1 {
+	return &StrictHandlerV1{repo: repo, users: users, demo: demo}
 }
 
 func (h *StrictHandlerV1) GetInstitution(ctx context.Context, _ oapi.GetInstitutionRequestObject) (oapi.GetInstitutionResponseObject, error) {
@@ -38,6 +40,7 @@ func (h *StrictHandlerV1) GetInstitution(ctx context.Context, _ oapi.GetInstitut
 	if err != nil {
 		return nil, err
 	}
+	value.Demo = h.demo
 	return oapi.GetInstitution200JSONResponse(value), nil
 }
 
@@ -102,4 +105,31 @@ func isHexColor(value string) bool {
 		}
 	}
 	return true
+}
+
+type contextKey string
+
+var (
+	demoCtxKey contextKey = "demo"
+)
+
+func NewConfigContext(ctx context.Context, demo bool) context.Context {
+	return context.WithValue(ctx, demoCtxKey, demo)
+}
+
+func FromConfigContext(ctx context.Context) (bool, bool) {
+	demo, ok := ctx.Value(demoCtxKey).(bool)
+	if !ok {
+		return false, false
+	}
+	return demo, true
+}
+
+func ConfigMiddleware(demo bool) func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			ctx := NewConfigContext(r.Context(), demo)
+			next.ServeHTTP(w, r.WithContext(ctx))
+		})
+	}
 }
