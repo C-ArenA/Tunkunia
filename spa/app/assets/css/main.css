@@ -4,6 +4,15 @@
 :root {
   --tunkunia-primary: #087443;
   --tunkunia-accent: #d3a000;
+  --color-demo-background: rgb(248, 250, 252);
+}
+
+@theme {
+  --font-poppins: "Poppins";
+  --color-demo-background: var(--color-demo-background);
+  --color-demo-card: rgb(255, 255, 255);
+  --color-demo-primary: rgb(9, 31, 146);
+  --breakpoint-demo-lg: 900px;
 }
 
 html {
@@ -16,7 +25,12 @@ body {
 
 .tricolor {
   height: 5px;
-  background: linear-gradient(90deg, #d52b1e 0 33.33%, #f9e300 33.33% 66.66%, #007934 66.66%);
+  background: linear-gradient(
+    90deg,
+    #d52b1e 0 33.33%,
+    #f9e300 33.33% 66.66%,
+    #007934 66.66%
+  );
 }
 .surface {
   border: 1px solid #dfe5df;

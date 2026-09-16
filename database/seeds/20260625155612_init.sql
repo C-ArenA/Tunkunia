@@ -43,6 +43,14 @@ VALUES (
         1
     ),
     (
+        'Jorge León',
+        '010119193',
+        'jorge.leon@gmail.com',
+        1,
+        1,
+        1
+    ),
+    (
         'Jorge Nava',
         '0101191933',
         'janava@gmail.com',
