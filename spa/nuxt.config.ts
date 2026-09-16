@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss(), heyApiPlugin()],
   },
 
-  modules: ["@pinia/colada-nuxt", "@pinia/nuxt", "@nuxt/ui"],
+  modules: ["@pinia/colada-nuxt", "@pinia/nuxt", "@nuxt/ui", "@nuxt/fonts"],
 
   routeRules: {
     "/": { appLayout: "public" },
