@@ -5,9 +5,9 @@ import (
 	"database/sql"
 	"errors"
 
+	"github.com/C-ArenA/Tunkunia/internal/api"
 	"github.com/C-ArenA/Tunkunia/internal/api/v1/oapi"
 	"github.com/C-ArenA/Tunkunia/internal/authn"
-	"github.com/C-ArenA/Tunkunia/internal/institution"
 )
 
 type repository interface {
@@ -55,10 +55,7 @@ func (h *StrictUserHandlerV1) GetMe(ctx context.Context, _ oapi.GetMeRequestObje
 }
 
 func (h *StrictUserHandlerV1) ListUsers(ctx context.Context, _ oapi.ListUsersRequestObject) (oapi.ListUsersResponseObject, error) {
-	demo, ok := institution.FromConfigContext(ctx)
-	if !ok {
-		demo = false
-	}
+	demo := api.FromDemoContext(ctx)
 	if !demo {
 		admin, accessErr := h.isAdmin(ctx)
 		if accessErr != nil {

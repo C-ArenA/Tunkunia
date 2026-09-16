@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"net/http"
 	"net/mail"
 	"net/url"
 	"strings"
@@ -105,31 +104,4 @@ func isHexColor(value string) bool {
 		}
 	}
 	return true
-}
-
-type contextKey string
-
-var (
-	demoCtxKey contextKey = "demo"
-)
-
-func NewConfigContext(ctx context.Context, demo bool) context.Context {
-	return context.WithValue(ctx, demoCtxKey, demo)
-}
-
-func FromConfigContext(ctx context.Context) (bool, bool) {
-	demo, ok := ctx.Value(demoCtxKey).(bool)
-	if !ok {
-		return false, false
-	}
-	return demo, true
-}
-
-func ConfigMiddleware(demo bool) func(next http.Handler) http.Handler {
-	return func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			ctx := NewConfigContext(r.Context(), demo)
-			next.ServeHTTP(w, r.WithContext(ctx))
-		})
-	}
 }

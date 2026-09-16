@@ -93,7 +93,7 @@ func initServer(ctx context.Context) (*sql.DB, *chi.Mux, *config.Config, error) 
 
 	// HTTP
 	r := chi.NewRouter()
-	r.Use(api.CorsMiddleware(cfg.AppURL), middleware.Logger, authn.Authenticate(jwtAuthn), institution.ConfigMiddleware(cfg.Demo))
+	r.Use(api.CorsMiddleware(cfg.AppURL), middleware.Logger, authn.Authenticate(jwtAuthn), api.ConfigMiddleware(cfg.Demo))
 
 	oidcHandler.RegisterRoutes(r, cfg.Route.OidcRedirect, cfg.Route.OidcCallback)
 	strictHandlerV1.RegisterRoutes(r, cfg.Route.ApiV1)
