@@ -33,7 +33,7 @@ const {
         </p>
         <UButton
           v-if="!me"
-          :to="institution.demo ? '/agetic-auth' : '/login'"
+          to="/login"
           external
           class="mt-8"
           size="xl"

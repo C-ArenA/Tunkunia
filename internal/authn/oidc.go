@@ -8,14 +8,16 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/base64"
-	"encoding/json/v2"
+	"errors"
 	"fmt"
 	"log/slog"
 	"net/http"
 	"net/url"
+	"strconv"
 	"sync"
 	"time"
 
+	"github.com/C-ArenA/Tunkunia/internal/api"
 	"github.com/coreos/go-oidc/v3/oidc"
 	"github.com/go-chi/chi/v5"
 	"golang.org/x/oauth2"
@@ -23,6 +25,11 @@ import (
 
 const (
 	oidcStateCookieName = "oidc_state"
+)
+
+var (
+	ErrInvalidOIDCState = errors.New("invalid OIDC state")
+	ErrNoOIDCClaims     = errors.New("no OIDC claims")
 )
 
 type oidcClaims struct {
@@ -84,6 +91,10 @@ func NewOIDCHandler(ctx context.Context, cfg OIDCConfig, users UserRegistry, ja 
 }
 
 func (h *OIDCHandler) loginRedirect(w http.ResponseWriter, r *http.Request) {
+	demo := api.FromDemoContext(r.Context())
+	if demo {
+		http.Redirect(w, r, "/agetic-auth", http.StatusSeeOther)
+	}
 	oauth2Config, err := h.oauth2Config(r.Context())
 	if err != nil {
 		slog.Error("failed to get oauth2 config", "error", err)
@@ -99,23 +110,14 @@ func (h *OIDCHandler) loginRedirect(w http.ResponseWriter, r *http.Request) {
 func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 	const loginRoute = "/login"
 	const successRoute = "/app"
+	demo := api.FromDemoContext(r.Context())
 
-	state, err := r.Cookie(oidcStateCookieName)
-	http.SetCookie(w, NewCookie(oidcStateCookieName, "", WithDuration(-1*time.Second)))
-	if err != nil || state.Value == "" || state.Value != r.URL.Query().Get("state") {
-		http.Redirect(w, r, loginRoute+"?error=invalid_state", http.StatusSeeOther)
-		return
+	userID, err := h.getUserFromOIDC(w, r)
+	if demo {
+		userID, err = h.getDemoUser(r)
 	}
-
-	claims, err := h.exchange(r.Context(), r.URL.Query().Get("code"))
 	if err != nil {
-		http.Redirect(w, r, loginRoute+"?error=no_claims", http.StatusSeeOther)
-		return
-	}
-
-	userID, err := h.getUserWithClaims(r.Context(), claims)
-	if err != nil {
-		http.Redirect(w, r, loginRoute+"?error=no_user", http.StatusSeeOther)
+		http.Redirect(w, r, loginRoute, http.StatusSeeOther)
 		return
 	}
 
@@ -129,25 +131,32 @@ func (h *OIDCHandler) callback(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, successRoute, http.StatusSeeOther)
 }
 
-func (h *OIDCHandler) demoCallback(w http.ResponseWriter, r *http.Request) {
-	const loginRoute = "/login"
-	const successRoute = "/app"
-	type demoRequest struct {
-		UserID int `json:"user_id"`
+func (h *OIDCHandler) getUserFromOIDC(w http.ResponseWriter, r *http.Request) (int, error) {
+	state, err := r.Cookie(oidcStateCookieName)
+	http.SetCookie(w, NewCookie(oidcStateCookieName, "", WithDuration(-1*time.Second)))
+	if err != nil || state.Value == "" || state.Value != r.URL.Query().Get("state") {
+		return 0, ErrInvalidOIDCState
 	}
-	var dreq demoRequest
 
-	if err := json.UnmarshalRead(r.Body, &dreq); err != nil {
-		http.Error(w, fmt.Sprintf("Invalid JSON payload: %v", err), http.StatusBadRequest)
-		return
-	}
-	loginToken, err := h.jwtAuth.IssueUserToken(dreq.UserID)
+	claims, err := h.exchange(r.Context(), r.URL.Query().Get("code"))
 	if err != nil {
-		http.Error(w, fmt.Sprintf("No Token was issued: %v", err), http.StatusInternalServerError)
-		return
+		return 0, ErrNoOIDCClaims
 	}
-	cookie := NewCookie("jwt", loginToken, WithDuration(1*time.Hour))
-	http.SetCookie(w, cookie)
+
+	userID, err := h.users.FindOrRegister(r.Context(), claims.Sub, claims.Email, claims.Name, claims.EmailVerified)
+	if err != nil {
+		return 0, err
+	}
+	return userID, nil
+}
+
+func (h *OIDCHandler) getDemoUser(r *http.Request) (int, error) {
+	claim, err := strconv.Atoi(r.URL.Query().Get("code"))
+	if err != nil {
+		return 0, ErrNoOIDCClaims
+	}
+	// Since this is only called from a demo claim is any userID
+	return claim, nil
 }
 
 func (h *OIDCHandler) exchange(ctx context.Context, code string) (*oidcClaims, error) {
@@ -241,7 +250,6 @@ func (h *OIDCHandler) RegisterRoutes(r chi.Router, loginRoute, callbackRoute str
 		r.Use(RequireNonAuthenticatedOrRedirect)
 		r.Get(loginRoute, h.loginRedirect)
 		r.Get(callbackRoute, h.callback)
-		r.Post("/demo-callback", h.demoCallback)
 	})
 }
 
