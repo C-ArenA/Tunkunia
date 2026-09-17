@@ -47,3 +47,9 @@ const isHomepage = computed(() => route.path === "/");
     </footer>
   </div>
 </template>
+<style scoped>
+.tricolor {
+  height: 5px;
+  background: linear-gradient(90deg, #d52b1e 0 33.33%, #f9e300 33.33% 66.66%, #007934 66.66%);
+}
+</style>

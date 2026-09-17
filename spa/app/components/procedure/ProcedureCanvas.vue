@@ -148,7 +148,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="diagram-shell relative h-[30rem] overflow-hidden p-0">
+  <div class="relative h-120 overflow-hidden p-0 border border-slate-200 rounded-xl bg-white">
     <VueFlow
       v-model:nodes="nodes"
       v-model:edges="edges"
@@ -166,7 +166,7 @@ defineExpose({
       @node-drag-stop="onNodeDragStop"
       @node-click="selectNode"
     >
-      <Background pattern-color="#d7ddd8" :gap="18" />
+      <Background :gap="18" />
       <Controls />
     </VueFlow>
     <p

@@ -5,6 +5,10 @@
       "path": ".",
     },
     {
+      "name": "spa",
+      "path": "./spa",
+    },
+    {
       "name": "docs",
       "path": "./docs",
     },
@@ -16,6 +20,9 @@
     "material-icon-theme.folders.associations": {
       "requirements": "rules",
       "memoria": "docs",
+    },
+    "files.associations": {
+      "*.css": "tailwindcss",
     },
   },
 }

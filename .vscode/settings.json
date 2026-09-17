@@ -4,7 +4,8 @@
     "bin": false,
     "node_modules": true,
     "tmp": true,
-    "docs": true
+    "docs": true,
+    "spa": true
   },
   "tailwindCSS.classAttributes": [
     "class",
