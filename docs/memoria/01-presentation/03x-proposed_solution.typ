@@ -3,7 +3,7 @@
 
 === Abordaje a la Solución
 
-//Estas desventajas podrían ser atacadas implementando un módulo, componte o subsistema reutilizable que atienda las características comunes entre distintos sistemas de gestión de trámites, buscando cumplir con normativa boliviana, siendo de tipo FOSS, con capacidad de integración de funcionalidades, interoperabilidad y considerando la definición, ejecución, registro, y control de dichos procesos administrativos.
+//Estas desventajas podrían ser atacadas implementando un módulo, componente o subsistema reutilizable que atienda las características comunes entre distintos sistemas de gestión de trámites, buscando cumplir con normativa boliviana, siendo de tipo FOSS, con capacidad de integración de funcionalidades, interoperabilidad y considerando la definición, ejecución, registro, y control de dichos procesos administrativos.
 
 
 #img-fig(

@@ -6,7 +6,7 @@
 === Alcance de la validación
 
 El prototipo implementa una sola acción de prueba que consiste en la simple ejecución de transiciones habilitadas.
-No existen transiciones de interoperabilidad en el prototipo y se remplazan con transiciones ejecutadas de forma automatizada.
+No existen transiciones de interoperabilidad en el prototipo y se reemplazan con transiciones ejecutadas de forma automatizada.
 Se valida la capacidad de aplicar el modelado del trámite diseñado en Tunkunia para distintos trámites.
 
 Se consideran el Registro Ambiental Industrial, la cédula de identidad por
@@ -146,7 +146,7 @@ la persona quedó adscrita.
 Se pudo demostrar que distintos trámites pueden ser modelados en Redes de Petri y configurados en un sistema reutilizable.
 La manera en que se modelan estos procesos es variada, pero el conjunto de posibles acciones y los elementos añadidos a las redes de Petri como asociación de recursos a transiciones permite contar con las herramientas necesarias para modelar distintos trámites.
 
-Es cierto que las redes de Petri por si solas no son amigables al usuario, pero su ejecución de forma interactiva es sencilla y transmite al ciudadano la información necesaria sobre el proceso.
+Es cierto que las redes de Petri por sí solas no son amigables al usuario, pero su ejecución de forma interactiva es sencilla y transmite al ciudadano la información necesaria sobre el proceso.
 Las capturas de pantalla presentadas en este documento no demuestran el potencial en experiencia de usuario de las Redes de Petri que resulta de su simplicidad.
 
 Si bien el prototipo no implementa todos los tipos de acciones necesarios en un trámite, en su estado actual ya permite validar su proceso y el cómo interactúan los distintos actores con el subsistema reutilizable.

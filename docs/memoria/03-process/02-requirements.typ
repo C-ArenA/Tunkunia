@@ -87,7 +87,7 @@ El entorno se describe de forma detallada en otras secciones del documento:
 Se puede inferir de la definición de la AGETIC sobre Gobierno Electrónico que la misión del negocio es aplicar las tecnologías de la información y la comunicación al funcionamiento del sector público.
 El objetivo es el de incrementar la eficiencia, transparencia y la participación ciudadana.
 
-El sistema propuesto sintoniza perfectamente con estas premisas, ya que aplica la tecnología al funcionamiento del sector público y que incrementa la eficiencia de los trámites reeduciendo la fricción en su digitalización.
+El sistema propuesto sintoniza perfectamente con estas premisas, ya que aplica la tecnología al funcionamiento del sector público y que incrementa la eficiencia de los trámites reduciendo la fricción en su digitalización.
 
 ===== Modelo del Negocio
 
@@ -292,7 +292,7 @@ que no se establece un máximo general para el sistema.
 Las estimaciones iniciales
 de pocos administradores y decenas de servidores públicos por instancia son referenciales, pero cada trámite y cada institución son distintos.
 
-// TODO: La descripcion de usuarios del SRS debe hacer referencia a este apartado y no desarrollarse ahí
+// TODO: La descripción de usuarios del SRS debe hacer referencia a este apartado y no desarrollarse ahí
 
 ==== Requerimientos funcionales
 

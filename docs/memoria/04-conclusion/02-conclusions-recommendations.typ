@@ -25,7 +25,7 @@ Finalmente, aunque se tomó un enfoque iterativo, se sintetizó el trabajo y los
 
 - Los requerimientos se realizaron en conformidad no completa con el ISO 29148, partiendo de una elicitación basada en documentación y brainstorming y concluyendo en la definición de dos de los cuatro elementos de información aconsejados por el estándar y adecuados al proyecto.
 - La arquitectura se realizó a partir de tomas de decisiones que en su mayoría quedaron reflejadas en el repositorio de código y se sintetizaron en una descripción de arquitectura del software, brindando una visión general del sistema con los elementos fundamentales del mismo.
-- El diseño se separó de la arquitectura en conformidad con la última actualización del SWEBOK que separa estos dos aspectos para poder concentrar el diseño en aspectos mas específicos.
+- El diseño se separó de la arquitectura en conformidad con la última actualización del SWEBOK que separa estos dos aspectos para poder concentrar el diseño en aspectos más específicos.
   El diseño del sistema se trabajó de forma independiente para los componentes críticos del sistema y en otros casos se amalgama con la implementación.
 - La implementación del prototipo se realizó seleccionando las tecnologías que mejor respondan a los requerimientos y al diseño, además de contar con un sistema de versionado.
   Al ser un prototipo, sólo se usaron pruebas automatizadas como herramienta auxiliar.

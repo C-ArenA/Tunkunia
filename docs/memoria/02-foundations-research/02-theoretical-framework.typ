@@ -111,7 +111,7 @@ La elección depende de la naturaleza del sistema y de los beneficios de cada al
 === Redes de Petri
 Aunque son también un lenguaje útil para modelar procesos, se presentan en una sección independiente dada la importancia que acaban teniendo en el desarrollo de este proyecto.
 
-Las Redes de Petri una de las técnicas de modelado más antiguas en las ciencias de la computación.
+Las Redes de Petri son una de las técnicas de modelado más antiguas en las ciencias de la computación.
 Inspiró aspectos del lenguaje UML, tiene diversas variantes y está definida formal y matemáticamente, lo que permite analizar los sistemas modelados @reisigUnderstandingPetriNets2013.
 También se denominan _place/transition nets_ porque están formadas por lugares, representados por círculos, y transiciones, representadas por rectángulos, constituyendo un lenguaje matemático y una forma de representar sistemas distribuidos discretos @simonStateMachinesPetri.
 ==== Definición
@@ -156,7 +156,7 @@ $cal(S) = chevron.l P, T, bold("Pre"), bold("Post"), bold(m)_0 chevron.r$.
 Una transición $t in T$ está *habilitada* en un marcado $bold(m)$ si
 
 ==== Redes de Petri con Colores
-Una extensión a las redes de petri son los colores, que son atributos asignados a los tokens de una red para poder distinguir entre ellos.
+Una extensión a las redes de Petri son los colores, que son atributos asignados a los tokens de una red para poder distinguir entre ellos.
 En otras palabras, son tokens con tipo.
 
 ==== Redes de Petri con Tiempo
@@ -187,7 +187,7 @@ No se pretende describir todo el trabajo de Van Der Aalst en este documento, per
     El lugar $o$ es un lugar sumidero: $o bullet = nothing$.
   + Si añadimos una transición $t*$ a $P\N$ conectando $o$ con $i$, la red resultante es fuertemente conectada.
     Es decir, hay un camino dirigido entre cualquier par de nodos.
-- Un caso puede mapearse a un color en una red de petri de color.Esto permite que una misma red tenga a todos los casos evolucionando dentro de su estructura.
+- Un caso puede mapearse a un color en una red de Petri de color. Esto permite que una misma red tenga a todos los casos evolucionando dentro de su estructura.
 - Extensión de Redes de Petri con jerarquías: Una red puede contener sub-redes.
   Esto es especialmente útil más adelante cuando se busque compactar una parte de un proceso en una sola transición.
 === El Proceso de la Ingeniería de Software

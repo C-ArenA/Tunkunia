@@ -49,24 +49,3 @@ También conlleva a muchas desventajas directas, principalmente las que nacen de
   El código no reutilizado raras veces cuenta con buena documentación que pueda facilitar el futuro mantenimiento del software.
   A menudo, por ejemplo, las librerías de software cuentan con documentación útil que implica fácil adopción de tecnologías por una mayor cantidad de desarrolladores.
   Esto se debe a que se continúan sacando nuevas versiones de dichas librerías en un proceso de mejora constante.
-
-
-==== Abordaje al Problema
-
-Estas desventajas podrían ser atacadas implementando un módulo, componte o subsistema reutilizable que atienda las características comunes entre distintos sistemas de gestión de trámites, buscando cumplir con normativa boliviana, siendo de tipo FOSS, con capacidad de integración de funcionalidades, interoperabilidad y considerando la definición, ejecución, registro, y control de dichos procesos administrativos.
-
-==== Desafíos
-
-Sin embargo, la realización de elementos reutilizables de software acarrea varios desafíos técnicos y académicos, particularmente en el contexto de los trámites gubernamentales.
-A continuación se listan algunos de estos:
-
-- Modelado general del trámite: Al querer atacar en específico estos procesos administrativos, pero deseando atenderlos de forma general, se deben inicialmente modelar, partiendo de las características comunes a cada trámite, usando herramientas disponibles como las redes de Petri, las máquinas de estado finitas, diagramas de actividad UML, entre otras.
-  Esto implica la exploración y estudio de dichas herramientas formales de modelado, además de un conocimiento profundo de la normativa alrededor de los trámites.
-- Metodología de Desarrollo: Adoptar una buena metodología es importante para cualquier proyecto, pero en un módulo FOSS existen ciertas particularidades, ya que este será utilizado por muchos otros proyectos que confiarán en el mismo y puede enriquecerse de participaciones futuras de una posible comunidad.
-- Arquitectura de Software: Este es un tema poco estudiado durante el transcurso de la carrera de Ingeniería Electrónica de la UMSA, por lo que representa un desafío académico importante para el éxito de este proyecto, debido a que es crucial para la elaboración de un producto de software robusto y de calidad, que use patrones de diseño y emplee las mejores prácticas en conjunto con una correcta ingeniería de software.
-- Documentación y Mantenimiento: Escribir la documentación de una pieza de software reutilizable es de mayor relevancia.
-  Se requiere el uso de un lenguaje técnico correcto y habilidades de redacción para que la adopción de la herramienta por otros desarrolladores sea sencilla.
-  Además, esto debe facilitar el mantenimiento del software por terceros, tanto usuarios como contribuidores externos.
-- Control de versiones y colaboración: Cualquier proyecto de software moderno requiere el uso de sistemas de versionado, pero en un proyecto de código abierto esto es especialmente importante para permitir colaboraciones externas y evolución constante.
-- Testabilidad: Los proyectos de software moderno tienen como proceso importante el del testing, el cual permite realizar desarrollos que cumplan con lo que se desea en su diseño y que no hagan algo distinto @myersArtSoftwareTesting2012.
-  Sin embargo, el campo del testing no es explorado en instituciones universitarias, a pesar de su importancia.
