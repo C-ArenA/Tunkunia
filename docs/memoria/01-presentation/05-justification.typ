@@ -1,7 +1,6 @@
 === Justificación
 
-El subsistema reutilizable que se plantea implementar en este proyecto busca contribuir a la adopción del gobierno electrónico en Bolivia mediante la simplificación en la digitalización de trámites en diferentes instancias públicas, permitiendo que la ciudadanía pueda efectuar esta actividad burocrática de una forma sencilla y rápida, minimizando el riesgo de ser víctimas de corrupción, discriminación, clientelismo o de gastos excesivos de tiempo y dinero en estos procedimientos administrativos, es decir, evitando las desventajas del trámite presencial tradicional.
-Esto es deseable porque, como se ha mencionado en los antecedentes de este documento, los trámites son una de las herramientas más importantes que tiene el gobierno para comunicarse con la ciudadanía y, por lo tanto, es importante que sean accesibles y fáciles de usar.
+El subsistema reutilizable que se plantea implementar en este proyecto busca contribuir al desarrollo del gobierno electrónico en Bolivia mediante la simplificación en la digitalización de trámites en diferentes instancias públicas. Esto es deseable porque, como se ha mencionado en los antecedentes de este documento, los trámites son una de las herramientas más importantes que tiene el gobierno para interactuar con la ciudadanía y, por lo tanto, es importante que sean accesibles y fáciles de usar.
 
 Al haber identificado que los trámites tienen muchas similitudes entre sí, este trabajo desea modelar estos procedimientos administrativos de forma general, ante la falta de otras definiciones formales en el ámbito académico, utilizando técnicas de modelado de procesos modernos.
 Además, se espera sentar las bases para la creación de estándares alrededor de los sistemas de trámites en Bolivia.
@@ -22,21 +21,6 @@ Cuando se habla de digitalización de procesos administrativos, suele hablarse d
 */
 
 Por otra parte, el impacto económico positivo que se espera lograr con el proyecto es muy importante de mencionar, ya que se espera que el módulo de software reutilizable permita a las instituciones públicas implementar nuevos trámites de forma rápida y sencilla, lo que a su vez permitirá reducir costos y mejorar la eficiencia en la gestión de los trámites.
-Medir el impacto económico en un proyecto de software libre es difícil, pero algunos autores como Sommerville @sommervilleSoftwareEngineering2016, consideran que los costos de desarrollo son proporcionales al tamaño del software siendo desarrollado y la reutilización de software implica una menor cantidad de líneas de código escritas.
-Esta afirmación es controversial, ya que el número de líneas de código podría no ser un indicador serio para medir el tamaño del software, pero en base a ella podríamos determinar el impacto en los costos de implementación de los sistemas que utilizan el producto de este proyecto como motor para sus trámites de la siguiente manera:
-
-$ C prop \L\O\C $
-$ \L\O\C_"sr" > \L\O\C_"cr" $
-$ therefore C_"sr" > C_"cr" $
-
-Donde:
-
-- $C$ es el costo de desarrollo del software.
-- $\L\O\C$ es la cantidad de líneas de código.
-- $C_"sr"$ es el costo de desarrollo del software sin reutilización de código.
-- $C_"cr"$ es el costo de desarrollo del software con reutilización de código.
-- $\L\O\C_"sr"$ es la cantidad de líneas de código del software sin reutilización de código.
-- $\L\O\C_"cr"$ es la cantidad de líneas de código del software con reutilización de código.
 
 A su vez, aunque estrechamente relacionado con el factor económico, existe un factor de tiempo que se busca atender con este proyecto.
 Un sistema que digitalice trámites en base a una implementación reutilizable inicial que requiera tan sólo algunas configuraciones para adaptarse a cada caso específico, es un sistema que toma menos tiempo de implementar.
