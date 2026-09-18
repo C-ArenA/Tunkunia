@@ -27,6 +27,7 @@
 #include "01-presentation/01-background.typ"
 #include "01-presentation/02-current-situation.typ"
 #include "01-presentation/03-problem-statement.typ"
+#include "01-presentation/03x-proposed_solution.typ"
 #include "01-presentation/04-objective.typ"
 #include "01-presentation/05-justification.typ"
 #include "01-presentation/06-scope.typ"

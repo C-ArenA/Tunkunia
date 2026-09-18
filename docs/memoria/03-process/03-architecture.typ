@@ -36,13 +36,6 @@ simultánea. Esta hipótesis deberá comprobarse mediante mediciones durante la
 evolución del sistema, pero permite evitar desde el inicio una distribución que
 la demanda observada todavía no justifica. En un subsistema reutilizable, que espera cargas variadas, es difícil determinar las necesidades exactas de demanda.
 
-#img-fig(
-  "/assets/figures/modulegraph.png",
-  [Arquitectura Inicial y Entorno de Tunkunia],
-  <fig:modulegraph>,
-  placement: bottom,
-)
-
 También debe considerarse que una arquitectura distribuida incrementaría los
 recursos necesarios para el despliegue y la operación. De acuerdo con los
 requerimientos de negocio, el sistema debe poder instalarse en infraestructura

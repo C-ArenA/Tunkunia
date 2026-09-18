@@ -9,9 +9,7 @@
 // la adaptación realizada respecto del estándar elegido.
 
 La ingeniería de requerimientos de Tunkunia toma como referencia
-ISO/IEC/IEEE 29148:2018 #cite(
-  label("iso/iec/ieeeSystemsSoftwareEngineering2018"),
-) #footnote[La aplicación del estándar es parcial y no de conformidad completa.] y las
+ISO/IEC/IEEE 29148:2018 #cite(label("iso/iec/ieeeSystemsSoftwareEngineering2018")) #footnote[La aplicación del estándar es parcial y no de conformidad completa.] y las
 prácticas descritas por el SWEBOK @washizakiGuideSoftwareEngineering2025.
 
 De acuerdo al ISO 29148, un proyecto podría producir cuatro elementos de información:
@@ -102,13 +100,6 @@ Se desarrollará un sistema que contenga características transversales a muchos
 Al no requerirse un desarrollo desde cero, se logrará que la digitalización de trámites en estas entidades se pueda realizar de forma sencilla y dentro de un marco bien establecido, considerando las necesidades actuales del gobierno electrónico.
 
 El modelo del negocio es en síntesis la centralización del desarrollo e ideas y la descentralización de esfuerzos como puede verse de forma aproximada en la @fig:tunkunia_dist.
-
-#img-fig(
-  "/assets/figures/tunkunia_dist.excalidraw.png",
-  [Modelo del negocio con reutilización de software],
-  <fig:tunkunia_dist>,
-  width: 80%,
-)
 
 ==== Requerimientos Operacionales del Negocio
 ===== Proceso del Negocio
