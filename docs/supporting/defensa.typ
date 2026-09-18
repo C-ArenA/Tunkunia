@@ -107,22 +107,14 @@
   ),
   [Servidor], [Go 1.26 · Chi 5], [Composición, negocio y transporte HTTP],
   [CLI], [Cobra 1.10], [Arranque y operaciones administrativas],
-  [Persistencia],
-  [SQLite · Goose · SQLC],
-  [Migraciones y acceso tipado a datos],
+  [Persistencia], [SQLite · Goose · SQLC], [Migraciones y acceso tipado a datos],
 
-  [Contrato],
-  [OpenAPI 3.1 · oapi-codegen],
-  [Especificación, validación y tipos],
+  [Contrato], [OpenAPI 3.1 · oapi-codegen], [Especificación, validación y tipos],
 
-  [Aplicación web],
-  [Nuxt 4 · Vue 3 · TypeScript],
-  [SPA para los distintos actores],
+  [Aplicación web], [Nuxt 4 · Vue 3 · TypeScript], [SPA para los distintos actores],
 
   [Interfaz], [Nuxt UI 4 · Tailwind CSS 4], [Componentes y diseño responsivo],
-  [Cliente HTTP],
-  [Hey API · Pinia Colada],
-  [Cliente generado, consultas y caché],
+  [Cliente HTTP], [Hey API · Pinia Colada], [Cliente generado, consultas y caché],
 
   [Identidad], [OIDC · Dex · JWT], [Identidad federada simulada y sesión local],
   [Proxy], [Caddy], [Origen HTTPS único],
@@ -184,52 +176,20 @@
   align: top,
 )[
   #grid(
-    columns: (1.5fr, .5fr),
+    columns: (1.5fr, 1.5fr),
     gutter: 20pt,
     imgcard(
       "/assets/figures/internet_use_bolivia.png",
       cap: [Usuarios de Internet en Bolivia y su crecimiento],
       height: 270pt,
     ),
-    align(center + horizon)[
-      #big(fill: teal, size: 52pt)[70,2 %]
-      #v(6pt)
-      #text(size: 20pt)[de la población boliviana usaba Internet en 2023]
-      #v(14pt)
-      #hint[La transición debe conservar un puente con la atención presencial.]
-    ],
-  )
-  #source[Fuente: Unión Internacional de Telecomunicaciones, según la memoria.]
-]
-
-// 4 · Camunda y PocketBase
-#slide(
-  title: t[Hay motores y sistemas configurables, pero no el subsistema buscado],
-  align: top,
-)[
-  #grid(
-    columns: (1.35fr, .65fr),
-    gutter: 20pt,
     imgcard(
-      "/assets/figures/camunda_modeler.png",
-      cap: [Camunda: modelado BPMN ejecutable y orquestación],
-      height: 215pt,
+      "/assets/figures/gob-trams-stats.png",
+      cap: [Estadísticas gob.bo],
+      height: 270pt,
     ),
-    [
-      #set text(size: 17pt)
-      #stack(
-        dir: ttb,
-        spacing: 12pt,
-        label(fill: violet)[PocketBase],
-        big(fill: violet, size: 30pt)[backend configurable],
-        [Un sistema especializado que permite desplegar funcionalidad mediante configuración y conservar interfaces para extensiones.],
-        line(length: 100%, stroke: 1pt + mist),
-        text(size: 18pt, weight: "bold", fill: coral)[Brecha],
-        [Especialización en trámites + integración + software libre + contexto boliviano.],
-      )
-    ],
   )
-  #source[Camunda: documentación oficial. PocketBase: caracterización incluida en la memoria.]
+  #source[Fuente: Unión Internacional de Telecomunicaciones, plataforma gob.bo.]
 ]
 
 // 5 · Ecosistema
@@ -270,8 +230,40 @@
   #v(7pt)
   #align(center)[#big(
     size: 28pt,
-  )[No se encontró una solución que reuniera todas las características.]]
+  )[No se encontró una solución que reuniera todas las características#footnote[PTC - AGETIC - 2026]. Sí una base sustentable.]]
 ]
+
+// 4 · Camunda y PocketBase
+#slide(
+  title: t[Hay motores y sistemas configurables],
+  align: top,
+)[
+  #grid(
+    columns: (1.55fr, .65fr),
+    gutter: 20pt,
+    stack(
+      imgcard(
+        "/assets/figures/camunda_modeler.png",
+        cap: [Camunda: modelado BPMN ejecutable y orquestación],
+        height: 185pt,
+      ),
+      imgcard("/assets/figures/wfms_history.png", height: 100pt, cap: [Van Der Aalst]),
+    ),
+    [
+      #set text(size: 17pt)
+      #stack(
+        dir: ttb,
+        spacing: 12pt,
+        big(fill: violet, size: 30pt)[backend configurable],
+        [Un sistema especializado que permite desplegar funcionalidad mediante configuración y conservar interfaces para extensiones.],
+        line(length: 100%, stroke: 1pt + mist),
+        text(size: 18pt, weight: "bold", fill: coral)[Brecha],
+        [Especialización en trámites + integración + software libre + contexto boliviano.],
+      )
+    ],
+  )
+]
+
 
 // 6 · Normativa
 #slide(
@@ -304,6 +296,15 @@
   ]
 ]
 
+#slide(title: t[Abordaje a la solución])[
+  #grid(
+    columns: (1fr, 1fr),
+    gutter: 8pt,
+    imgcard("/assets/figures/tunkunia_dist.excalidraw.png", cap: [Modelo del negocio con reutilización], height: 260pt),
+    imgcard("/assets/figures/modulegraph.png", cap: [Arquitectura inicial y entorno], height: 255pt),
+  )
+]
+
 // 8 · Objetivo
 #slide(title: t[Objetivo general], align: top)[
   #v(8pt)
@@ -332,6 +333,18 @@
   ]
 ]
 
+#slide(title: t[Demo])[
+  #grid(
+    columns: (.5fr, 1fr),
+    column-gutter: 8pt,
+    imgcard("/assets/figures/tunkunia-login.png", height: 300pt),
+    imgcard(
+      "/assets/figures/demoqr.png",
+      height: 300pt,
+    ),
+  )
+]
+
 // 9 · Constelación conceptual
 #slide(title: t[Conceptos que sostienen la propuesta], align: top)[
   #align(center + horizon)[
@@ -350,11 +363,12 @@
       align(center)[#keyword[interoperabilidad] #h(12pt) #keyword(
           fill: amber,
         )[REST] #h(12pt) #keyword(fill: violet)[OpenAPI]],
-      align(center)[#keyword(fill: violet)[reutilización] #h(12pt) #keyword(
+      align(center)[#keyword(size: 35pt, fill: violet)[reutilización] #h(12pt) #keyword(
           fill: coral,
         )[software libre]],
     )
   ]
+  #panel()[*Trámite*: Conjunto de requisitos, _*pasos*_ y actuaciones mediante los cuales una persona presenta una solicitud o información ante una *entidad pública* para obtener un servicio, ejercer un derecho o cumplir una obligación.]
 ]
 
 // 10 · Herramientas de modelado
@@ -457,39 +471,29 @@
   align: top,
 )[
   #grid(
-    columns: (1.3fr, .7fr),
-    gutter: 20pt,
-    panel(
-      fill: ink,
-      inset: 10pt,
-      stack(
-        dir: ttb,
-        spacing: 5pt,
-        image(
-          "/assets/figures/proceso_sommerville_white.png",
-          height: 255pt,
-          fit: "contain",
-        ),
-        text(fill: paper, size: 12pt)[Proceso del software según Sommerville],
-      ),
+    columns: (1fr, 1fr),
+    row-gutter: 8pt,
+    column-gutter: 8pt,
+    imgcard(
+      "/assets/figures/siai_architecture_style.png",
+      cap: [Capas],
+      height: 120pt,
     ),
-    grid(
-      columns: (1fr,),
-      row-gutter: 8pt,
-      imgcard(
-        "/assets/figures/siai_architecture_style.png",
-        cap: [Capas],
-        height: 72pt,
-      ),
-      imgcard("/assets/figures/soa_topo.png", cap: [SOA], height: 72pt),
-      imgcard(
-        "/assets/figures/hex_original.png",
-        cap: [Hexagonal],
-        height: 72pt,
-      ),
+    imgcard("/assets/figures/soa_topo.png", cap: [SOA], height: 120pt),
+
+    imgcard(
+      "/assets/figures/hex_original.png",
+      cap: [Hexagonal],
+      height: 120pt,
+    ),
+
+    imgcard(
+      "/assets/figures/proceso_sommerville_white.png",
+      cap: [Proceso del Software],
+      height: 120pt,
     ),
   )
-  #source[Sommerville; Richards y Ford; Cockburn, según las fuentes de la memoria.]
+  #source[Sommerville; Richards y Ford; Cockburn]
 ]
 
 // 14 · Reutilización y FOSS
